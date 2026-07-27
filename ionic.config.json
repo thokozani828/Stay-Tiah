@@ -1,0 +1,7 @@
+{
+  "name": "STAY@TIAH",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
