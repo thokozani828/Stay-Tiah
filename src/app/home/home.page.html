@@ -6,7 +6,7 @@
       <span class="brand__tagline">The Ideal Accommodation Haven</span>
     </a>
 
-    <!-- Hamburger Button -->
+    <!-- Hamburger Button - 3 lines -->
     <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
       <ion-icon name="menu-outline"></ion-icon>
     </button>
@@ -37,7 +37,7 @@
 <!-- Mobile Navigation Overlay -->
 <div class="nav-overlay" [class.active]="mobileNavOpen" (click)="closeMobileNav()"></div>
 
-<!-- Mobile Navigation Drawer - Clean Version -->
+<!-- Mobile Navigation Drawer -->
 <div class="mobile-nav" [class.active]="mobileNavOpen">
   <div class="mobile-nav-header">
     <button class="mobile-nav-close" (click)="closeMobileNav()">

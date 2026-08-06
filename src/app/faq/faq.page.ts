@@ -27,6 +27,9 @@ export class FaqPage {
   userQuestion: string = '';
   questionSubmitted: boolean = false;
 
+  // WhatsApp number
+  private readonly whatsappNumber: string = '27849009821';
+
   // FAQ Data
   faqs: any[] = [
     // Booking Questions
@@ -235,10 +238,16 @@ export class FaqPage {
     this.router.navigate(['/contact']);
   }
 
+  // =========================
+  // BOOKING FUNCTIONS
+  // =========================
+  goToBookingPage() {
+    this.router.navigate(['/booking']);
+  }
+
   goToBooking() {
-    const phone = '27791234567';
     const message = 'Hello STAY@TIAH, I would like to make a booking enquiry.';
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(`https://wa.me/${this.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
   }
 
   // =========================
@@ -332,8 +341,7 @@ export class FaqPage {
         `❓ *New Question from FAQ Page - STAY@TIAH*%0A%0A` +
         `📝 *Question:* ${this.userQuestion.trim()}`;
 
-      const phone = '27791234567';
-      window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+      window.open(`https://wa.me/${this.whatsappNumber}?text=${message}`, '_blank');
       
       // Show success message
       this.questionSubmitted = true;
@@ -350,8 +358,7 @@ export class FaqPage {
   // WHATSAPP
   // =========================
   openWhatsApp() {
-    const phone = '27791234567';
     const message = 'Hello STAY@TIAH, I have a question about my stay.';
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(`https://wa.me/${this.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
   }
 }

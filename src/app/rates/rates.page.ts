@@ -22,6 +22,9 @@ export class RatesPage {
 
   activeLocation: string = 'all';
 
+  // WhatsApp number
+  private readonly whatsappNumber: string = '27849009821';
+
   // Rates Data - Matching your actual rooms
   rates: any[] = [
     // ==================== DURBAN OCEANIC ====================
@@ -262,10 +265,16 @@ export class RatesPage {
     this.router.navigate(['/contact']);
   }
 
+  // =========================
+  // BOOKING FUNCTIONS
+  // =========================
+  goToBookingPage() {
+    this.router.navigate(['/booking']);
+  }
+
   goToBooking() {
-    const phone = '27791234567';
     const message = 'Hello STAY@TIAH, I would like to make a booking enquiry.';
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(`https://wa.me/${this.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
   }
 
   // =========================
@@ -286,8 +295,7 @@ export class RatesPage {
   // WHATSAPP
   // =========================
   openWhatsApp() {
-    const phone = '27791234567';
     const message = 'Hello STAY@TIAH, I would like to enquire about room rates.';
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(`https://wa.me/${this.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
   }
 }

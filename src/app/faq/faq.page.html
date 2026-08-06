@@ -26,7 +26,7 @@
     <!-- Desktop WhatsApp Button -->
     <a
       class="btn-whatsapp desktop-only"
-      (click)="goToBooking()"
+      (click)="goToBookingPage()"
     >
       <ion-icon name="logo-whatsapp"></ion-icon>
       <span class="btn-text">Book on WhatsApp</span>
@@ -52,41 +52,41 @@
   
   <div class="mobile-nav-links">
     <a routerLink="/home" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#127968;</span>
+      <span class="link-icon">🏠</span>
       Home
     </a>
     <a routerLink="/about" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#8505;</span>
+      <span class="link-icon">ℹ️</span>
       About
     </a>
     <a routerLink="/rooms" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#128719;</span>
+      <span class="link-icon">🛏️</span>
       Rooms
     </a>
     <a routerLink="/gallery" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#128396;</span>
+      <span class="link-icon">🖼️</span>
       Gallery
     </a>
     <a routerLink="/rates" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#128176;</span>
+      <span class="link-icon">💰</span>
       Rates
     </a>
     <a routerLink="/attractions" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#128205;</span>
+      <span class="link-icon">📍</span>
       Attractions
     </a>
     <a routerLink="/faq" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#10067;</span>
+      <span class="link-icon">❓</span>
       FAQ
     </a>
     <a routerLink="/contact" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#128231;</span>
+      <span class="link-icon">📧</span>
       Contact
     </a>
     
     <div class="mobile-divider"></div>
     
-    <a class="mobile-cta" (click)="goToBooking(); closeMobileNav()">
+    <a class="mobile-cta" (click)="goToBookingPage(); closeMobileNav()">
       <ion-icon name="logo-whatsapp"></ion-icon>
       Book on WhatsApp
     </a>
@@ -106,7 +106,7 @@
     <div class="page-header-content">
       <div class="container">
         <div class="page-header-text animate-fade-up">
-          <span class="hero-badge">&#10022; FAQ</span>
+          <span class="hero-badge">✦ FAQ</span>
           <h1 class="page-title">Frequently Asked Questions</h1>
           <p class="page-subtitle">Find answers to the most common questions about your stay at STAY@TIAH.</p>
         </div>
@@ -254,7 +254,7 @@
             <ion-icon name="mail-outline"></ion-icon>
             Contact Us
           </a>
-          <a href="tel:+27791234567" class="btn-secondary-cta">
+          <a href="tel:+27849009821" class="btn-secondary-cta">
             <ion-icon name="call-outline"></ion-icon>
             Call Now
           </a>
@@ -304,7 +304,7 @@
           <p>Ready for your Durban getaway?</p>
           <a routerLink="/booking" class="btn-gold">Book Now</a>
           <div class="footer-contact">
-            <p><ion-icon name="call-outline"></ion-icon> +27 79 123 4567</p>
+            <p><ion-icon name="call-outline"></ion-icon> +27 84 900 9821</p>
             <p><ion-icon name="mail-outline"></ion-icon> info@staytiah.com</p>
           </div>
         </div>

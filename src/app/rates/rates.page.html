@@ -26,7 +26,7 @@
     <!-- Desktop WhatsApp Button -->
     <a
       class="btn-whatsapp desktop-only"
-      (click)="goToBooking()"
+      (click)="goToBookingPage()"
     >
       <ion-icon name="logo-whatsapp"></ion-icon>
       <span class="btn-text">Book on WhatsApp</span>
@@ -52,41 +52,41 @@
   
   <div class="mobile-nav-links">
     <a routerLink="/home" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#127968;</span>
+      <span class="link-icon">🏠</span>
       Home
     </a>
     <a routerLink="/about" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#8505;</span>
+      <span class="link-icon">ℹ️</span>
       About
     </a>
     <a routerLink="/rooms" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#128719;</span>
+      <span class="link-icon">🛏️</span>
       Rooms
     </a>
     <a routerLink="/gallery" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#128396;</span>
+      <span class="link-icon">🖼️</span>
       Gallery
     </a>
     <a routerLink="/rates" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#128176;</span>
+      <span class="link-icon">💰</span>
       Rates
     </a>
     <a routerLink="/attractions" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#128205;</span>
+      <span class="link-icon">📍</span>
       Attractions
     </a>
     <a routerLink="/faq" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#10067;</span>
+      <span class="link-icon">❓</span>
       FAQ
     </a>
     <a routerLink="/contact" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#128231;</span>
+      <span class="link-icon">📧</span>
       Contact
     </a>
     
     <div class="mobile-divider"></div>
     
-    <a class="mobile-cta" (click)="goToBooking(); closeMobileNav()">
+    <a class="mobile-cta" (click)="goToBookingPage(); closeMobileNav()">
       <ion-icon name="logo-whatsapp"></ion-icon>
       Book on WhatsApp
     </a>
@@ -106,7 +106,7 @@
     <div class="page-header-content">
       <div class="container">
         <div class="page-header-text animate-fade-up">
-          <span class="hero-badge">&#10022; Rates</span>
+          <span class="hero-badge">✦ Rates</span>
           <h1 class="page-title">Our Room Rates</h1>
           <p class="page-subtitle">Transparent pricing for all our accommodations. Rates may vary depending on dates and availability.</p>
         </div>
@@ -134,19 +134,19 @@
           class="filter-tab" 
           [class.active]="activeLocation === 'musgrave'"
           (click)="setLocation('musgrave')">
-          &#127968; Tiah Musgrave
+          🏠 Tiah Musgrave
         </button>
         <button 
           class="filter-tab" 
           [class.active]="activeLocation === 'la-musgrave'"
           (click)="setLocation('la-musgrave')">
-          &#127968; La Tiah Musgrave
+          🏠 La Tiah Musgrave
         </button>
         <button 
           class="filter-tab" 
           [class.active]="activeLocation === 'halford'"
           (click)="setLocation('halford')">
-          &#128708; Halford Backpackers
+          🎒 Halford Backpackers
         </button>
       </div>
     </div>
@@ -174,10 +174,10 @@
                 <div class="room-name-cell">
                   {{ rate.name }}
                   <div class="room-badges">
-                    <span class="badge popular" *ngIf="rate.popular">&#10022; Popular</span>
-                    <span class="badge new" *ngIf="rate.new">&#10022; New</span>
-                    <span class="badge featured" *ngIf="rate.featured">&#10022; Featured</span>
-                    <span class="badge new-booking" *ngIf="rate.isNewToBooking">&#10022; New to Booking.com</span>
+                    <span class="badge popular" *ngIf="rate.popular">✦ Popular</span>
+                    <span class="badge new" *ngIf="rate.new">✦ New</span>
+                    <span class="badge featured" *ngIf="rate.featured">✦ Featured</span>
+                    <span class="badge new-booking" *ngIf="rate.isNewToBooking">✦ New to Booking.com</span>
                   </div>
                 </div>
               </td>
@@ -186,7 +186,7 @@
               <td>{{ rate.bed }}</td>
               <td>
                 <span *ngIf="rate.rating" class="rating-badge">
-                  {{ rate.rating }} &#9733;
+                  {{ rate.rating }} ★
                 </span>
                 <span *ngIf="!rate.rating" class="rating-badge no-rating">N/A</span>
               </td>
@@ -262,16 +262,16 @@
         <div class="footer-column animate-fade-up">
           <h4>Our Locations</h4>
           <a href="#">🌊 Durban Oceanic (82A, 82B, 117)</a>
-          <a href="#">&#127968; La Tiah Musgrave</a>
-          <a href="#">&#127968; Tiah Musgrave</a>
-          <a href="#">&#128708; Halford Backpackers</a>
+          <a href="#">🏠 La Tiah Musgrave</a>
+          <a href="#">🏠 Tiah Musgrave</a>
+          <a href="#">🎒 Halford Backpackers</a>
         </div>
         <div class="footer-column animate-fade-up">
           <h4>Book Your Stay</h4>
           <p>Ready for your Durban getaway?</p>
           <a routerLink="/booking" class="btn-gold">Book Now</a>
           <div class="footer-contact">
-            <p><ion-icon name="call-outline"></ion-icon> +27 79 123 4567</p>
+            <p><ion-icon name="call-outline"></ion-icon> +27 84 900 9821</p>
             <p><ion-icon name="mail-outline"></ion-icon> info@staytiah.com</p>
           </div>
         </div>

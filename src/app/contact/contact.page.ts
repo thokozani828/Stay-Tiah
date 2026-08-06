@@ -34,7 +34,13 @@ export class ContactPage {
   // Form validation flags
   nameError: boolean = false;
   emailError: boolean = false;
+  subjectError: boolean = false;
+  messageError: boolean = false;
   isSubmitting: boolean = false;
+
+  // WhatsApp number
+  private readonly whatsappNumber: string = '27849009821';
+  private readonly phoneNumber: string = '+27 84 900 9821';
 
   constructor(private router: Router) {}
 
@@ -90,25 +96,37 @@ export class ContactPage {
     this.router.navigate(['/contact']);
   }
 
+  // =========================
+  // BOOKING FUNCTIONS
+  // =========================
+  goToBookingPage() {
+    this.router.navigate(['/booking']);
+  }
+
   goToBooking() {
-    const phone = '27791234567';
     const message = 'Hello stay@tiah, I would like to make a booking enquiry.';
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(`https://wa.me/${this.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
   }
 
   goToBookingWithRoom(roomId: number) {
-    const phone = '27791234567';
     const message = `Hello stay@tiah, I would like to enquire about room ${roomId}.`;
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(`https://wa.me/${this.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
   }
 
   // =========================
   // WHATSAPP FUNCTIONS
   // =========================
   openWhatsApp() {
-    const phone = '27791234567';
     const message = 'Hello stay@tiah, I would like to make a booking enquiry.';
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(`https://wa.me/${this.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
+  }
+
+  // =========================
+  // EMAIL VALIDATION
+  // =========================
+  isValidEmail(email: string): boolean {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailPattern.test(email);
   }
 
   // =========================
@@ -118,33 +136,33 @@ export class ContactPage {
     // Reset errors
     this.nameError = false;
     this.emailError = false;
+    this.subjectError = false;
+    this.messageError = false;
 
     // Validate name
     if (!this.contactData.name || this.contactData.name.trim() === '') {
       this.nameError = true;
-      return;
     }
 
     // Validate email
     if (!this.contactData.email || this.contactData.email.trim() === '') {
       this.emailError = true;
-      return;
-    }
-
-    // Validate email format
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailPattern.test(this.contactData.email)) {
+    } else if (!this.isValidEmail(this.contactData.email)) {
       this.emailError = true;
-      return;
     }
 
     // Validate subject
-    if (!this.contactData.subject) {
-      return;
+    if (!this.contactData.subject || this.contactData.subject === '') {
+      this.subjectError = true;
     }
 
     // Validate message
     if (!this.contactData.message || this.contactData.message.trim() === '') {
+      this.messageError = true;
+    }
+
+    // If any errors, stop submission
+    if (this.nameError || this.emailError || this.subjectError || this.messageError) {
       return;
     }
 
@@ -159,10 +177,8 @@ export class ContactPage {
       `📋 *Subject:* ${this.contactData.subject}%0A` +
       `📝 *Message:* ${this.contactData.message}`;
 
-    const phone = '27791234567';
-    
     // Open WhatsApp
-    window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+    window.open(`https://wa.me/${this.whatsappNumber}?text=${message}`, '_blank');
     
     // Reset form after submission
     setTimeout(() => {
@@ -175,6 +191,8 @@ export class ContactPage {
       };
       this.nameError = false;
       this.emailError = false;
+      this.subjectError = false;
+      this.messageError = false;
       this.isSubmitting = false;
     }, 1000);
   }
@@ -184,7 +202,6 @@ export class ContactPage {
   // =========================
   onScroll(event: any) {
     // Handle scroll events if needed
-    // You can add scroll-based animations here
   }
 
   scrollToSection(sectionId: string) {
@@ -199,12 +216,5 @@ export class ContactPage {
   // =========================
   onImageError(event: any) {
     event.target.src = 'https://placehold.co/800x600/f8f7f4/c9a84c?text=stay@tiah';
-  }
-
-  // =========================
-  // FAQ TOGGLE (if needed)
-  // =========================
-  toggleFaq(index: number) {
-    // This is for FAQ section if you have one
   }
 }
