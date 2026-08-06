@@ -1,0 +1,1727 @@
+// =========================
+// FONTS
+// =========================
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
+
+// =========================
+// VARIABLES
+// =========================
+$gold: #c9a84c;
+$gold-light: #dbb95c;
+$gold-dark: #b8943a;
+$gold-pale: #f5e6c8;
+$black: #0a0a0a;
+$dark: #121212;
+$grey: #888888;
+$light-grey: #e8e8e8;
+$off-white: #f8f7f4;
+$white: #ffffff;
+$font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+$font-serif: 'Cormorant Garamond', Georgia, serif;
+$transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+* {
+  font-family: $font-primary !important;
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, 
+.page-title, 
+.section-title, 
+.logo-text,
+.logo-gold,
+.benefit-card h4 {
+  font-family: $font-serif !important;
+}
+
+// =========================
+// CONTAINER
+// =========================
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 20px;
+  
+  @media (max-width: 576px) {
+    padding: 0 16px;
+  }
+}
+
+// =========================
+// ANIMATIONS
+// =========================
+.animate-fade-up {
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes kenBurns {
+  0% { transform: scale(1) translate(0,0); }
+  50% { transform: scale(1.08) translate(-2%,-1%); }
+  100% { transform: scale(1.05) translate(1%,2%); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+// =========================
+// HIDE SCROLLBAR
+// =========================
+.no-scrollbar {
+  --scrollbar-width: 0px;
+  
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    display: none;
+  }
+  
+  &::-webkit-scrollbar-track {
+    display: none;
+  }
+  
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+// =========================
+// GREY NAVBAR
+// =========================
+.custom-toolbar {
+  &.grey-nav {
+    --background: #1a1a1a;
+    --min-height: 72px;
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --border-style: none;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    border-bottom: 2px solid $gold;
+    display: flex;
+    align-items: center;
+    
+    ion-menu-button {
+      --color: #ffffff;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+      min-width: 80px;
+      flex-shrink: 0;
+      
+      .logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        padding: 4px 0;
+        
+        .logo-img {
+          height: 50px;
+          width: auto;
+          object-fit: contain;
+          filter: drop-shadow(0 0 20px rgba(201, 168, 76, 0.1));
+          transition: all 0.4s ease;
+          
+          &:hover {
+            transform: scale(1.06) rotate(-2deg);
+            filter: drop-shadow(0 0 35px rgba(201, 168, 76, 0.25));
+          }
+        }
+      }
+    }
+    
+    .nav-center {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        
+        a {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          color: rgba(255, 255, 255, 0.65);
+          font-size: 13px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          white-space: nowrap;
+          padding: 8px 14px;
+          text-decoration: none;
+          letter-spacing: 0.3px;
+          border-radius: 8px;
+          position: relative;
+          
+          ion-icon {
+            font-size: 17px;
+            transition: all 0.3s ease;
+            color: rgba(255, 255, 255, 0.5);
+          }
+          
+          &:hover {
+            color: $white;
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateY(-2px);
+            
+            ion-icon {
+              transform: scale(1.1);
+              color: $gold;
+            }
+          }
+          
+          &.active {
+            color: $gold;
+            background: rgba(201, 168, 76, 0.08);
+            
+            ion-icon {
+              color: $gold;
+            }
+            
+            &::after {
+              content: '';
+              position: absolute;
+              bottom: 4px;
+              left: 50%;
+              transform: translateX(-50%) scaleX(1);
+              width: 20px;
+              height: 2px;
+              background: $gold;
+              border-radius: 2px;
+              box-shadow: 0 0 15px rgba(201, 168, 76, 0.4);
+              animation: underlineGlowGold 2s ease-in-out infinite;
+            }
+          }
+          
+          &.nav-cta {
+            background: linear-gradient(135deg, $gold, $gold-dark);
+            color: $black;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 50px;
+            letter-spacing: 0.5px;
+            font-size: 13px;
+            box-shadow: 0 4px 25px rgba(201, 168, 76, 0.15);
+            
+            ion-icon {
+              color: $black;
+              font-size: 17px;
+            }
+            
+            &:hover {
+              background: linear-gradient(135deg, $gold-light, $gold);
+              transform: translateY(-2px) scale(1.03);
+              box-shadow: 0 8px 40px rgba(201, 168, 76, 0.35);
+              color: $black;
+            }
+            
+            &::after {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes underlineGlowGold {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(201, 168, 76, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(201, 168, 76, 0.8);
+  }
+}
+
+// Mobile responsive for navbar
+@media (max-width: 1024px) {
+  .custom-toolbar.grey-nav .nav-center .nav-links a {
+    font-size: 12px;
+    padding: 6px 10px;
+    
+    ion-icon {
+      font-size: 15px;
+    }
+    
+    &.nav-cta {
+      padding: 6px 14px;
+      font-size: 12px;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .custom-toolbar.grey-nav .nav-center .nav-links {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .custom-toolbar.grey-nav {
+    --min-height: 60px;
+    --padding-start: 12px;
+    --padding-end: 12px;
+  }
+  
+  .custom-toolbar.grey-nav .logo-container {
+    min-width: auto;
+  }
+  
+  .custom-toolbar.grey-nav .logo-container .logo .logo-img {
+    height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .custom-toolbar.grey-nav .logo-container .logo .logo-img {
+    height: 34px;
+  }
+}
+
+// =========================
+// PAGE HEADER
+// =========================
+.page-header {
+  min-height: 50vh;
+  height: 50vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  overflow: hidden;
+  margin-top: 0; /* Changed from 72px to 0 to remove white space */
+  width: 100%;
+  background: #1a1a2e;
+  
+  @media (max-width: 768px) {
+    min-height: 40vh;
+    height: 40vh;
+    margin-top: 0; /* Changed from 60px to 0 */
+  }
+  
+  .page-header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    z-index: 0;
+    animation: kenBurns 25s ease-in-out infinite alternate;
+  }
+  
+  .page-header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0,0,0,0.75), rgba(0,0,0,0.3));
+    z-index: 1;
+  }
+  
+  .page-header-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 40px 20px;
+    
+    .page-header-text {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+      
+      .hero-badge {
+        display: inline-block;
+        background: rgba(201, 168, 76, 0.2);
+        color: $gold;
+        padding: 8px 24px;
+        border-radius: 50px;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        border: 1px solid rgba(201, 168, 76, 0.3);
+        backdrop-filter: blur(5px);
+        
+        @media (max-width: 576px) {
+          font-size: 11px;
+          padding: 6px 16px;
+        }
+      }
+      
+      .page-title {
+        font-family: $font-serif !important;
+        font-size: clamp(36px, 6vw, 72px);
+        line-height: 1.1;
+        margin: 15px 0 20px;
+        color: $white;
+        text-shadow: 0 2px 30px rgba(0,0,0,0.3);
+        
+        @media (max-width: 576px) {
+          font-size: 32px;
+        }
+      }
+      
+      .page-subtitle {
+        color: rgba(255,255,255,0.8);
+        font-size: 1.15rem;
+        line-height: 1.8;
+        font-weight: 300;
+        max-width: 600px;
+        margin: 0 auto;
+        
+        @media (max-width: 576px) {
+          font-size: 0.95rem;
+        }
+      }
+    }
+  }
+  
+  // =========================
+  // BACK BUTTON
+  // =========================
+  .back-button {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    
+    ion-icon {
+      font-size: 20px;
+    }
+    
+    &:hover {
+      background: rgba(201, 168, 76, 0.3);
+      transform: translateX(-4px);
+      border-color: $gold;
+    }
+    
+    @media (max-width: 768px) {
+      top: 16px;
+      left: 16px;
+      padding: 8px 14px;
+      font-size: 12px;
+      
+      ion-icon {
+        font-size: 16px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      top: 12px;
+      left: 12px;
+      padding: 6px 12px;
+      font-size: 11px;
+      
+      ion-icon {
+        font-size: 14px;
+      }
+      
+      .back-text {
+        display: none;
+      }
+    }
+  }
+}
+
+// =========================
+// SELECTED ROOM SECTION
+// =========================
+.selected-room-section {
+  padding: 20px 0 40px;
+  background: $off-white;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+
+.selected-room-card {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 24px;
+  background: $white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  border: 1px solid rgba(201, 168, 76, 0.15);
+  
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+  
+  .selected-room-image {
+    position: relative;
+    height: 100%;
+    min-height: 200px;
+    overflow: hidden;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .room-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: $gold;
+      color: $black;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      
+      &.new {
+        background: #2196F3;
+        color: white;
+      }
+      
+      &.featured {
+        background: #9C27B0;
+        color: white;
+      }
+    }
+  }
+  
+  .selected-room-details {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    
+    @media (max-width: 576px) {
+      padding: 16px;
+    }
+    
+    .room-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      
+      h3 {
+        font-family: $font-serif !important;
+        font-size: 24px;
+        margin: 0;
+        color: $black;
+        
+        @media (max-width: 576px) {
+          font-size: 20px;
+        }
+      }
+      
+      .room-price {
+        font-size: 22px;
+        font-weight: 700;
+        color: $gold-dark;
+        font-family: $font-serif !important;
+        white-space: nowrap;
+        
+        @media (max-width: 576px) {
+          font-size: 18px;
+        }
+        
+        small {
+          font-size: 13px;
+          font-weight: 300;
+          color: $grey;
+        }
+      }
+    }
+    
+    .room-meta {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      
+      span {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 13px;
+        color: $grey;
+        
+        ion-icon {
+          color: $gold;
+          font-size: 16px;
+        }
+      }
+    }
+    
+    p {
+      color: $grey;
+      font-size: 14px;
+      line-height: 1.6;
+      font-weight: 300;
+      margin: 0 0 10px;
+    }
+    
+    .room-amenities {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+      
+      span {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 12px;
+        color: #555;
+        background: $off-white;
+        padding: 3px 12px;
+        border-radius: 20px;
+        
+        ion-icon {
+          color: $gold;
+          font-size: 12px;
+        }
+        
+        &.more-amenities {
+          background: rgba(201, 168, 76, 0.1);
+          color: $gold;
+          font-weight: 500;
+        }
+      }
+    }
+    
+    .change-room-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: $gold;
+      font-weight: 500;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: auto;
+      
+      &:hover {
+        color: $gold-dark;
+        transform: translateX(4px);
+      }
+    }
+  }
+}
+
+// =========================
+// BOOKING SECTION
+// =========================
+.booking-section {
+  padding: 60px 0 80px;
+  background: $white;
+  
+  @media (max-width: 768px) {
+    padding: 40px 0 60px;
+  }
+}
+
+.booking-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 40px;
+  align-items: start;
+  
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+// =========================
+// BOOKING INFO SIDEBAR
+// =========================
+.booking-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-card {
+  background: $off-white;
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.04);
+  
+  @media (max-width: 576px) {
+    padding: 18px;
+  }
+  
+  h3 {
+    font-family: $font-serif !important;
+    font-size: 24px;
+    margin: 0 0 16px;
+    color: $black;
+    
+    @media (max-width: 576px) {
+      font-size: 20px;
+    }
+  }
+  
+  h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 4px;
+    color: $black;
+  }
+  
+  p {
+    color: $grey;
+    font-size: 14px;
+    font-weight: 300;
+    margin: 0 0 12px;
+  }
+}
+
+// =========================
+// CONTACT INFO CARD
+// =========================
+.contact-info-card {
+  background: linear-gradient(135deg, rgba(201, 168, 76, 0.08), rgba(201, 168, 76, 0.02)) !important;
+  border: 1px solid rgba(201, 168, 76, 0.15) !important;
+  
+  h4 {
+    color: $gold !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+    margin-bottom: 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  ion-icon {
+    font-size: 18px;
+    color: $gold;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    
+    strong {
+      font-size: 13px;
+      color: rgba(0, 0, 0, 0.9);
+      font-weight: 500;
+    }
+    
+    span {
+      font-size: 13px;
+      color: $grey;
+      font-weight: 300;
+      line-height: 1.4;
+    }
+  }
+}
+
+// =========================
+// HELP CARD
+// =========================
+.help-card {
+  background: rgba(201, 168, 76, 0.05) !important;
+  border: 1px solid rgba(201, 168, 76, 0.1) !important;
+  
+  h4 {
+    color: $gold !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+    margin-bottom: 4px !important;
+  }
+  
+  p {
+    font-size: 13px !important;
+    color: $grey !important;
+    margin-bottom: 12px !important;
+  }
+}
+
+.benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  
+  li {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    ion-icon {
+      font-size: 20px;
+      color: $gold;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    
+    div {
+      strong {
+        display: block;
+        font-size: 14px;
+        color: $black;
+      }
+      
+      span {
+        font-size: 13px;
+        color: $grey;
+        font-weight: 300;
+      }
+    }
+  }
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: $black;
+  text-decoration: none;
+  padding: 8px 0;
+  transition: color 0.3s ease;
+  
+  ion-icon {
+    color: $gold;
+    font-size: 18px;
+  }
+  
+  &:hover {
+    color: $gold;
+  }
+}
+
+// =========================
+// BOOKING FORM
+// =========================
+.booking-form-wrapper {
+  background: $off-white;
+  padding: 36px 40px;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.04);
+  
+  @media (max-width: 576px) {
+    padding: 20px;
+  }
+}
+
+.form-header {
+  margin-bottom: 28px;
+  
+  h2 {
+    font-family: $font-serif !important;
+    font-size: 32px;
+    margin: 0 0 8px;
+    color: $black;
+    
+    @media (max-width: 576px) {
+      font-size: 26px;
+    }
+  }
+  
+  p {
+    color: $grey;
+    font-size: 14px;
+    font-weight: 300;
+    margin: 0;
+  }
+}
+
+.booking-form {
+  .form-section {
+    margin-bottom: 28px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: $black;
+    margin: 0 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(201, 168, 76, 0.2);
+    
+    ion-icon {
+      color: $gold;
+      font-size: 18px;
+    }
+  }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+  
+  .form-group {
+    margin-bottom: 16px;
+    
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #444;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      
+      .required {
+        color: #e74c3c;
+        font-weight: 700;
+      }
+    }
+  }
+  
+  .form-input {
+    --background: $white;
+    --border-color: #ddd;
+    --color: $black;
+    --placeholder-color: #aaa;
+    --border-radius: 8px;
+    --padding-start: 14px;
+    --padding-end: 14px;
+    min-height: 46px;
+    background: $white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+    transition: border-color 0.3s ease;
+    
+    &.error {
+      border-color: #e74c3c;
+    }
+  }
+  
+  .form-select {
+    --padding-start: 14px;
+    min-height: 46px;
+    background: $white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+    padding: 0 14px;
+  }
+  
+  .form-datetime {
+    --padding-start: 14px;
+    --padding-end: 14px;
+    min-height: 46px;
+    background: $white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+    padding: 10px 14px;
+    
+    &.error {
+      border-color: #e74c3c;
+    }
+  }
+  
+  .form-textarea {
+    min-height: 100px;
+    padding: 12px 14px;
+    resize: vertical;
+    font-family: $font-primary !important;
+    font-size: 14px;
+    background: $white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+    
+    &:focus {
+      border-color: $gold;
+      outline: none;
+    }
+  }
+  
+  .form-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    
+    @media (max-width: 480px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, $gold, $gold-dark);
+      color: $black;
+      font-weight: 600;
+      padding: 14px 36px;
+      border-radius: 50px;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 25px rgba(201, 168, 76, 0.25);
+      
+      @media (max-width: 480px) {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      ion-icon {
+        font-size: 18px;
+      }
+      
+      &:hover {
+        background: linear-gradient(135deg, $gold-light, $gold);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 40px rgba(201, 168, 76, 0.4);
+      }
+      
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+    }
+    
+    .required-note {
+      font-size: 12px;
+      color: $grey;
+      
+      .required {
+        color: #e74c3c;
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+// =========================
+// WHY BOOK SECTION
+// =========================
+.why-book-section {
+  padding: 80px 0;
+  background: $off-white;
+  
+  @media (max-width: 768px) {
+    padding: 40px 0;
+  }
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.benefit-card {
+  background: $white;
+  padding: 28px 20px;
+  border-radius: 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0,0,0,0.02);
+  box-shadow: 0 2px 15px rgba(0,0,0,0.04);
+  
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+  }
+  
+  .benefit-icon {
+    width: 56px;
+    height: 56px;
+    background: rgba(201, 168, 76, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    
+    ion-icon {
+      font-size: 24px;
+      color: $gold;
+    }
+  }
+  
+  h4 {
+    font-family: $font-serif !important;
+    font-size: 20px;
+    margin: 0 0 6px;
+    color: $black;
+    
+    @media (max-width: 576px) {
+      font-size: 18px;
+    }
+  }
+  
+  p {
+    color: $grey;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+    font-weight: 300;
+  }
+}
+
+// =========================
+// SECTION HEADERS
+// =========================
+.section-header {
+  max-width: 700px;
+  margin: 0 auto 50px;
+  padding: 0 20px;
+  text-align: center;
+  
+  @media (max-width: 576px) {
+    margin: 0 auto 30px;
+  }
+  
+  &.center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+}
+
+.eyebrow {
+  color: $gold;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: block;
+  
+  @media (max-width: 576px) {
+    font-size: 10px;
+    letter-spacing: 3px;
+  }
+}
+
+.section-title {
+  font-family: $font-serif !important;
+  font-size: clamp(32px, 4.5vw, 52px);
+  line-height: 1.1;
+  margin: 10px 0 12px;
+  color: $black;
+  
+  @media (max-width: 576px) {
+    font-size: 28px;
+  }
+}
+
+.section-subtitle {
+  color: $grey;
+  font-size: 16px;
+  line-height: 1.8;
+  margin-top: 8px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 300;
+  
+  @media (max-width: 576px) {
+    font-size: 14px;
+  }
+}
+
+// =========================
+// CTA SECTION
+// =========================
+.cta-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+  
+  @media (max-width: 768px) {
+    padding: 40px 0;
+  }
+}
+
+.cta-content {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  
+  h2 {
+    font-family: $font-serif !important;
+    font-size: clamp(28px, 4vw, 48px);
+    color: $white;
+    margin: 0 0 12px;
+  }
+  
+  p {
+    color: rgba(255,255,255,0.6);
+    font-size: 16px;
+    line-height: 1.8;
+    font-weight: 300;
+    margin: 0 0 30px;
+  }
+  
+  .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    
+    @media (max-width: 480px) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, $gold, $gold-dark);
+  color: $black;
+  font-weight: 600;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 25px rgba(201, 168, 76, 0.25);
+  
+  @media (max-width: 480px) {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  ion-icon {
+    font-size: 18px;
+  }
+  
+  &:hover {
+    background: linear-gradient(135deg, $gold-light, $gold);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 40px rgba(201, 168, 76, 0.4);
+  }
+}
+
+.btn-secondary-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: $white;
+  font-weight: 500;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  
+  @media (max-width: 480px) {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  &:hover {
+    border-color: $white;
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+  }
+}
+
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, $gold, $gold-dark);
+  color: $black;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(201, 168, 76, 0.25);
+  cursor: pointer;
+  border: none;
+  
+  @media (max-width: 576px) {
+    width: 100%;
+    padding: 12px 20px;
+  }
+  
+  &:hover {
+    background: linear-gradient(135deg, $gold-light, $gold);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 35px rgba(201, 168, 76, 0.4);
+  }
+}
+
+// =========================
+// FOOTER
+// =========================
+.footer {
+  position: relative;
+  color: white;
+  padding: 60px 0 0;
+  overflow: hidden;
+  margin: 0;
+  bottom: 0;
+  
+  @media (max-width: 576px) {
+    padding: 40px 0 0;
+  }
+  
+  .footer-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=90') center/cover no-repeat;
+    background-attachment: fixed;
+    z-index: 0;
+    transform: scale(1.1);
+  }
+  
+  .footer-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0,0,0,0.92) 0%, rgba(10,10,10,0.85) 100%);
+    z-index: 1;
+  }
+  
+  .container {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 40px;
+    
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+    @media (max-width: 500px) {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding-bottom: 24px;
+    }
+  }
+  
+  .footer-brand {
+    .logo {
+      font-family: $font-serif !important;
+      font-size: 30px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      
+      @media (max-width: 576px) {
+        font-size: 26px;
+      }
+      
+      .logo-img {
+        height: 48px;
+        width: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 0 12px rgba(201, 168, 76, 0.2));
+        transition: transform 0.3s ease;
+        
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+      
+      .logo-text {
+        color: $white;
+        font-weight: 400;
+      }
+      .logo-gold {
+        color: $gold;
+        font-weight: 700;
+      }
+    }
+    
+    p {
+      color: rgba(255,255,255,0.7);
+      font-size: 14px;
+      max-width: 320px;
+      line-height: 1.7;
+      font-weight: 300;
+      
+      @media (max-width: 576px) {
+        font-size: 13px;
+        max-width: 100%;
+      }
+    }
+    
+    .socials {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+      
+      a {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255,255,255,0.08);
+        color: $gold;
+        border-radius: 50%;
+        font-size: 16px;
+        transition: all 0.3s;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.05);
+        
+        @media (max-width: 576px) {
+          width: 36px;
+          height: 36px;
+          font-size: 14px;
+        }
+        
+        &:hover {
+          background: $gold;
+          color: $black;
+          transform: translateY(-3px);
+          box-shadow: 0 8px 25px rgba(201, 168, 76, 0.3);
+        }
+      }
+    }
+  }
+  
+  .footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    
+    h4 {
+      color: $gold;
+      margin-bottom: 6px;
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+      
+      @media (max-width: 576px) {
+        font-size: 13px;
+        letter-spacing: 1.5px;
+      }
+    }
+    
+    a, p {
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+      cursor: pointer;
+      transition: color 0.3s;
+      font-weight: 300;
+      text-decoration: none;
+      
+      @media (max-width: 576px) {
+        font-size: 13px;
+      }
+      
+      &:hover {
+        color: $gold;
+      }
+    }
+    
+    .footer-contact {
+      margin-top: 8px;
+      
+      p {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: rgba(255,255,255,0.5);
+        font-size: 13px;
+        
+        @media (max-width: 576px) {
+          font-size: 12px;
+        }
+        
+        ion-icon {
+          color: $gold;
+          font-size: 16px;
+        }
+      }
+    }
+    
+    // =========================
+    // FOOTER CONTACT DETAILS
+    // =========================
+    .footer-contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+      
+      p {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px !important;
+        color: rgba(255, 255, 255, 0.6) !important;
+        line-height: 1.5;
+        
+        @media (max-width: 576px) {
+          font-size: 12px !important;
+        }
+        
+        ion-icon {
+          color: $gold;
+          font-size: 16px;
+          flex-shrink: 0;
+          min-width: 18px;
+        }
+      }
+    }
+    
+    .footer-legal {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      
+      a {
+        font-size: 12px !important;
+        color: rgba(255, 255, 255, 0.4) !important;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        
+        &:hover {
+          color: $gold !important;
+        }
+      }
+      
+      span {
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 12px;
+      }
+    }
+  }
+  
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    color: rgba(255,255,255,0.4);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    font-weight: 300;
+    
+    @media (max-width: 500px) {
+      flex-direction: column;
+      gap: 6px;
+      text-align: center;
+      font-size: 10px;
+      padding: 16px 0;
+    }
+  }
+}
+
+// =========================
+// WHATSAPP FLOAT
+// =========================
+ion-fab {
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  z-index: 1000;
+}
+
+ion-fab-button.whatsapp-float {
+  --background: #25D366;
+  --box-shadow: 0 4px 25px rgba(37, 211, 102, 0.4);
+  --border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  
+  @media (max-width: 576px) {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .whatsapp-pulse {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 50%;
+    border: 2px solid #25D366;
+    animation: pulse 2s infinite;
+  }
+}
+
+// =========================
+// ENSURE NO WHITE SPACE AFTER FOOTER
+// =========================
+ion-content {
+  --padding-bottom: 0 !important;
+  --padding-end: 0 !important;
+  --padding-start: 0 !important;
+  --padding-top: 0 !important;
+}
+
+.footer {
+  margin-bottom: 0 !important;
+}
+
+// =========================
+// RESPONSIVE OVERRIDES
+// =========================
+@media (max-width: 768px) {
+  .booking-section {
+    padding: 40px 0 60px;
+  }
+  
+  .booking-container {
+    gap: 20px;
+  }
+  
+  .booking-form-wrapper {
+    padding: 24px;
+  }
+  
+  .why-book-section {
+    padding: 40px 0;
+  }
+  
+  .cta-section {
+    padding: 40px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .benefits-grid {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .info-card {
+    padding: 18px;
+  }
+  
+  .contact-item {
+    padding: 6px 0;
+    
+    ion-icon {
+      font-size: 16px;
+    }
+    
+    div {
+      strong {
+        font-size: 12px;
+      }
+      
+      span {
+        font-size: 12px;
+      }
+    }
+  }
+}

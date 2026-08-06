@@ -1,0 +1,286 @@
+<ion-content [fullscreen]="true" class="no-scrollbar">
+  
+  <!-- ================= ROOM DETAIL HERO ================= -->
+  <section class="room-hero" *ngIf="room">
+    <div class="room-hero-bg">
+      <img [src]="room.heroImage || room.image" [alt]="room.name">
+      <!-- Back Button -->
+      <button class="back-btn" (click)="goBack()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </button>
+    </div>
+    <div class="room-hero-overlay"></div>
+    <div class="room-hero-content">
+      <div class="container">
+        <div class="room-hero-text animate-fade-up">
+          <div class="room-badges">
+            <span class="room-badge" *ngIf="room.popular">✦ Popular</span>
+            <span class="room-badge new" *ngIf="room.new">✦ New</span>
+            <span class="room-badge featured" *ngIf="room.featured">✦ Featured</span>
+          </div>
+          <h1 class="room-title">{{ room.name }}</h1>
+          <div class="room-location-hero">
+            <ion-icon name="location-outline"></ion-icon>
+            <span>{{ room.address || room.location }}</span>
+          </div>
+          <div class="room-rating-hero">
+            <div class="rating-score" *ngIf="room.rating">
+              <span class="score">{{ room.rating }}</span>
+              <span class="label">Pleasant</span>
+            </div>
+            <div class="rating-score" *ngIf="!room.rating">
+              <span class="score">N/A</span>
+              <span class="label">No reviews yet</span>
+            </div>
+            <span class="reviews" *ngIf="room.reviews > 0">{{ room.reviews }} reviews</span>
+            <span class="reviews" *ngIf="room.reviews === 0">No reviews yet</span>
+          </div>
+          <div class="room-price-hero">
+            <span class="price">R{{ room.price }}</span>
+            <span class="per-night">/ night</span>
+          </div>
+          <a (click)="bookNow()" class="btn-primary">Book Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ROOM IMAGE GALLERY ================= -->
+  <section class="room-gallery" *ngIf="room && room.galleryImages && room.galleryImages.length > 0">
+    <div class="container">
+      <div class="gallery-grid">
+        <div class="gallery-item" *ngFor="let img of room.galleryImages; let i = index" 
+             [class.featured]="i === 0"
+             (click)="openImageModal(i)">
+          <img [src]="img" [alt]="room.name + ' - Image ' + (i+1)" loading="lazy">
+          <div class="gallery-overlay" *ngIf="i > 0">
+            <ion-icon name="search-outline"></ion-icon>
+          </div>
+          <div class="gallery-count" *ngIf="i === 0 && room.galleryImages.length > 1">
+            <ion-icon name="images-outline"></ion-icon>
+            <span>{{ room.galleryImages.length }} photos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ROOM DETAILS ================= -->
+  <section class="room-details-section" *ngIf="room">
+    <div class="container">
+      <div class="details-grid">
+        <!-- Left Column -->
+        <div class="details-left">
+          <!-- Overview -->
+          <div class="detail-card animate-fade-up">
+            <h3>About this property</h3>
+            <p>{{ room.longDescription || room.description }}</p>
+          </div>
+
+          <!-- Room Types -->
+          <div class="detail-card animate-fade-up" *ngIf="room.roomTypes">
+            <h3>Room Types</h3>
+            <div class="room-types-grid">
+              <div class="room-type-item" *ngFor="let type of room.roomTypes">
+                <div class="type-info">
+                  <h4>{{ type.name }}</h4>
+                  <p>{{ type.beds }} · Sleeps {{ type.sleeps }}</p>
+                </div>
+                <div class="type-price">
+                  <span class="price">R{{ type.price }}</span>
+                  <span class="per-night">/ night</span>
+                </div>
+                <div class="type-unavailable">
+                  <ion-icon name="close-circle-outline"></ion-icon>
+                  <span>Not available</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Amenities -->
+          <div class="detail-card animate-fade-up">
+            <h3>Most popular facilities</h3>
+            <div class="amenities-grid">
+              <div class="amenity-item" *ngFor="let amenity of room.amenities">
+                <ion-icon name="checkmark-circle"></ion-icon>
+                <span>{{ amenity }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Additional Amenities -->
+          <div class="detail-card animate-fade-up" *ngIf="room.additionalAmenities">
+            <h3>Facilities</h3>
+            <div class="facilities-grid">
+              <div class="facility-item" *ngFor="let facility of room.additionalAmenities">
+                <ion-icon name="checkmark-circle"></ion-icon>
+                <span>{{ facility }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- House Rules -->
+          <div class="detail-card animate-fade-up" *ngIf="room.houseRules">
+            <h3>House Rules</h3>
+            <div class="rules-list">
+              <div class="rule-item" *ngFor="let rule of room.houseRules">
+                <ion-icon name="time-outline"></ion-icon>
+                <span>{{ rule }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="details-right">
+          <!-- Booking Card -->
+          <div class="booking-card animate-fade-up">
+            <div class="booking-price">
+              <span class="price">R{{ room.price }}</span>
+              <span class="per-night">/ night</span>
+            </div>
+            <div class="booking-rating">
+              <span class="score" *ngIf="room.rating">{{ room.rating }}</span>
+              <span class="score" *ngIf="!room.rating">N/A</span>
+              <span class="label">{{ room.rating ? 'Pleasant' : 'No reviews' }}</span>
+              <span class="reviews" *ngIf="room.reviews > 0">· {{ room.reviews }} reviews</span>
+            </div>
+            <div class="booking-dates">
+              <div class="date-group">
+                <label>Check-in</label>
+                <ion-datetime 
+                  [(ngModel)]="checkIn" 
+                  presentation="date"
+                  placeholder="Select date"
+                  class="date-input">
+                </ion-datetime>
+              </div>
+              <div class="date-group">
+                <label>Check-out</label>
+                <ion-datetime 
+                  [(ngModel)]="checkOut" 
+                  presentation="date"
+                  placeholder="Select date"
+                  class="date-input">
+                </ion-datetime>
+              </div>
+            </div>
+            <a (click)="bookNow()" class="btn-primary book-btn">Reserve Now</a>
+            <p class="booking-note">You won't be charged yet</p>
+          </div>
+
+          <!-- Location -->
+          <div class="detail-card animate-fade-up">
+            <h3>Location</h3>
+            <p class="location-address">
+              <ion-icon name="location-outline"></ion-icon>
+              {{ room.address || room.location }}
+            </p>
+            <div class="location-map">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3465.7477612712726!2d31.013930575088345!3d-29.859330415817598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef7aa9b1b0e3c73%3A0x3a5a48b4d0b1e4d5!2sMusgrave%2C%20Durban!5e0!3m2!1sen!2sza!4v1710000000000" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+              </iframe>
+            </div>
+          </div>
+
+          <!-- Nearby Attractions -->
+          <div class="detail-card animate-fade-up" *ngIf="room.nearbyAttractions">
+            <h3>Nearby Attractions</h3>
+            <div class="attraction-list">
+              <div class="attraction-item" *ngFor="let attraction of room.nearbyAttractions">
+                <ion-icon name="location-outline"></ion-icon>
+                <span>{{ attraction.name }}</span>
+                <span class="distance">{{ attraction.distance }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= IMAGE MODAL / LIGHTBOX ================= -->
+  <div class="image-modal" *ngIf="showModal" (click)="closeImageModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <button class="modal-close" (click)="closeImageModal()">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+      <button class="modal-nav prev" (click)="prevImage()" *ngIf="room && room.galleryImages && room.galleryImages.length > 1">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </button>
+      <img [src]="room?.galleryImages?.[currentImageIndex]" [alt]="room?.name" loading="lazy">
+      <button class="modal-nav next" (click)="nextImage()" *ngIf="room && room.galleryImages && room.galleryImages.length > 1">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </button>
+      <div class="modal-counter" *ngIf="room && room.galleryImages && room.galleryImages.length > 1">
+        {{ currentImageIndex + 1 }} / {{ room.galleryImages.length }}
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="footer-overlay"></div>
+    <div class="footer-background"></div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand animate-fade-up">
+          <div class="logo" (click)="goToHome()" style="cursor:pointer;">
+            <span class="logo-text">stay</span><span class="logo-gold">@tiah</span>
+          </div>
+          <p>The Ideal Accommodation Haven. Your comfortable home away from home in Durban.</p>
+          <div class="socials">
+            <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-tiktok"></ion-icon></a>
+          </div>
+        </div>
+        <div class="footer-column animate-fade-up">
+          <h4>Quick Links</h4>
+          <a routerLink="/home">Home</a>
+          <a routerLink="/about">About Us</a>
+          <a routerLink="/rooms">Rooms</a>
+          <a routerLink="/gallery">Gallery</a>
+          <a routerLink="/rates">Rates</a>
+          <a routerLink="/attractions">Attractions</a>
+          <a routerLink="/faq">FAQ</a>
+          <a routerLink="/contact">Contact Us</a>
+        </div>
+        <div class="footer-column animate-fade-up">
+          <h4>Our Locations</h4>
+          <a href="#">Durban Oceanic (82A, 82B, 117)</a>
+          <a href="#">La Tiah Musgrave</a>
+          <a href="#">Tiah Musgrave</a>
+          <a href="#">Halford Backpackers</a>
+        </div>
+        <div class="footer-column animate-fade-up">
+          <h4>Book Your Stay</h4>
+          <p>Ready for your Durban getaway?</p>
+          <a routerLink="/booking" class="btn-gold">Book Now</a>
+          <div class="footer-contact">
+            <p><ion-icon name="call-outline"></ion-icon> +27 79 123 4567</p>
+            <p><ion-icon name="mail-outline"></ion-icon> info@staytiah.com</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 stay@tiah. All Rights Reserved.</p>
+        <p>The Ideal Accommodation Haven</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOAT -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openWhatsApp()" class="whatsapp-float">
+      <ion-icon name="logo-whatsapp"></ion-icon>
+      <div class="whatsapp-pulse"></div>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

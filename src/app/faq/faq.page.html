@@ -1,0 +1,327 @@
+<ion-header>
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="brand">
+      <span class="brand__name">TIAH</span>
+      <span class="brand__tagline">The Ideal Accommodation Haven</span>
+    </a>
+
+    <!-- Hamburger Button -->
+    <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
+      <ion-icon name="menu-outline"></ion-icon>
+    </button>
+
+    <!-- Desktop Navigation -->
+    <nav class="nav" aria-label="Main">
+      <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="nav__link">Home</a>
+      <a routerLink="/about" routerLinkActive="is-active" class="nav__link">About</a>
+      <a routerLink="/rooms" routerLinkActive="is-active" class="nav__link">Rooms</a>
+      <a routerLink="/gallery" routerLinkActive="is-active" class="nav__link">Gallery</a>
+      <a routerLink="/rates" routerLinkActive="is-active" class="nav__link">Rates</a>
+      <a routerLink="/attractions" routerLinkActive="is-active" class="nav__link">Attractions</a>
+      <a routerLink="/faq" routerLinkActive="is-active" class="nav__link">FAQ</a>
+      <a routerLink="/contact" routerLinkActive="is-active" class="nav__link">Contact</a>
+    </nav>
+
+    <!-- Desktop WhatsApp Button -->
+    <a
+      class="btn-whatsapp desktop-only"
+      (click)="goToBooking()"
+    >
+      <ion-icon name="logo-whatsapp"></ion-icon>
+      <span class="btn-text">Book on WhatsApp</span>
+    </a>
+  </div>
+</header>
+
+<!-- Mobile Navigation Overlay -->
+<div class="nav-overlay" [class.active]="mobileNavOpen" (click)="closeMobileNav()"></div>
+
+<!-- Mobile Navigation Drawer -->
+<div class="mobile-nav" [class.active]="mobileNavOpen">
+  <div class="mobile-nav-header">
+    <button class="mobile-nav-close" (click)="closeMobileNav()">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+  </div>
+  
+  <div class="mobile-nav-brand">
+    <span class="mobile-brand-text">TIAH</span>
+    <span class="mobile-brand-tagline">The Ideal Accommodation Haven</span>
+  </div>
+  
+  <div class="mobile-nav-links">
+    <a routerLink="/home" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#127968;</span>
+      Home
+    </a>
+    <a routerLink="/about" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#8505;</span>
+      About
+    </a>
+    <a routerLink="/rooms" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#128719;</span>
+      Rooms
+    </a>
+    <a routerLink="/gallery" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#128396;</span>
+      Gallery
+    </a>
+    <a routerLink="/rates" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#128176;</span>
+      Rates
+    </a>
+    <a routerLink="/attractions" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#128205;</span>
+      Attractions
+    </a>
+    <a routerLink="/faq" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#10067;</span>
+      FAQ
+    </a>
+    <a routerLink="/contact" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#128231;</span>
+      Contact
+    </a>
+    
+    <div class="mobile-divider"></div>
+    
+    <a class="mobile-cta" (click)="goToBooking(); closeMobileNav()">
+      <ion-icon name="logo-whatsapp"></ion-icon>
+      Book on WhatsApp
+    </a>
+  </div>
+  
+  <div class="mobile-nav-footer">
+    <p>&copy; 2026 stay@tiah</p>
+  </div>
+</div>
+
+<ion-content [fullscreen]="true" class="no-scrollbar">
+  
+  <!-- ================= HERO / PAGE HEADER ================= -->
+  <section class="page-header">
+    <div class="page-header-bg"></div>
+    <div class="page-header-overlay"></div>
+    <div class="page-header-content">
+      <div class="container">
+        <div class="page-header-text animate-fade-up">
+          <span class="hero-badge">&#10022; FAQ</span>
+          <h1 class="page-title">Frequently Asked Questions</h1>
+          <p class="page-subtitle">Find answers to the most common questions about your stay at STAY@TIAH.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ASK A QUESTION ================= -->
+  <section class="ask-question-section">
+    <div class="container">
+      <div class="ask-question-wrapper animate-fade-up">
+        <div class="ask-question-content">
+          <div class="ask-icon">
+            <ion-icon name="chatbubbles-outline"></ion-icon>
+          </div>
+          <h3>Can't find your question?</h3>
+          <p>Ask us directly and we'll get back to you within 24 hours.</p>
+          <div class="ask-form">
+            <ion-input 
+              [(ngModel)]="userQuestion" 
+              placeholder="Type your question here..." 
+              class="ask-input"
+              (keyup.enter)="submitQuestion()">
+            </ion-input>
+            <button (click)="submitQuestion()" class="ask-btn">
+              <ion-icon name="send-outline"></ion-icon>
+              Ask
+            </button>
+          </div>
+          <div class="ask-success" *ngIf="questionSubmitted">
+            <ion-icon name="checkmark-circle"></ion-icon>
+            <span>Your question has been sent via WhatsApp! We'll respond within 24 hours.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ SEARCH ================= -->
+  <section class="faq-search-section">
+    <div class="container">
+      <div class="search-wrapper animate-fade-up">
+        <div class="search-box">
+          <ion-icon name="search-outline"></ion-icon>
+          <input 
+            type="text" 
+            [(ngModel)]="searchTerm" 
+            (input)="filterFAQs()" 
+            placeholder="Search for answers..." 
+            class="search-input"
+          />
+          <button *ngIf="searchTerm" (click)="clearSearch()" class="clear-search">
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+        </div>
+        <p class="search-hint">{{ filteredFAQs.length }} questions available</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ CATEGORIES ================= -->
+  <section class="faq-categories-section">
+    <div class="container">
+      <div class="category-tabs animate-fade-up">
+        <div class="category-tab" [class.active]="activeCategory === 'all'" (click)="setCategory('all')">
+          <ion-icon name="grid-outline"></ion-icon>
+          <span>All</span>
+        </div>
+        <div class="category-tab" [class.active]="activeCategory === 'booking'" (click)="setCategory('booking')">
+          <ion-icon name="calendar-outline"></ion-icon>
+          <span>Booking</span>
+        </div>
+        <div class="category-tab" [class.active]="activeCategory === 'checkin'" (click)="setCategory('checkin')">
+          <ion-icon name="log-in-outline"></ion-icon>
+          <span>Check-in</span>
+        </div>
+        <div class="category-tab" [class.active]="activeCategory === 'amenities'" (click)="setCategory('amenities')">
+          <ion-icon name="sparkles-outline"></ion-icon>
+          <span>Amenities</span>
+        </div>
+        <div class="category-tab" [class.active]="activeCategory === 'location'" (click)="setCategory('location')">
+          <ion-icon name="location-outline"></ion-icon>
+          <span>Location</span>
+        </div>
+        <div class="category-tab" [class.active]="activeCategory === 'policies'" (click)="setCategory('policies')">
+          <ion-icon name="document-text-outline"></ion-icon>
+          <span>Policies</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ACCORDION ================= -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="faq-container">
+        <!-- No Results -->
+        <div class="no-results" *ngIf="filteredFAQs.length === 0">
+          <ion-icon name="search-outline"></ion-icon>
+          <h3>No Questions Found</h3>
+          <p>Try adjusting your search or category filter.</p>
+          <button (click)="resetFilters()" class="btn-primary">Reset Filters</button>
+        </div>
+
+        <!-- FAQ Items -->
+        <div class="faq-list">
+          <div class="faq-item" *ngFor="let faq of filteredFAQs; let i = index" 
+               [class.active]="faq.open" 
+               [style.animation-delay]="i * 0.05 + 's'">
+            <div class="faq-question" (click)="toggleFAQ(i)">
+              <div class="faq-question-content">
+                <span class="faq-category-badge" [class]="faq.category">
+                  {{ faq.category }}
+                </span>
+                <h3>{{ faq.question }}</h3>
+              </div>
+              <ion-icon [name]="faq.open ? 'remove-outline' : 'add-outline'"></ion-icon>
+            </div>
+            <div class="faq-answer">
+              <p>{{ faq.answer }}</p>
+              <div class="faq-related" *ngIf="faq.relatedQuestions && faq.relatedQuestions.length > 0">
+                <span>Related:</span>
+                <a *ngFor="let related of faq.relatedQuestions" (click)="scrollToQuestion(related)">
+                  {{ related }}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= STILL HAVE QUESTIONS ================= -->
+  <section class="still-questions-section">
+    <div class="container">
+      <div class="still-questions-content animate-fade-up">
+        <div class="still-questions-icon">
+          <ion-icon name="chatbubbles-outline"></ion-icon>
+        </div>
+        <h2>Still Have Questions?</h2>
+        <p>We're here to help! Contact us directly and we'll be happy to assist you.</p>
+        <div class="still-questions-buttons">
+          <a routerLink="/contact" class="btn-primary">
+            <ion-icon name="mail-outline"></ion-icon>
+            Contact Us
+          </a>
+          <a href="tel:+27791234567" class="btn-secondary-cta">
+            <ion-icon name="call-outline"></ion-icon>
+            Call Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="footer-overlay"></div>
+    <div class="footer-background"></div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand animate-fade-up">
+          <div class="logo" (click)="goToHome()" style="cursor:pointer;">
+            <span class="logo-text">stay</span><span class="logo-gold">@tiah</span>
+          </div>
+          <p>The Ideal Accommodation Haven. Your comfortable home away from home in Durban.</p>
+          <div class="socials">
+            <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-tiktok"></ion-icon></a>
+          </div>
+        </div>
+        <div class="footer-column animate-fade-up">
+          <h4>Quick Links</h4>
+          <a routerLink="/home">Home</a>
+          <a routerLink="/about">About Us</a>
+          <a routerLink="/rooms">Rooms</a>
+          <a routerLink="/gallery">Gallery</a>
+          <a routerLink="/rates">Rates</a>
+          <a routerLink="/attractions">Attractions</a>
+          <a routerLink="/faq">FAQ</a>
+          <a routerLink="/contact">Contact Us</a>
+        </div>
+        <div class="footer-column animate-fade-up">
+          <h4>Our Locations</h4>
+          <a href="#">Durban Oceanic (82A, 82B, 117)</a>
+          <a href="#">La Tiah Musgrave</a>
+          <a href="#">Tiah Musgrave</a>
+          <a href="#">Halford Backpackers</a>
+        </div>
+        <div class="footer-column animate-fade-up">
+          <h4>Book Your Stay</h4>
+          <p>Ready for your Durban getaway?</p>
+          <a routerLink="/booking" class="btn-gold">Book Now</a>
+          <div class="footer-contact">
+            <p><ion-icon name="call-outline"></ion-icon> +27 79 123 4567</p>
+            <p><ion-icon name="mail-outline"></ion-icon> info@staytiah.com</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 stay@tiah. All Rights Reserved.</p>
+        <p>The Ideal Accommodation Haven</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOAT -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openWhatsApp()" class="whatsapp-float">
+      <ion-icon name="logo-whatsapp"></ion-icon>
+      <div class="whatsapp-pulse"></div>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

@@ -1,0 +1,318 @@
+<ion-header>
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="brand">
+      <span class="brand__name">TIAH</span>
+      <span class="brand__tagline">The Ideal Accommodation Haven</span>
+    </a>
+
+    <!-- Hamburger Button -->
+    <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
+      <ion-icon name="menu-outline"></ion-icon>
+    </button>
+
+    <!-- Desktop Navigation -->
+    <nav class="nav" aria-label="Main">
+      <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="nav__link">Home</a>
+      <a routerLink="/about" routerLinkActive="is-active" class="nav__link">About</a>
+      <a routerLink="/rooms" routerLinkActive="is-active" class="nav__link">Rooms</a>
+      <a routerLink="/gallery" routerLinkActive="is-active" class="nav__link">Gallery</a>
+      <a routerLink="/rates" routerLinkActive="is-active" class="nav__link">Rates</a>
+      <a routerLink="/attractions" routerLinkActive="is-active" class="nav__link">Attractions</a>
+      <a routerLink="/faq" routerLinkActive="is-active" class="nav__link">FAQ</a>
+      <a routerLink="/contact" routerLinkActive="is-active" class="nav__link">Contact</a>
+    </nav>
+
+    <!-- Desktop WhatsApp Button -->
+    <a
+      class="btn-whatsapp desktop-only"
+      (click)="goToBooking()"
+    >
+      <ion-icon name="logo-whatsapp"></ion-icon>
+      <span class="btn-text">Book on WhatsApp</span>
+    </a>
+  </div>
+</header>
+
+<!-- Mobile Navigation Overlay -->
+<div class="nav-overlay" [class.active]="mobileNavOpen" (click)="closeMobileNav()"></div>
+
+<!-- Mobile Navigation Drawer -->
+<div class="mobile-nav" [class.active]="mobileNavOpen">
+  <div class="mobile-nav-header">
+    <button class="mobile-nav-close" (click)="closeMobileNav()">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+  </div>
+  
+  <div class="mobile-nav-brand">
+    <span class="mobile-brand-text">TIAH</span>
+    <span class="mobile-brand-tagline">The Ideal Accommodation Haven</span>
+  </div>
+  
+  <div class="mobile-nav-links">
+    <a routerLink="/home" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#127968;</span>
+      Home
+    </a>
+    <a routerLink="/about" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#8505;</span>
+      About
+    </a>
+    <a routerLink="/rooms" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#128719;</span>
+      Rooms
+    </a>
+    <a routerLink="/gallery" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#128396;</span>
+      Gallery
+    </a>
+    <a routerLink="/rates" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#128176;</span>
+      Rates
+    </a>
+    <a routerLink="/attractions" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#128205;</span>
+      Attractions
+    </a>
+    <a routerLink="/faq" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#10067;</span>
+      FAQ
+    </a>
+    <a routerLink="/contact" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#128231;</span>
+      Contact
+    </a>
+    
+    <div class="mobile-divider"></div>
+    
+    <a class="mobile-cta" (click)="goToBooking(); closeMobileNav()">
+      <ion-icon name="logo-whatsapp"></ion-icon>
+      Book on WhatsApp
+    </a>
+  </div>
+  
+  <div class="mobile-nav-footer">
+    <p>&copy; 2026 stay@tiah</p>
+  </div>
+</div>
+
+<ion-content [fullscreen]="true" class="no-scrollbar">
+  
+  <!-- ================= HERO / PAGE HEADER ================= -->
+  <section class="page-header">
+    <div class="page-header-bg"></div>
+    <div class="page-header-overlay"></div>
+    <div class="page-header-content">
+      <div class="container">
+        <div class="page-header-text animate-fade-up">
+          <span class="hero-badge">&#10022; Explore</span>
+          <h1 class="page-title">Durban Attractions</h1>
+          <p class="page-subtitle">Discover the best of Durban right on our doorstep. From golden beaches to cultural hotspots.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ATTRACTIONS FILTERS ================= -->
+  <section class="filter-section">
+    <div class="container">
+      <div class="filter-tabs animate-fade-up">
+        <div class="filter-tab" [class.active]="activeFilter === 'all'" (click)="setFilter('all')">
+          <ion-icon name="grid-outline"></ion-icon>
+          <span>All Attractions</span>
+        </div>
+        <div class="filter-tab" [class.active]="activeFilter === 'beach'" (click)="setFilter('beach')">
+          <ion-icon name="water-outline"></ion-icon>
+          <span>Beaches</span>
+        </div>
+        <div class="filter-tab" [class.active]="activeFilter === 'culture'" (click)="setFilter('culture')">
+          <ion-icon name="book-outline"></ion-icon>
+          <span>Culture</span>
+        </div>
+        <div class="filter-tab" [class.active]="activeFilter === 'nature'" (click)="setFilter('nature')">
+          <ion-icon name="leaf-outline"></ion-icon>
+          <span>Nature</span>
+        </div>
+        <div class="filter-tab" [class.active]="activeFilter === 'entertainment'" (click)="setFilter('entertainment')">
+          <ion-icon name="game-controller-outline"></ion-icon>
+          <span>Entertainment</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ATTRACTIONS GRID ================= -->
+  <section class="attractions-section">
+    <div class="container">
+      <div class="section-header center animate-fade-up">
+        <span class="eyebrow">&#10022; Attractions</span>
+        <h2 class="section-title">Things to Do in Durban</h2>
+        <p class="section-subtitle">Explore the best attractions near our locations in Musgrave, Durban Oceanic, and Halford.</p>
+      </div>
+
+      <!-- Attractions Grid -->
+      <div class="attractions-grid">
+        <div class="attraction-card" *ngFor="let attraction of filteredAttractions; let i = index" [style.animation-delay]="i * 0.08 + 's'">
+          <div class="attraction-image">
+            <img [src]="attraction.image" [alt]="attraction.name" loading="lazy">
+            <div class="attraction-badge">
+              <ion-icon name="location-outline"></ion-icon>
+              {{ attraction.distance }}
+            </div>
+          </div>
+          <div class="attraction-info">
+            <div class="attraction-category">
+              <span [class]="attraction.category">
+                <ion-icon [name]="getCategoryIcon(attraction.category)"></ion-icon>
+                {{ attraction.category }}
+              </span>
+            </div>
+            <h3>{{ attraction.name }}</h3>
+            <p>{{ attraction.description }}</p>
+            <div class="attraction-details">
+              <span><ion-icon name="time-outline"></ion-icon> {{ attraction.hours }}</span>
+              <span><ion-icon name="location-outline"></ion-icon> {{ attraction.location }}</span>
+            </div>
+            <div class="attraction-bottom">
+              <div class="attraction-rating">
+                <ion-icon name="star"></ion-icon>
+                <span>{{ attraction.rating }}</span>
+                <small>({{ attraction.reviews }})</small>
+              </div>
+              <a href="#" class="attraction-btn" (click)="$event.preventDefault()">Learn More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Results -->
+      <div class="no-results" *ngIf="filteredAttractions.length === 0">
+        <ion-icon name="compass-outline"></ion-icon>
+        <h3>No Attractions Found</h3>
+        <p>Try adjusting your filters to find attractions.</p>
+        <button (click)="setFilter('all')" class="btn-primary">View All Attractions</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LOCATIONS MAP ================= -->
+  <section class="map-section">
+    <div class="container">
+      <div class="section-header center animate-fade-up">
+        <span class="eyebrow">&#10022; Our Locations</span>
+        <h2 class="section-title">Find Us in Durban</h2>
+        <p class="section-subtitle">Visit us at our convenient locations across Durban.</p>
+      </div>
+      <div class="locations-map animate-fade-up">
+        <div class="map-container">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3465.7477612712726!2d31.013930575088345!3d-29.859330415817598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef7aa9b1b0e3c73%3A0x3a5a48b4d0b1e4d5!2sMusgrave%2C%20Durban!5e0!3m2!1sen!2sza!4v1710000000000" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy">
+          </iframe>
+          <div class="map-overlay">
+            <div class="map-pin" *ngFor="let location of locations">
+              <div class="pin">
+                <ion-icon name="location-sharp"></ion-icon>
+                <span>{{ location.name }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="location-list">
+          <div class="location-item" *ngFor="let location of locations">
+            <div class="location-icon">
+              <ion-icon name="location-outline"></ion-icon>
+            </div>
+            <div class="location-info">
+              <h4>{{ location.name }}</h4>
+              <p>{{ location.address }}</p>
+              <span class="location-tag" [class]="location.tagClass">{{ location.tag }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BOOK YOUR STAY CTA ================= -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content animate-fade-up">
+        <h2>Ready to Explore Durban?</h2>
+        <p>Book your stay at STAY@TIAH and discover all that Durban has to offer.</p>
+        <div class="cta-buttons">
+          <a routerLink="/booking" class="btn-primary">
+            <ion-icon name="calendar-outline"></ion-icon>
+            Book Now
+          </a>
+          <a routerLink="/contact" class="btn-secondary-cta">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="footer-overlay"></div>
+    <div class="footer-background"></div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand animate-fade-up">
+          <div class="logo" (click)="goToHome()" style="cursor:pointer;">
+            <span class="logo-text">stay</span><span class="logo-gold">@tiah</span>
+          </div>
+          <p>The Ideal Accommodation Haven. Your comfortable home away from home in Durban.</p>
+          <div class="socials">
+            <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-tiktok"></ion-icon></a>
+          </div>
+        </div>
+        <div class="footer-column animate-fade-up">
+          <h4>Quick Links</h4>
+          <a routerLink="/home">Home</a>
+          <a routerLink="/about">About Us</a>
+          <a routerLink="/rooms">Rooms</a>
+          <a routerLink="/gallery">Gallery</a>
+          <a routerLink="/rates">Rates</a>
+          <a routerLink="/attractions">Attractions</a>
+          <a routerLink="/faq">FAQ</a>
+          <a routerLink="/contact">Contact Us</a>
+        </div>
+        <div class="footer-column animate-fade-up">
+          <h4>Our Locations</h4>
+          <a href="#">Durban Oceanic (82A, 82B, 117)</a>
+          <a href="#">La Tiah Musgrave</a>
+          <a href="#">Tiah Musgrave</a>
+          <a href="#">Halford Backpackers</a>
+        </div>
+        <div class="footer-column animate-fade-up">
+          <h4>Book Your Stay</h4>
+          <p>Ready for your Durban getaway?</p>
+          <a routerLink="/booking" class="btn-gold">Book Now</a>
+          <div class="footer-contact">
+            <p><ion-icon name="call-outline"></ion-icon> +27 79 123 4567</p>
+            <p><ion-icon name="mail-outline"></ion-icon> info@staytiah.com</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 stay@tiah. All Rights Reserved.</p>
+        <p>The Ideal Accommodation Haven</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOAT -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openWhatsApp()" class="whatsapp-float">
+      <ion-icon name="logo-whatsapp"></ion-icon>
+      <div class="whatsapp-pulse"></div>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

@@ -1,0 +1,473 @@
+<ion-content [fullscreen]="true" class="no-scrollbar">
+  
+  <!-- ================= HERO / PAGE HEADER ================= -->
+  <section class="page-header">
+    <div class="page-header-bg"></div>
+    <div class="page-header-overlay"></div>
+    <div class="page-header-content">
+      <div class="container">
+        <div class="page-header-text animate-fade-up">
+          <span class="hero-badge">✦ Book Your Stay</span>
+          <h1 class="page-title">Reserve Your<br>Perfect Getaway</h1>
+          <p class="page-subtitle">Fill in the form below and we'll get back to you with availability and the best rates.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SELECTED ROOM SUMMARY ================= -->
+  <section class="selected-room-section" *ngIf="selectedRoom">
+    <div class="container">
+      <div class="selected-room-card animate-fade-up">
+        <div class="selected-room-image">
+          <img [src]="selectedRoom.image" [alt]="selectedRoom.name">
+          <span class="room-badge" *ngIf="selectedRoom.popular">POPULAR</span>
+          <span class="room-badge new" *ngIf="selectedRoom.new">NEW</span>
+          <span class="room-badge featured" *ngIf="selectedRoom.featured">FEATURED</span>
+        </div>
+        <div class="selected-room-details">
+          <div class="room-header">
+            <h3>{{ selectedRoom.name }}</h3>
+            <span class="room-price">R{{ selectedRoom.price }} <small>/ night</small></span>
+          </div>
+          <div class="room-meta">
+            <span><ion-icon name="location-outline"></ion-icon> {{ selectedRoom.location }}</span>
+            <span><ion-icon name="person-outline"></ion-icon> {{ selectedRoom.sleeps }}</span>
+            <span><ion-icon name="bed-outline"></ion-icon> {{ selectedRoom.bed }}</span>
+            <span><ion-icon name="expand-outline"></ion-icon> {{ selectedRoom.size }}</span>
+          </div>
+          <p>{{ selectedRoom.description }}</p>
+          <div class="room-amenities">
+            <span *ngFor="let amenity of selectedRoom.amenities | slice:0:6">
+              <ion-icon name="checkmark-circle"></ion-icon> {{ amenity }}
+            </span>
+            <span *ngIf="selectedRoom.amenities.length > 6" class="more-amenities">
+              +{{ selectedRoom.amenities.length - 6 }} more
+            </span>
+          </div>
+          <a (click)="changeRoom()" class="change-room-btn">
+            <ion-icon name="swap-outline"></ion-icon> Change Room
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BOOKING FORM ================= -->
+  <section class="booking-section">
+    <div class="container">
+      <div class="booking-container">
+        <!-- Booking Info Sidebar -->
+        <div class="booking-info animate-fade-up">
+          <div class="info-card">
+            <h3>Why Book With Us?</h3>
+            <ul class="benefits-list">
+              <li>
+                <ion-icon name="checkmark-circle"></ion-icon>
+                <div>
+                  <strong>Instant Confirmation</strong>
+                  <span>Get immediate confirmation on your booking</span>
+                </div>
+              </li>
+              <li>
+                <ion-icon name="checkmark-circle"></ion-icon>
+                <div>
+                  <strong>Best Price Guarantee</strong>
+                  <span>We match any lower price you find</span>
+                </div>
+              </li>
+              <li>
+                <ion-icon name="checkmark-circle"></ion-icon>
+                <div>
+                  <strong>Free Cancellation</strong>
+                  <span>Cancel up to 24 hours before check-in</span>
+                </div>
+              </li>
+              <li>
+                <ion-icon name="checkmark-circle"></ion-icon>
+                <div>
+                  <strong>Secure Payment</strong>
+                  <span>Your information is safe with us</span>
+                </div>
+              </li>
+              <li>
+                <ion-icon name="checkmark-circle"></ion-icon>
+                <div>
+                  <strong>24/7 Support</strong>
+                  <span>We're here to help anytime</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contact Info Card -->
+          <div class="info-card contact-info-card">
+            <h4>📍 Contact Information</h4>
+            <div class="contact-details">
+              <div class="contact-item">
+                <ion-icon name="location-outline"></ion-icon>
+                <div>
+                  <strong>Address</strong>
+                  <span>57 Vause Rd, Musgrave, Berea, 4001</span>
+                </div>
+              </div>
+              <div class="contact-item">
+                <ion-icon name="call-outline"></ion-icon>
+                <div>
+                  <strong>Phone</strong>
+                  <span>+27 84 900 9821</span>
+                </div>
+              </div>
+              <div class="contact-item">
+                <ion-icon name="restaurant-outline"></ion-icon>
+                <div>
+                  <strong>Dining Hours</strong>
+                  <span>Monday - Sunday, 04 pm - 11 pm</span>
+                </div>
+              </div>
+              <div class="contact-item">
+                <ion-icon name="mail-outline"></ion-icon>
+                <div>
+                  <strong>Email</strong>
+                  <span>info@staytiah.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card help-card">
+            <h4>Need Help?</h4>
+            <p>Contact us directly for assistance</p>
+            <a href="tel:+27849009821" class="contact-link">
+              <ion-icon name="call-outline"></ion-icon>
+              +27 84 900 9821
+            </a>
+            <a href="mailto:info@staytiah.com" class="contact-link">
+              <ion-icon name="mail-outline"></ion-icon>
+              info@staytiah.com
+            </a>
+          </div>
+        </div>
+
+        <!-- Booking Form -->
+        <div class="booking-form-wrapper animate-fade-up" style="animation-delay:0.2s">
+          <div class="form-header">
+            <h2>Book Your Stay</h2>
+            <p>Fill in your details and we'll get back to you with availability.</p>
+          </div>
+
+          <form (ngSubmit)="submitBooking()" #bookingForm="ngForm" class="booking-form">
+            <!-- Personal Information -->
+            <div class="form-section">
+              <h4 class="section-label">
+                <ion-icon name="person-outline"></ion-icon>
+                Personal Information
+              </h4>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>First Name <span class="required">*</span></label>
+                  <ion-input 
+                    [(ngModel)]="bookingData.firstName" 
+                    name="firstName" 
+                    type="text" 
+                    placeholder="John"
+                    required
+                    class="form-input"
+                    [class.error]="firstNameError && !bookingData.firstName">
+                  </ion-input>
+                </div>
+                <div class="form-group">
+                  <label>Last Name <span class="required">*</span></label>
+                  <ion-input 
+                    [(ngModel)]="bookingData.lastName" 
+                    name="lastName" 
+                    type="text" 
+                    placeholder="Doe"
+                    required
+                    class="form-input"
+                    [class.error]="lastNameError && !bookingData.lastName">
+                  </ion-input>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Email Address <span class="required">*</span></label>
+                  <ion-input 
+                    [(ngModel)]="bookingData.email" 
+                    name="email" 
+                    type="email" 
+                    placeholder="info@example.com"
+                    required
+                    class="form-input"
+                    [class.error]="emailError && !bookingData.email">
+                  </ion-input>
+                </div>
+                <div class="form-group">
+                  <label>Phone Number <span class="required">*</span></label>
+                  <ion-input 
+                    [(ngModel)]="bookingData.phone" 
+                    name="phone" 
+                    type="tel" 
+                    placeholder="+27 84 900 9821"
+                    required
+                    class="form-input"
+                    [class.error]="phoneError && !bookingData.phone">
+                  </ion-input>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stay Details -->
+            <div class="form-section">
+              <h4 class="section-label">
+                <ion-icon name="bed-outline"></ion-icon>
+                Stay Details
+              </h4>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Check-in Date <span class="required">*</span></label>
+                  <ion-datetime 
+                    [(ngModel)]="bookingData.checkIn" 
+                    name="checkIn"
+                    presentation="date"
+                    placeholder="Select date"
+                    class="form-datetime"
+                    [class.error]="checkInError && !bookingData.checkIn">
+                  </ion-datetime>
+                </div>
+                <div class="form-group">
+                  <label>Check-out Date <span class="required">*</span></label>
+                  <ion-datetime 
+                    [(ngModel)]="bookingData.checkOut" 
+                    name="checkOut"
+                    presentation="date"
+                    placeholder="Select date"
+                    class="form-datetime"
+                    [class.error]="checkOutError && !bookingData.checkOut">
+                  </ion-datetime>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Number of Guests <span class="required">*</span></label>
+                  <ion-select 
+                    [(ngModel)]="bookingData.guests" 
+                    name="guests"
+                    placeholder="Select guests"
+                    interface="popover"
+                    class="form-select"
+                    required>
+                    <ion-select-option value="1">1 Guest</ion-select-option>
+                    <ion-select-option value="2">2 Guests</ion-select-option>
+                    <ion-select-option value="3">3 Guests</ion-select-option>
+                    <ion-select-option value="4">4 Guests</ion-select-option>
+                    <ion-select-option value="5">5 Guests</ion-select-option>
+                    <ion-select-option value="6">6+ Guests</ion-select-option>
+                  </ion-select>
+                </div>
+                <div class="form-group">
+                  <label>Location <span class="required">*</span></label>
+                  <ion-select 
+                    [(ngModel)]="bookingData.location" 
+                    name="location"
+                    placeholder="Select location"
+                    interface="popover"
+                    class="form-select"
+                    required>
+                    <ion-select-option value="oceanic">🌊 Durban Oceanic (82A, 82B, 117)</ion-select-option>
+                    <ion-select-option value="musgrave-la">🏠 La Tiah Musgrave</ion-select-option>
+                    <ion-select-option value="musgrave">🏠 Tiah Musgrave</ion-select-option>
+                    <ion-select-option value="halford">🎒 Halford Backpackers</ion-select-option>
+                  </ion-select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Room Type <span class="required">*</span></label>
+                  <ion-select 
+                    [(ngModel)]="bookingData.roomType" 
+                    name="roomType"
+                    placeholder="Select room type"
+                    interface="popover"
+                    class="form-select"
+                    required>
+                    <ion-select-option value="single">🛏 Single Room</ion-select-option>
+                    <ion-select-option value="double">🛏 Double Room</ion-select-option>
+                    <ion-select-option value="family">🛏 Family Room</ion-select-option>
+                    <ion-select-option value="suite">🛏 Suite</ion-select-option>
+                    <ion-select-option value="dormitory">🛏 Dormitory (Backpackers)</ion-select-option>
+                  </ion-select>
+                </div>
+                <div class="form-group">
+                  <label>Number of Nights</label>
+                  <ion-input 
+                    [(ngModel)]="bookingData.nights" 
+                    name="nights" 
+                    type="number" 
+                    placeholder="1"
+                    class="form-input">
+                  </ion-input>
+                </div>
+              </div>
+            </div>
+
+            <!-- Special Requests -->
+            <div class="form-section">
+              <h4 class="section-label">
+                <ion-icon name="chatbubble-outline"></ion-icon>
+                Special Requests
+              </h4>
+              <div class="form-group">
+                <label>Additional Requirements</label>
+                <ion-textarea 
+                  [(ngModel)]="bookingData.specialRequests" 
+                  name="specialRequests" 
+                  placeholder="Any special requirements or preferences..."
+                  rows="4"
+                  class="form-textarea">
+                </ion-textarea>
+              </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="form-actions">
+              <button type="submit" class="btn-primary" [disabled]="isSubmitting">
+                <ion-icon name="send-outline"></ion-icon>
+                {{ isSubmitting ? 'Sending...' : 'Send Booking Enquiry' }}
+              </button>
+              <span class="required-note"><span class="required">*</span> Required fields</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHY BOOK WITH US ================= -->
+  <section class="why-book-section">
+    <div class="container">
+      <div class="section-header center animate-fade-up">
+        <span class="eyebrow">✦ Why Book</span>
+        <h2 class="section-title">Benefits of Booking With Us</h2>
+        <p class="section-subtitle">Enjoy these exclusive benefits when you book directly with STAY@TIAH.</p>
+      </div>
+      <div class="benefits-grid animate-fade-up">
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <ion-icon name="cash-outline"></ion-icon>
+          </div>
+          <h4>Best Price Guarantee</h4>
+          <p>Get the best rates when you book directly with us.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <ion-icon name="time-outline"></ion-icon>
+          </div>
+          <h4>Flexible Check-in</h4>
+          <p>We accommodate early check-in and late check-out requests.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <ion-icon name="gift-outline"></ion-icon>
+          </div>
+          <h4>Exclusive Offers</h4>
+          <p>Access special promotions and package deals.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <ion-icon name="heart-outline"></ion-icon>
+          </div>
+          <h4>Personalized Service</h4>
+          <p>Enjoy tailored service for a memorable stay.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA SECTION ================= -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content animate-fade-up">
+        <h2>Have Questions About Your Stay?</h2>
+        <p>Contact us directly and we'll be happy to help with any enquiries.</p>
+        <div class="cta-buttons">
+          <a routerLink="/contact" class="btn-primary">
+            <ion-icon name="mail-outline"></ion-icon>
+            Contact Us
+          </a>
+          <a href="tel:+27849009821" class="btn-secondary-cta">
+            <ion-icon name="call-outline"></ion-icon>
+            Call Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="footer-overlay"></div>
+    <div class="footer-background"></div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand animate-fade-up">
+          <div class="logo" (click)="goToHome()" style="cursor:pointer;">
+                        <span class="logo-text">STAY</span><span class="logo-gold">@TIAH</span>
+          </div>
+          <p>The Ideal Accommodation Haven. Your comfortable home away from home in Durban.</p>
+          <div class="socials">
+            <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-tiktok"></ion-icon></a>
+          </div>
+        </div>
+        <div class="footer-column animate-fade-up">
+          <h4>Quick Links</h4>
+          <a routerLink="/home">Home</a>
+          <a routerLink="/about">About Us</a>
+          <a routerLink="/rooms">Rooms</a>
+          <a routerLink="/gallery">Gallery</a>
+          <a routerLink="/rates">Rates</a>
+          <a routerLink="/attractions">Attractions</a>
+          <a routerLink="/faq">FAQ</a>
+          <a routerLink="/contact">Contact Us</a>
+        </div>
+        <div class="footer-column animate-fade-up">
+          <h4>Our Locations</h4>
+          <a href="#">🌊 Durban Oceanic (82A, 82B, 117)</a>
+          <a href="#">🏠 La Tiah Musgrave</a>
+          <a href="#">🏠 Tiah Musgrave</a>
+          <a href="#">🎒 Halford Backpackers</a>
+        </div>
+        <div class="footer-column animate-fade-up">
+          <h4>Contact Info</h4>
+          <div class="footer-contact-details">
+            <p><ion-icon name="location-outline"></ion-icon> 57 Vause Rd, Musgrave, Berea, 4001</p>
+            <p><ion-icon name="call-outline"></ion-icon> +27 84 900 9821</p>
+            <p><ion-icon name="restaurant-outline"></ion-icon> Mon - Sun, 04 pm - 11 pm</p>
+            <p><ion-icon name="mail-outline"></ion-icon> info@staytiah.com</p>
+          </div>
+          <div class="footer-legal">
+            <a href="#">Legal Notice</a>
+            <span>|</span>
+            <a href="#">Privacy for bookings</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 STAY@TIAH. All Rights Reserved.</p>
+        <p>The Ideal Accommodation Haven</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOAT -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openWhatsApp()" class="whatsapp-float">
+      <ion-icon name="logo-whatsapp"></ion-icon>
+      <div class="whatsapp-pulse"></div>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

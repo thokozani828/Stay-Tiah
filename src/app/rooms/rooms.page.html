@@ -1,0 +1,302 @@
+<!-- Your existing header -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="brand">
+      <span class="brand__name">TIAH</span>
+      <span class="brand__tagline">The Ideal Accommodation Haven</span>
+    </a>
+
+    <!-- Hamburger Button -->
+    <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
+      <ion-icon name="menu-outline"></ion-icon>
+    </button>
+
+    <!-- Desktop Navigation -->
+    <nav class="nav" aria-label="Main">
+      <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="nav__link">Home</a>
+      <a routerLink="/about" routerLinkActive="is-active" class="nav__link">About</a>
+      <a routerLink="/rooms" routerLinkActive="is-active" class="nav__link">Rooms</a>
+      <a routerLink="/gallery" routerLinkActive="is-active" class="nav__link">Gallery</a>
+      <a routerLink="/rates" routerLinkActive="is-active" class="nav__link">Rates</a>
+      <a routerLink="/attractions" routerLinkActive="is-active" class="nav__link">Attractions</a>
+      <a routerLink="/faq" routerLinkActive="is-active" class="nav__link">FAQ</a>
+      <a routerLink="/contact" routerLinkActive="is-active" class="nav__link">Contact</a>
+    </nav>
+
+    <!-- Desktop WhatsApp Button -->
+    <a
+      class="btn-whatsapp desktop-only"
+      (click)="goToBooking()"
+    >
+      <ion-icon name="logo-whatsapp"></ion-icon>
+      <span class="btn-text">Book on WhatsApp</span>
+    </a>
+  </div>
+</header>
+
+<!-- Mobile Navigation Overlay -->
+<div class="nav-overlay" [class.active]="mobileNavOpen" (click)="closeMobileNav()"></div>
+
+<!-- Mobile Navigation Drawer -->
+<div class="mobile-nav" [class.active]="mobileNavOpen">
+  <div class="mobile-nav-header">
+    <button class="mobile-nav-close" (click)="closeMobileNav()">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+  </div>
+  
+  <div class="mobile-nav-brand">
+    <span class="mobile-brand-text">TIAH</span>
+    <span class="mobile-brand-tagline">The Ideal Accommodation Haven</span>
+  </div>
+  
+  <div class="mobile-nav-links">
+    <a routerLink="/home" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#127968;</span>
+      Home
+    </a>
+    <a routerLink="/about" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#8505;</span>
+      About
+    </a>
+    <a routerLink="/rooms" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#128719;</span>
+      Rooms
+    </a>
+    <a routerLink="/gallery" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#128396;</span>
+      Gallery
+    </a>
+    <a routerLink="/rates" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#128176;</span>
+      Rates
+    </a>
+    <a routerLink="/attractions" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#128205;</span>
+      Attractions
+    </a>
+    <a routerLink="/faq" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#10067;</span>
+      FAQ
+    </a>
+    <a routerLink="/contact" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">&#128231;</span>
+      Contact
+    </a>
+    
+    <div class="mobile-divider"></div>
+    
+    <a class="mobile-cta" (click)="goToBooking(); closeMobileNav()">
+      <ion-icon name="logo-whatsapp"></ion-icon>
+      Book on WhatsApp
+    </a>
+  </div>
+  
+  <div class="mobile-nav-footer">
+    <p>&copy; 2026 stay@tiah</p>
+  </div>
+</div>
+
+<ion-content [fullscreen]="true" class="no-scrollbar">
+  
+  <!-- ================= HERO / PAGE HEADER ================= -->
+  <section class="page-header">
+    <div class="page-header-bg"></div>
+    <div class="page-header-overlay"></div>
+    <div class="page-header-content">
+      <div class="container">
+        <div class="page-header-text animate-fade-up">
+          <span class="hero-badge">&#10022; Our Rooms</span>
+          <h1 class="page-title">Find Your Perfect Stay</h1>
+          <p class="page-subtitle">Discover comfortable accommodation designed for every type of traveller.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ROOMS GRID ================= -->
+  <section class="rooms-section">
+    <div class="container">
+      <div class="section-header center animate-fade-up">
+        <span class="eyebrow">&#10022; Rooms</span>
+        <h2 class="section-title">Our Rooms</h2>
+        <p class="section-subtitle">Choose from a variety of comfortable rooms across our locations.</p>
+      </div>
+
+      <!-- Rooms Grid -->
+      <div class="rooms-grid animate-fade-up">
+        <div class="room-card" *ngFor="let room of filteredRooms; let i = index" [style.animation-delay]="i * 0.1 + 's'" (click)="viewRoomDetail(room.id)">
+          <div class="room-image">
+            <img [src]="room.image" [alt]="room.name">
+            <span class="room-badge" *ngIf="room.popular">&#10022; Popular</span>
+            <span class="room-badge new" *ngIf="room.new">&#10022; New</span>
+            <span class="room-badge featured" *ngIf="room.featured">&#10022; Featured</span>
+          </div>
+          <div class="room-info">
+            <div class="room-location">
+              <ion-icon name="location-outline"></ion-icon>
+              {{ room.location }}
+            </div>
+            <h3>{{ room.name }}</h3>
+            <div class="room-rating">
+              <span class="score" *ngIf="room.rating">{{ room.rating }}</span>
+              <span class="score" *ngIf="!room.rating">N/A</span>
+              <span class="label">Review score</span>
+              <span class="reviews">· {{ room.reviews || 0 }} reviews</span>
+            </div>
+            <div class="room-distance">
+              <ion-icon name="walk-outline"></ion-icon>
+              <span>{{ room.distance || '1.8 km from downtown' }}</span>
+              <span class="beach-distance">· {{ room.beachDistance || '250 m from beach' }}</span>
+            </div>
+            <div class="room-details">
+              <span><ion-icon name="person-outline"></ion-icon> {{ room.sleeps }}</span>
+              <span><ion-icon name="bed-outline"></ion-icon> {{ room.bed }}</span>
+              <span><ion-icon name="square-outline"></ion-icon> {{ room.size }}</span>
+            </div>
+            <p class="room-description">{{ room.description }}</p>
+            
+            <!-- Room Amenities -->
+            <div class="room-amenities">
+              <span *ngFor="let amenity of room.amenities.slice(0,4)">
+                <ion-icon name="checkmark-circle"></ion-icon> {{ amenity }}
+              </span>
+              <span *ngIf="room.amenities.length > 4" class="more-amenities">+{{ room.amenities.length - 4 }} more</span>
+            </div>
+
+            <div class="room-bottom">
+              <div class="room-price">
+                <strong>R{{ room.price }}</strong> <small>/ night</small>
+              </div>
+              <a (click)="$event.stopPropagation(); viewRoomDetail(room.id)" class="room-btn">View Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ROOM FEATURES ================= -->
+  <section class="features-section">
+    <div class="container">
+      <div class="section-header center animate-fade-up">
+        <span class="eyebrow">&#10022; Features</span>
+        <h2 class="section-title">Room Features &amp; Amenities</h2>
+        <p class="section-subtitle">All our rooms come with these standard features for your comfort.</p>
+      </div>
+      <div class="features-grid animate-fade-up">
+        <div class="feature-item">
+          <ion-icon name="wifi-outline"></ion-icon>
+          <span>Free High-Speed Wi-Fi</span>
+        </div>
+        <div class="feature-item">
+          <ion-icon name="tv-outline"></ion-icon>
+          <span>Flat-Screen TV</span>
+        </div>
+        <div class="feature-item">
+          <ion-icon name="snow-outline"></ion-icon>
+          <span>Air Conditioning</span>
+        </div>
+        <div class="feature-item">
+          <ion-icon name="cafe-outline"></ion-icon>
+          <span>Tea &amp; Coffee Maker</span>
+        </div>
+        <div class="feature-item">
+          <ion-icon name="bed-outline"></ion-icon>
+          <span>Premium Bedding</span>
+        </div>
+        <div class="feature-item">
+          <ion-icon name="water-outline"></ion-icon>
+          <span>En-suite Bathroom</span>
+        </div>
+        <div class="feature-item">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+          <span>Safe &amp; Secure</span>
+        </div>
+        <div class="feature-item">
+          <ion-icon name="car-outline"></ion-icon>
+          <span>Free Parking</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BOOK YOUR STAY CTA ================= -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content animate-fade-up">
+        <h2>Ready to Book Your Stay?</h2>
+        <p>Choose your perfect room and experience the comfort of STAY@TIAH.</p>
+        <div class="cta-buttons">
+          <a routerLink="/booking" class="btn-primary">
+            <ion-icon name="calendar-outline"></ion-icon>
+            Book Now
+          </a>
+          <a routerLink="/contact" class="btn-secondary-cta">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="footer-overlay"></div>
+    <div class="footer-background"></div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand animate-fade-up">
+          <div class="logo" (click)="goToHome()" style="cursor:pointer;">
+            <span class="logo-text">stay</span><span class="logo-gold">@tiah</span>
+          </div>
+          <p>The Ideal Accommodation Haven. Your comfortable home away from home in Durban.</p>
+          <div class="socials">
+            <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-tiktok"></ion-icon></a>
+          </div>
+        </div>
+        <div class="footer-column animate-fade-up">
+          <h4>Quick Links</h4>
+          <a routerLink="/home">Home</a>
+          <a routerLink="/about">About Us</a>
+          <a routerLink="/rooms">Rooms</a>
+          <a routerLink="/gallery">Gallery</a>
+          <a routerLink="/rates">Rates</a>
+          <a routerLink="/attractions">Attractions</a>
+          <a routerLink="/faq">FAQ</a>
+          <a routerLink="/contact">Contact Us</a>
+        </div>
+        <div class="footer-column animate-fade-up">
+          <h4>Our Locations</h4>
+          <a href="#">Durban Oceanic (82A, 82B, 117)</a>
+          <a href="#">La Tiah Musgrave</a>
+          <a href="#">Tiah Musgrave</a>
+          <a href="#">Halford Backpackers</a>
+        </div>
+        <div class="footer-column animate-fade-up">
+          <h4>Book Your Stay</h4>
+          <p>Ready for your Durban getaway?</p>
+          <a routerLink="/booking" class="btn-gold">Book Now</a>
+          <div class="footer-contact">
+            <p><ion-icon name="call-outline"></ion-icon> +27 79 123 4567</p>
+            <p><ion-icon name="mail-outline"></ion-icon> info@staytiah.com</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 stay@tiah. All Rights Reserved.</p>
+        <p>The Ideal Accommodation Haven</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOAT -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openWhatsApp()" class="whatsapp-float">
+      <ion-icon name="logo-whatsapp"></ion-icon>
+      <div class="whatsapp-pulse"></div>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

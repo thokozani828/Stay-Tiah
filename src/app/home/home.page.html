@@ -1,20 +1,401 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-header>
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="brand">
+      <span class="brand__name">TIAH</span>
+      <span class="brand__tagline">The Ideal Accommodation Haven</span>
+    </a>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <!-- Hamburger Button -->
+    <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
+      <ion-icon name="menu-outline"></ion-icon>
+    </button>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <!-- Desktop Navigation -->
+    <nav class="nav" aria-label="Main">
+      <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="nav__link">Home</a>
+      <a routerLink="/about" routerLinkActive="is-active" class="nav__link">About</a>
+      <a routerLink="/rooms" routerLinkActive="is-active" class="nav__link">Rooms</a>
+      <a routerLink="/gallery" routerLinkActive="is-active" class="nav__link">Gallery</a>
+      <a routerLink="/rates" routerLinkActive="is-active" class="nav__link">Rates</a>
+      <a routerLink="/attractions" routerLinkActive="is-active" class="nav__link">Attractions</a>
+      <a routerLink="/faq" routerLinkActive="is-active" class="nav__link">FAQ</a>
+      <a routerLink="/contact" routerLinkActive="is-active" class="nav__link">Contact</a>
+    </nav>
+
+    <!-- Desktop WhatsApp Button -->
+    <a
+      class="btn-whatsapp desktop-only"
+      (click)="goToBooking()"
+    >
+      <ion-icon name="logo-whatsapp"></ion-icon>
+      <span class="btn-text">Book on WhatsApp</span>
+    </a>
   </div>
+</header>
+
+<!-- Mobile Navigation Overlay -->
+<div class="nav-overlay" [class.active]="mobileNavOpen" (click)="closeMobileNav()"></div>
+
+<!-- Mobile Navigation Drawer - Clean Version -->
+<div class="mobile-nav" [class.active]="mobileNavOpen">
+  <div class="mobile-nav-header">
+    <button class="mobile-nav-close" (click)="closeMobileNav()">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+  </div>
+  
+  <div class="mobile-nav-brand">
+    <span class="mobile-brand-text">TIAH</span>
+    <span class="mobile-brand-tagline">The Ideal Accommodation Haven</span>
+  </div>
+  
+  <div class="mobile-nav-links">
+    <a routerLink="/home" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">🏠</span>
+      Home
+    </a>
+    <a routerLink="/about" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">ℹ️</span>
+      About
+    </a>
+    <a routerLink="/rooms" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">🛏️</span>
+      Rooms
+    </a>
+    <a routerLink="/gallery" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">🖼️</span>
+      Gallery
+    </a>
+    <a routerLink="/rates" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">💰</span>
+      Rates
+    </a>
+    <a routerLink="/attractions" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">📍</span>
+      Attractions
+    </a>
+    <a routerLink="/faq" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">❓</span>
+      FAQ
+    </a>
+    <a routerLink="/contact" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">📧</span>
+      Contact
+    </a>
+    
+    <div class="mobile-divider"></div>
+    
+    <a class="mobile-cta" (click)="goToBooking(); closeMobileNav()">
+      <ion-icon name="logo-whatsapp"></ion-icon>
+      Book on WhatsApp
+    </a>
+  </div>
+  
+  <div class="mobile-nav-footer">
+    <p>&copy; 2026 stay@tiah</p>
+  </div>
+</div>
+
+<ion-content [fullscreen]="true" (ionScroll)="onScroll($event)" class="no-scrollbar">
+  
+  <!-- ================= HERO SECTION ================= -->
+  <section class="hero-section" id="home">
+    <div class="hero-background"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-text animate-fade-up">
+        <span class="hero-badge">✦ Premium Accommodation</span>
+        <h1 class="hero-title">Your Comfortable<br>Home Away From Home</h1>
+        <p class="hero-description">Experience luxurious, affordable short-stay accommodation in Durban's most desirable locations.</p>
+        <div class="hero-buttons">
+          <a routerLink="/booking" class="btn-primary">
+            <ion-icon name="calendar-outline"></ion-icon>
+            Book Your Stay
+          </a>
+          <a (click)="scrollToSection('about')" class="btn-secondary">
+            Learn More
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="stat-number">2</span>
+            <span class="stat-label">Locations</span>
+          </div>
+          <div class="hero-stat">
+            <span class="stat-number">12+</span>
+            <span class="stat-label">Rooms</span>
+          </div>
+          <div class="hero-stat">
+            <span class="stat-number">200+</span>
+            <span class="stat-label">Happy Guests</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll to explore</span>
+      <ion-icon name="chevron-down-outline"></ion-icon>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT US ================= -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="section-header center animate-fade-up">
+        <span class="eyebrow">✦ About Us</span>
+        <h2 class="section-title">More Than Just<br>A Place To Stay</h2>
+        <p class="section-subtitle">stay@tiah offers clean, comfortable and affordable short-stay accommodation in Durban's most convenient locations.</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-image animate-slide-left">
+          <img [src]="aboutImage" alt="stay@tiah Luxury Accommodation" (error)="onImageError($event)">
+          <div class="about-image-badge">
+            <ion-icon name="star"></ion-icon> 4.8 ★ (200+ Reviews)
+          </div>
+        </div>
+        <div class="about-content animate-slide-right">
+          <p class="about-description">
+            Whether you are travelling for business, enjoying a holiday, planning a romantic getaway or visiting family, we provide a welcoming home away from home.
+          </p>
+          <p>
+            Our properties are carefully selected and maintained to ensure your comfort and convenience throughout your stay in Durban.
+          </p>
+          <div class="about-features">
+            <div class="feature">
+              <ion-icon name="wifi-outline"></ion-icon>
+              <span>Free Wi-Fi</span>
+            </div>
+            <div class="feature">
+              <ion-icon name="car-outline"></ion-icon>
+              <span>Free Parking</span>
+            </div>
+            <div class="feature">
+              <ion-icon name="restaurant-outline"></ion-icon>
+              <span>Breakfast Available</span>
+            </div>
+            <div class="feature">
+              <ion-icon name="shield-checkmark-outline"></ion-icon>
+              <span>24/7 Security</span>
+            </div>
+          </div>
+          <div class="about-buttons">
+            <a routerLink="/about" class="btn-primary-small">Learn More About Us</a>
+            <a routerLink="/rooms" class="btn-outline-small">View Rooms</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHY CHOOSE US ================= -->
+  <section class="why-section">
+    <div class="container">
+      <div class="section-header center animate-fade-up">
+        <span class="eyebrow">✦ Why Choose Us</span>
+        <h2 class="section-title">Experience The Difference</h2>
+        <p class="section-subtitle">We go above and beyond to make your stay memorable and comfortable.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card animate-scale">
+          <div class="why-icon"><ion-icon name="location-outline"></ion-icon></div>
+          <h3>Prime Locations</h3>
+          <p>Conveniently located in Musgrave and North Beach, close to all attractions.</p>
+        </div>
+        <div class="why-card animate-scale" style="animation-delay:0.1s">
+          <div class="why-icon"><ion-icon name="cash-outline"></ion-icon></div>
+          <h3>Affordable Rates</h3>
+          <p>Competitive pricing without compromising on quality or comfort.</p>
+        </div>
+        <div class="why-card animate-scale" style="animation-delay:0.2s">
+          <div class="why-icon"><ion-icon name="heart-outline"></ion-icon></div>
+          <h3>Personalized Service</h3>
+          <p>Our team is dedicated to making your stay unforgettable.</p>
+        </div>
+        <div class="why-card animate-scale" style="animation-delay:0.3s">
+          <div class="why-icon"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
+          <h3>Safe & Secure</h3>
+          <p>Your safety and security are our top priorities at all times.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RATES ================= -->
+  <section class="rates-section" id="rates">
+    <div class="container">
+      <div class="section-header center animate-fade-up">
+        <span class="eyebrow">✦ Rates</span>
+        <h2 class="section-title">Simple & Transparent Pricing</h2>
+        <p class="section-subtitle">Rates may vary depending on dates, availability and special offers.</p>
+      </div>
+      <div class="rates-table-wrapper animate-fade-up">
+        <table class="rates-table">
+          <thead>
+            <tr>
+              <th>Room</th>
+              <th>Location</th>
+              <th>Sleeps</th>
+              <th>From / Night</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Durban Oceanic Room 82A</td>
+              <td>Durban Oceanic</td>
+              <td>2</td>
+              <td>R1,200</td>
+              <td><a class="book-link" (click)="goToBookingWithRoom(1)">Book</a></td>
+            </tr>
+            <tr>
+              <td>Durban Oceanic Apartment 82B</td>
+              <td>Durban Oceanic</td>
+              <td>2</td>
+              <td>R896</td>
+              <td><a class="book-link" (click)="goToBookingWithRoom(11)">Book</a></td>
+            </tr>
+            <tr>
+              <td>Durban Oceanic Apartment 117</td>
+              <td>Durban Oceanic</td>
+              <td>2</td>
+              <td>R896</td>
+              <td><a class="book-link" (click)="goToBookingWithRoom(12)">Book</a></td>
+            </tr>
+            <tr>
+              <td>Tiah Whyte</td>
+              <td>Tiah Musgrave</td>
+              <td>2</td>
+              <td>R855</td>
+              <td><a class="book-link" (click)="goToBookingWithRoom(19)">Book</a></td>
+            </tr>
+            <tr>
+              <td>Tiah Grey</td>
+              <td>Tiah Musgrave</td>
+              <td>2</td>
+              <td>R675</td>
+              <td><a class="book-link" (click)="goToBookingWithRoom(17)">Book</a></td>
+            </tr>
+            <tr>
+              <td>Tiah Pastel</td>
+              <td>Tiah Musgrave</td>
+              <td>2</td>
+              <td>R675</td>
+              <td><a class="book-link" (click)="goToBookingWithRoom(18)">Book</a></td>
+            </tr>
+            <tr>
+              <td>La Tiah One</td>
+              <td>La Tiah Musgrave</td>
+              <td>2</td>
+              <td>R553</td>
+              <td><a class="book-link" (click)="goToBookingWithRoom(16)">Book</a></td>
+            </tr>
+            <tr>
+              <td>La Tiah Two</td>
+              <td>La Tiah Musgrave</td>
+              <td>2</td>
+              <td>R513.16</td>
+              <td><a class="book-link" (click)="goToBookingWithRoom(13)">Book</a></td>
+            </tr>
+            <tr>
+              <td>La Tiah Three</td>
+              <td>La Tiah Musgrave</td>
+              <td>2</td>
+              <td>R553</td>
+              <td><a class="book-link" (click)="goToBookingWithRoom(14)">Book</a></td>
+            </tr>
+            <tr>
+              <td>La Tiah Four</td>
+              <td>La Tiah Musgrave</td>
+              <td>2</td>
+              <td>R485</td>
+              <td><a class="book-link" (click)="goToBookingWithRoom(15)">Book</a></td>
+            </tr>
+            <tr>
+              <td>Halford Backpackers</td>
+              <td>Halford Backpackers</td>
+              <td>4</td>
+              <td>R450</td>
+              <td><a class="book-link" (click)="goToBookingWithRoom(2)">Book</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="view-all-container">
+        <a routerLink="/rates" class="btn-primary">View All Rates</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="section-header center animate-fade-up">
+        <span class="eyebrow">✦ FAQ</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Find answers to the most common questions about your stay.</p>
+      </div>
+      <div class="faq-list animate-fade-up">
+        <div class="faq-item" *ngFor="let faq of faqs; let i = index" [class.active]="faq.active">
+          <div class="faq-question" (click)="toggleFaq(i)">
+            {{ faq.question }}
+            <ion-icon [name]="faq.active ? 'remove-outline' : 'add-outline'"></ion-icon>
+          </div>
+          <div class="faq-answer"><p>{{ faq.answer }}</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="footer-overlay"></div>
+    <div class="footer-background"></div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand animate-fade-up">
+          <div class="logo" (click)="goToHome()" style="cursor:pointer;">
+            <span class="logo-text">stay</span><span class="logo-gold">@tiah</span>
+          </div>
+          <p>The Ideal Accommodation Haven. Your comfortable home away from home in Durban.</p>
+          <div class="socials">
+            <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-tiktok"></ion-icon></a>
+          </div>
+        </div>
+        <div class="footer-column animate-fade-up">
+          <h4>Quick Links</h4>
+          <a routerLink="/home">Home</a>
+          <a routerLink="/about">About Us</a>
+          <a routerLink="/rooms">Rooms</a>
+          <a routerLink="/gallery">Gallery</a>
+          <a routerLink="/rates">Rates</a>
+          <a routerLink="/attractions">Attractions</a>
+          <a routerLink="/faq">FAQ</a>
+          <a routerLink="/contact">Contact Us</a>
+        </div>
+        <div class="footer-column animate-fade-up">
+          <h4>Legal</h4>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms &amp; Conditions</a>
+        </div>
+        <div class="footer-column animate-fade-up">
+          <h4>Book Your Stay</h4>
+          <p>Ready for your Durban getaway?</p>
+          <a routerLink="/booking" class="btn-gold">Book Now</a>
+          <div class="footer-contact">
+            <p><ion-icon name="call-outline"></ion-icon> +27 79 123 4567</p>
+            <p><ion-icon name="mail-outline"></ion-icon> info@staytiah.com</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 stay@tiah. All Rights Reserved.</p>
+        <p>The Ideal Accommodation Haven</p>
+      </div>
+    </div>
+  </footer>
+
 </ion-content>

@@ -1,12 +1,170 @@
-import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent],
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    RouterModule
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomePage {
-  constructor() {}
+
+  // Navigation State
+  activeTab: string = 'musgrave';
+  currentSection: string = 'home';
+  showHero: boolean = true;
+  mobileNavOpen: boolean = false;
+
+  // Image paths
+  aboutImage: string = 'assets/images/ChatGPT Image Jul 29, 2026, 08_23_26 AM.png';
+  aboutImageFallback: string = 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80';
+
+  // FAQ Data
+  faqs: any[] = [
+    {
+      question: 'What are the check-in and check-out times?',
+      answer: 'Check-in is from 2:00 PM and check-out is by 10:00 AM. Early check-in and late check-out may be available upon request.',
+      active: false
+    },
+    {
+      question: 'Is parking available?',
+      answer: 'Yes, secure parking is available at both our Musgrave and North Beach locations. Please inform us in advance if you require parking.',
+      active: false
+    },
+    {
+      question: 'Do you offer airport transfers?',
+      answer: 'We can arrange airport transfers upon request for an additional fee. Please contact us at least 24 hours in advance.',
+      active: false
+    },
+    {
+      question: 'Are pets allowed?',
+      answer: 'We welcome well-behaved pets at our Musgrave location. Please inform us when booking so we can prepare accordingly.',
+      active: false
+    },
+    {
+      question: 'Is there Wi-Fi available?',
+      answer: 'Yes, complimentary high-speed Wi-Fi is available throughout all our properties.',
+      active: false
+    },
+    {
+      question: 'What payment methods do you accept?',
+      answer: 'We accept all major credit cards, debit cards, and cash payments. Online payments can also be made via our secure booking system.',
+      active: false
+    },
+    {
+      question: 'Do you have a cancellation policy?',
+      answer: 'Yes, we have a flexible cancellation policy. Free cancellation is available up to 24 hours before check-in. Please refer to our terms and conditions for more details.',
+      active: false
+    },
+    {
+      question: 'Is breakfast included?',
+      answer: 'Breakfast is available upon request at an additional cost. Please let us know in advance if you would like to include breakfast during your stay.',
+      active: false
+    }
+  ];
+
+  constructor(private router: Router) {}
+
+  // =====================
+  // NAVIGATION METHODS
+  // =====================
+
+  // Navigate to booking page
+  goToBooking() {
+    this.router.navigate(['/booking']);
+  }
+
+  // Navigate to booking page with room ID
+  goToBookingWithRoom(roomId: number) {
+    this.router.navigate(['/booking'], { queryParams: { roomId: roomId } });
+  }
+
+  // Navigate to home
+  goToHome() {
+    this.currentSection = 'home';
+    this.closeMobileNav();
+    this.scrollToSection('home');
+  }
+
+  // =====================
+  // SCROLL METHODS
+  // =====================
+
+  // Scroll to specific section
+  scrollToSection(sectionId: string) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  // =====================
+  // MOBILE NAVIGATION
+  // =====================
+
+  // Toggle mobile navigation
+  toggleMobileNav() {
+    this.mobileNavOpen = !this.mobileNavOpen;
+    document.body.style.overflow = this.mobileNavOpen ? 'hidden' : '';
+  }
+
+  // Close mobile navigation
+  closeMobileNav() {
+    this.mobileNavOpen = false;
+    document.body.style.overflow = '';
+  }
+
+  // =====================
+  // EVENT HANDLERS
+  // =====================
+
+  // Scroll event
+  onScroll(event: any) {
+    const scrollTop = event.detail.scrollTop;
+    const heroHeight = window.innerHeight;
+    
+    this.showHero = scrollTop < heroHeight - 100;
+    
+    const header = document.querySelector('.site-header');
+    if (scrollTop > 50) {
+      header?.classList.add('scrolled');
+    } else {
+      header?.classList.remove('scrolled');
+    }
+  }
+
+  // Handle image error
+  onImageError(event: any) {
+    event.target.src = this.aboutImageFallback;
+  }
+
+  // =====================
+  // FAQ METHODS
+  // =====================
+
+  // Toggle FAQ item
+  toggleFaq(index: number) {
+    this.faqs[index].active = !this.faqs[index].active;
+  }
+
+  // =====================
+  // WHATSAPP METHOD (Optional - for other WhatsApp links)
+  // =====================
+
+  // Open WhatsApp (keep this if you have other WhatsApp links that should open WhatsApp)
+  openWhatsApp() {
+    const phone = '27849009821';
+    const message = 'Hello stay@tiah, I would like to make a booking enquiry.';
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+  }
 }
