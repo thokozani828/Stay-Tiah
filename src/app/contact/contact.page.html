@@ -9,12 +9,10 @@
         <span class="brand__tagline">The Ideal Accommodation Haven</span>
       </a>
 
-      <!-- Hamburger Button -->
       <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
         <ion-icon name="menu-outline"></ion-icon>
       </button>
 
-      <!-- Desktop Navigation -->
       <nav class="nav" aria-label="Main">
         <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="nav__link">Home</a>
         <a routerLink="/about" routerLinkActive="is-active" class="nav__link">About</a>
@@ -26,7 +24,6 @@
         <a routerLink="/contact" routerLinkActive="is-active" class="nav__link">Contact</a>
       </nav>
 
-      <!-- Desktop WhatsApp Button -->
       <a class="btn-whatsapp desktop-only" (click)="goToBookingPage()">
         <ion-icon name="logo-whatsapp"></ion-icon>
         <span class="btn-text">Book on WhatsApp</span>
