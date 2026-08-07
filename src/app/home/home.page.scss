@@ -1,10 +1,6 @@
-// =========================
-// FONTS - CONSISTENT ACROSS PAGE
-// =========================
-
-// =========================
+// =============================================
 // VARIABLES
-// =========================
+// =============================================
 $gold: #c9a84c;
 $gold-light: #dbb95c;
 $gold-dark: #b8943a;
@@ -22,15 +18,14 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 $header-height-desktop: 72px;
 $header-height-mobile: 56px;
 
-// =========================
+// =============================================
 // GLOBAL FONT RESET
-// =========================
+// =============================================
 * {
   font-family: $font-primary !important;
   box-sizing: border-box;
 }
 
-// Override serif fonts where needed
 h1, h2, h3, h4, 
 .hero-title, 
 .section-title, 
@@ -44,9 +39,48 @@ h1, h2, h3, h4,
   font-family: $font-serif !important;
 }
 
-// =========================
+// =============================================
+// ✅ FIXED: PROPER SCROLLING FOR IONIC
+// =============================================
+
+// Ensure ionic content scrolls properly
+ion-content {
+  --offset-top: 0px !important;
+  --padding-top: 0 !important;
+  --overflow: auto !important;
+  overflow-y: auto !important;
+  height: 100%;
+  
+  &::part(scroll) {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overflow-x: hidden !important;
+  }
+}
+
+// Fix body and html scrolling
+html, body {
+  height: auto !important;
+  min-height: 100vh;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  position: relative !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+ion-app {
+  height: auto !important;
+  min-height: 100vh;
+}
+
+// =============================================
 // CONTAINER
-// =========================
+// =============================================
 .container {
   max-width: 1180px;
   margin: 0 auto;
@@ -57,9 +91,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // ANIMATIONS
-// =========================
+// =============================================
 .animate-fade-up {
   opacity: 0;
   animation: fadeUp 0.8s ease forwards;
@@ -107,43 +141,45 @@ h1, h2, h3, h4,
   50% { transform: scale(1.08) translate(-2%,-1%); }
   100% { transform: scale(1.05) translate(1%,2%); }
 }
-@keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+@keyframes bounce { 
+  0%,100% { transform: translateY(0); } 
+  50% { transform: translateY(8px); } 
+}
 @keyframes pulse {
   0% { transform: scale(1); opacity: 1; }
   100% { transform: scale(1.5); opacity: 0; }
 }
 
-// =========================
+// =============================================
 // CUSTOM SCROLLBAR - ELEGANT GOLD
-// =========================
+// =============================================
 ::-webkit-scrollbar {
-  width: 8px;              /* Width of the scrollbar */
+  width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a1a;      /* Dark track behind the scrollbar */
+  background: #1a1a1a;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: $gold;        /* Your brand gold color */
-  border-radius: 4px;       /* Rounded edges */
-  border: 2px solid #1a1a1a; /* Adds a small gap around it */
+  background: $gold;
+  border-radius: 4px;
+  border: 2px solid #1a1a1a;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: $gold-light;  /* Gets brighter when you hover over it */
+  background: $gold-light;
 }
 
-/* Firefox support */
 * {
   scrollbar-width: thin;
   scrollbar-color: $gold #1a1a1a;
 }
 
-// =========================
+// =============================================
 // HEADER / NAVBAR
-// =========================
+// =============================================
 .site-header {
   background: rgba(10, 10, 10, 0.95);
   backdrop-filter: blur(20px);
@@ -188,7 +224,6 @@ h1, h2, h3, h4,
   }
 }
 
-// Brand
 .brand {
   text-decoration: none;
   color: #fff;
@@ -242,9 +277,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // DESKTOP NAVIGATION
-// =========================
+// =============================================
 .nav {
   display: flex;
   flex-wrap: nowrap;
@@ -271,6 +306,7 @@ h1, h2, h3, h4,
   position: relative;
   border-radius: 8px;
   letter-spacing: 0.3px;
+  cursor: pointer;
   
   @media (max-width: 1200px) {
     font-size: 12px;
@@ -309,9 +345,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // WHATSAPP BUTTON
-// =========================
+// =============================================
 .btn-whatsapp {
   background: linear-gradient(135deg, #25D366, #1da851);
   color: #ffffff;
@@ -378,29 +414,9 @@ h1, h2, h3, h4,
   }
 }
 
-// Footer WhatsApp button
-.footer-whatsapp {
-  margin-top: 12px;
-  justify-content: center;
-  width: 100%;
-  padding: 0.8rem 1.2rem;
-  font-size: 13px;
-  
-  .btn-text {
-    display: inline !important;
-  }
-  
-  @media (max-width: 500px) {
-    font-size: 12px;
-    padding: 0.7rem 1rem;
-  }
-}
-
-// =========================
-// MOBILE NAVIGATION - CLEAN DESIGN
-// =========================
-
-// Hamburger Button
+// =============================================
+// HAMBURGER BUTTON
+// =============================================
 .hamburger-btn {
   display: none;
   background: transparent;
@@ -442,7 +458,9 @@ h1, h2, h3, h4,
   }
 }
 
-// Overlay
+// =============================================
+// MOBILE NAV OVERLAY & DRAWER
+// =============================================
 .nav-overlay {
   display: none;
   position: fixed;
@@ -463,7 +481,6 @@ h1, h2, h3, h4,
   }
 }
 
-// Mobile Navigation Drawer - Clean
 .mobile-nav {
   position: fixed;
   top: 0;
@@ -488,7 +505,6 @@ h1, h2, h3, h4,
     right: 0;
   }
   
-  // Close Button
   .mobile-nav-header {
     padding: 16px 20px 8px;
     display: flex;
@@ -521,7 +537,6 @@ h1, h2, h3, h4,
     }
   }
   
-  // Brand
   .mobile-nav-brand {
     padding: 0 24px 24px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
@@ -550,7 +565,6 @@ h1, h2, h3, h4,
     }
   }
   
-  // Navigation Links
   .mobile-nav-links {
     padding: 16px 16px 0;
     flex: 1;
@@ -653,7 +667,6 @@ h1, h2, h3, h4,
     }
   }
   
-  // Footer
   .mobile-nav-footer {
     padding: 16px 24px 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.04);
@@ -671,9 +684,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // BUTTONS
-// =========================
+// =============================================
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -836,9 +849,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // SECTION HEADERS
-// =========================
+// =============================================
 .section-header {
   max-width: 700px;
   margin: 0 auto 50px;
@@ -915,18 +928,24 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
-// HERO
-// =========================
+// =============================================
+// ✅ FIXED: HERO SECTION - NO HEIGHT LOCK
+// =============================================
 .hero-section {
-  min-height: 100vh;
-  height: 100vh;
+  min-height: calc(100vh - 72px);
+  height: auto;
   position: relative;
   display: flex;
   align-items: center;
   color: white;
   overflow: hidden;
   width: 100%;
+  padding: 40px 0;
+  
+  @media (max-width: 992px) {
+    min-height: calc(100vh - 56px);
+    padding: 20px 0;
+  }
   
   .hero-background {
     position: absolute;
@@ -938,6 +957,7 @@ h1, h2, h3, h4,
     animation: kenBurns 20s ease-in-out infinite alternate;
     z-index: -1;
   }
+  
   .hero-overlay {
     position: absolute;
     inset: 0;
@@ -948,13 +968,13 @@ h1, h2, h3, h4,
 .hero-content {
   position: relative;
   z-index: 2;
-  padding: 80px 20px 0;
+  padding: 40px 20px;
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
   
   @media (max-width: 576px) {
-    padding: 60px 16px 0;
+    padding: 20px 16px;
   }
 }
 
@@ -1093,9 +1113,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // ABOUT
-// =========================
+// =============================================
 .about-section {
   padding: 80px 0;
   background: $white;
@@ -1238,9 +1258,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // WHY CHOOSE US
-// =========================
+// =============================================
 .why-section {
   padding: 80px 0;
   background: $white;
@@ -1331,9 +1351,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // RATES
-// =========================
+// =============================================
 .rates-section {
   padding: 80px 0;
   background: $gold-pale;
@@ -1453,9 +1473,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // FAQ
-// =========================
+// =============================================
 .faq-section {
   padding: 80px 0;
   background: $off-white;
@@ -1536,9 +1556,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // FOOTER
-// =========================
+// =============================================
 .footer {
   position: relative;
   color: white;
@@ -1603,6 +1623,7 @@ h1, h2, h3, h4,
       align-items: center;
       gap: 10px;
       margin-bottom: 12px;
+      cursor: pointer;
       
       @media (max-width: 576px) {
         font-size: 26px;
@@ -1749,31 +1770,16 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // REMOVE WHATSAPP FLOAT
-// =========================
+// =============================================
 ion-fab {
   display: none !important;
 }
 
-// =========================
-// ENSURE NO WHITE SPACE AFTER FOOTER & FIX SCROLLBAR
-// =========================
-ion-content {
-  --padding-bottom: 0 !important;
-  --padding-end: 0 !important;
-  --padding-start: 0 !important;
-  --padding-top: 0 !important;
-  --offset-top: 0px !important; /* Ensures scrollbar aligns correctly */
-}
-
-.footer {
-  margin-bottom: 0 !important;
-}
-
-// =========================
+// =============================================
 // RESPONSIVE OVERRIDES
-// =========================
+// =============================================
 @media (max-width: 992px) {
   .hamburger-btn {
     display: flex !important;
@@ -1816,9 +1822,6 @@ ion-content {
   }
 }
 
-// =========================
-// DESKTOP OVERRIDES (Hide mobile elements)
-// =========================
 @media (min-width: 993px) {
   .hamburger-btn {
     display: none !important;

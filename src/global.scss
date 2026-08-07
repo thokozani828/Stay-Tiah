@@ -35,4 +35,200 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+// ⚠️ COMMENTED OUT TO PREVENT BREAKING - Uncomment if you want dark mode
+// @import '@ionic/angular/css/palettes/dark.system.css';
+
+// ============================================================
+// ✅ GOLD THEME VARIABLES
+// ============================================================
+:root {
+  --gold: #c9a84c;
+  --gold-light: #dbb95c;
+  --gold-dark: #b8943a;
+  --gold-pale: #f5e6c8;
+  --gold-soft: #e8d5a8;
+  --black: #0a0a0a;
+  --dark: #121212;
+  --grey: #888888;
+  --light-grey: #e8e8e8;
+  --off-white: #f8f7f4;
+  --white: #ffffff;
+  
+  // Override Ionic background to prevent dark mode issues
+  --ion-background-color: #ffffff;
+  --ion-background-color-rgb: 255, 255, 255;
+  --ion-text-color: #0a0a0a;
+  --ion-text-color-rgb: 10, 10, 10;
+}
+
+// ============================================================
+// ✅ GENTLE SCROLLING FIX - WON'T BREAK PAGES
+// ============================================================
+
+// Only apply minimal scrolling fixes
+ion-content {
+  --offset-top: 0px;
+  --offset-bottom: 0px;
+}
+
+// Fix for body - minimal and safe
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; // Ionic handles scrolling internally
+}
+
+ion-app {
+  height: 100%;
+}
+
+// ============================================================
+// ✅ UTILITY CLASSES
+// ============================================================
+
+// Gold text utility
+.text-gold {
+  color: #c9a84c !important;
+}
+
+// Background utilities
+.bg-gold {
+  background: #c9a84c !important;
+}
+
+.bg-gold-light {
+  background: #f5e6c8 !important;
+}
+
+.bg-white {
+  background: #ffffff !important;
+}
+
+.bg-off-white {
+  background: #f8f7f4 !important;
+}
+
+// ============================================================
+// ✅ HIDE SCROLLBAR - Optional
+// ============================================================
+.no-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    background: transparent;
+  }
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+// ============================================================
+// ✅ RESPONSIVE UTILITIES
+// ============================================================
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 20px;
+  
+  @media (max-width: 576px) {
+    padding: 0 16px;
+  }
+}
+
+// ============================================================
+// ✅ ANIMATIONS - Global
+// ============================================================
+.animate-fade-up {
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes kenBurns {
+  0% { transform: scale(1) translate(0,0); }
+  50% { transform: scale(1.08) translate(-2%,-1%); }
+  100% { transform: scale(1.05) translate(1%,2%); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+@keyframes bounce { 
+  0%,100% { transform: translateY(0); } 
+  50% { transform: translateY(8px); } 
+}
+
+// ============================================================
+// ✅ WHATSAPP FLOAT - Global Style
+// ============================================================
+ion-fab {
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  z-index: 1000;
+}
+
+ion-fab-button.whatsapp-float {
+  --background: #25D366;
+  --box-shadow: 0 4px 25px rgba(37, 211, 102, 0.4);
+  --border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  
+  @media (max-width: 576px) {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .whatsapp-pulse {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 50%;
+    border: 2px solid #25D366;
+    animation: pulse 2s infinite;
+  }
+}
+
+// ============================================================
+// ✅ CUSTOM SCROLLBAR - Global (Optional)
+// ============================================================
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f0f0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c9a84c;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b8943a;
+}
+
+// Firefox scrollbar
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c9a84c #f0f0f0;
+}
+
+// ============================================================
+// ✅ FIX: PREVENT IONIC OVERRIDES
+// ============================================================
+// Don't override Ionic's internal styles
+.ion-page {
+  background: var(--ion-background-color, #ffffff);
+}
