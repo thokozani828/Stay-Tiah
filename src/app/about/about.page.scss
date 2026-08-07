@@ -731,7 +731,7 @@ h1, h2, h3, h4,
 // =============================================
 .page-header {
   min-height: 40vh;
-  height: auto;  // Changed from fixed height
+  height: auto;
   position: relative;
   display: flex;
   align-items: center;
@@ -2061,4 +2061,76 @@ ion-content {
     width: 100%;
     justify-content: center;
   }
+}
+
+// ============================================================
+// ✅ CRITICAL: PRODUCTION SCROLL FIX
+// ============================================================
+
+// Force the page to scroll in production
+:host {
+  display: block !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  overflow-y: auto !important;
+}
+
+// Override Ionic's production contain property
+ion-content {
+  contain: none !important;
+  --overflow: auto !important;
+  overflow-y: auto !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  display: block !important;
+  position: relative !important;
+  
+  &::part(scroll) {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    height: 100% !important;
+    min-height: 100vh !important;
+    display: block !important;
+  }
+}
+
+// Force all sections to be visible
+.page-header,
+.about-intro,
+.why-choose-us,
+.accommodation-options,
+.locations-section,
+.amenities-section,
+.testimonials-section,
+.cta-section {
+  height: auto !important;
+  min-height: auto !important;
+  overflow: visible !important;
+}
+
+// Ensure grid containers don't block scrolling
+.about-intro-grid,
+.locations-grid,
+.testimonials-grid,
+.features-grid,
+.options-grid,
+.amenities-grid {
+  height: auto !important;
+  min-height: auto !important;
+  overflow: visible !important;
+}
+
+// Force all content to be visible
+.container,
+.row,
+.col {
+  height: auto !important;
+  min-height: auto !important;
+  overflow: visible !important;
+}
+
+// Ensure images don't overflow
+img {
+  max-width: 100% !important;
+  height: auto !important;
 }

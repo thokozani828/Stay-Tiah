@@ -318,3 +318,97 @@ ion-content {
     min-height: 100vh !important;
   }
 }
+
+// ============================================================
+// ✅ CRITICAL: FORCE SCROLL IN PRODUCTION BUILD
+// ============================================================
+
+// Override Ionic's production contain property that locks scrolling
+ion-content {
+  contain: none !important;
+  --overflow: auto !important;
+  overflow-y: auto !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  display: block !important;
+  position: relative !important;
+  
+  &::part(scroll) {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overflow-x: hidden !important;
+    height: 100% !important;
+    min-height: 100vh !important;
+    display: block !important;
+  }
+}
+
+// Force all pages to be scrollable in production
+.ion-page {
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow: visible !important;
+  display: block !important;
+  position: relative !important;
+}
+
+// Fix for router outlet in production
+ion-router-outlet {
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow: visible !important;
+  display: block !important;
+}
+
+// Ensure app container allows scrolling
+ion-app {
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow: visible !important;
+  display: block !important;
+}
+
+// Force body and html to allow scrolling in production
+html, body {
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  position: relative !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+// Ensure all content containers can expand
+.container,
+.page-header,
+.about-intro,
+.why-choose-us,
+.accommodation-options,
+.locations-section,
+.amenities-section,
+.testimonials-section,
+.cta-section {
+  height: auto !important;
+  min-height: auto !important;
+  overflow: visible !important;
+}
+
+// Fix for any hidden overflow in production
+* {
+  overflow: visible !important;
+}
+
+// Only hide overflow on specific elements that need it
+.hero-section,
+.page-header,
+.rates-table-wrapper {
+  overflow: hidden !important;
+}
+
+// Force scrollable content to be visible
+.scroll-y {
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+}
