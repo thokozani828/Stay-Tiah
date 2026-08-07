@@ -1,9 +1,5 @@
 // =========================
-// FONTS - CONSISTENT ACROSS PAGE
-// =========================
-
-// =========================
-// VARIABLES
+// VARIABLES - MATCHING HOME PAGE
 // =========================
 $gold: #c9a84c;
 $gold-light: #dbb95c;
@@ -34,12 +30,16 @@ $header-height-mobile: 56px;
 h1, h2, h3, h4, 
 .page-title, 
 .section-title, 
-.logo-text,
-.logo-gold,
+.brand__name, 
+.logo, 
+.stat-number, 
 .feature-card h3,
 .option-card h3,
 .location-card h3,
-.testimonial-card .author-info h4 {
+.testimonial-card .author-info h4,
+.footer .logo,
+.footer .logo-text,
+.footer .logo-gold {
   font-family: $font-serif !important;
 }
 
@@ -57,33 +57,98 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// ANIMATIONS
+// ANIMATIONS - MATCHING HOME PAGE
 // =========================
 .animate-fade-up {
   opacity: 0;
   animation: fadeUp 0.8s ease forwards;
 }
+.animate-slide-left {
+  opacity: 0;
+  animation: slideLeft 0.8s ease forwards;
+}
+.animate-slide-right {
+  opacity: 0;
+  animation: slideRight 0.8s ease forwards;
+}
 .animate-scale {
   opacity: 0;
   animation: scaleIn 0.6s ease forwards;
+}
+.animate-pop {
+  opacity: 0;
+  animation: popIn 0.6s ease forwards;
 }
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
+@keyframes slideLeft {
+  from { opacity: 0; transform: translateX(-50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
 @keyframes scaleIn {
   from { opacity: 0; transform: scale(0.9); }
   to { opacity: 1; transform: scale(1); }
+}
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(0.5); }
+  70% { transform: scale(1.1); }
+  100% { opacity: 1; transform: scale(1); }
 }
 @keyframes kenBurns {
   0% { transform: scale(1) translate(0,0); }
   50% { transform: scale(1.08) translate(-2%,-1%); }
   100% { transform: scale(1.05) translate(1%,2%); }
 }
+@keyframes bounce { 
+  0%,100% { transform: translateY(0); } 
+  50% { transform: translateY(8px); } 
+}
 @keyframes pulse {
   0% { transform: scale(1); opacity: 1; }
   100% { transform: scale(1.5); opacity: 0; }
+}
+
+// =========================
+// ✅ SCROLLING - SAME AS HOME PAGE
+// =========================
+ion-content {
+  --offset-top: 0px !important;
+  --padding-top: 0 !important;
+  --overflow: auto !important;
+  overflow-y: auto !important;
+  height: 100%;
+  
+  &::part(scroll) {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overflow-x: hidden !important;
+  }
+}
+
+html, body {
+  height: auto !important;
+  min-height: 100vh;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  position: relative !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+ion-app {
+  height: auto !important;
+  min-height: 100vh;
 }
 
 // =========================
@@ -111,7 +176,7 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// HEADER / NAVBAR - EXACTLY LIKE ORIGINAL
+// HEADER / NAVBAR - EXACTLY LIKE HOME PAGE
 // =========================
 .site-header {
   background: rgba(10, 10, 10, 0.95);
@@ -157,7 +222,6 @@ h1, h2, h3, h4,
   }
 }
 
-// Brand
 .brand {
   text-decoration: none;
   color: #fff;
@@ -240,6 +304,7 @@ h1, h2, h3, h4,
   position: relative;
   border-radius: 8px;
   letter-spacing: 0.3px;
+  cursor: pointer;
   
   @media (max-width: 1200px) {
     font-size: 12px;
@@ -348,10 +413,8 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// MOBILE NAVIGATION - CLEAN DESIGN
+// HAMBURGER BUTTON
 // =========================
-
-// Hamburger Button
 .hamburger-btn {
   display: none;
   background: transparent;
@@ -393,7 +456,9 @@ h1, h2, h3, h4,
   }
 }
 
-// Overlay
+// =========================
+// MOBILE NAV OVERLAY & DRAWER
+// =========================
 .nav-overlay {
   display: none;
   position: fixed;
@@ -414,7 +479,6 @@ h1, h2, h3, h4,
   }
 }
 
-// Mobile Navigation Drawer - Clean
 .mobile-nav {
   position: fixed;
   top: 0;
@@ -439,7 +503,6 @@ h1, h2, h3, h4,
     right: 0;
   }
   
-  // Close Button
   .mobile-nav-header {
     padding: 16px 20px 8px;
     display: flex;
@@ -472,7 +535,6 @@ h1, h2, h3, h4,
     }
   }
   
-  // Brand
   .mobile-nav-brand {
     padding: 0 24px 24px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
@@ -501,7 +563,6 @@ h1, h2, h3, h4,
     }
   }
   
-  // Navigation Links
   .mobile-nav-links {
     padding: 16px 16px 0;
     flex: 1;
@@ -604,7 +665,6 @@ h1, h2, h3, h4,
     }
   }
   
-  // Footer
   .mobile-nav-footer {
     padding: 16px 24px 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.04);
@@ -623,7 +683,7 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// RESPONSIVE OVERRIDES
+// RESPONSIVE OVERRIDES FOR NAVBAR
 // =========================
 @media (max-width: 992px) {
   .hamburger-btn {
@@ -668,7 +728,7 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// DESKTOP OVERRIDES (Hide mobile elements)
+// DESKTOP OVERRIDES
 // =========================
 @media (min-width: 993px) {
   .hamburger-btn {
@@ -685,7 +745,7 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// PAGE HEADER
+// PAGE HEADER - MATCHING HOME PAGE HERO
 // =========================
 .page-header {
   min-height: 50vh;
@@ -703,6 +763,11 @@ h1, h2, h3, h4,
   @media (max-width: 768px) {
     min-height: 40vh;
     height: 40vh;
+  }
+  
+  @media (max-width: 480px) {
+    min-height: 35vh;
+    height: 35vh;
   }
   
   .page-header-bg {
@@ -766,12 +831,13 @@ h1, h2, h3, h4,
         text-shadow: 0 2px 30px rgba(0,0,0,0.3);
         
         @media (max-width: 576px) {
-          font-size: 32px;
+          font-size: 28px;
+          margin: 10px 0 12px;
         }
       }
       
       .page-subtitle {
-        color: rgba(255,255,255,0.8);
+        color: rgba(255,255,255,0.85);
         font-size: 1.15rem;
         line-height: 1.8;
         font-weight: 300;
@@ -779,7 +845,8 @@ h1, h2, h3, h4,
         margin: 0 auto;
         
         @media (max-width: 576px) {
-          font-size: 0.95rem;
+          font-size: 0.9rem;
+          line-height: 1.6;
         }
       }
     }
@@ -787,7 +854,207 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// ABOUT INTRO
+// SECTION HEADERS
+// =========================
+.section-header {
+  max-width: 700px;
+  margin: 0 auto 50px;
+  padding: 0 20px;
+  text-align: center;
+  
+  @media (max-width: 576px) {
+    margin: 0 auto 30px;
+  }
+  
+  &.center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+}
+
+.eyebrow {
+  color: $gold;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: block;
+  font-family: $font-primary !important;
+  
+  @media (max-width: 576px) {
+    font-size: 10px;
+    letter-spacing: 3px;
+  }
+}
+
+.section-title {
+  font-family: $font-serif !important;
+  font-size: clamp(28px, 4.5vw, 52px);
+  line-height: 1.1;
+  margin: 10px 0 12px;
+  color: $black;
+  
+  @media (max-width: 576px) {
+    font-size: 26px;
+  }
+}
+
+.section-subtitle {
+  color: $grey;
+  font-size: 16px;
+  line-height: 1.8;
+  margin-top: 8px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 300;
+  font-family: $font-primary !important;
+  
+  @media (max-width: 576px) {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+}
+
+// =========================
+// BUTTONS - MATCHING HOME PAGE
+// =========================
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, $gold, $gold-dark);
+  color: $black;
+  font-weight: 600;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 25px rgba(201, 168, 76, 0.25);
+  font-family: $font-primary !important;
+  
+  @media (max-width: 576px) {
+    padding: 12px 24px;
+    font-size: 13px;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  ion-icon {
+    font-size: 18px;
+    
+    @media (max-width: 576px) {
+      font-size: 16px;
+    }
+  }
+  
+  &:hover {
+    background: linear-gradient(135deg, $gold-light, $gold);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 40px rgba(201, 168, 76, 0.4);
+  }
+}
+
+.btn-primary-small {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, $gold, $gold-dark);
+  color: $black;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 50px;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: $transition-smooth;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(201, 168, 76, 0.2);
+  font-family: $font-primary !important;
+  
+  @media (max-width: 576px) {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+  }
+  
+  &:hover {
+    background: linear-gradient(135deg, $gold-light, $gold);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(201, 168, 76, 0.35);
+  }
+}
+
+.btn-outline-small {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  color: $black;
+  font-weight: 500;
+  padding: 10px 24px;
+  border-radius: 50px;
+  font-size: 13px;
+  text-decoration: none;
+  transition: $transition-smooth;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  font-family: $font-primary !important;
+  
+  @media (max-width: 576px) {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+  }
+  
+  &:hover {
+    border-color: $black;
+    background: rgba(0, 0, 0, 0.03);
+    transform: translateY(-2px);
+  }
+}
+
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, $gold, $gold-dark);
+  color: $black;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(201, 168, 76, 0.25);
+  cursor: pointer;
+  border: none;
+  font-family: $font-primary !important;
+  width: fit-content;
+  
+  @media (max-width: 576px) {
+    width: 100%;
+    padding: 12px 20px;
+  }
+  
+  &:hover {
+    background: linear-gradient(135deg, $gold-light, $gold);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 35px rgba(201, 168, 76, 0.4);
+  }
+}
+
+// =========================
+// ABOUT INTRO SECTION
 // =========================
 .about-intro {
   padding: 80px 0;
@@ -811,39 +1078,13 @@ h1, h2, h3, h4,
 }
 
 .about-intro-content {
-  .eyebrow {
-    color: $gold;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    display: block;
-    
-    @media (max-width: 576px) {
-      font-size: 10px;
-      letter-spacing: 3px;
-    }
-  }
-  
-  .section-title {
-    font-family: $font-serif !important;
-    font-size: clamp(28px, 4vw, 46px);
-    line-height: 1.1;
-    margin: 10px 0 16px;
-    color: $black;
-    
-    @media (max-width: 576px) {
-      font-size: 26px;
-    }
-  }
-  
   .about-description {
     font-size: 17px;
     line-height: 1.8;
     color: #333;
     margin-bottom: 16px;
     font-weight: 400;
+    font-family: $font-primary !important;
     
     @media (max-width: 576px) {
       font-size: 15px;
@@ -855,6 +1096,7 @@ h1, h2, h3, h4,
     line-height: 1.7;
     margin-bottom: 20px;
     font-weight: 300;
+    font-family: $font-primary !important;
     
     @media (max-width: 576px) {
       font-size: 14px;
@@ -862,9 +1104,6 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
-// ABOUT HIGHLIGHTS
-// =========================
 .about-highlights {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -893,6 +1132,7 @@ h1, h2, h3, h4,
       font-size: 14px;
       color: #444;
       font-weight: 400;
+      font-family: $font-primary !important;
       
       @media (max-width: 576px) {
         font-size: 13px;
@@ -935,6 +1175,7 @@ h1, h2, h3, h4,
     align-items: center;
     gap: 8px;
     backdrop-filter: blur(10px);
+    font-family: $font-primary !important;
     
     @media (max-width: 576px) {
       font-size: 12px;
@@ -947,6 +1188,18 @@ h1, h2, h3, h4,
       color: $gold;
       font-size: 18px;
     }
+  }
+}
+
+.about-buttons {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  
+  @media (max-width: 576px) {
+    flex-direction: column;
+    width: 100%;
   }
 }
 
@@ -1035,6 +1288,7 @@ h1, h2, h3, h4,
     line-height: 1.6;
     margin: 0;
     font-weight: 300;
+    font-family: $font-primary !important;
     
     @media (max-width: 576px) {
       font-size: 13px;
@@ -1126,6 +1380,7 @@ h1, h2, h3, h4,
     line-height: 1.6;
     font-weight: 300;
     margin: 0 0 16px;
+    font-family: $font-primary !important;
     
     @media (max-width: 576px) {
       font-size: 13px;
@@ -1145,6 +1400,7 @@ h1, h2, h3, h4,
       font-size: 13px;
       color: #555;
       padding: 4px 0;
+      font-family: $font-primary !important;
       
       ion-icon {
         color: $gold;
@@ -1225,6 +1481,7 @@ h1, h2, h3, h4,
       letter-spacing: 1px;
       text-transform: uppercase;
       margin-bottom: 10px;
+      font-family: $font-primary !important;
       
       &.oceanic {
         background: rgba(33, 150, 243, 0.15);
@@ -1260,6 +1517,7 @@ h1, h2, h3, h4,
       font-size: 13px;
       color: $grey;
       margin: 0 0 12px;
+      font-family: $font-primary !important;
       
       ion-icon {
         color: $gold;
@@ -1273,6 +1531,7 @@ h1, h2, h3, h4,
       line-height: 1.6;
       font-weight: 300;
       margin: 0 0 16px;
+      font-family: $font-primary !important;
       
       @media (max-width: 576px) {
         font-size: 13px;
@@ -1293,6 +1552,7 @@ h1, h2, h3, h4,
     font-size: 13px;
     color: #555;
     padding: 4px 0;
+    font-family: $font-primary !important;
     
     ion-icon {
       color: $gold;
@@ -1312,6 +1572,7 @@ h1, h2, h3, h4,
   text-decoration: none;
   transition: all 0.3s ease;
   padding: 8px 0;
+  font-family: $font-primary !important;
   
   &:hover {
     color: $gold-dark;
@@ -1377,6 +1638,7 @@ h1, h2, h3, h4,
     font-size: 14px;
     font-weight: 500;
     color: $black;
+    font-family: $font-primary !important;
     
     @media (max-width: 576px) {
       font-size: 13px;
@@ -1447,6 +1709,7 @@ h1, h2, h3, h4,
     font-weight: 300;
     margin: 0 0 16px;
     font-style: italic;
+    font-family: $font-primary !important;
     
     @media (max-width: 576px) {
       font-size: 14px;
@@ -1469,6 +1732,7 @@ h1, h2, h3, h4,
       color: $white;
       font-weight: 600;
       font-size: 14px;
+      font-family: $font-primary !important;
     }
     
     .author-info {
@@ -1484,70 +1748,9 @@ h1, h2, h3, h4,
         font-size: 12px;
         color: $grey;
         font-weight: 300;
+        font-family: $font-primary !important;
       }
     }
-  }
-}
-
-// =========================
-// SECTION HEADERS
-// =========================
-.section-header {
-  max-width: 700px;
-  margin: 0 auto 50px;
-  padding: 0 20px;
-  text-align: center;
-  
-  @media (max-width: 576px) {
-    margin: 0 auto 30px;
-  }
-  
-  &.center {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-  }
-}
-
-.eyebrow {
-  color: $gold;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  display: block;
-  
-  @media (max-width: 576px) {
-    font-size: 10px;
-    letter-spacing: 3px;
-  }
-}
-
-.section-title {
-  font-family: $font-serif !important;
-  font-size: clamp(28px, 4.5vw, 52px);
-  line-height: 1.1;
-  margin: 10px 0 12px;
-  color: $black;
-  
-  @media (max-width: 576px) {
-    font-size: 26px;
-  }
-}
-
-.section-subtitle {
-  color: $grey;
-  font-size: 16px;
-  line-height: 1.8;
-  margin-top: 8px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  font-weight: 300;
-  
-  @media (max-width: 576px) {
-    font-size: 14px;
   }
 }
 
@@ -1581,6 +1784,7 @@ h1, h2, h3, h4,
     line-height: 1.8;
     font-weight: 300;
     margin: 0 0 30px;
+    font-family: $font-primary !important;
   }
   
   .cta-buttons {
@@ -1593,39 +1797,6 @@ h1, h2, h3, h4,
       flex-direction: column;
       align-items: center;
     }
-  }
-}
-
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: linear-gradient(135deg, $gold, $gold-dark);
-  color: $black;
-  font-weight: 600;
-  padding: 14px 32px;
-  border-radius: 50px;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 25px rgba(201, 168, 76, 0.25);
-  
-  @media (max-width: 480px) {
-    width: 100%;
-    justify-content: center;
-  }
-  
-  ion-icon {
-    font-size: 18px;
-  }
-  
-  &:hover {
-    background: linear-gradient(135deg, $gold-light, $gold);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 40px rgba(201, 168, 76, 0.4);
   }
 }
 
@@ -1644,6 +1815,7 @@ h1, h2, h3, h4,
   transition: all 0.3s ease;
   border: 2px solid rgba(255, 255, 255, 0.3);
   cursor: pointer;
+  font-family: $font-primary !important;
   
   @media (max-width: 480px) {
     width: 100%;
@@ -1724,6 +1896,7 @@ h1, h2, h3, h4,
       align-items: center;
       gap: 10px;
       margin-bottom: 12px;
+      cursor: pointer;
       
       @media (max-width: 576px) {
         font-size: 26px;
@@ -1745,6 +1918,7 @@ h1, h2, h3, h4,
       max-width: 320px;
       line-height: 1.7;
       font-weight: 300;
+      font-family: $font-primary !important;
       
       @media (max-width: 576px) {
         font-size: 13px;
@@ -1799,6 +1973,7 @@ h1, h2, h3, h4,
       letter-spacing: 2px;
       text-transform: uppercase;
       font-weight: 600;
+      font-family: $font-primary !important;
       
       @media (max-width: 576px) {
         font-size: 13px;
@@ -1813,6 +1988,7 @@ h1, h2, h3, h4,
       transition: color 0.3s;
       font-weight: 300;
       text-decoration: none;
+      font-family: $font-primary !important;
       
       @media (max-width: 576px) {
         font-size: 13px;
@@ -1836,6 +2012,7 @@ h1, h2, h3, h4,
         font-size: 13px !important;
         color: rgba(255, 255, 255, 0.6) !important;
         line-height: 1.5;
+        font-family: $font-primary !important;
         
         @media (max-width: 576px) {
           font-size: 12px !important;
@@ -1863,6 +2040,7 @@ h1, h2, h3, h4,
         color: rgba(255, 255, 255, 0.4) !important;
         text-decoration: none;
         transition: color 0.3s ease;
+        font-family: $font-primary !important;
         
         &:hover {
           color: $gold !important;
@@ -1872,6 +2050,7 @@ h1, h2, h3, h4,
       span {
         color: rgba(255, 255, 255, 0.2);
         font-size: 12px;
+        font-family: $font-primary !important;
       }
     }
   }
@@ -1885,6 +2064,7 @@ h1, h2, h3, h4,
     font-size: 12px;
     letter-spacing: 0.5px;
     font-weight: 300;
+    font-family: $font-primary !important;
     
     @media (max-width: 500px) {
       flex-direction: column;
@@ -1897,7 +2077,7 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// WHATSAPP FLOAT
+// WHATSAPP FLOAT - MATCHING HOME PAGE
 // =========================
 ion-fab {
   position: fixed !important;
