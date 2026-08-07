@@ -9,12 +9,10 @@
         <span class="brand__tagline">The Ideal Accommodation Haven</span>
       </a>
 
-      <!-- Hamburger Button -->
       <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
         <ion-icon name="menu-outline"></ion-icon>
       </button>
 
-      <!-- Desktop Navigation -->
       <nav class="nav" aria-label="Main">
         <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="nav__link">Home</a>
         <a routerLink="/about" routerLinkActive="is-active" class="nav__link">About</a>
@@ -26,7 +24,6 @@
         <a routerLink="/contact" routerLinkActive="is-active" class="nav__link">Contact</a>
       </nav>
 
-      <!-- Desktop WhatsApp Button -->
       <a class="btn-whatsapp desktop-only" (click)="goToBookingPage()">
         <ion-icon name="logo-whatsapp"></ion-icon>
         <span class="btn-text">Book on WhatsApp</span>
@@ -96,7 +93,7 @@
 <!-- ============================================= -->
 <ion-content [fullscreen]="true">
   
-  <!-- ================= HERO / PAGE HEADER ================= -->
+  <!-- ================= PAGE HEADER ================= -->
   <section class="page-header">
     <div class="page-header-bg"></div>
     <div class="page-header-overlay"></div>
@@ -264,12 +261,17 @@
           <a href="#">🎒 Halford Backpackers</a>
         </div>
         <div class="footer-column animate-fade-up">
-          <h4>Book Your Stay</h4>
-          <p>Ready for your Durban getaway?</p>
-          <a routerLink="/booking" class="btn-gold">Book Now</a>
-          <div class="footer-contact">
+          <h4>Contact Info</h4>
+          <div class="footer-contact-details">
+            <p><ion-icon name="location-outline"></ion-icon> 57 Vause Rd, Musgrave, Berea, 4001</p>
             <p><ion-icon name="call-outline"></ion-icon> +27 84 900 9821</p>
+            <p><ion-icon name="restaurant-outline"></ion-icon> Mon - Sun, 04 pm - 11 pm</p>
             <p><ion-icon name="mail-outline"></ion-icon> info@staytiah.com</p>
+          </div>
+          <div class="footer-legal">
+            <a href="#">Legal Notice</a>
+            <span>|</span>
+            <a href="#">Privacy for bookings</a>
           </div>
         </div>
       </div>
