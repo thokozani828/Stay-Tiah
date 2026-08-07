@@ -62,25 +62,61 @@
 }
 
 // ============================================================
-// ✅ GENTLE SCROLLING FIX - WON'T BREAK PAGES
+// ✅ FIXED: SCROLLING FOR ALL PAGES
 // ============================================================
 
-// Only apply minimal scrolling fixes
-ion-content {
-  --offset-top: 0px;
-  --offset-bottom: 0px;
-}
-
-// Fix for body - minimal and safe
+// ✅ REMOVED the overflow: hidden that was breaking everything
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  overflow: hidden; // Ionic handles scrolling internally
+  height: auto !important; // Changed from 100% to auto
+  min-height: 100vh !important; // Ensure minimum height
+  overflow-y: auto !important; // Allow vertical scrolling
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  position: relative !important;
 }
 
 ion-app {
-  height: 100%;
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow: visible !important;
+}
+
+// ✅ FIX: Make ion-content scrollable on ALL pages
+ion-content {
+  --offset-top: 0px !important;
+  --padding-top: 0 !important;
+  --overflow: auto !important;
+  overflow-y: auto !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  display: block !important;
+  position: relative !important;
+  
+  &::part(scroll) {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overflow-x: hidden !important;
+    height: 100% !important;
+    min-height: 100vh !important;
+    display: block !important;
+  }
+}
+
+// ✅ Ensure Ionic pages can scroll
+.ion-page {
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow: visible !important;
+  background: var(--ion-background-color, #ffffff);
+}
+
+// ✅ Fix for router outlet
+ion-router-outlet {
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow: visible !important;
 }
 
 // ============================================================
@@ -113,13 +149,24 @@ ion-app {
 // ✅ HIDE SCROLLBAR - Optional
 // ============================================================
 .no-scrollbar {
+  --scrollbar-width: 0px !important;
+  
   &::-webkit-scrollbar {
-    display: none;
-    width: 0;
-    background: transparent;
+    display: none !important;
+    width: 0 !important;
+    background: transparent !important;
   }
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  
+  &::-webkit-scrollbar-thumb {
+    display: none !important;
+  }
+  
+  &::-webkit-scrollbar-track {
+    display: none !important;
+  }
+  
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
 }
 
 // ============================================================
@@ -231,4 +278,43 @@ ion-fab-button.whatsapp-float {
 // Don't override Ionic's internal styles
 .ion-page {
   background: var(--ion-background-color, #ffffff);
+}
+
+// ============================================================
+// ✅ SAFE AREA FIXES
+// ============================================================
+ion-content {
+  --keyboard-offset: 0px !important;
+  --offset-bottom: 0px !important;
+  --padding-bottom: 0px !important;
+}
+
+// ============================================================
+// ✅ ENSURE FOOTER CONTENT IS VISIBLE
+// ============================================================
+.footer {
+  margin-bottom: 0 !important;
+}
+
+// ============================================================
+// ✅ MEDIA QUERIES FOR RESPONSIVE SCROLLING
+// ============================================================
+@media (max-width: 768px) {
+  ion-content {
+    min-height: 100vh !important;
+  }
+  
+  .ion-page {
+    min-height: 100vh !important;
+  }
+}
+
+@media (max-width: 480px) {
+  ion-content {
+    min-height: 100vh !important;
+  }
+  
+  .ion-page {
+    min-height: 100vh !important;
+  }
 }
