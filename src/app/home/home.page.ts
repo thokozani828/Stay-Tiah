@@ -1,7 +1,7 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, IonContent } from '@ionic/angular';
 import { RouterModule, Router } from '@angular/router';
 
 @Component({
@@ -18,6 +18,11 @@ import { RouterModule, Router } from '@angular/router';
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomePage {
+
+  // ==========================================
+  // FIX: Get a reference to <ion-content> 
+  // ==========================================
+  @ViewChild(IonContent, { static: false }) content!: IonContent;
 
   // Navigation State
   activeTab: string = 'musgrave';
@@ -97,14 +102,28 @@ export class HomePage {
   }
 
   // =====================
-  // SCROLL METHODS
+  // FIXED SCROLL METHODS
   // =====================
 
-  // Scroll to specific section
-  scrollToSection(sectionId: string) {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Scroll to specific section using Ionic's internal engine
+  async scrollToSection(sectionId: string) {
+    // Close mobile nav if it's open
+    this.closeMobileNav();
+
+    const targetElement = document.getElementById(sectionId);
+    
+    if (targetElement && this.content) {
+      // 1. Get Ionic's internal scroll element (Shadow DOM)
+      const scrollEl = await this.content.getScrollElement();
+
+      // 2. Calculate the top position of the target element
+      // We subtract 72px to account for your fixed <ion-header>
+      const headerOffset = 72; 
+      const elementPosition = targetElement.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + scrollEl.scrollTop - headerOffset;
+
+      // 3. Use Ionic's native scrollToPoint method (0px horizontal, Y position, 800ms duration)
+      this.content.scrollToPoint(0, offsetPosition, 800);
     }
   }
 
@@ -158,10 +177,10 @@ export class HomePage {
   }
 
   // =====================
-  // WHATSAPP METHOD (Optional - for other WhatsApp links)
+  // WHATSAPP METHOD
   // =====================
 
-  // Open WhatsApp (keep this if you have other WhatsApp links that should open WhatsApp)
+  // Open WhatsApp
   openWhatsApp() {
     const phone = '27849009821';
     const message = 'Hello stay@tiah, I would like to make a booking enquiry.';

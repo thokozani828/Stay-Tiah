@@ -1,7 +1,6 @@
 // =========================
 // FONTS - CONSISTENT ACROSS PAGE
 // =========================
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
 
 // =========================
 // VARIABLES
@@ -115,27 +114,31 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// HIDE SCROLLBAR
+// CUSTOM SCROLLBAR - ELEGANT GOLD
 // =========================
-.no-scrollbar {
-  --scrollbar-width: 0px;
-  
-  &::-webkit-scrollbar {
-    display: none;
-    width: 0;
-    background: transparent;
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    display: none;
-  }
-  
-  &::-webkit-scrollbar-track {
-    display: none;
-  }
-  
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+::-webkit-scrollbar {
+  width: 8px;              /* Width of the scrollbar */
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;      /* Dark track behind the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background: $gold;        /* Your brand gold color */
+  border-radius: 4px;       /* Rounded edges */
+  border: 2px solid #1a1a1a; /* Adds a small gap around it */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $gold-light;  /* Gets brighter when you hover over it */
+}
+
+/* Firefox support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $gold #1a1a1a;
 }
 
 // =========================
@@ -1754,13 +1757,14 @@ ion-fab {
 }
 
 // =========================
-// ENSURE NO WHITE SPACE AFTER FOOTER
+// ENSURE NO WHITE SPACE AFTER FOOTER & FIX SCROLLBAR
 // =========================
 ion-content {
   --padding-bottom: 0 !important;
   --padding-end: 0 !important;
   --padding-start: 0 !important;
   --padding-top: 0 !important;
+  --offset-top: 0px !important; /* Ensures scrollbar aligns correctly */
 }
 
 .footer {
