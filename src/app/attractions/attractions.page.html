@@ -1,43 +1,45 @@
+<!-- ============================================= -->
+<!-- ✅ HEADER OUTSIDE ION-CONTENT (LIKE ABOUT)    -->
+<!-- ============================================= -->
 <ion-header>
-<header class="site-header">
-  <div class="site-header__inner">
-    <a href="/" class="brand">
-      <span class="brand__name">TIAH</span>
-      <span class="brand__tagline">The Ideal Accommodation Haven</span>
-    </a>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="/" class="brand">
+        <span class="brand__name">TIAH</span>
+        <span class="brand__tagline">The Ideal Accommodation Haven</span>
+      </a>
 
-    <!-- Hamburger Button -->
-    <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
-      <ion-icon name="menu-outline"></ion-icon>
-    </button>
+      <!-- Hamburger Button -->
+      <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
 
-    <!-- Desktop Navigation -->
-    <nav class="nav" aria-label="Main">
-      <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="nav__link">Home</a>
-      <a routerLink="/about" routerLinkActive="is-active" class="nav__link">About</a>
-      <a routerLink="/rooms" routerLinkActive="is-active" class="nav__link">Rooms</a>
-      <a routerLink="/gallery" routerLinkActive="is-active" class="nav__link">Gallery</a>
-      <a routerLink="/rates" routerLinkActive="is-active" class="nav__link">Rates</a>
-      <a routerLink="/attractions" routerLinkActive="is-active" class="nav__link">Attractions</a>
-      <a routerLink="/faq" routerLinkActive="is-active" class="nav__link">FAQ</a>
-      <a routerLink="/contact" routerLinkActive="is-active" class="nav__link">Contact</a>
-    </nav>
+      <!-- Desktop Navigation -->
+      <nav class="nav" aria-label="Main">
+        <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="nav__link">Home</a>
+        <a routerLink="/about" routerLinkActive="is-active" class="nav__link">About</a>
+        <a routerLink="/rooms" routerLinkActive="is-active" class="nav__link">Rooms</a>
+        <a routerLink="/gallery" routerLinkActive="is-active" class="nav__link">Gallery</a>
+        <a routerLink="/rates" routerLinkActive="is-active" class="nav__link">Rates</a>
+        <a routerLink="/attractions" routerLinkActive="is-active" class="nav__link">Attractions</a>
+        <a routerLink="/faq" routerLinkActive="is-active" class="nav__link">FAQ</a>
+        <a routerLink="/contact" routerLinkActive="is-active" class="nav__link">Contact</a>
+      </nav>
 
-    <!-- Desktop WhatsApp Button -->
-    <a
-      class="btn-whatsapp desktop-only"
-      (click)="goToBookingPage()"
-    >
-      <ion-icon name="logo-whatsapp"></ion-icon>
-      <span class="btn-text">Book on WhatsApp</span>
-    </a>
-  </div>
-</header>
+      <!-- Desktop WhatsApp Button -->
+      <a class="btn-whatsapp desktop-only" (click)="goToBookingPage()">
+        <ion-icon name="logo-whatsapp"></ion-icon>
+        <span class="btn-text">Book on WhatsApp</span>
+      </a>
+    </div>
+  </header>
+</ion-header>
 
-<!-- Mobile Navigation Overlay -->
+<!-- ============================================= -->
+<!-- ✅ MOBILE NAV OUTSIDE ION-CONTENT (LIKE ABOUT) -->
+<!-- ============================================= -->
 <div class="nav-overlay" [class.active]="mobileNavOpen" (click)="closeMobileNav()"></div>
 
-<!-- Mobile Navigation Drawer -->
 <div class="mobile-nav" [class.active]="mobileNavOpen">
   <div class="mobile-nav-header">
     <button class="mobile-nav-close" (click)="closeMobileNav()">
@@ -52,36 +54,28 @@
   
   <div class="mobile-nav-links">
     <a routerLink="/home" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">🏠</span>
-      Home
+      <span class="link-icon">🏠</span> Home
     </a>
     <a routerLink="/about" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">ℹ️</span>
-      About
+      <span class="link-icon">ℹ️</span> About
     </a>
     <a routerLink="/rooms" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">🛏️</span>
-      Rooms
+      <span class="link-icon">🛏️</span> Rooms
     </a>
     <a routerLink="/gallery" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">🖼️</span>
-      Gallery
+      <span class="link-icon">🖼️</span> Gallery
     </a>
     <a routerLink="/rates" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">💰</span>
-      Rates
+      <span class="link-icon">💰</span> Rates
     </a>
     <a routerLink="/attractions" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">📍</span>
-      Attractions
+      <span class="link-icon">📍</span> Attractions
     </a>
     <a routerLink="/faq" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">❓</span>
-      FAQ
+      <span class="link-icon">❓</span> FAQ
     </a>
     <a routerLink="/contact" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">📧</span>
-      Contact
+      <span class="link-icon">📧</span> Contact
     </a>
     
     <div class="mobile-divider"></div>
@@ -97,9 +91,12 @@
   </div>
 </div>
 
-<ion-content [fullscreen]="true" class="no-scrollbar">
+<!-- ============================================= -->
+<!-- ✅ ION-CONTENT WITH FULL SCROLLING (LIKE ABOUT) -->
+<!-- ============================================= -->
+<ion-content [fullscreen]="true">
   
-  <!-- ================= HERO / PAGE HEADER ================= -->
+  <!-- ================= PAGE HEADER ================= -->
   <section class="page-header">
     <div class="page-header-bg"></div>
     <div class="page-header-overlay"></div>
@@ -237,7 +234,7 @@
     </div>
   </section>
 
-  <!-- ================= BOOK YOUR STAY CTA ================= -->
+  <!-- ================= CTA SECTION ================= -->
   <section class="cta-section">
     <div class="container">
       <div class="cta-content animate-fade-up">
@@ -291,12 +288,17 @@
           <a href="#">Halford Backpackers</a>
         </div>
         <div class="footer-column animate-fade-up">
-          <h4>Book Your Stay</h4>
-          <p>Ready for your Durban getaway?</p>
-          <a routerLink="/booking" class="btn-gold">Book Now</a>
-          <div class="footer-contact">
+          <h4>Contact Info</h4>
+          <div class="footer-contact-details">
+            <p><ion-icon name="location-outline"></ion-icon> 57 Vause Rd, Musgrave, Berea, 4001</p>
             <p><ion-icon name="call-outline"></ion-icon> +27 84 900 9821</p>
+            <p><ion-icon name="restaurant-outline"></ion-icon> Mon - Sun, 04 pm - 11 pm</p>
             <p><ion-icon name="mail-outline"></ion-icon> info@staytiah.com</p>
+          </div>
+          <div class="footer-legal">
+            <a href="#">Legal Notice</a>
+            <span>|</span>
+            <a href="#">Privacy for bookings</a>
           </div>
         </div>
       </div>
