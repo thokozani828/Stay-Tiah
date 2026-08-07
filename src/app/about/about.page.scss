@@ -1,6 +1,6 @@
-// =========================
-// ✅ PAGE SCROLLING FIX - MUST BE AT TOP
-// =========================
+// =============================================
+// ✅ PAGE SCROLLING FIX - MATCHING HOME PAGE
+// =============================================
 
 // Ensure this page scrolls properly
 ion-content {
@@ -20,6 +20,7 @@ ion-content {
   }
 }
 
+// Fix body and html scrolling
 html, body {
   height: auto !important;
   min-height: 100vh;
@@ -39,9 +40,9 @@ ion-app {
   min-height: 100vh;
 }
 
-// =========================
+// =============================================
 // VARIABLES - MATCHING HOME PAGE
-// =========================
+// =============================================
 $gold: #c9a84c;
 $gold-light: #dbb95c;
 $gold-dark: #b8943a;
@@ -59,9 +60,9 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 $header-height-desktop: 72px;
 $header-height-mobile: 56px;
 
-// =========================
+// =============================================
 // GLOBAL FONT RESET
-// =========================
+// =============================================
 * {
   font-family: $font-primary !important;
   box-sizing: border-box;
@@ -84,9 +85,9 @@ h1, h2, h3, h4,
   font-family: $font-serif !important;
 }
 
-// =========================
+// =============================================
 // CONTAINER
-// =========================
+// =============================================
 .container {
   max-width: 1180px;
   margin: 0 auto;
@@ -97,9 +98,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // ANIMATIONS - MATCHING HOME PAGE
-// =========================
+// =============================================
 .animate-fade-up {
   opacity: 0;
   animation: fadeUp 0.8s ease forwards;
@@ -156,9 +157,9 @@ h1, h2, h3, h4,
   100% { transform: scale(1.5); opacity: 0; }
 }
 
-// =========================
+// =============================================
 // HEADER / NAVBAR - EXACTLY LIKE HOME PAGE
-// =========================
+// =============================================
 .site-header {
   background: rgba(10, 10, 10, 0.95);
   backdrop-filter: blur(20px);
@@ -256,9 +257,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // DESKTOP NAVIGATION
-// =========================
+// =============================================
 .nav {
   display: flex;
   flex-wrap: nowrap;
@@ -324,9 +325,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // WHATSAPP BUTTON
-// =========================
+// =============================================
 .btn-whatsapp {
   background: linear-gradient(135deg, #25D366, #1da851);
   color: #ffffff;
@@ -393,9 +394,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // HAMBURGER BUTTON
-// =========================
+// =============================================
 .hamburger-btn {
   display: none;
   background: transparent;
@@ -437,9 +438,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // MOBILE NAV OVERLAY & DRAWER
-// =========================
+// =============================================
 .nav-overlay {
   display: none;
   position: fixed;
@@ -663,9 +664,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // RESPONSIVE OVERRIDES FOR NAVBAR
-// =========================
+// =============================================
 @media (max-width: 992px) {
   .hamburger-btn {
     display: flex !important;
@@ -708,9 +709,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // DESKTOP OVERRIDES
-// =========================
+// =============================================
 @media (min-width: 993px) {
   .hamburger-btn {
     display: none !important;
@@ -725,12 +726,12 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
-// PAGE HEADER - MATCHING HOME PAGE HERO
-// =========================
+// =============================================
+// ✅ FIXED: PAGE HEADER - AUTO HEIGHT (LIKE HOME)
+// =============================================
 .page-header {
-  min-height: 50vh;
-  height: 50vh;
+  min-height: 40vh;
+  height: auto;  // Changed from fixed height
   position: relative;
   display: flex;
   align-items: center;
@@ -739,16 +740,17 @@ h1, h2, h3, h4,
   overflow: hidden;
   margin-top: 0;
   width: 100%;
+  padding: 40px 0;
   background: #1a1a2e;
   
   @media (max-width: 768px) {
-    min-height: 40vh;
-    height: 40vh;
+    min-height: 35vh;
+    padding: 30px 0;
   }
   
   @media (max-width: 480px) {
-    min-height: 35vh;
-    height: 35vh;
+    min-height: 30vh;
+    padding: 20px 0;
   }
   
   .page-header-bg {
@@ -776,7 +778,6 @@ h1, h2, h3, h4,
     position: relative;
     z-index: 2;
     width: 100%;
-    padding: 40px 20px;
     
     .page-header-text {
       max-width: 700px;
@@ -834,9 +835,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // SECTION HEADERS
-// =========================
+// =============================================
 .section-header {
   max-width: 700px;
   margin: 0 auto 50px;
@@ -899,9 +900,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // BUTTONS - MATCHING HOME PAGE
-// =========================
+// =============================================
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -973,9 +974,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // ABOUT INTRO SECTION
-// =========================
+// =============================================
 .about-intro {
   padding: 80px 0;
   background: $white;
@@ -1111,9 +1112,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // WHY CHOOSE US
-// =========================
+// =============================================
 .why-choose-us {
   padding: 80px 0;
   background: $off-white;
@@ -1204,9 +1205,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // ACCOMMODATION OPTIONS
-// =========================
+// =============================================
 .accommodation-options {
   padding: 80px 0;
   background: $white;
@@ -1319,9 +1320,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // LOCATIONS SECTION
-// =========================
+// =============================================
 .locations-section {
   padding: 80px 0;
   background: $off-white;
@@ -1488,9 +1489,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // AMENITIES SECTION
-// =========================
+// =============================================
 .amenities-section {
   padding: 80px 0;
   background: $white;
@@ -1554,9 +1555,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // TESTIMONIALS SECTION
-// =========================
+// =============================================
 .testimonials-section {
   padding: 80px 0;
   background: $off-white;
@@ -1662,9 +1663,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // CTA SECTION
-// =========================
+// =============================================
 .cta-section {
   padding: 80px 0;
   background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
@@ -1708,9 +1709,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // FOOTER
-// =========================
+// =============================================
 .footer {
   position: relative;
   color: white;
@@ -1955,9 +1956,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
+// =============================================
 // WHATSAPP FLOAT - MATCHING HOME PAGE
-// =========================
+// =============================================
 ion-fab {
   position: fixed !important;
   bottom: 20px !important;
@@ -1989,9 +1990,9 @@ ion-fab-button.whatsapp-float {
   }
 }
 
-// =========================
+// =============================================
 // ENSURE NO WHITE SPACE AFTER FOOTER
-// =========================
+// =============================================
 ion-content {
   --padding-bottom: 0 !important;
   --padding-end: 0 !important;
@@ -2004,7 +2005,7 @@ ion-content {
 }
 
 // ============================================================
-// ✅ SHOW GOLD SCROLLBAR - LIKE HOME PAGE
+// ✅ GOLD SCROLLBAR - MATCHING HOME PAGE
 // ============================================================
 
 ion-content {
@@ -2033,9 +2034,9 @@ ion-content {
   scrollbar-color: #c9a84c #f0f0f0 !important;
 }
 
-// =========================
+// =============================================
 // RESPONSIVE OVERRIDES
-// =========================
+// =============================================
 @media (max-width: 768px) {
   .about-intro { padding: 40px 0; }
   .why-choose-us { padding: 40px 0; }
