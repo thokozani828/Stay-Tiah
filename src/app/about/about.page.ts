@@ -32,19 +32,16 @@ export class AboutPage implements OnInit, OnDestroy {
 
   constructor(private router: Router) {}
 
-  ngOnInit() {
-    // Any initialization
-  }
+  ngOnInit() {}
 
   // =============================================
-  // ✅ FIXED: Mobile Navigation - Same as Home Page
+  // ✅ Mobile Navigation - Same as Home Page
   // =============================================
   
   toggleMobileNav(): void {
     this.mobileNavOpen = !this.mobileNavOpen;
     
     if (this.mobileNavOpen) {
-      // Store original overflow and prevent body scroll
       this.originalOverflow = document.body.style.overflow || '';
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
@@ -89,7 +86,7 @@ export class AboutPage implements OnInit, OnDestroy {
   }
 
   // =============================================
-  // ✅ Clean up on destroy - Same as Home Page
+  // ✅ Clean up on destroy
   // =============================================
 
   ngOnDestroy(): void {
