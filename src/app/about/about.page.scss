@@ -2,17 +2,25 @@
 // ✅ PAGE SCROLLING FIX - MATCHING HOME PAGE
 // =============================================
 
+// Force scrollbar visibility
+:host {
+  display: block !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  overflow-y: scroll !important;
+}
+
 // Ensure this page scrolls properly
 ion-content {
   --offset-top: 0px !important;
   --padding-top: 0 !important;
-  --overflow: auto !important;
-  overflow-y: auto !important;
+  --overflow: scroll !important;
+  overflow-y: scroll !important;
   height: 100% !important;
   min-height: 100vh !important;
   
   &::part(scroll) {
-    overflow-y: auto !important;
+    overflow-y: scroll !important;
     -webkit-overflow-scrolling: touch !important;
     overflow-x: hidden !important;
     height: 100% !important;
@@ -2005,33 +2013,82 @@ ion-content {
 }
 
 // ============================================================
-// ✅ GOLD SCROLLBAR - MATCHING HOME PAGE
+// ✅ GOLD SCROLLBAR - VISIBLE AND STYLED
 // ============================================================
 
+// Make scrollbar visible on the page
 ion-content {
+  // Force scrollbar to be visible
+  --overflow: scroll !important;
+  overflow-y: scroll !important;
+  
   // WebKit browsers (Chrome, Safari, Edge)
   &::-webkit-scrollbar {
-    width: 6px !important;
-    height: 6px !important;
+    width: 8px !important;
+    height: 8px !important;
+    display: block !important;
   }
   
   &::-webkit-scrollbar-track {
-    background: #f0f0f0 !important;
+    background: #1a1a1a !important;
     border-radius: 4px !important;
+    border: 1px solid rgba(201, 168, 76, 0.1) !important;
   }
   
   &::-webkit-scrollbar-thumb {
-    background: #c9a84c !important;
+    background: linear-gradient(180deg, #c9a84c, #b8943a) !important;
     border-radius: 4px !important;
+    border: 2px solid #1a1a1a !important;
+    min-height: 40px !important;
+    transition: all 0.3s ease !important;
   }
   
   &::-webkit-scrollbar-thumb:hover {
-    background: #b8943a !important;
+    background: linear-gradient(180deg, #dbb95c, #c9a84c) !important;
+    box-shadow: 0 0 15px rgba(201, 168, 76, 0.3) !important;
+  }
+  
+  &::-webkit-scrollbar-corner {
+    background: #1a1a1a !important;
   }
   
   // Firefox
   scrollbar-width: thin !important;
-  scrollbar-color: #c9a84c #f0f0f0 !important;
+  scrollbar-color: #c9a84c #1a1a1a !important;
+}
+
+// Global scrollbar (fallback)
+::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+  display: block !important;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a !important;
+  border-radius: 4px !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #c9a84c, #b8943a) !important;
+  border-radius: 4px !important;
+  border: 2px solid #1a1a1a !important;
+  min-height: 40px !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #dbb95c, #c9a84c) !important;
+  box-shadow: 0 0 15px rgba(201, 168, 76, 0.3) !important;
+}
+
+::-webkit-scrollbar-corner {
+  background: #1a1a1a !important;
+}
+
+// Firefox
+* {
+  scrollbar-width: thin !important;
+  scrollbar-color: #c9a84c #1a1a1a !important;
 }
 
 // =============================================
@@ -2072,21 +2129,21 @@ ion-content {
   display: block !important;
   height: 100% !important;
   min-height: 100vh !important;
-  overflow-y: auto !important;
+  overflow-y: scroll !important;
 }
 
 // Override Ionic's production contain property
 ion-content {
   contain: none !important;
-  --overflow: auto !important;
-  overflow-y: auto !important;
+  --overflow: scroll !important;
+  overflow-y: scroll !important;
   height: 100% !important;
   min-height: 100vh !important;
   display: block !important;
   position: relative !important;
   
   &::part(scroll) {
-    overflow-y: auto !important;
+    overflow-y: scroll !important;
     -webkit-overflow-scrolling: touch !important;
     height: 100% !important;
     min-height: 100vh !important;
