@@ -2,7 +2,6 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule, Router } from '@angular/router';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-about',
@@ -18,15 +17,12 @@ import { Location } from '@angular/common';
 })
 export class AboutPage {
 
-  // Add this property for mobile navigation
+  // Mobile navigation state
   mobileNavOpen: boolean = false;
 
-  // YOUR IMAGES - Update these paths to match your image locations
-  
-  // About Intro Image
+  // Image paths
   aboutImage: string = 'assets/images/ChatGPT Image Jul 29, 2026, 08_23_26 AM.png';
   
-  // Location Images - Replace these with your PC images
   locationImages: any = {
     oceanic: 'assets/images/Durban Oceanic Apartment 82B/4.jpg',
     laTiah: 'assets/images/La Tiah One, Durban/5.jpg',
@@ -34,10 +30,7 @@ export class AboutPage {
     halford: 'assets/images/Halford Backpackers, Durban/1.jpg'
   };
 
-  constructor(
-    private router: Router,
-    private location: Location
-  ) {}
+  constructor(private router: Router) {}
 
   // Mobile navigation methods
   toggleMobileNav(): void {
@@ -48,55 +41,44 @@ export class AboutPage {
     this.mobileNavOpen = false;
   }
 
-  // Go back method
-  goBack() {
-    this.location.back();
-  }
-
-  // Navigation functions
-  goToHome() {
+  // Navigation methods
+  goToHome(): void {
     this.router.navigate(['/home']);
   }
 
-  goToAbout() {
+  goToAbout(): void {
     this.router.navigate(['/about']);
   }
 
-  goToRooms() {
+  goToRooms(): void {
     this.router.navigate(['/rooms']);
   }
 
-  goToAccommodation() {
-    this.router.navigate(['/rooms']);
-  }
-
-  goToGallery() {
+  goToGallery(): void {
     this.router.navigate(['/gallery']);
   }
 
-  goToRates() {
+  goToRates(): void {
     this.router.navigate(['/rates']);
   }
 
-  goToAttractions() {
+  goToAttractions(): void {
     this.router.navigate(['/attractions']);
   }
 
-  goToFaq() {
+  goToFaq(): void {
     this.router.navigate(['/faq']);
   }
 
-  goToContact() {
+  goToContact(): void {
     this.router.navigate(['/contact']);
   }
 
-  // Booking navigation
-  goToBooking() {
+  goToBooking(): void {
     this.router.navigate(['/booking']);
   }
 
-  // Open WhatsApp
-  openWhatsApp() {
+  openWhatsApp(): void {
     const phone = '27791234567';
     const message = 'Hello stay@tiah, I would like to make a booking enquiry.';
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
