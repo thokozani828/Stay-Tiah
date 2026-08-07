@@ -1,56 +1,14 @@
 // =============================================
-// ✅ PAGE SCROLLING FIX - MATCHING HOME PAGE
+// ABOUT PAGE - MATCHING ROOMS PAGE STYLES
 // =============================================
 
-// Force scrollbar visibility
-:host {
-  display: block !important;
-  height: 100% !important;
-  min-height: 100vh !important;
-  overflow-y: scroll !important;
-}
+// =========================
+// FONTS - CONSISTENT ACROSS PAGE
+// =========================
 
-// Ensure this page scrolls properly
-ion-content {
-  --offset-top: 0px !important;
-  --padding-top: 0 !important;
-  --overflow: scroll !important;
-  overflow-y: scroll !important;
-  height: 100% !important;
-  min-height: 100vh !important;
-  
-  &::part(scroll) {
-    overflow-y: scroll !important;
-    -webkit-overflow-scrolling: touch !important;
-    overflow-x: hidden !important;
-    height: 100% !important;
-    min-height: 100vh !important;
-  }
-}
-
-// Fix body and html scrolling
-html, body {
-  height: auto !important;
-  min-height: 100vh;
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-  position: relative !important;
-  -webkit-overflow-scrolling: touch !important;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-}
-
-ion-app {
-  height: auto !important;
-  min-height: 100vh;
-}
-
-// =============================================
-// VARIABLES - MATCHING HOME PAGE
-// =============================================
+// =========================
+// VARIABLES
+// =========================
 $gold: #c9a84c;
 $gold-light: #dbb95c;
 $gold-dark: #b8943a;
@@ -68,9 +26,9 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 $header-height-desktop: 72px;
 $header-height-mobile: 56px;
 
-// =============================================
+// =========================
 // GLOBAL FONT RESET
-// =============================================
+// =========================
 * {
   font-family: $font-primary !important;
   box-sizing: border-box;
@@ -93,9 +51,9 @@ h1, h2, h3, h4,
   font-family: $font-serif !important;
 }
 
-// =============================================
+// =========================
 // CONTAINER
-// =============================================
+// =========================
 .container {
   max-width: 1180px;
   margin: 0 auto;
@@ -106,9 +64,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =============================================
-// ANIMATIONS - MATCHING HOME PAGE
-// =============================================
+// =========================
+// ANIMATIONS
+// =========================
 .animate-fade-up {
   opacity: 0;
   animation: fadeUp 0.8s ease forwards;
@@ -164,10 +122,38 @@ h1, h2, h3, h4,
   0% { transform: scale(1); opacity: 1; }
   100% { transform: scale(1.5); opacity: 0; }
 }
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-// =============================================
-// HEADER / NAVBAR - EXACTLY LIKE HOME PAGE
-// =============================================
+// =========================
+// HIDE SCROLLBAR
+// =========================
+.no-scrollbar {
+  --scrollbar-width: 0px;
+  
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    display: none;
+  }
+  
+  &::-webkit-scrollbar-track {
+    display: none;
+  }
+  
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+// =========================
+// HEADER / NAVBAR - EXACTLY LIKE ORIGINAL
+// =========================
 .site-header {
   background: rgba(10, 10, 10, 0.95);
   backdrop-filter: blur(20px);
@@ -212,6 +198,7 @@ h1, h2, h3, h4,
   }
 }
 
+// Brand
 .brand {
   text-decoration: none;
   color: #fff;
@@ -265,9 +252,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =============================================
+// =========================
 // DESKTOP NAVIGATION
-// =============================================
+// =========================
 .nav {
   display: flex;
   flex-wrap: nowrap;
@@ -294,7 +281,6 @@ h1, h2, h3, h4,
   position: relative;
   border-radius: 8px;
   letter-spacing: 0.3px;
-  cursor: pointer;
   
   @media (max-width: 1200px) {
     font-size: 12px;
@@ -333,9 +319,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =============================================
+// =========================
 // WHATSAPP BUTTON
-// =============================================
+// =========================
 .btn-whatsapp {
   background: linear-gradient(135deg, #25D366, #1da851);
   color: #ffffff;
@@ -402,9 +388,11 @@ h1, h2, h3, h4,
   }
 }
 
-// =============================================
-// HAMBURGER BUTTON
-// =============================================
+// =========================
+// MOBILE NAVIGATION - CLEAN DESIGN
+// =========================
+
+// Hamburger Button
 .hamburger-btn {
   display: none;
   background: transparent;
@@ -446,9 +434,7 @@ h1, h2, h3, h4,
   }
 }
 
-// =============================================
-// MOBILE NAV OVERLAY & DRAWER
-// =============================================
+// Overlay
 .nav-overlay {
   display: none;
   position: fixed;
@@ -469,6 +455,7 @@ h1, h2, h3, h4,
   }
 }
 
+// Mobile Navigation Drawer - Clean
 .mobile-nav {
   position: fixed;
   top: 0;
@@ -493,6 +480,7 @@ h1, h2, h3, h4,
     right: 0;
   }
   
+  // Close Button
   .mobile-nav-header {
     padding: 16px 20px 8px;
     display: flex;
@@ -525,6 +513,7 @@ h1, h2, h3, h4,
     }
   }
   
+  // Brand
   .mobile-nav-brand {
     padding: 0 24px 24px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
@@ -553,6 +542,7 @@ h1, h2, h3, h4,
     }
   }
   
+  // Navigation Links
   .mobile-nav-links {
     padding: 16px 16px 0;
     flex: 1;
@@ -655,6 +645,7 @@ h1, h2, h3, h4,
     }
   }
   
+  // Footer
   .mobile-nav-footer {
     padding: 16px 24px 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.04);
@@ -672,9 +663,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =============================================
+// =========================
 // RESPONSIVE OVERRIDES FOR NAVBAR
-// =============================================
+// =========================
 @media (max-width: 992px) {
   .hamburger-btn {
     display: flex !important;
@@ -717,9 +708,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =============================================
-// DESKTOP OVERRIDES
-// =============================================
+// =========================
+// DESKTOP OVERRIDES (Hide mobile elements)
+// =========================
 @media (min-width: 993px) {
   .hamburger-btn {
     display: none !important;
@@ -734,9 +725,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =============================================
-// ✅ FIXED: PAGE HEADER - AUTO HEIGHT (LIKE HOME)
-// =============================================
+// =========================
+// PAGE HEADER WITH IMAGE
+// =========================
 .page-header {
   min-height: 40vh;
   height: auto;
@@ -821,13 +812,12 @@ h1, h2, h3, h4,
         text-shadow: 0 2px 30px rgba(0,0,0,0.3);
         
         @media (max-width: 576px) {
-          font-size: 28px;
-          margin: 10px 0 12px;
+          font-size: 32px;
         }
       }
       
       .page-subtitle {
-        color: rgba(255,255,255,0.85);
+        color: rgba(255,255,255,0.8);
         font-size: 1.15rem;
         line-height: 1.8;
         font-weight: 300;
@@ -835,156 +825,16 @@ h1, h2, h3, h4,
         margin: 0 auto;
         
         @media (max-width: 576px) {
-          font-size: 0.9rem;
-          line-height: 1.6;
+          font-size: 0.95rem;
         }
       }
     }
   }
 }
 
-// =============================================
-// SECTION HEADERS
-// =============================================
-.section-header {
-  max-width: 700px;
-  margin: 0 auto 50px;
-  padding: 0 20px;
-  text-align: center;
-  
-  @media (max-width: 576px) {
-    margin: 0 auto 30px;
-  }
-  
-  &.center {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-  }
-}
-
-.eyebrow {
-  color: $gold;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  display: block;
-  font-family: $font-primary !important;
-  
-  @media (max-width: 576px) {
-    font-size: 10px;
-    letter-spacing: 3px;
-  }
-}
-
-.section-title {
-  font-family: $font-serif !important;
-  font-size: clamp(28px, 4.5vw, 52px);
-  line-height: 1.1;
-  margin: 10px 0 12px;
-  color: $black;
-  
-  @media (max-width: 576px) {
-    font-size: 26px;
-  }
-}
-
-.section-subtitle {
-  color: $grey;
-  font-size: 16px;
-  line-height: 1.8;
-  margin-top: 8px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  font-weight: 300;
-  font-family: $font-primary !important;
-  
-  @media (max-width: 576px) {
-    font-size: 14px;
-    line-height: 1.6;
-  }
-}
-
-// =============================================
-// BUTTONS - MATCHING HOME PAGE
-// =============================================
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: linear-gradient(135deg, $gold, $gold-dark);
-  color: $black;
-  font-weight: 600;
-  padding: 14px 32px;
-  border-radius: 50px;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 25px rgba(201, 168, 76, 0.25);
-  font-family: $font-primary !important;
-  
-  @media (max-width: 576px) {
-    padding: 12px 24px;
-    font-size: 13px;
-    width: 100%;
-    justify-content: center;
-  }
-  
-  ion-icon {
-    font-size: 18px;
-    
-    @media (max-width: 576px) {
-      font-size: 16px;
-    }
-  }
-  
-  &:hover {
-    background: linear-gradient(135deg, $gold-light, $gold);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 40px rgba(201, 168, 76, 0.4);
-  }
-}
-
-.btn-secondary-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: transparent;
-  color: $white;
-  font-weight: 500;
-  padding: 14px 32px;
-  border-radius: 50px;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  cursor: pointer;
-  font-family: $font-primary !important;
-  
-  @media (max-width: 576px) {
-    padding: 12px 24px;
-    font-size: 13px;
-    width: 100%;
-    justify-content: center;
-  }
-  
-  &:hover {
-    border-color: $white;
-    background: rgba(255, 255, 255, 0.05);
-    transform: translateY(-2px);
-  }
-}
-
-// =============================================
+// =========================
 // ABOUT INTRO SECTION
-// =============================================
+// =========================
 .about-intro {
   padding: 80px 0;
   background: $white;
@@ -1120,9 +970,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =============================================
+// =========================
 // WHY CHOOSE US
-// =============================================
+// =========================
 .why-choose-us {
   padding: 80px 0;
   background: $off-white;
@@ -1213,9 +1063,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =============================================
+// =========================
 // ACCOMMODATION OPTIONS
-// =============================================
+// =========================
 .accommodation-options {
   padding: 80px 0;
   background: $white;
@@ -1328,9 +1178,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =============================================
+// =========================
 // LOCATIONS SECTION
-// =============================================
+// =========================
 .locations-section {
   padding: 80px 0;
   background: $off-white;
@@ -1497,9 +1347,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =============================================
+// =========================
 // AMENITIES SECTION
-// =============================================
+// =========================
 .amenities-section {
   padding: 80px 0;
   background: $white;
@@ -1563,9 +1413,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =============================================
+// =========================
 // TESTIMONIALS SECTION
-// =============================================
+// =========================
 .testimonials-section {
   padding: 80px 0;
   background: $off-white;
@@ -1671,9 +1521,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =============================================
+// =========================
 // CTA SECTION
-// =============================================
+// =========================
 .cta-section {
   padding: 80px 0;
   background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
@@ -1717,9 +1567,187 @@ h1, h2, h3, h4,
   }
 }
 
-// =============================================
+// =========================
+// BUTTONS
+// =========================
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, $gold, $gold-dark);
+  color: $black;
+  font-weight: 600;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 25px rgba(201, 168, 76, 0.25);
+  font-family: $font-primary !important;
+  
+  @media (max-width: 576px) {
+    padding: 12px 24px;
+    font-size: 13px;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  ion-icon {
+    font-size: 18px;
+    
+    @media (max-width: 576px) {
+      font-size: 16px;
+    }
+  }
+  
+  &:hover {
+    background: linear-gradient(135deg, $gold-light, $gold);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 40px rgba(201, 168, 76, 0.4);
+  }
+}
+
+.btn-secondary-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: $white;
+  font-weight: 500;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  font-family: $font-primary !important;
+  
+  @media (max-width: 576px) {
+    padding: 12px 24px;
+    font-size: 13px;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  ion-icon {
+    font-size: 18px;
+    
+    @media (max-width: 576px) {
+      font-size: 16px;
+    }
+  }
+  
+  &:hover {
+    border-color: $white;
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+  }
+}
+
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, $gold, $gold-dark);
+  color: $black;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(201, 168, 76, 0.25);
+  cursor: pointer;
+  border: none;
+  font-family: $font-primary !important;
+  width: fit-content;
+  
+  @media (max-width: 576px) {
+    width: 100%;
+    padding: 12px 20px;
+  }
+  
+  &:hover {
+    background: linear-gradient(135deg, $gold-light, $gold);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 35px rgba(201, 168, 76, 0.4);
+  }
+}
+
+// =========================
+// SECTION HEADERS
+// =========================
+.section-header {
+  max-width: 700px;
+  margin: 0 auto 50px;
+  padding: 0 20px;
+  text-align: center;
+  
+  @media (max-width: 576px) {
+    margin: 0 auto 30px;
+  }
+  
+  &.center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+}
+
+.eyebrow {
+  color: $gold;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: block;
+  font-family: $font-primary !important;
+  
+  @media (max-width: 576px) {
+    font-size: 10px;
+    letter-spacing: 3px;
+  }
+}
+
+.section-title {
+  font-family: $font-serif !important;
+  font-size: clamp(28px, 4.5vw, 52px);
+  line-height: 1.1;
+  margin: 10px 0 12px;
+  color: $black;
+  
+  @media (max-width: 576px) {
+    font-size: 26px;
+  }
+}
+
+.section-subtitle {
+  color: $grey;
+  font-size: 16px;
+  line-height: 1.8;
+  margin-top: 8px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 300;
+  font-family: $font-primary !important;
+  
+  @media (max-width: 576px) {
+    font-size: 14px;
+  }
+}
+
+// =========================
 // FOOTER
-// =============================================
+// =========================
 .footer {
   position: relative;
   color: white;
@@ -1887,58 +1915,24 @@ h1, h2, h3, h4,
       }
     }
     
-    .footer-contact-details {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 12px;
+    .footer-contact {
+      margin-top: 8px;
       
       p {
         display: flex;
         align-items: center;
         gap: 10px;
-        font-size: 13px !important;
-        color: rgba(255, 255, 255, 0.6) !important;
-        line-height: 1.5;
-        font-family: $font-primary !important;
+        color: rgba(255,255,255,0.5);
+        font-size: 13px;
         
         @media (max-width: 576px) {
-          font-size: 12px !important;
+          font-size: 12px;
         }
         
         ion-icon {
           color: $gold;
           font-size: 16px;
-          flex-shrink: 0;
-          min-width: 18px;
         }
-      }
-    }
-    
-    .footer-legal {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-      padding-top: 12px;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      
-      a {
-        font-size: 12px !important;
-        color: rgba(255, 255, 255, 0.4) !important;
-        text-decoration: none;
-        transition: color 0.3s ease;
-        font-family: $font-primary !important;
-        
-        &:hover {
-          color: $gold !important;
-        }
-      }
-      
-      span {
-        color: rgba(255, 255, 255, 0.2);
-        font-size: 12px;
-        font-family: $font-primary !important;
       }
     }
   }
@@ -1964,9 +1958,9 @@ h1, h2, h3, h4,
   }
 }
 
-// =============================================
-// WHATSAPP FLOAT - MATCHING HOME PAGE
-// =============================================
+// =========================
+// WHATSAPP FLOAT
+// =========================
 ion-fab {
   position: fixed !important;
   bottom: 20px !important;
@@ -1998,9 +1992,9 @@ ion-fab-button.whatsapp-float {
   }
 }
 
-// =============================================
+// =========================
 // ENSURE NO WHITE SPACE AFTER FOOTER
-// =============================================
+// =========================
 ion-content {
   --padding-bottom: 0 !important;
   --padding-end: 0 !important;
@@ -2013,115 +2007,7 @@ ion-content {
 }
 
 // ============================================================
-// ✅ GOLD SCROLLBAR - VISIBLE AND STYLED
-// ============================================================
-
-// Make scrollbar visible on the page
-ion-content {
-  // Force scrollbar to be visible
-  --overflow: scroll !important;
-  overflow-y: scroll !important;
-  
-  // WebKit browsers (Chrome, Safari, Edge)
-  &::-webkit-scrollbar {
-    width: 8px !important;
-    height: 8px !important;
-    display: block !important;
-  }
-  
-  &::-webkit-scrollbar-track {
-    background: #1a1a1a !important;
-    border-radius: 4px !important;
-    border: 1px solid rgba(201, 168, 76, 0.1) !important;
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #c9a84c, #b8943a) !important;
-    border-radius: 4px !important;
-    border: 2px solid #1a1a1a !important;
-    min-height: 40px !important;
-    transition: all 0.3s ease !important;
-  }
-  
-  &::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #dbb95c, #c9a84c) !important;
-    box-shadow: 0 0 15px rgba(201, 168, 76, 0.3) !important;
-  }
-  
-  &::-webkit-scrollbar-corner {
-    background: #1a1a1a !important;
-  }
-  
-  // Firefox
-  scrollbar-width: thin !important;
-  scrollbar-color: #c9a84c #1a1a1a !important;
-}
-
-// Global scrollbar (fallback)
-::-webkit-scrollbar {
-  width: 8px !important;
-  height: 8px !important;
-  display: block !important;
-}
-
-::-webkit-scrollbar-track {
-  background: #1a1a1a !important;
-  border-radius: 4px !important;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #c9a84c, #b8943a) !important;
-  border-radius: 4px !important;
-  border: 2px solid #1a1a1a !important;
-  min-height: 40px !important;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #dbb95c, #c9a84c) !important;
-  box-shadow: 0 0 15px rgba(201, 168, 76, 0.3) !important;
-}
-
-::-webkit-scrollbar-corner {
-  background: #1a1a1a !important;
-}
-
-// Firefox
-* {
-  scrollbar-width: thin !important;
-  scrollbar-color: #c9a84c #1a1a1a !important;
-}
-
-// =============================================
-// RESPONSIVE OVERRIDES
-// =============================================
-@media (max-width: 768px) {
-  .about-intro { padding: 40px 0; }
-  .why-choose-us { padding: 40px 0; }
-  .accommodation-options { padding: 40px 0; }
-  .locations-section { padding: 40px 0; }
-  .amenities-section { padding: 40px 0; }
-  .testimonials-section { padding: 40px 0; }
-  .cta-section { padding: 40px 0; }
-}
-
-@media (max-width: 480px) {
-  .about-highlights {
-    grid-template-columns: 1fr;
-  }
-  
-  .cta-content .cta-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .btn-primary, .btn-secondary-cta {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-// ============================================================
-// ✅ CRITICAL: PRODUCTION SCROLL FIX
+// ✅ PRODUCTION SCROLL FIX - ABOUT PAGE (MATCHING ROOMS PAGE)
 // ============================================================
 
 // Force the page to scroll in production
@@ -2129,21 +2015,21 @@ ion-content {
   display: block !important;
   height: 100% !important;
   min-height: 100vh !important;
-  overflow-y: scroll !important;
+  overflow-y: auto !important;
 }
 
 // Override Ionic's production contain property
 ion-content {
   contain: none !important;
-  --overflow: scroll !important;
-  overflow-y: scroll !important;
+  --overflow: auto !important;
+  overflow-y: auto !important;
   height: 100% !important;
   min-height: 100vh !important;
   display: block !important;
   position: relative !important;
   
   &::part(scroll) {
-    overflow-y: scroll !important;
+    overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
     height: 100% !important;
     min-height: 100vh !important;
@@ -2178,9 +2064,7 @@ ion-content {
 }
 
 // Force all content to be visible
-.container,
-.row,
-.col {
+.container {
   height: auto !important;
   min-height: auto !important;
   overflow: visible !important;
@@ -2190,4 +2074,125 @@ ion-content {
 img {
   max-width: 100% !important;
   height: auto !important;
+}
+
+// ============================================================
+// ✅ RESPONSIVE OVERRIDES - MATCHING ROOMS PAGE
+// ============================================================
+@media (max-width: 768px) {
+  .about-intro { padding: 40px 0; }
+  .why-choose-us { padding: 40px 0; }
+  .accommodation-options { padding: 40px 0; }
+  .locations-section { padding: 40px 0; }
+  .amenities-section { padding: 40px 0; }
+  .testimonials-section { padding: 40px 0; }
+  .cta-section { padding: 40px 0; }
+}
+
+@media (max-width: 480px) {
+  .about-highlights {
+    grid-template-columns: 1fr;
+  }
+  
+  .cta-content .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn-primary, .btn-secondary-cta {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+// ============================================================
+// ✅ SCROLLBAR COMPLETELY REMOVED - About Page
+// ============================================================
+
+// Remove scrollbar completely
+:host {
+  ::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+  
+  ::-webkit-scrollbar-track {
+    display: none !important;
+    background: transparent !important;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    display: none !important;
+    background: transparent !important;
+  }
+  
+  ::-webkit-scrollbar-corner {
+    display: none !important;
+    background: transparent !important;
+  }
+  
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+// Remove scrollbar from ion-content
+ion-content {
+  --overflow: auto !important;
+  overflow-y: auto !important;
+  
+  &::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+  
+  &::-webkit-scrollbar-track {
+    display: none !important;
+    background: transparent !important;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    display: none !important;
+    background: transparent !important;
+  }
+  
+  &::-webkit-scrollbar-corner {
+    display: none !important;
+    background: transparent !important;
+  }
+  
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+// Remove scrollbar from all elements
+* {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+// Keep scrolling functional
+:host {
+  display: block !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  overflow-y: auto !important;
+}
+
+ion-content {
+  contain: none !important;
+  --overflow: auto !important;
+  overflow-y: auto !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  
+  &::part(scroll) {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    height: 100% !important;
+    min-height: 100vh !important;
+  }
 }

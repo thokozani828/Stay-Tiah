@@ -246,30 +246,39 @@ ion-fab-button.whatsapp-float {
 }
 
 // ============================================================
-// ✅ CUSTOM SCROLLBAR - Global (Optional)
+// ✅ CUSTOM SCROLLBAR - ELEGANT GOLD DARK (FIXED)
 // ============================================================
+
+// WebKit browsers (Chrome, Safari, Edge)
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px !important;
+  height: 8px !important;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f0f0f0;
+  background: #1a1a1a !important;
+  border-radius: 4px !important;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c9a84c;
-  border-radius: 4px;
+  background: #c9a84c !important;
+  border-radius: 4px !important;
+  border: 2px solid #1a1a1a !important;
+  min-height: 40px !important;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #b8943a;
+  background: #dbb95c !important;
+}
+
+::-webkit-scrollbar-corner {
+  background: #1a1a1a !important;
 }
 
 // Firefox scrollbar
 * {
-  scrollbar-width: thin;
-  scrollbar-color: #c9a84c #f0f0f0;
+  scrollbar-width: thin !important;
+  scrollbar-color: #c9a84c #1a1a1a !important;
 }
 
 // ============================================================
@@ -317,98 +326,4 @@ ion-content {
   .ion-page {
     min-height: 100vh !important;
   }
-}
-
-// ============================================================
-// ✅ CRITICAL: FORCE SCROLL IN PRODUCTION BUILD
-// ============================================================
-
-// Override Ionic's production contain property that locks scrolling
-ion-content {
-  contain: none !important;
-  --overflow: auto !important;
-  overflow-y: auto !important;
-  height: 100% !important;
-  min-height: 100vh !important;
-  display: block !important;
-  position: relative !important;
-  
-  &::part(scroll) {
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    overflow-x: hidden !important;
-    height: 100% !important;
-    min-height: 100vh !important;
-    display: block !important;
-  }
-}
-
-// Force all pages to be scrollable in production
-.ion-page {
-  height: auto !important;
-  min-height: 100vh !important;
-  overflow: visible !important;
-  display: block !important;
-  position: relative !important;
-}
-
-// Fix for router outlet in production
-ion-router-outlet {
-  height: auto !important;
-  min-height: 100vh !important;
-  overflow: visible !important;
-  display: block !important;
-}
-
-// Ensure app container allows scrolling
-ion-app {
-  height: auto !important;
-  min-height: 100vh !important;
-  overflow: visible !important;
-  display: block !important;
-}
-
-// Force body and html to allow scrolling in production
-html, body {
-  height: auto !important;
-  min-height: 100vh !important;
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-  position: relative !important;
-  -webkit-overflow-scrolling: touch !important;
-}
-
-// Ensure all content containers can expand
-.container,
-.page-header,
-.about-intro,
-.why-choose-us,
-.accommodation-options,
-.locations-section,
-.amenities-section,
-.testimonials-section,
-.cta-section {
-  height: auto !important;
-  min-height: auto !important;
-  overflow: visible !important;
-}
-
-// Fix for any hidden overflow in production
-* {
-  overflow: visible !important;
-}
-
-// Only hide overflow on specific elements that need it
-.hero-section,
-.page-header,
-.rates-table-wrapper {
-  overflow: hidden !important;
-}
-
-// Force scrollable content to be visible
-.scroll-y {
-  overflow-y: auto !important;
-  -webkit-overflow-scrolling: touch !important;
-  height: 100% !important;
-  min-height: 100vh !important;
 }

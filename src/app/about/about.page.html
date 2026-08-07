@@ -9,10 +9,12 @@
         <span class="brand__tagline">The Ideal Accommodation Haven</span>
       </a>
 
+      <!-- Hamburger Button - 3 lines -->
       <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
         <ion-icon name="menu-outline"></ion-icon>
       </button>
 
+      <!-- Desktop Navigation -->
       <nav class="nav" aria-label="Main">
         <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="nav__link">Home</a>
         <a routerLink="/about" routerLinkActive="is-active" class="nav__link">About</a>
@@ -24,6 +26,7 @@
         <a routerLink="/contact" routerLinkActive="is-active" class="nav__link">Contact</a>
       </nav>
 
+      <!-- Desktop WhatsApp Button -->
       <a class="btn-whatsapp desktop-only" (click)="goToBooking()">
         <ion-icon name="logo-whatsapp"></ion-icon>
         <span class="btn-text">Book on WhatsApp</span>
@@ -93,7 +96,7 @@
 <!-- ============================================= -->
 <ion-content [fullscreen]="true">
   
-  <!-- PAGE HEADER -->
+  <!-- ================= PAGE HEADER ================= -->
   <section class="page-header">
     <div class="page-header-bg"></div>
     <div class="page-header-overlay"></div>
@@ -108,7 +111,7 @@
     </div>
   </section>
 
-  <!-- ABOUT INTRO -->
+  <!-- ================= ABOUT INTRO ================= -->
   <section class="about-intro">
     <div class="container">
       <div class="about-intro-grid">
@@ -151,7 +154,7 @@
     </div>
   </section>
 
-  <!-- WHY CHOOSE US -->
+  <!-- ================= WHY CHOOSE US ================= -->
   <section class="why-choose-us">
     <div class="container">
       <div class="section-header center animate-fade-up">
@@ -184,7 +187,7 @@
     </div>
   </section>
 
-  <!-- ACCOMMODATION OPTIONS -->
+  <!-- ================= ACCOMMODATION OPTIONS ================= -->
   <section class="accommodation-options">
     <div class="container">
       <div class="section-header center animate-fade-up">
@@ -227,7 +230,7 @@
     </div>
   </section>
 
-  <!-- LOCATIONS -->
+  <!-- ================= LOCATIONS ================= -->
   <section class="locations-section">
     <div class="container">
       <div class="section-header center animate-fade-up">
@@ -311,7 +314,7 @@
     </div>
   </section>
 
-  <!-- AMENITIES -->
+  <!-- ================= AMENITIES ================= -->
   <section class="amenities-section">
     <div class="container">
       <div class="section-header center animate-fade-up">
@@ -332,7 +335,7 @@
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
+  <!-- ================= TESTIMONIALS ================= -->
   <section class="testimonials-section">
     <div class="container">
       <div class="section-header center animate-fade-up">
@@ -390,7 +393,7 @@
     </div>
   </section>
 
-  <!-- CTA -->
+  <!-- ================= CTA ================= -->
   <section class="cta-section">
     <div class="container">
       <div class="cta-content animate-fade-up">
@@ -406,7 +409,7 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- ================= FOOTER ================= -->
   <footer class="footer">
     <div class="footer-overlay"></div>
     <div class="footer-background"></div>

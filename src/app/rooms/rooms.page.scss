@@ -2105,3 +2105,69 @@ img {
   max-width: 100% !important;
   height: auto !important;
 }
+
+// ============================================================
+// ✅ SCROLLBAR COMPLETELY REMOVED - Rooms Page
+// ============================================================
+
+// Remove scrollbar completely - Chrome, Safari, Edge
+:host ::-webkit-scrollbar,
+ion-content ::-webkit-scrollbar,
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+:host ::-webkit-scrollbar-track,
+ion-content ::-webkit-scrollbar-track,
+::-webkit-scrollbar-track {
+  display: none !important;
+  background: transparent !important;
+}
+
+:host ::-webkit-scrollbar-thumb,
+ion-content ::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb {
+  display: none !important;
+  background: transparent !important;
+}
+
+:host ::-webkit-scrollbar-corner,
+ion-content ::-webkit-scrollbar-corner,
+::-webkit-scrollbar-corner {
+  display: none !important;
+  background: transparent !important;
+}
+
+// Firefox - remove scrollbar
+:host,
+ion-content,
+* {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+// Keep scrolling functional
+:host {
+  display: block !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  overflow-y: auto !important;
+}
+
+ion-content {
+  contain: none !important;
+  --overflow: auto !important;
+  overflow-y: auto !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  
+  &::part(scroll) {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    height: 100% !important;
+    min-height: 100vh !important;
+  }
+}
