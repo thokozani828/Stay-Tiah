@@ -24,10 +24,7 @@
     </nav>
 
     <!-- Desktop WhatsApp Button -->
-    <a
-      class="btn-whatsapp desktop-only"
-      (click)="goToBooking()"
-    >
+    <a class="btn-whatsapp desktop-only" (click)="goToBooking()">
       <ion-icon name="logo-whatsapp"></ion-icon>
       <span class="btn-text">Book on WhatsApp</span>
     </a>
@@ -97,7 +94,10 @@
   </div>
 </div>
 
-<ion-content [fullscreen]="true" class="no-scrollbar">
+<!-- ============================================= -->
+<!-- ✅ FIXED: REMOVED fullscreen AND no-scrollbar -->
+<!-- ============================================= -->
+<ion-content>
   
   <!-- ================= HERO / PAGE HEADER ================= -->
   <section class="page-header">

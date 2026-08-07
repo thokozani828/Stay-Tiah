@@ -737,8 +737,8 @@ h1, h2, h3, h4,
 // PAGE HEADER WITH IMAGE
 // =========================
 .page-header {
-  min-height: 50vh;
-  height: 50vh;
+  min-height: 40vh;
+  height: auto;
   position: relative;
   display: flex;
   align-items: center;
@@ -747,11 +747,17 @@ h1, h2, h3, h4,
   overflow: hidden;
   margin-top: 0;
   width: 100%;
+  padding: 40px 0;
   background: #1a1a2e;
   
   @media (max-width: 768px) {
-    min-height: 40vh;
-    height: 40vh;
+    min-height: 35vh;
+    padding: 30px 0;
+  }
+  
+  @media (max-width: 480px) {
+    min-height: 30vh;
+    padding: 20px 0;
   }
   
   .page-header-bg {
@@ -779,7 +785,6 @@ h1, h2, h3, h4,
     position: relative;
     z-index: 2;
     width: 100%;
-    padding: 40px 20px;
     
     .page-header-text {
       max-width: 700px;
@@ -2037,4 +2042,66 @@ ion-content {
     width: 100%;
     justify-content: center;
   }
+}
+
+// ============================================================
+// ✅ PRODUCTION SCROLL FIX - ROOMS PAGE
+// ============================================================
+
+// Force the page to scroll in production
+:host {
+  display: block !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  overflow-y: auto !important;
+}
+
+// Override Ionic's production contain property
+ion-content {
+  contain: none !important;
+  --overflow: auto !important;
+  overflow-y: auto !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  display: block !important;
+  position: relative !important;
+  
+  &::part(scroll) {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    height: 100% !important;
+    min-height: 100vh !important;
+    display: block !important;
+  }
+}
+
+// Force all sections to be visible
+.page-header,
+.rooms-section,
+.features-section,
+.cta-section {
+  height: auto !important;
+  min-height: auto !important;
+  overflow: visible !important;
+}
+
+// Ensure grid containers don't block scrolling
+.rooms-grid,
+.features-grid {
+  height: auto !important;
+  min-height: auto !important;
+  overflow: visible !important;
+}
+
+// Force all content to be visible
+.container {
+  height: auto !important;
+  min-height: auto !important;
+  overflow: visible !important;
+}
+
+// Ensure images don't overflow
+img {
+  max-width: 100% !important;
+  height: auto !important;
 }
