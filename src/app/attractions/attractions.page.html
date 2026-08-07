@@ -9,12 +9,10 @@
         <span class="brand__tagline">The Ideal Accommodation Haven</span>
       </a>
 
-      <!-- Hamburger Button -->
       <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
         <ion-icon name="menu-outline"></ion-icon>
       </button>
 
-      <!-- Desktop Navigation -->
       <nav class="nav" aria-label="Main">
         <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="nav__link">Home</a>
         <a routerLink="/about" routerLinkActive="is-active" class="nav__link">About</a>
@@ -26,7 +24,6 @@
         <a routerLink="/contact" routerLinkActive="is-active" class="nav__link">Contact</a>
       </nav>
 
-      <!-- Desktop WhatsApp Button -->
       <a class="btn-whatsapp desktop-only" (click)="goToBookingPage()">
         <ion-icon name="logo-whatsapp"></ion-icon>
         <span class="btn-text">Book on WhatsApp</span>
@@ -148,7 +145,6 @@
         <p class="section-subtitle">Explore the best attractions near our locations in Musgrave, Durban Oceanic, and Halford.</p>
       </div>
 
-      <!-- Attractions Grid -->
       <div class="attractions-grid">
         <div class="attraction-card" *ngFor="let attraction of filteredAttractions; let i = index" [style.animation-delay]="i * 0.08 + 's'">
           <div class="attraction-image">
@@ -183,7 +179,6 @@
         </div>
       </div>
 
-      <!-- No Results -->
       <div class="no-results" *ngIf="filteredAttractions.length === 0">
         <ion-icon name="compass-outline"></ion-icon>
         <h3>No Attractions Found</h3>
@@ -209,14 +204,6 @@
             allowfullscreen="" 
             loading="lazy">
           </iframe>
-          <div class="map-overlay">
-            <div class="map-pin" *ngFor="let location of locations">
-              <div class="pin">
-                <ion-icon name="location-sharp"></ion-icon>
-                <span>{{ location.name }}</span>
-              </div>
-            </div>
-          </div>
         </div>
         <div class="location-list">
           <div class="location-item" *ngFor="let location of locations">
