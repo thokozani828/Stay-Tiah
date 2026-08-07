@@ -6,12 +6,10 @@
       <span class="brand__tagline">The Ideal Accommodation Haven</span>
     </a>
 
-    <!-- Hamburger Button -->
     <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
       <ion-icon name="menu-outline"></ion-icon>
     </button>
 
-    <!-- Desktop Navigation -->
     <nav class="nav" aria-label="Main">
       <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="nav__link">Home</a>
       <a routerLink="/about" routerLinkActive="is-active" class="nav__link">About</a>
@@ -23,7 +21,6 @@
       <a routerLink="/contact" routerLinkActive="is-active" class="nav__link">Contact</a>
     </nav>
 
-    <!-- Desktop WhatsApp Button -->
     <a class="btn-whatsapp desktop-only" (click)="goToBooking()">
       <ion-icon name="logo-whatsapp"></ion-icon>
       <span class="btn-text">Book on WhatsApp</span>
@@ -49,36 +46,28 @@
   
   <div class="mobile-nav-links">
     <a routerLink="/home" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#127968;</span>
-      Home
+      <span class="link-icon">&#127968;</span> Home
     </a>
     <a routerLink="/about" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#8505;</span>
-      About
+      <span class="link-icon">&#8505;</span> About
     </a>
     <a routerLink="/rooms" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#128719;</span>
-      Rooms
+      <span class="link-icon">&#128719;</span> Rooms
     </a>
     <a routerLink="/gallery" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#128396;</span>
-      Gallery
+      <span class="link-icon">&#128396;</span> Gallery
     </a>
     <a routerLink="/rates" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#128176;</span>
-      Rates
+      <span class="link-icon">&#128176;</span> Rates
     </a>
     <a routerLink="/attractions" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#128205;</span>
-      Attractions
+      <span class="link-icon">&#128205;</span> Attractions
     </a>
     <a routerLink="/faq" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#10067;</span>
-      FAQ
+      <span class="link-icon">&#10067;</span> FAQ
     </a>
     <a routerLink="/contact" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">&#128231;</span>
-      Contact
+      <span class="link-icon">&#128231;</span> Contact
     </a>
     
     <div class="mobile-divider"></div>
@@ -95,11 +84,10 @@
 </div>
 
 <!-- ============================================= -->
-<!-- ✅ REMOVED no-scrollbar - SCROLLBAR VISIBLE -->
+<!-- ✅ REMOVED no-scrollbar - USES GLOBAL SCROLLBAR -->
 <!-- ============================================= -->
 <ion-content>
   
-  <!-- ================= HERO / PAGE HEADER ================= -->
   <section class="page-header">
     <div class="page-header-bg"></div>
     <div class="page-header-overlay"></div>
@@ -114,7 +102,6 @@
     </div>
   </section>
 
-  <!-- ================= ABOUT INTRO ================= -->
   <section class="about-intro">
     <div class="container">
       <div class="about-intro-grid">
@@ -157,7 +144,6 @@
     </div>
   </section>
 
-  <!-- ================= WHY CHOOSE US ================= -->
   <section class="why-choose-us">
     <div class="container">
       <div class="section-header center animate-fade-up">
@@ -167,30 +153,22 @@
       </div>
       <div class="features-grid">
         <div class="feature-card animate-fade-up">
-          <div class="feature-icon">
-            <ion-icon name="location-outline"></ion-icon>
-          </div>
+          <div class="feature-icon"><ion-icon name="location-outline"></ion-icon></div>
           <h3>Prime Locations</h3>
           <p>Situated in the heart of Durban, you'll have easy access to beaches, shopping centers, restaurants, and popular tourist attractions.</p>
         </div>
         <div class="feature-card animate-fade-up" style="animation-delay:0.1s">
-          <div class="feature-icon">
-            <ion-icon name="bed-outline"></ion-icon>
-          </div>
+          <div class="feature-icon"><ion-icon name="bed-outline"></ion-icon></div>
           <h3>Comfortable Living Spaces</h3>
           <p>Our rooms are thoughtfully designed to ensure maximum comfort, featuring modern amenities, cozy furnishings, and a relaxing ambiance.</p>
         </div>
         <div class="feature-card animate-fade-up" style="animation-delay:0.2s">
-          <div class="feature-icon">
-            <ion-icon name="cash-outline"></ion-icon>
-          </div>
+          <div class="feature-icon"><ion-icon name="cash-outline"></ion-icon></div>
           <h3>Affordable Rates</h3>
           <p>Enjoy top-notch accommodation without breaking the bank. Our competitive pricing makes luxury accessible to everyone.</p>
         </div>
         <div class="feature-card animate-fade-up" style="animation-delay:0.3s">
-          <div class="feature-icon">
-            <ion-icon name="heart-outline"></ion-icon>
-          </div>
+          <div class="feature-icon"><ion-icon name="heart-outline"></ion-icon></div>
           <h3>Exceptional Service</h3>
           <p>Our dedicated staff is committed to ensuring your stay is pleasant, stress-free, and memorable.</p>
         </div>
@@ -198,7 +176,6 @@
     </div>
   </section>
 
-  <!-- ================= ACCOMMODATION OPTIONS ================= -->
   <section class="accommodation-options">
     <div class="container">
       <div class="section-header center animate-fade-up">
@@ -208,9 +185,7 @@
       </div>
       <div class="options-grid">
         <div class="option-card animate-fade-up">
-          <div class="option-icon">
-            <ion-icon name="person-outline"></ion-icon>
-          </div>
+          <div class="option-icon"><ion-icon name="person-outline"></ion-icon></div>
           <h3>Stylish Single Rooms</h3>
           <p>Perfect for solo travelers seeking comfort and privacy. Our single rooms offer a cozy retreat with modern amenities.</p>
           <ul>
@@ -220,9 +195,7 @@
           </ul>
         </div>
         <div class="option-card animate-fade-up" style="animation-delay:0.2s">
-          <div class="option-icon">
-            <ion-icon name="people-outline"></ion-icon>
-          </div>
+          <div class="option-icon"><ion-icon name="people-outline"></ion-icon></div>
           <h3>Spacious Family Rooms</h3>
           <p>Designed for groups and families, our family rooms provide ample space and comfort for everyone.</p>
           <ul>
@@ -232,9 +205,7 @@
           </ul>
         </div>
         <div class="option-card animate-fade-up" style="animation-delay:0.4s">
-          <div class="option-icon">
-            <ion-icon name="briefcase-outline"></ion-icon>
-          </div>
+          <div class="option-icon"><ion-icon name="briefcase-outline"></ion-icon></div>
           <h3>Business Suites</h3>
           <p>Equipped with workspaces and high-speed internet, our business suites are ideal for corporate travelers.</p>
           <ul>
@@ -247,7 +218,6 @@
     </div>
   </section>
 
-  <!-- ================= OUR LOCATIONS ================= -->
   <section class="locations-section">
     <div class="container">
       <div class="section-header center animate-fade-up">
@@ -256,81 +226,65 @@
         <p class="section-subtitle">We have four convenient locations across Durban to serve you better.</p>
       </div>
       <div class="locations-grid">
-        <!-- Location 1: Durban Oceanic -->
         <div class="location-card animate-fade-up">
-          <div class="location-image">
-            <img [src]="locationImages.oceanic" alt="Durban Oceanic">
-          </div>
+          <div class="location-image"><img [src]="locationImages.oceanic" alt="Durban Oceanic"></div>
           <div class="location-info">
             <div class="location-badge oceanic">&#10022; Durban Oceanic</div>
             <h3>Durban Oceanic</h3>
             <p class="location-address"><ion-icon name="location-outline"></ion-icon> 82A, 82B and 117, Durban</p>
-            <p>Experience the best of coastal living at our Durban Oceanic locations. With three properties at 82A, 82B, and 117, we offer a range of accommodation options just minutes from the beach.</p>
+            <p>Experience the best of coastal living at our Durban Oceanic locations.</p>
             <ul class="location-features">
               <li><ion-icon name="checkmark-circle"></ion-icon> Close to Durban's golden beaches</li>
               <li><ion-icon name="checkmark-circle"></ion-icon> Vibrant neighborhood</li>
               <li><ion-icon name="checkmark-circle"></ion-icon> Easy access to restaurants and shops</li>
-              <li><ion-icon name="checkmark-circle"></ion-icon> Perfect for beach lovers</li>
             </ul>
             <a routerLink="/rooms" class="btn-location">View Rooms &#8594;</a>
           </div>
         </div>
 
-        <!-- Location 2: La Tiah Musgrave -->
         <div class="location-card animate-fade-up" style="animation-delay:0.2s">
-          <div class="location-image">
-            <img [src]="locationImages.laTiah" alt="La Tiah Musgrave">
-          </div>
+          <div class="location-image"><img [src]="locationImages.laTiah" alt="La Tiah Musgrave"></div>
           <div class="location-info">
             <div class="location-badge musgrave">&#10022; La Tiah Musgrave</div>
             <h3>La Tiah Musgrave</h3>
             <p class="location-address"><ion-icon name="location-outline"></ion-icon> 57 Vause Rd, Musgrave, Berea, 4001</p>
-            <p>Located in the prestigious Musgrave suburb, La Tiah offers a tranquil escape with easy access to Durban's business district, shopping centers, and cultural attractions.</p>
+            <p>Located in the prestigious Musgrave suburb, La Tiah offers a tranquil escape.</p>
             <ul class="location-features">
               <li><ion-icon name="checkmark-circle"></ion-icon> Quiet, upscale neighborhood</li>
               <li><ion-icon name="checkmark-circle"></ion-icon> Close to shopping centers</li>
               <li><ion-icon name="checkmark-circle"></ion-icon> Near Durban's business district</li>
-              <li><ion-icon name="checkmark-circle"></ion-icon> Easy access to public transport</li>
             </ul>
             <a routerLink="/rooms" class="btn-location">View Rooms &#8594;</a>
           </div>
         </div>
 
-        <!-- Location 3: Tiah Musgrave -->
         <div class="location-card animate-fade-up" style="animation-delay:0.3s">
-          <div class="location-image">
-            <img [src]="locationImages.tiah" alt="Tiah Musgrave">
-          </div>
+          <div class="location-image"><img [src]="locationImages.tiah" alt="Tiah Musgrave"></div>
           <div class="location-info">
             <div class="location-badge musgrave">&#10022; Tiah Musgrave</div>
             <h3>Tiah Musgrave</h3>
             <p class="location-address"><ion-icon name="location-outline"></ion-icon> Musgrave, Durban</p>
-            <p>Our Tiah Musgrave property offers comfortable and affordable accommodation in one of Durban's most desirable neighborhoods, perfect for both short and extended stays.</p>
+            <p>Our Tiah Musgrave property offers comfortable and affordable accommodation.</p>
             <ul class="location-features">
               <li><ion-icon name="checkmark-circle"></ion-icon> Comfortable living spaces</li>
               <li><ion-icon name="checkmark-circle"></ion-icon> Close to amenities</li>
               <li><ion-icon name="checkmark-circle"></ion-icon> Great value for money</li>
-              <li><ion-icon name="checkmark-circle"></ion-icon> Perfect for business travelers</li>
             </ul>
             <a routerLink="/rooms" class="btn-location">View Rooms &#8594;</a>
           </div>
         </div>
 
-        <!-- Location 4: Halford Backpackers -->
         <div class="location-card animate-fade-up" style="animation-delay:0.4s">
-          <div class="location-image">
-            <img [src]="locationImages.halford" alt="Halford Backpackers">
-          </div>
+          <div class="location-image"><img [src]="locationImages.halford" alt="Halford Backpackers"></div>
           <div class="location-info">
             <div class="location-badge backpackers">&#10022; Halford Backpackers</div>
             <h3>Halford Backpackers</h3>
             <p class="location-address"><ion-icon name="location-outline"></ion-icon> Halford, Durban</p>
-            <p>Perfect for budget-conscious travelers and backpackers, Halford Backpackers offers affordable accommodation with a friendly, social atmosphere in a convenient location.</p>
+            <p>Perfect for budget-conscious travelers and backpackers.</p>
             <ul class="location-features">
               <li><ion-icon name="checkmark-circle"></ion-icon> Budget-friendly rates</li>
               <li><ion-icon name="checkmark-circle"></ion-icon> Social atmosphere</li>
               <li><ion-icon name="checkmark-circle"></ion-icon> Close to public transport</li>
-              <li><ion-icon name="checkmark-circle"></ion-icon> Great for solo travelers</li>
             </ul>
             <a routerLink="/rooms" class="btn-location">View Rooms &#8594;</a>
           </div>
@@ -339,7 +293,6 @@
     </div>
   </section>
 
-  <!-- ================= AMENITIES ================= -->
   <section class="amenities-section">
     <div class="container">
       <div class="section-header center animate-fade-up">
@@ -348,43 +301,18 @@
         <p class="section-subtitle">Enjoy a comfortable stay with our comprehensive range of amenities.</p>
       </div>
       <div class="amenities-grid">
-        <div class="amenity-item animate-scale">
-          <ion-icon name="wifi-outline"></ion-icon>
-          <span>Free Wi-Fi</span>
-        </div>
-        <div class="amenity-item animate-scale" style="animation-delay:0.1s">
-          <ion-icon name="car-outline"></ion-icon>
-          <span>Free Parking</span>
-        </div>
-        <div class="amenity-item animate-scale" style="animation-delay:0.2s">
-          <ion-icon name="restaurant-outline"></ion-icon>
-          <span>Breakfast Available</span>
-        </div>
-        <div class="amenity-item animate-scale" style="animation-delay:0.3s">
-          <ion-icon name="shield-checkmark-outline"></ion-icon>
-          <span>24/7 Security</span>
-        </div>
-        <div class="amenity-item animate-scale" style="animation-delay:0.4s">
-          <ion-icon name="tv-outline"></ion-icon>
-          <span>Flat-Screen TV</span>
-        </div>
-        <div class="amenity-item animate-scale" style="animation-delay:0.5s">
-          <ion-icon name="snow-outline"></ion-icon>
-          <span>Air Conditioning</span>
-        </div>
-        <div class="amenity-item animate-scale" style="animation-delay:0.6s">
-          <ion-icon name="cafe-outline"></ion-icon>
-          <span>Tea and Coffee Maker</span>
-        </div>
-        <div class="amenity-item animate-scale" style="animation-delay:0.7s">
-          <ion-icon name="water-outline"></ion-icon>
-          <span>Beach Access</span>
-        </div>
+        <div class="amenity-item animate-scale"><ion-icon name="wifi-outline"></ion-icon><span>Free Wi-Fi</span></div>
+        <div class="amenity-item animate-scale" style="animation-delay:0.1s"><ion-icon name="car-outline"></ion-icon><span>Free Parking</span></div>
+        <div class="amenity-item animate-scale" style="animation-delay:0.2s"><ion-icon name="restaurant-outline"></ion-icon><span>Breakfast Available</span></div>
+        <div class="amenity-item animate-scale" style="animation-delay:0.3s"><ion-icon name="shield-checkmark-outline"></ion-icon><span>24/7 Security</span></div>
+        <div class="amenity-item animate-scale" style="animation-delay:0.4s"><ion-icon name="tv-outline"></ion-icon><span>Flat-Screen TV</span></div>
+        <div class="amenity-item animate-scale" style="animation-delay:0.5s"><ion-icon name="snow-outline"></ion-icon><span>Air Conditioning</span></div>
+        <div class="amenity-item animate-scale" style="animation-delay:0.6s"><ion-icon name="cafe-outline"></ion-icon><span>Tea and Coffee Maker</span></div>
+        <div class="amenity-item animate-scale" style="animation-delay:0.7s"><ion-icon name="water-outline"></ion-icon><span>Beach Access</span></div>
       </div>
     </div>
   </section>
 
-  <!-- ================= TESTIMONIALS ================= -->
   <section class="testimonials-section">
     <div class="container">
       <div class="section-header center animate-fade-up">
@@ -395,13 +323,11 @@
       <div class="testimonials-grid">
         <div class="testimonial-card animate-fade-up">
           <div class="testimonial-stars">
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon>
             <ion-icon name="star"></ion-icon>
           </div>
-          <p class="testimonial-text">&quot;Amazing stay at STAY@TIAH! The rooms were spotless, the staff was incredibly friendly, and the location was perfect. Highly recommend to anyone visiting Durban.&quot;</p>
+          <p class="testimonial-text">"Amazing stay at STAY@TIAH! The rooms were spotless, the staff was incredibly friendly, and the location was perfect."</p>
           <div class="testimonial-author">
             <div class="author-avatar">JD</div>
             <div class="author-info">
@@ -412,13 +338,11 @@
         </div>
         <div class="testimonial-card animate-fade-up" style="animation-delay:0.2s">
           <div class="testimonial-stars">
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon>
             <ion-icon name="star"></ion-icon>
           </div>
-          <p class="testimonial-text">&quot;The Durban Oceanic location is unbeatable! Waking up close to the beach made our holiday unforgettable. The rooms are modern and comfortable. Will definitely be back!&quot;</p>
+          <p class="testimonial-text">"The Durban Oceanic location is unbeatable! Waking up close to the beach made our holiday unforgettable."</p>
           <div class="testimonial-author">
             <div class="author-avatar">SM</div>
             <div class="author-info">
@@ -429,13 +353,11 @@
         </div>
         <div class="testimonial-card animate-fade-up" style="animation-delay:0.4s">
           <div class="testimonial-stars">
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon>
             <ion-icon name="star"></ion-icon>
           </div>
-          <p class="testimonial-text">&quot;Excellent value for money at Halford Backpackers! The staff went above and beyond to make our stay comfortable. Perfect for budget travelers exploring Durban!&quot;</p>
+          <p class="testimonial-text">"Excellent value for money at Halford Backpackers! The staff went above and beyond to make our stay comfortable."</p>
           <div class="testimonial-author">
             <div class="author-avatar">TP</div>
             <div class="author-info">
@@ -448,7 +370,6 @@
     </div>
   </section>
 
-  <!-- ================= BOOK YOUR STAY CTA ================= -->
   <section class="cta-section">
     <div class="container">
       <div class="cta-content animate-fade-up">
@@ -456,8 +377,7 @@
         <p>Let STAY@TIAH be your home away from home. Experience Durban like never before.</p>
         <div class="cta-buttons">
           <a routerLink="/booking" class="btn-primary">
-            <ion-icon name="calendar-outline"></ion-icon>
-            Book Your Stay
+            <ion-icon name="calendar-outline"></ion-icon> Book Your Stay
           </a>
           <a routerLink="/contact" class="btn-secondary-cta">Contact Us</a>
         </div>
@@ -465,7 +385,6 @@
     </div>
   </section>
 
-  <!-- ================= FOOTER ================= -->
   <footer class="footer">
     <div class="footer-overlay"></div>
     <div class="footer-background"></div>
@@ -523,7 +442,6 @@
     </div>
   </footer>
 
-  <!-- WHATSAPP FLOAT -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="openWhatsApp()" class="whatsapp-float">
       <ion-icon name="logo-whatsapp"></ion-icon>
