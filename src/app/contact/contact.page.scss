@@ -1008,6 +1008,9 @@ h1, h2, h3, h4,
   }
 }
 
+// =========================
+// CONTACT FORM - FIXED DISPLAY
+// =========================
 .contact-form {
   .form-row {
     display: grid;
@@ -1043,55 +1046,123 @@ h1, h2, h3, h4,
     }
   }
   
+  // Fix for ion-input
   .form-input {
-    --background: $white;
-    --border-color: #ddd;
-    --color: $black;
-    --placeholder-color: #aaa;
-    --border-radius: 8px;
-    --padding-start: 14px;
-    --padding-end: 14px;
-    min-height: 46px;
-    background: $white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: 100%;
-    transition: border-color 0.3s ease;
+    --background: #ffffff !important;
+    --border-color: #ddd !important;
+    --color: #0a0a0a !important;
+    --placeholder-color: #aaa !important;
+    --placeholder-opacity: 1 !important;
+    --border-radius: 8px !important;
+    --padding-start: 14px !important;
+    --padding-end: 14px !important;
+    --padding-top: 12px !important;
+    --padding-bottom: 12px !important;
+    min-height: 46px !important;
+    border: 1px solid #ddd !important;
+    border-radius: 8px !important;
+    width: 100% !important;
+    background: #ffffff !important;
+    display: block !important;
     
-    &:focus {
-      border-color: $gold;
-      outline: none;
+    .native-input {
+      color: #0a0a0a !important;
+      font-size: 14px !important;
+      padding: 0 !important;
+    }
+    
+    &:focus-within {
+      border-color: $gold !important;
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1) !important;
     }
     
     &.error {
-      border-color: #e74c3c;
+      border-color: #e74c3c !important;
     }
   }
   
+  // Fix for ion-select
   .form-select {
-    --padding-start: 14px;
-    min-height: 46px;
-    background: $white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: 100%;
-    padding: 0 14px;
+    --background: #ffffff !important;
+    --color: #0a0a0a !important;
+    --placeholder-color: #aaa !important;
+    --placeholder-opacity: 1 !important;
+    --border-radius: 8px !important;
+    --padding-start: 14px !important;
+    --padding-end: 14px !important;
+    min-height: 46px !important;
+    border: 1px solid #ddd !important;
+    border-radius: 8px !important;
+    width: 100% !important;
+    background: #ffffff !important;
+    display: block !important;
+    
+    .select-text {
+      color: #0a0a0a !important;
+      font-size: 14px !important;
+    }
+    
+    .select-placeholder {
+      color: #aaa !important;
+    }
+    
+    &:focus-within {
+      border-color: $gold !important;
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1) !important;
+    }
+    
+    &.error {
+      border-color: #e74c3c !important;
+    }
   }
   
+  // Fix for ion-textarea
   .form-textarea {
-    min-height: 120px;
-    padding: 12px 14px;
-    resize: vertical;
-    font-family: $font-primary;
-    font-size: 14px;
-    background: $white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: 100%;
+    --background: #ffffff !important;
+    --border-color: #ddd !important;
+    --color: #0a0a0a !important;
+    --placeholder-color: #aaa !important;
+    --placeholder-opacity: 1 !important;
+    --border-radius: 8px !important;
+    --padding-start: 14px !important;
+    --padding-end: 14px !important;
+    --padding-top: 12px !important;
+    --padding-bottom: 12px !important;
+    min-height: 120px !important;
+    border: 1px solid #ddd !important;
+    border-radius: 8px !important;
+    width: 100% !important;
+    background: #ffffff !important;
+    display: block !important;
     
-    &:focus {
-      border-color: $gold;
-      outline: none;
+    .native-textarea {
+      color: #0a0a0a !important;
+      font-size: 14px !important;
+      line-height: 1.5 !important;
+      min-height: 100px !important;
+    }
+    
+    &:focus-within {
+      border-color: $gold !important;
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1) !important;
+    }
+    
+    &.error {
+      border-color: #e74c3c !important;
+    }
+  }
+  
+  // Error messages
+  .error-message {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: #e74c3c;
+    margin-top: 4px;
+    
+    ion-icon {
+      font-size: 14px;
     }
   }
   
