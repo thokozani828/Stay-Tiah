@@ -1009,7 +1009,7 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// CONTACT FORM - FIXED DISPLAY
+// CONTACT FORM - FIXED DISPLAY (CLICKABLE)
 // =========================
 .contact-form {
   .form-row {
@@ -1025,6 +1025,8 @@ h1, h2, h3, h4,
   
   .form-group {
     margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
     
     &.full-width {
       grid-column: 1 / -1;
@@ -1046,7 +1048,7 @@ h1, h2, h3, h4,
     }
   }
   
-  // Fix for ion-input
+  // Fix for ion-input - MAKES CLICKABLE
   .form-input {
     --background: #ffffff !important;
     --border-color: #ddd !important;
@@ -1064,11 +1066,15 @@ h1, h2, h3, h4,
     width: 100% !important;
     background: #ffffff !important;
     display: block !important;
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 10 !important;
     
     .native-input {
       color: #0a0a0a !important;
       font-size: 14px !important;
       padding: 0 !important;
+      pointer-events: auto !important;
     }
     
     &:focus-within {
@@ -1081,7 +1087,7 @@ h1, h2, h3, h4,
     }
   }
   
-  // Fix for ion-select
+  // Fix for ion-select - MAKES CLICKABLE
   .form-select {
     --background: #ffffff !important;
     --color: #0a0a0a !important;
@@ -1096,6 +1102,9 @@ h1, h2, h3, h4,
     width: 100% !important;
     background: #ffffff !important;
     display: block !important;
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 10 !important;
     
     .select-text {
       color: #0a0a0a !important;
@@ -1116,7 +1125,7 @@ h1, h2, h3, h4,
     }
   }
   
-  // Fix for ion-textarea
+  // Fix for ion-textarea - MAKES CLICKABLE
   .form-textarea {
     --background: #ffffff !important;
     --border-color: #ddd !important;
@@ -1134,12 +1143,16 @@ h1, h2, h3, h4,
     width: 100% !important;
     background: #ffffff !important;
     display: block !important;
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 10 !important;
     
     .native-textarea {
       color: #0a0a0a !important;
       font-size: 14px !important;
       line-height: 1.5 !important;
       min-height: 100px !important;
+      pointer-events: auto !important;
     }
     
     &:focus-within {
@@ -1160,6 +1173,8 @@ h1, h2, h3, h4,
     font-size: 12px;
     color: #e74c3c;
     margin-top: 4px;
+    position: relative;
+    z-index: 1;
     
     ion-icon {
       font-size: 14px;
@@ -1172,6 +1187,8 @@ h1, h2, h3, h4,
     gap: 16px;
     margin-top: 8px;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
     
     .btn-primary {
       display: inline-flex;
