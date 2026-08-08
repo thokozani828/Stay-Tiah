@@ -5,16 +5,16 @@ import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalo
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 
-// Import all Ionicons
+// ⚠️ IMPORTANT: Import addIcons and icons BEFORE bootstrap
 import { addIcons } from 'ionicons';
 import { 
   // Navigation
   menuOutline,
-  chevronDownOutline,
-  arrowForwardOutline,
   closeOutline,
   chevronBackOutline,
   chevronForwardOutline,
+  chevronDownOutline,
+  arrowForwardOutline,
   
   // Home & Layout
   homeOutline,
@@ -90,11 +90,11 @@ import {
   playOutline,
   pauseOutline,
   
-  // Security & Protection
+  // Security
   shieldCheckmarkOutline,
   shieldCheckmarkSharp,
   
-  // Additional Outline Icons
+  // Additional Icons
   checkmarkCircleOutline,
   checkmarkCircle,
   chevronUpOutline,
@@ -114,9 +114,6 @@ import {
   compassOutline,
   giftOutline,
   alertCircleOutline,
-  
-  // Additional Outline (from contact page)
-  waterOutline as waterOutlineIcon,
   
   // Solid Icons
   add,
@@ -173,34 +170,9 @@ import {
   arrowForwardSharp,
   chevronDownSharp,
   checkmarkSharp,
-  
-  // Additional icons used in pages
-  locationOutline as locationOutlineIcon,
-  logoWhatsapp as logoWhatsappIcon,
-  sendOutline as sendOutlineIcon,
-  alertCircleOutline as alertCircleOutlineIcon,
-  logoInstagram as logoInstagramIcon,
-  logoFacebook as logoFacebookIcon,
-  logoTwitter as logoTwitterIcon,
-  logoTiktok as logoTiktokIcon,
-  closeOutline as closeOutlineIcon,
-  menuOutline as menuOutlineIcon,
-  callOutline as callOutlineIcon,
-  mailOutline as mailOutlineIcon,
-  calendarOutline as calendarOutlineIcon,
-  homeOutline as homeOutlineIcon,
-  bedOutline as bedOutlineIcon,
-  imagesOutline as imagesOutlineIcon,
-  cashOutline as cashOutlineIcon,
-  compassOutline as compassOutlineIcon,
-  helpCircleOutline as helpCircleOutlineIcon,
-  
-  // Checkmark variants
-  checkmarkCircle as checkmarkCircleIcon,
-  checkmarkCircleOutline as checkmarkCircleOutlineIcon,
 } from 'ionicons/icons';
 
-// Add all icons to Ionic
+// ⚠️ REGISTER ALL ICONS BEFORE BOOTSTRAPPING
 addIcons({
   // Navigation
   'menu-outline': menuOutline,
@@ -284,7 +256,7 @@ addIcons({
   'play-outline': playOutline,
   'pause-outline': pauseOutline,
   
-  // Security & Protection
+  // Security
   'shield-checkmark-outline': shieldCheckmarkOutline,
   'shield-checkmark-sharp': shieldCheckmarkSharp,
   
@@ -366,6 +338,7 @@ addIcons({
   'checkmark-sharp': checkmarkSharp,
 });
 
+// ⚠️ BOOTSTRAP AFTER ICONS ARE REGISTERED
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
