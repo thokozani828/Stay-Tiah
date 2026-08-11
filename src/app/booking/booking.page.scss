@@ -1015,7 +1015,7 @@ h1, h2, h3, h4,
       top: 50%;
       transform: translateY(-50%);
       z-index: 1;
-      pointer-events: none;
+      pointer-events: none !important;
       color: #888;
       font-size: 18px;
     }
@@ -1025,6 +1025,28 @@ h1, h2, h3, h4,
       top: 16px;
       transform: none;
     }
+  }
+
+  // ============================================================
+  // NATIVE INPUT STYLES FOR DATE PICKER
+  // ============================================================
+  .form-input-native {
+    width: 100%;
+    min-height: 46px;
+    padding: 12px 14px 12px 44px;
+    border: none;
+    background: transparent;
+    color: #0a0a0a;
+    font-size: 14px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    outline: none;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+
+  input[readonly] {
+    cursor: pointer;
+    background: transparent;
   }
 
   // ============================================================
@@ -1197,6 +1219,31 @@ ion-textarea::part(native) {
   ion-textarea::part(native) {
     font-size: 16px;
   }
+}
+
+// ✅ Ensure all inputs are clickable
+ion-input,
+ion-select,
+ion-textarea {
+  pointer-events: auto !important;
+  cursor: text !important;
+}
+
+ion-select {
+  cursor: pointer !important;
+}
+
+// ✅ Remove any user-select blocking
+.booking-form,
+.form-group,
+.input-wrapper {
+  user-select: none;
+}
+
+.booking-form input,
+.booking-form ion-input,
+.booking-form ion-textarea {
+  user-select: text !important;
 }
 
 // =========================

@@ -176,6 +176,7 @@
                   <label>First Name <span class="required">*</span></label>
                   <div class="input-wrapper" [class.error]="firstNameError && !bookingData.firstName">
                     <ion-icon name="person-outline" class="input-icon"></ion-icon>
+                    <!-- ✅ REMOVED readonly - Using standard input -->
                     <ion-input
                       class="form-input"
                       type="text"
@@ -267,15 +268,15 @@
                   <label>Check-in Date <span class="required">*</span></label>
                   <div class="input-wrapper" [class.error]="checkInError && !bookingData.checkIn">
                     <ion-icon name="calendar-outline" class="input-icon"></ion-icon>
-                    <ion-input
-                      class="form-input"
+                    <!-- ✅ FIXED: Using standard input with click handler for date picker -->
+                    <input
+                      class="form-input-native"
                       type="text"
                       [(ngModel)]="bookingData.checkIn"
                       name="checkIn"
                       placeholder="Select check-in date"
-                      readonly
-                      (click)="openDatePicker('checkIn')">
-                    </ion-input>
+                      (click)="openDatePicker('checkIn')"
+                      readonly>
                   </div>
                   <div class="error-message" *ngIf="checkInError && !bookingData.checkIn">
                     <ion-icon name="alert-circle-outline"></ion-icon>
@@ -288,15 +289,15 @@
                   <label>Check-out Date <span class="required">*</span></label>
                   <div class="input-wrapper" [class.error]="checkOutError && !bookingData.checkOut">
                     <ion-icon name="calendar-outline" class="input-icon"></ion-icon>
-                    <ion-input
-                      class="form-input"
+                    <!-- ✅ FIXED: Using standard input with click handler for date picker -->
+                    <input
+                      class="form-input-native"
                       type="text"
                       [(ngModel)]="bookingData.checkOut"
                       name="checkOut"
                       placeholder="Select check-out date"
-                      readonly
-                      (click)="openDatePicker('checkOut')">
-                    </ion-input>
+                      (click)="openDatePicker('checkOut')"
+                      readonly>
                   </div>
                   <div class="error-message" *ngIf="checkOutError && !bookingData.checkOut">
                     <ion-icon name="alert-circle-outline"></ion-icon>
