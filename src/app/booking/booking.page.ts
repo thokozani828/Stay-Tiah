@@ -374,6 +374,41 @@ export class BookingPage implements OnInit {
   }
 
   // =========================
+  // OPEN DATE PICKER - NATIVE BROWSER DATE PICKER
+  // =========================
+  openDatePicker(field: string) {
+    // Create a hidden input and trigger it
+    const input = document.createElement('input');
+    input.type = 'date';
+    input.style.position = 'absolute';
+    input.style.opacity = '0';
+    input.style.pointerEvents = 'none';
+    document.body.appendChild(input);
+    
+    input.addEventListener('change', (e: any) => {
+      const date = e.target.value;
+      if (date) {
+        if (field === 'checkIn') {
+          this.bookingData.checkIn = date;
+          this.checkInError = false;
+        } else if (field === 'checkOut') {
+          this.bookingData.checkOut = date;
+          this.checkOutError = false;
+        }
+        this.onDateChange();
+      }
+      document.body.removeChild(input);
+    });
+    
+    // Use showPicker if available (Chrome, Edge), otherwise click
+    if (input.showPicker) {
+      input.showPicker();
+    } else {
+      input.click();
+    }
+  }
+
+  // =========================
   // FIELD FOCUS/BLUR HANDLERS - FOR BETTER MOBILE EXPERIENCE
   // =========================
   onFieldFocus(fieldName: string) {

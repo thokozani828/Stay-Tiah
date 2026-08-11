@@ -1,7 +1,157 @@
 // =========================
 // FONTS
 // =========================
+// ============================================================
+// ✅ FIX: MAKE ALL INPUTS CLICKABLE AND FOCUSABLE
+// ============================================================
 
+// Force all form inputs to be clickable
+ion-input,
+ion-select,
+ion-datetime,
+ion-textarea {
+  pointer-events: auto !important;
+  cursor: text !important;
+  position: relative !important;
+  z-index: 999 !important;
+  opacity: 1 !important;
+}
+
+.input-wrapper {
+  position: relative !important;
+  z-index: 999 !important;
+  pointer-events: auto !important;
+  cursor: text !important;
+}
+
+// Ensure native input is clickable
+.form-input .native-input,
+.form-textarea .native-textarea {
+  pointer-events: auto !important;
+  cursor: text !important;
+  position: relative !important;
+  z-index: 999 !important;
+}
+
+// Fix for ion-datetime
+ion-datetime {
+  .datetime-text {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    color: #0a0a0a !important;
+  }
+  
+  .datetime-placeholder {
+    color: #aaa !important;
+  }
+}
+
+// Fix for ion-select
+ion-select {
+  .select-text {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    color: #0a0a0a !important;
+  }
+  
+  .select-placeholder {
+    color: #aaa !important;
+  }
+}
+
+// Fix for ion-input
+ion-input {
+  --color: #0a0a0a !important;
+  
+  .native-input {
+    color: #0a0a0a !important;
+    font-size: 16px !important;
+  }
+}
+
+// Fix for ion-textarea
+ion-textarea {
+  --color: #0a0a0a !important;
+  
+  .native-textarea {
+    color: #0a0a0a !important;
+    font-size: 16px !important;
+  }
+}
+
+// Remove any overlay blocking clicks
+.nav-overlay {
+  pointer-events: none !important;
+}
+
+.nav-overlay.active {
+  pointer-events: none !important;
+}
+
+// Ensure the form is above everything
+.booking-form-wrapper {
+  position: relative !important;
+  z-index: 100 !important;
+}
+
+.booking-form {
+  position: relative !important;
+  z-index: 101 !important;
+}
+
+.form-group {
+  position: relative !important;
+  z-index: 102 !important;
+}
+
+// Fix for mobile keyboard
+@media (max-width: 768px) {
+  ion-input,
+  ion-textarea,
+  .form-input .native-input,
+  .form-textarea .native-textarea {
+    font-size: 16px !important; // Prevents zoom on iOS
+  }
+}
+
+// Fix for disabled-looking fields
+ion-input,
+ion-select,
+ion-datetime,
+ion-textarea {
+  opacity: 1 !important;
+  --opacity: 1 !important;
+}
+
+// Fix for the input wrapper background
+.booking-form .input-wrapper {
+  background: #ffffff !important;
+  border: 1px solid #ddd !important;
+  border-radius: 8px !important;
+  padding: 0 !important;
+  min-height: 46px !important;
+  display: flex !important;
+  align-items: center !important;
+  
+  .input-icon {
+    position: absolute !important;
+    left: 12px !important;
+    color: #888888 !important;
+    font-size: 18px !important;
+    z-index: 5 !important;
+    pointer-events: none !important;
+  }
+  
+  &.focused {
+    border-color: #c9a84c !important;
+    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15) !important;
+  }
+  
+  &.error {
+    border-color: #e74c3c !important;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1) !important;
+  }
+}
 // =========================
 // VARIABLES
 // =========================

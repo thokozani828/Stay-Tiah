@@ -275,17 +275,16 @@
                   <label>Check-in Date <span class="required">*</span></label>
                   <div class="input-wrapper" [class.error]="checkInError && !bookingData.checkIn">
                     <ion-icon name="calendar-outline" class="input-icon"></ion-icon>
-                    <ion-datetime 
+                    <ion-input 
                       [(ngModel)]="bookingData.checkIn" 
-                      name="checkIn"
-                      presentation="date"
-                      placeholder="Select date"
-                      class="form-datetime"
+                      name="checkIn" 
+                      type="text" 
+                      placeholder="Select check-in date"
+                      class="form-input"
                       [class.error]="checkInError && !bookingData.checkIn"
-                      (ionChange)="onDateChange()"
-                      (ionFocus)="onFieldFocus('checkIn')"
-                      (ionBlur)="onFieldBlur('checkIn')">
-                    </ion-datetime>
+                      (click)="openDatePicker('checkIn')"
+                      readonly>
+                    </ion-input>
                   </div>
                   <div class="error-message" *ngIf="checkInError && !bookingData.checkIn">
                     <ion-icon name="alert-circle-outline"></ion-icon>
@@ -296,17 +295,16 @@
                   <label>Check-out Date <span class="required">*</span></label>
                   <div class="input-wrapper" [class.error]="checkOutError && !bookingData.checkOut">
                     <ion-icon name="calendar-outline" class="input-icon"></ion-icon>
-                    <ion-datetime 
+                    <ion-input 
                       [(ngModel)]="bookingData.checkOut" 
-                      name="checkOut"
-                      presentation="date"
-                      placeholder="Select date"
-                      class="form-datetime"
+                      name="checkOut" 
+                      type="text" 
+                      placeholder="Select check-out date"
+                      class="form-input"
                       [class.error]="checkOutError && !bookingData.checkOut"
-                      (ionChange)="onDateChange()"
-                      (ionFocus)="onFieldFocus('checkOut')"
-                      (ionBlur)="onFieldBlur('checkOut')">
-                    </ion-datetime>
+                      (click)="openDatePicker('checkOut')"
+                      readonly>
+                    </ion-input>
                   </div>
                   <div class="error-message" *ngIf="checkOutError && !bookingData.checkOut">
                     <ion-icon name="alert-circle-outline"></ion-icon>
