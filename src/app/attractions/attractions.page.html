@@ -213,7 +213,8 @@
           </iframe>
         </div>
         <div class="location-list">
-          <div class="location-item" (click)="openLocationInMaps(location)" style="cursor:pointer;">
+          <!-- ✅ FIXED: Using 'locations' (plural) from TypeScript -->
+          <div class="location-item" *ngFor="let location of locations" (click)="openLocationInMaps(location)" style="cursor:pointer;">
             <div class="location-icon">
               <ion-icon name="location-outline"></ion-icon>
             </div>
