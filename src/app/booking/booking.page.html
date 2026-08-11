@@ -186,7 +186,9 @@
                       placeholder="John"
                       required
                       class="form-input"
-                      [class.error]="firstNameError && !bookingData.firstName">
+                      [class.error]="firstNameError && !bookingData.firstName"
+                      (ionFocus)="onFieldFocus('firstName')"
+                      (ionBlur)="onFieldBlur('firstName')">
                     </ion-input>
                   </div>
                   <div class="error-message" *ngIf="firstNameError && !bookingData.firstName">
@@ -205,7 +207,9 @@
                       placeholder="Doe"
                       required
                       class="form-input"
-                      [class.error]="lastNameError && !bookingData.lastName">
+                      [class.error]="lastNameError && !bookingData.lastName"
+                      (ionFocus)="onFieldFocus('lastName')"
+                      (ionBlur)="onFieldBlur('lastName')">
                     </ion-input>
                   </div>
                   <div class="error-message" *ngIf="lastNameError && !bookingData.lastName">
@@ -226,7 +230,9 @@
                       placeholder="info@example.com"
                       required
                       class="form-input"
-                      [class.error]="emailError && !bookingData.email">
+                      [class.error]="emailError && !bookingData.email"
+                      (ionFocus)="onFieldFocus('email')"
+                      (ionBlur)="onFieldBlur('email')">
                     </ion-input>
                   </div>
                   <div class="error-message" *ngIf="emailError && !bookingData.email">
@@ -245,7 +251,9 @@
                       placeholder="+27 84 900 9821"
                       required
                       class="form-input"
-                      [class.error]="phoneError && !bookingData.phone">
+                      [class.error]="phoneError && !bookingData.phone"
+                      (ionFocus)="onFieldFocus('phone')"
+                      (ionBlur)="onFieldBlur('phone')">
                     </ion-input>
                   </div>
                   <div class="error-message" *ngIf="phoneError && !bookingData.phone">
@@ -274,7 +282,9 @@
                       placeholder="Select date"
                       class="form-datetime"
                       [class.error]="checkInError && !bookingData.checkIn"
-                      (ionChange)="onDateChange()">
+                      (ionChange)="onDateChange()"
+                      (ionFocus)="onFieldFocus('checkIn')"
+                      (ionBlur)="onFieldBlur('checkIn')">
                     </ion-datetime>
                   </div>
                   <div class="error-message" *ngIf="checkInError && !bookingData.checkIn">
@@ -293,7 +303,9 @@
                       placeholder="Select date"
                       class="form-datetime"
                       [class.error]="checkOutError && !bookingData.checkOut"
-                      (ionChange)="onDateChange()">
+                      (ionChange)="onDateChange()"
+                      (ionFocus)="onFieldFocus('checkOut')"
+                      (ionBlur)="onFieldBlur('checkOut')">
                     </ion-datetime>
                   </div>
                   <div class="error-message" *ngIf="checkOutError && !bookingData.checkOut">
@@ -313,7 +325,9 @@
                       placeholder="Select guests"
                       interface="popover"
                       class="form-select"
-                      required>
+                      required
+                      (ionFocus)="onFieldFocus('guests')"
+                      (ionBlur)="onFieldBlur('guests')">
                       <ion-select-option value="1">1 Guest</ion-select-option>
                       <ion-select-option value="2">2 Guests</ion-select-option>
                       <ion-select-option value="3">3 Guests</ion-select-option>
@@ -333,7 +347,9 @@
                       placeholder="Select location"
                       interface="popover"
                       class="form-select"
-                      required>
+                      required
+                      (ionFocus)="onFieldFocus('location')"
+                      (ionBlur)="onFieldBlur('location')">
                       <ion-select-option value="oceanic">🌊 Durban Oceanic (82A, 82B, 117)</ion-select-option>
                       <ion-select-option value="musgrave-la">🏠 La Tiah Musgrave</ion-select-option>
                       <ion-select-option value="musgrave">🏠 Tiah Musgrave</ion-select-option>
@@ -353,7 +369,9 @@
                       placeholder="Select room type"
                       interface="popover"
                       class="form-select"
-                      required>
+                      required
+                      (ionFocus)="onFieldFocus('roomType')"
+                      (ionBlur)="onFieldBlur('roomType')">
                       <ion-select-option value="single">🛏 Single Room</ion-select-option>
                       <ion-select-option value="double">🛏 Double Room</ion-select-option>
                       <ion-select-option value="family">🛏 Family Room</ion-select-option>
@@ -371,7 +389,9 @@
                       name="nights" 
                       type="number" 
                       placeholder="1"
-                      class="form-input">
+                      class="form-input"
+                      (ionFocus)="onFieldFocus('nights')"
+                      (ionBlur)="onFieldBlur('nights')">
                     </ion-input>
                   </div>
                 </div>
@@ -393,7 +413,9 @@
                     name="specialRequests" 
                     placeholder="Any special requirements or preferences..."
                     rows="4"
-                    class="form-textarea">
+                    class="form-textarea"
+                    (ionFocus)="onFieldFocus('specialRequests')"
+                    (ionBlur)="onFieldBlur('specialRequests')">
                   </ion-textarea>
                 </div>
               </div>

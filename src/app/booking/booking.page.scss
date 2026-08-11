@@ -1967,3 +1967,91 @@ ion-content {
     min-height: 100vh !important;
   }
 }
+
+// ============================================================
+// ✅ FIX: MAKE ALL INPUTS CLICKABLE AND FOCUSABLE
+// ============================================================
+
+// Force all form inputs to be clickable
+ion-input,
+ion-select,
+ion-datetime,
+ion-textarea {
+  pointer-events: auto !important;
+  cursor: text !important;
+  position: relative !important;
+  z-index: 999 !important;
+}
+
+.input-wrapper {
+  position: relative !important;
+  z-index: 999 !important;
+  pointer-events: auto !important;
+}
+
+// Ensure native input is clickable
+.form-input .native-input,
+.form-textarea .native-textarea {
+  pointer-events: auto !important;
+  cursor: text !important;
+  position: relative !important;
+  z-index: 999 !important;
+}
+
+// Fix for ion-datetime button
+ion-datetime .datetime-text {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+// Fix for ion-select
+ion-select .select-text {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+// Ensure the input wrapper doesn't block clicks
+.booking-form .input-wrapper {
+  pointer-events: auto !important;
+  cursor: text !important;
+}
+
+// Fix for ion-item inside forms
+ion-item {
+  pointer-events: auto !important;
+  --inner-padding-end: 0 !important;
+  --inner-padding-start: 0 !important;
+}
+
+// Remove any overlay that might block clicks
+.nav-overlay.active {
+  pointer-events: none !important;
+}
+
+// Ensure the form is above everything
+.booking-form-wrapper {
+  position: relative !important;
+  z-index: 100 !important;
+}
+
+.booking-form {
+  position: relative !important;
+  z-index: 101 !important;
+}
+
+.form-group {
+  position: relative !important;
+  z-index: 102 !important;
+}
+
+// Fix for mobile keyboard
+@media (max-width: 768px) {
+  ion-input,
+  ion-textarea {
+    font-size: 16px !important; // Prevents zoom on iOS
+  }
+  
+  .form-input .native-input {
+    font-size: 16px !important;
+  }
+}

@@ -19,8 +19,8 @@ import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 })
 export class BookingPage implements OnInit {
 
-  // Mobile navigation state
-  mobileNavOpen: boolean = false;
+  // Focus state for form fields
+  focusedField: string = '';
 
   bookingData: any = {
     firstName: '',
@@ -307,23 +307,6 @@ export class BookingPage implements OnInit {
   }
 
   // =========================
-  // MOBILE NAVIGATION
-  // =========================
-  toggleMobileNav() {
-    this.mobileNavOpen = !this.mobileNavOpen;
-    if (this.mobileNavOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-  }
-
-  closeMobileNav() {
-    this.mobileNavOpen = false;
-    document.body.style.overflow = '';
-  }
-
-  // =========================
   // LOAD ROOM DATA
   // =========================
   loadRoomData(roomId: string) {
@@ -363,18 +346,15 @@ export class BookingPage implements OnInit {
   // =========================
   goToHome() {
     this.router.navigate(['/home']);
-    this.closeMobileNav();
-  }
-
-  goToBookingPage() {
-    this.router.navigate(['/booking']);
-    this.closeMobileNav();
   }
 
   // Change room - navigate back to rooms page
   changeRoom() {
     this.router.navigate(['/rooms']);
-    this.closeMobileNav();
+  }
+
+  goToBookingPage() {
+    this.router.navigate(['/booking']);
   }
 
   // =========================
@@ -391,6 +371,24 @@ export class BookingPage implements OnInit {
         this.bookingData.nights = diffDays.toString();
       }
     }
+  }
+
+  // =========================
+  // FIELD FOCUS/BLUR HANDLERS - FOR BETTER MOBILE EXPERIENCE
+  // =========================
+  onFieldFocus(fieldName: string) {
+    this.focusedField = fieldName;
+    // Scroll to the field on mobile for better UX
+    setTimeout(() => {
+      const element = document.querySelector(`[name="${fieldName}"]`);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 300);
+  }
+
+  onFieldBlur(fieldName: string) {
+    this.focusedField = '';
   }
 
   // =========================
