@@ -1009,7 +1009,7 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// CONTACT FORM - FIXED DISPLAY (CLICKABLE)
+// CONTACT FORM - IMPROVED INPUT STYLES
 // =========================
 .contact-form {
   .form-row {
@@ -1048,190 +1048,195 @@ h1, h2, h3, h4,
     }
   }
   
-  // Fix for ion-input - MAKES CLICKABLE
-  .form-input {
-    --background: #ffffff !important;
-    --border-color: #ddd !important;
-    --color: #0a0a0a !important;
-    --placeholder-color: #aaa !important;
-    --placeholder-opacity: 1 !important;
-    --border-radius: 8px !important;
-    --padding-start: 14px !important;
-    --padding-end: 14px !important;
-    --padding-top: 12px !important;
-    --padding-bottom: 12px !important;
-    min-height: 46px !important;
-    border: 1px solid #ddd !important;
-    border-radius: 8px !important;
-    width: 100% !important;
-    background: #ffffff !important;
-    display: block !important;
-    pointer-events: auto !important;
-    position: relative !important;
-    z-index: 10 !important;
-    
-    .native-input {
-      color: #0a0a0a !important;
-      font-size: 14px !important;
-      padding: 0 !important;
-      pointer-events: auto !important;
-    }
-    
-    &:focus-within {
-      border-color: $gold !important;
-      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1) !important;
-    }
-    
-    &.error {
-      border-color: #e74c3c !important;
-    }
-  }
-  
-  // Fix for ion-select - MAKES CLICKABLE
-  .form-select {
-    --background: #ffffff !important;
-    --color: #0a0a0a !important;
-    --placeholder-color: #aaa !important;
-    --placeholder-opacity: 1 !important;
-    --border-radius: 8px !important;
-    --padding-start: 14px !important;
-    --padding-end: 14px !important;
-    min-height: 46px !important;
-    border: 1px solid #ddd !important;
-    border-radius: 8px !important;
-    width: 100% !important;
-    background: #ffffff !important;
-    display: block !important;
-    pointer-events: auto !important;
-    position: relative !important;
-    z-index: 10 !important;
-    
-    .select-text {
-      color: #0a0a0a !important;
-      font-size: 14px !important;
-    }
-    
-    .select-placeholder {
-      color: #aaa !important;
-    }
-    
-    &:focus-within {
-      border-color: $gold !important;
-      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1) !important;
-    }
-    
-    &.error {
-      border-color: #e74c3c !important;
-    }
-  }
-  
-  // Fix for ion-textarea - MAKES CLICKABLE
-  .form-textarea {
-    --background: #ffffff !important;
-    --border-color: #ddd !important;
-    --color: #0a0a0a !important;
-    --placeholder-color: #aaa !important;
-    --placeholder-opacity: 1 !important;
-    --border-radius: 8px !important;
-    --padding-start: 14px !important;
-    --padding-end: 14px !important;
-    --padding-top: 12px !important;
-    --padding-bottom: 12px !important;
-    min-height: 120px !important;
-    border: 1px solid #ddd !important;
-    border-radius: 8px !important;
-    width: 100% !important;
-    background: #ffffff !important;
-    display: block !important;
-    pointer-events: auto !important;
-    position: relative !important;
-    z-index: 10 !important;
-    
-    .native-textarea {
-      color: #0a0a0a !important;
-      font-size: 14px !important;
-      line-height: 1.5 !important;
-      min-height: 100px !important;
-      pointer-events: auto !important;
-    }
-    
-    &:focus-within {
-      border-color: $gold !important;
-      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1) !important;
-    }
-    
-    &.error {
-      border-color: #e74c3c !important;
-    }
-  }
-  
-  // Error messages
-  .error-message {
+  // Input wrapper
+  .input-wrapper {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 4px;
-    font-size: 12px;
-    color: #e74c3c;
-    margin-top: 4px;
-    position: relative;
-    z-index: 1;
+    background: $white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    pointer-events: auto !important;
+    z-index: 10 !important;
+    width: 100%;
+    min-height: 46px;
+    
+    .input-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $gold;
+      font-size: 18px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    
+    &.focused {
+      border-color: $gold !important;
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15) !important;
+    }
+    
+    &.error {
+      border-color: #e74c3c !important;
+      box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1) !important;
+    }
+  }
+}
+
+// =========================
+// NATIVE INPUT STYLES
+// =========================
+.form-input-native {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 14px 12px 44px;
+  border: none;
+  background: transparent;
+  color: #0a0a0a;
+  font-size: 14px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  outline: none;
+  pointer-events: auto;
+  z-index: 2;
+  position: relative;
+  
+  &:focus {
+    outline: none;
+  }
+  
+  &::placeholder {
+    color: #aaa;
+    opacity: 1;
+  }
+  
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: #0a0a0a !important;
+  }
+}
+
+.form-select-native {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 14px 12px 44px;
+  border: none;
+  background: transparent;
+  color: #0a0a0a;
+  font-size: 14px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  outline: none;
+  cursor: pointer;
+  pointer-events: auto;
+  appearance: auto;
+  -webkit-appearance: auto;
+  z-index: 2;
+  position: relative;
+  
+  & option {
+    color: #0a0a0a;
+    background: #ffffff;
+    padding: 8px;
+  }
+  
+  &:focus {
+    outline: none;
+  }
+}
+
+.form-textarea-native {
+  width: 100%;
+  min-height: 100px;
+  padding: 12px 14px 12px 44px;
+  border: none;
+  background: transparent;
+  color: #0a0a0a;
+  font-size: 14px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  outline: none;
+  resize: vertical;
+  pointer-events: auto;
+  z-index: 2;
+  position: relative;
+  line-height: 1.5;
+  
+  &:focus {
+    outline: none;
+  }
+  
+  &::placeholder {
+    color: #aaa;
+    opacity: 1;
+  }
+}
+
+// Error messages
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #e74c3c;
+  margin-top: 4px;
+  position: relative;
+  z-index: 1;
+  
+  ion-icon {
+    font-size: 14px;
+  }
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+  
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, $gold, $gold-dark);
+    color: $black;
+    font-weight: 600;
+    padding: 14px 36px;
+    border-radius: 50px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 25px rgba(201, 168, 76, 0.25);
     
     ion-icon {
-      font-size: 14px;
+      font-size: 18px;
+    }
+    
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, $gold-light, $gold);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(201, 168, 76, 0.4);
+    }
+    
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
     }
   }
   
-  .form-actions {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-top: 8px;
-    flex-wrap: wrap;
-    position: relative;
-    z-index: 1;
+  .required-note {
+    font-size: 12px;
+    color: $grey;
     
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: linear-gradient(135deg, $gold, $gold-dark);
-      color: $black;
-      font-weight: 600;
-      padding: 14px 36px;
-      border-radius: 50px;
-      font-size: 14px;
-      letter-spacing: 0.5px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 4px 25px rgba(201, 168, 76, 0.25);
-      
-      ion-icon {
-        font-size: 18px;
-      }
-      
-      &:hover:not(:disabled) {
-        background: linear-gradient(135deg, $gold-light, $gold);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 40px rgba(201, 168, 76, 0.4);
-      }
-      
-      &:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-        transform: none;
-      }
-    }
-    
-    .required-note {
-      font-size: 12px;
-      color: $grey;
-      
-      .required {
-        color: #e74c3c;
-        font-weight: 700;
-      }
+    .required {
+      color: #e74c3c;
+      font-weight: 700;
     }
   }
 }
@@ -1906,5 +1911,206 @@ ion-content {
     -webkit-overflow-scrolling: touch !important;
     height: 100% !important;
     min-height: 100vh !important;
+  }
+}
+
+// ============================================================
+// ✅ NATIVE INPUT & SELECT STYLES (Complete)
+// ============================================================
+
+// Input wrapper base
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  pointer-events: auto !important;
+  z-index: 10 !important;
+  width: 100%;
+  min-height: 46px;
+
+  .input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #c9a84c;
+    font-size: 18px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  &.focused {
+    border-color: #c9a84c !important;
+    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15) !important;
+  }
+
+  &.error {
+    border-color: #e74c3c !important;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1) !important;
+  }
+}
+
+// Native Input
+.form-input-native {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 14px 12px 44px;
+  border: none;
+  background: transparent;
+  color: #0a0a0a;
+  font-size: 14px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  outline: none;
+  pointer-events: auto;
+  z-index: 2;
+  position: relative;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: #aaa;
+    opacity: 1;
+  }
+
+  // For textarea variant
+  &.textarea {
+    min-height: 100px;
+    resize: vertical;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    line-height: 1.5;
+  }
+}
+
+// Native Select
+.form-select-native {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 14px 12px 44px;
+  border: none;
+  background: transparent;
+  color: #0a0a0a;
+  font-size: 14px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  outline: none;
+  cursor: pointer;
+  pointer-events: auto;
+  appearance: auto;
+  -webkit-appearance: auto;
+  z-index: 2;
+  position: relative;
+
+  option {
+    color: #0a0a0a;
+    background: #ffffff;
+    padding: 8px;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+// Native Textarea
+.form-textarea-native {
+  width: 100%;
+  min-height: 100px;
+  padding: 12px 14px 12px 44px;
+  border: none;
+  background: transparent;
+  color: #0a0a0a;
+  font-size: 14px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  outline: none;
+  resize: vertical;
+  pointer-events: auto;
+  z-index: 2;
+  position: relative;
+  line-height: 1.5;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: #aaa;
+    opacity: 1;
+  }
+}
+
+// Error Message
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #e74c3c;
+  margin-top: 4px;
+  position: relative;
+  z-index: 1;
+
+  ion-icon {
+    font-size: 14px;
+  }
+}
+
+// Form Actions
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #c9a84c, #b8943a);
+    color: #0a0a0a;
+    font-weight: 600;
+    padding: 14px 36px;
+    border-radius: 50px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 25px rgba(201, 168, 76, 0.25);
+
+    ion-icon {
+      font-size: 18px;
+    }
+
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, #dbb95c, #c9a84c);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(201, 168, 76, 0.4);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+  }
+
+  .required-note {
+    font-size: 12px;
+    color: #888888;
+
+    .required {
+      color: #e74c3c;
+      font-weight: 700;
+    }
   }
 }

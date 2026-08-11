@@ -174,7 +174,7 @@
           </div>
         </div>
         
-        <!-- Contact Form -->
+        <!-- Contact Form - Using Native Inputs -->
         <div class="contact-form-wrapper animate-fade-up" style="animation-delay:0.2s">
           <div class="form-header">
             <h3>Send Us a Message</h3>
@@ -182,21 +182,20 @@
           </div>
           
           <form (ngSubmit)="submitContactForm()" #contactForm="ngForm" class="contact-form">
-            <!-- Name Field -->
+            <!-- Name Field - Native Input -->
             <div class="form-group">
               <label>Full Name <span class="required">*</span></label>
-              <div class="input-wrapper" [class.focused]="focusedField === 'name'" [class.error]="shouldShowError('name')">
+              <div class="input-wrapper" [class.error]="shouldShowError('name')">
                 <ion-icon name="person-outline" class="input-icon"></ion-icon>
-                <ion-input 
-                  [(ngModel)]="contactData.name" 
-                  name="name" 
-                  type="text" 
+                <input
+                  class="form-input-native"
+                  type="text"
+                  [(ngModel)]="contactData.name"
+                  name="name"
                   placeholder="John Doe"
                   required
-                  class="form-input"
                   (focus)="onFieldFocus('name')"
                   (blur)="onFieldBlur('name')">
-                </ion-input>
               </div>
               <div class="error-message" *ngIf="shouldShowError('name')">
                 <ion-icon name="alert-circle-outline"></ion-icon>
@@ -204,21 +203,20 @@
               </div>
             </div>
 
-            <!-- Email Field -->
+            <!-- Email Field - Native Input -->
             <div class="form-group">
               <label>Email Address <span class="required">*</span></label>
-              <div class="input-wrapper" [class.focused]="focusedField === 'email'" [class.error]="shouldShowError('email')">
+              <div class="input-wrapper" [class.error]="shouldShowError('email')">
                 <ion-icon name="mail-outline" class="input-icon"></ion-icon>
-                <ion-input 
-                  [(ngModel)]="contactData.email" 
-                  name="email" 
-                  type="email" 
+                <input
+                  class="form-input-native"
+                  type="email"
+                  [(ngModel)]="contactData.email"
+                  name="email"
                   placeholder="info@example.com"
                   required
-                  class="form-input"
                   (focus)="onFieldFocus('email')"
                   (blur)="onFieldBlur('email')">
-                </ion-input>
               </div>
               <div class="error-message" *ngIf="shouldShowError('email')">
                 <ion-icon name="alert-circle-outline"></ion-icon>
@@ -226,43 +224,41 @@
               </div>
             </div>
 
-            <!-- Phone Field -->
+            <!-- Phone Field - Native Input -->
             <div class="form-group">
               <label>Phone Number</label>
-              <div class="input-wrapper" [class.focused]="focusedField === 'phone'">
+              <div class="input-wrapper">
                 <ion-icon name="call-outline" class="input-icon"></ion-icon>
-                <ion-input 
-                  [(ngModel)]="contactData.phone" 
-                  name="phone" 
-                  type="tel" 
+                <input
+                  class="form-input-native"
+                  type="tel"
+                  [(ngModel)]="contactData.phone"
+                  name="phone"
                   placeholder="+27 84 900 9821"
-                  class="form-input"
                   (focus)="onFieldFocus('phone')"
                   (blur)="onFieldBlur('phone')">
-                </ion-input>
               </div>
             </div>
 
-            <!-- Subject Field -->
+            <!-- Subject Field - Native Select -->
             <div class="form-group">
               <label>Subject <span class="required">*</span></label>
-              <div class="input-wrapper" [class.focused]="focusedField === 'subject'" [class.error]="shouldShowError('subject')">
+              <div class="input-wrapper" [class.error]="shouldShowError('subject')">
                 <ion-icon name="bookmark-outline" class="input-icon"></ion-icon>
-                <ion-select 
-                  [(ngModel)]="contactData.subject" 
+                <select
+                  class="form-select-native"
+                  [(ngModel)]="contactData.subject"
                   name="subject"
-                  placeholder="Select a subject"
-                  interface="popover"
-                  class="form-select"
-                  (ionFocus)="onFieldFocus('subject')"
-                  (ionBlur)="onFieldBlur('subject')"
-                  required>
-                  <ion-select-option value="booking">Booking Enquiry</ion-select-option>
-                  <ion-select-option value="availability">Availability Check</ion-select-option>
-                  <ion-select-option value="rates">Rates &amp; Pricing</ion-select-option>
-                  <ion-select-option value="feedback">Feedback</ion-select-option>
-                  <ion-select-option value="other">Other</ion-select-option>
-                </ion-select>
+                  required
+                  (focus)="onFieldFocus('subject')"
+                  (blur)="onFieldBlur('subject')">
+                  <option value="">Select a subject</option>
+                  <option value="booking">Booking Enquiry</option>
+                  <option value="availability">Availability Check</option>
+                  <option value="rates">Rates &amp; Pricing</option>
+                  <option value="feedback">Feedback</option>
+                  <option value="other">Other</option>
+                </select>
               </div>
               <div class="error-message" *ngIf="shouldShowError('subject')">
                 <ion-icon name="alert-circle-outline"></ion-icon>
@@ -270,21 +266,21 @@
               </div>
             </div>
 
-            <!-- Message Field -->
+            <!-- Message Field - Native Textarea -->
             <div class="form-group full-width">
               <label>Message <span class="required">*</span></label>
-              <div class="input-wrapper" [class.focused]="focusedField === 'message'" [class.error]="shouldShowError('message')">
+              <div class="input-wrapper" [class.error]="shouldShowError('message')">
                 <ion-icon name="chatbubbles-outline" class="input-icon"></ion-icon>
-                <ion-textarea 
-                  [(ngModel)]="contactData.message" 
-                  name="message" 
+                <textarea
+                  class="form-textarea-native"
+                  [(ngModel)]="contactData.message"
+                  name="message"
                   placeholder="Tell us how we can help you..."
                   rows="5"
-                  class="form-textarea"
+                  required
                   (focus)="onFieldFocus('message')"
-                  (blur)="onFieldBlur('message')"
-                  required>
-                </ion-textarea>
+                  (blur)="onFieldBlur('message')">
+                </textarea>
               </div>
               <div class="error-message" *ngIf="shouldShowError('message')">
                 <ion-icon name="alert-circle-outline"></ion-icon>

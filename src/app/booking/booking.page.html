@@ -266,19 +266,18 @@
                 Stay Details
               </h4>
               <div class="form-row">
-                <!-- Check-in - Using Native Input -->
+                <!-- Check-in - Using Native Date Input with Calendar -->
                 <div class="form-group">
                   <label>Check-in Date <span class="required">*</span></label>
                   <div class="input-wrapper" [class.error]="checkInError">
                     <ion-icon name="calendar-outline" class="input-icon"></ion-icon>
                     <input
                       class="form-input-native"
-                      type="text"
+                      type="date"
                       [(ngModel)]="bookingData.checkIn"
                       name="checkIn"
-                      placeholder="Select check-in date"
-                      readonly
-                      (click)="openDatePicker('checkIn')"
+                      required
+                      (change)="onDateChange()"
                       (focus)="onFieldFocus('checkIn')"
                       (blur)="onFieldBlur('checkIn')">
                   </div>
@@ -288,19 +287,18 @@
                   </div>
                 </div>
 
-                <!-- Check-out - Using Native Input -->
+                <!-- Check-out - Using Native Date Input with Calendar -->
                 <div class="form-group">
                   <label>Check-out Date <span class="required">*</span></label>
                   <div class="input-wrapper" [class.error]="checkOutError">
                     <ion-icon name="calendar-outline" class="input-icon"></ion-icon>
                     <input
                       class="form-input-native"
-                      type="text"
+                      type="date"
                       [(ngModel)]="bookingData.checkOut"
                       name="checkOut"
-                      placeholder="Select check-out date"
-                      readonly
-                      (click)="openDatePicker('checkOut')"
+                      required
+                      (change)="onDateChange()"
                       (focus)="onFieldFocus('checkOut')"
                       (blur)="onFieldBlur('checkOut')">
                   </div>
