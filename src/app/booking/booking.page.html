@@ -1,9 +1,5 @@
 <!-- ============================================= -->
-<!-- ✅ COMPLETELY REMOVED - NO NAVBAR AT ALL      -->
-<!-- ============================================= -->
-
-<!-- ============================================= -->
-<!-- ✅ MOBILE NAV COMPLETELY REMOVED              -->
+<!-- ✅ NO NAVBAR - CLEAN BOOKING PAGE            -->
 <!-- ============================================= -->
 
 <!-- ============================================= -->
@@ -175,20 +171,18 @@
                 Personal Information
               </h4>
               <div class="form-row">
+                <!-- First Name -->
                 <div class="form-group">
                   <label>First Name <span class="required">*</span></label>
                   <div class="input-wrapper" [class.error]="firstNameError && !bookingData.firstName">
                     <ion-icon name="person-outline" class="input-icon"></ion-icon>
-                    <ion-input 
-                      [(ngModel)]="bookingData.firstName" 
-                      name="firstName" 
-                      type="text" 
-                      placeholder="John"
-                      required
+                    <ion-input
                       class="form-input"
-                      [class.error]="firstNameError && !bookingData.firstName"
-                      (ionFocus)="onFieldFocus('firstName')"
-                      (ionBlur)="onFieldBlur('firstName')">
+                      type="text"
+                      [(ngModel)]="bookingData.firstName"
+                      name="firstName"
+                      placeholder="John"
+                      required>
                     </ion-input>
                   </div>
                   <div class="error-message" *ngIf="firstNameError && !bookingData.firstName">
@@ -196,20 +190,19 @@
                     Please enter your first name
                   </div>
                 </div>
+
+                <!-- Last Name -->
                 <div class="form-group">
                   <label>Last Name <span class="required">*</span></label>
                   <div class="input-wrapper" [class.error]="lastNameError && !bookingData.lastName">
                     <ion-icon name="person-outline" class="input-icon"></ion-icon>
-                    <ion-input 
-                      [(ngModel)]="bookingData.lastName" 
-                      name="lastName" 
-                      type="text" 
-                      placeholder="Doe"
-                      required
+                    <ion-input
                       class="form-input"
-                      [class.error]="lastNameError && !bookingData.lastName"
-                      (ionFocus)="onFieldFocus('lastName')"
-                      (ionBlur)="onFieldBlur('lastName')">
+                      type="text"
+                      [(ngModel)]="bookingData.lastName"
+                      name="lastName"
+                      placeholder="Doe"
+                      required>
                     </ion-input>
                   </div>
                   <div class="error-message" *ngIf="lastNameError && !bookingData.lastName">
@@ -218,21 +211,20 @@
                   </div>
                 </div>
               </div>
+
               <div class="form-row">
+                <!-- Email -->
                 <div class="form-group">
                   <label>Email Address <span class="required">*</span></label>
                   <div class="input-wrapper" [class.error]="emailError && !bookingData.email">
                     <ion-icon name="mail-outline" class="input-icon"></ion-icon>
-                    <ion-input 
-                      [(ngModel)]="bookingData.email" 
-                      name="email" 
-                      type="email" 
-                      placeholder="info@example.com"
-                      required
+                    <ion-input
                       class="form-input"
-                      [class.error]="emailError && !bookingData.email"
-                      (ionFocus)="onFieldFocus('email')"
-                      (ionBlur)="onFieldBlur('email')">
+                      type="email"
+                      [(ngModel)]="bookingData.email"
+                      name="email"
+                      placeholder="info@example.com"
+                      required>
                     </ion-input>
                   </div>
                   <div class="error-message" *ngIf="emailError && !bookingData.email">
@@ -240,20 +232,19 @@
                     Please enter a valid email address
                   </div>
                 </div>
+
+                <!-- Phone -->
                 <div class="form-group">
                   <label>Phone Number <span class="required">*</span></label>
                   <div class="input-wrapper" [class.error]="phoneError && !bookingData.phone">
                     <ion-icon name="call-outline" class="input-icon"></ion-icon>
-                    <ion-input 
-                      [(ngModel)]="bookingData.phone" 
-                      name="phone" 
-                      type="tel" 
-                      placeholder="+27 84 900 9821"
-                      required
+                    <ion-input
                       class="form-input"
-                      [class.error]="phoneError && !bookingData.phone"
-                      (ionFocus)="onFieldFocus('phone')"
-                      (ionBlur)="onFieldBlur('phone')">
+                      type="tel"
+                      [(ngModel)]="bookingData.phone"
+                      name="phone"
+                      placeholder="+27 84 900 9821"
+                      required>
                     </ion-input>
                   </div>
                   <div class="error-message" *ngIf="phoneError && !bookingData.phone">
@@ -271,19 +262,19 @@
                 Stay Details
               </h4>
               <div class="form-row">
+                <!-- Check-in -->
                 <div class="form-group">
                   <label>Check-in Date <span class="required">*</span></label>
                   <div class="input-wrapper" [class.error]="checkInError && !bookingData.checkIn">
                     <ion-icon name="calendar-outline" class="input-icon"></ion-icon>
-                    <ion-input 
-                      [(ngModel)]="bookingData.checkIn" 
-                      name="checkIn" 
-                      type="text" 
-                      placeholder="Select check-in date"
+                    <ion-input
                       class="form-input"
-                      [class.error]="checkInError && !bookingData.checkIn"
-                      (click)="openDatePicker('checkIn')"
-                      readonly>
+                      type="text"
+                      [(ngModel)]="bookingData.checkIn"
+                      name="checkIn"
+                      placeholder="Select check-in date"
+                      readonly
+                      (click)="openDatePicker('checkIn')">
                     </ion-input>
                   </div>
                   <div class="error-message" *ngIf="checkInError && !bookingData.checkIn">
@@ -291,19 +282,20 @@
                     Please select a check-in date
                   </div>
                 </div>
+
+                <!-- Check-out -->
                 <div class="form-group">
                   <label>Check-out Date <span class="required">*</span></label>
                   <div class="input-wrapper" [class.error]="checkOutError && !bookingData.checkOut">
                     <ion-icon name="calendar-outline" class="input-icon"></ion-icon>
-                    <ion-input 
-                      [(ngModel)]="bookingData.checkOut" 
-                      name="checkOut" 
-                      type="text" 
-                      placeholder="Select check-out date"
+                    <ion-input
                       class="form-input"
-                      [class.error]="checkOutError && !bookingData.checkOut"
-                      (click)="openDatePicker('checkOut')"
-                      readonly>
+                      type="text"
+                      [(ngModel)]="bookingData.checkOut"
+                      name="checkOut"
+                      placeholder="Select check-out date"
+                      readonly
+                      (click)="openDatePicker('checkOut')">
                     </ion-input>
                   </div>
                   <div class="error-message" *ngIf="checkOutError && !bookingData.checkOut">
@@ -312,20 +304,20 @@
                   </div>
                 </div>
               </div>
+
               <div class="form-row">
+                <!-- Guests -->
                 <div class="form-group">
                   <label>Number of Guests <span class="required">*</span></label>
                   <div class="input-wrapper">
                     <ion-icon name="people-outline" class="input-icon"></ion-icon>
-                    <ion-select 
-                      [(ngModel)]="bookingData.guests" 
+                    <ion-select
+                      class="form-select"
+                      [(ngModel)]="bookingData.guests"
                       name="guests"
                       placeholder="Select guests"
                       interface="popover"
-                      class="form-select"
-                      required
-                      (ionFocus)="onFieldFocus('guests')"
-                      (ionBlur)="onFieldBlur('guests')">
+                      required>
                       <ion-select-option value="1">1 Guest</ion-select-option>
                       <ion-select-option value="2">2 Guests</ion-select-option>
                       <ion-select-option value="3">3 Guests</ion-select-option>
@@ -335,19 +327,19 @@
                     </ion-select>
                   </div>
                 </div>
+
+                <!-- Location -->
                 <div class="form-group">
                   <label>Location <span class="required">*</span></label>
                   <div class="input-wrapper">
                     <ion-icon name="location-outline" class="input-icon"></ion-icon>
-                    <ion-select 
-                      [(ngModel)]="bookingData.location" 
+                    <ion-select
+                      class="form-select"
+                      [(ngModel)]="bookingData.location"
                       name="location"
                       placeholder="Select location"
                       interface="popover"
-                      class="form-select"
-                      required
-                      (ionFocus)="onFieldFocus('location')"
-                      (ionBlur)="onFieldBlur('location')">
+                      required>
                       <ion-select-option value="oceanic">🌊 Durban Oceanic (82A, 82B, 117)</ion-select-option>
                       <ion-select-option value="musgrave-la">🏠 La Tiah Musgrave</ion-select-option>
                       <ion-select-option value="musgrave">🏠 Tiah Musgrave</ion-select-option>
@@ -356,20 +348,20 @@
                   </div>
                 </div>
               </div>
+
               <div class="form-row">
+                <!-- Room Type -->
                 <div class="form-group">
                   <label>Room Type <span class="required">*</span></label>
                   <div class="input-wrapper">
                     <ion-icon name="bed-outline" class="input-icon"></ion-icon>
-                    <ion-select 
-                      [(ngModel)]="bookingData.roomType" 
+                    <ion-select
+                      class="form-select"
+                      [(ngModel)]="bookingData.roomType"
                       name="roomType"
                       placeholder="Select room type"
                       interface="popover"
-                      class="form-select"
-                      required
-                      (ionFocus)="onFieldFocus('roomType')"
-                      (ionBlur)="onFieldBlur('roomType')">
+                      required>
                       <ion-select-option value="single">🛏 Single Room</ion-select-option>
                       <ion-select-option value="double">🛏 Double Room</ion-select-option>
                       <ion-select-option value="family">🛏 Family Room</ion-select-option>
@@ -378,18 +370,18 @@
                     </ion-select>
                   </div>
                 </div>
+
+                <!-- Nights -->
                 <div class="form-group">
                   <label>Number of Nights</label>
                   <div class="input-wrapper">
                     <ion-icon name="time-outline" class="input-icon"></ion-icon>
-                    <ion-input 
-                      [(ngModel)]="bookingData.nights" 
-                      name="nights" 
-                      type="number" 
-                      placeholder="1"
+                    <ion-input
                       class="form-input"
-                      (ionFocus)="onFieldFocus('nights')"
-                      (ionBlur)="onFieldBlur('nights')">
+                      type="number"
+                      [(ngModel)]="bookingData.nights"
+                      name="nights"
+                      placeholder="1">
                     </ion-input>
                   </div>
                 </div>
@@ -406,14 +398,12 @@
                 <label>Additional Requirements</label>
                 <div class="input-wrapper">
                   <ion-icon name="chatbubbles-outline" class="input-icon"></ion-icon>
-                  <ion-textarea 
-                    [(ngModel)]="bookingData.specialRequests" 
-                    name="specialRequests" 
-                    placeholder="Any special requirements or preferences..."
-                    rows="4"
+                  <ion-textarea
                     class="form-textarea"
-                    (ionFocus)="onFieldFocus('specialRequests')"
-                    (ionBlur)="onFieldBlur('specialRequests')">
+                    [(ngModel)]="bookingData.specialRequests"
+                    name="specialRequests"
+                    placeholder="Any special requirements or preferences..."
+                    rows="4">
                   </ion-textarea>
                 </div>
               </div>

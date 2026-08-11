@@ -69,9 +69,9 @@
 html, body {
   margin: 0;
   padding: 0;
-  height: auto !important; // Changed from 100% to auto
-  min-height: 100vh !important; // Ensure minimum height
-  overflow-y: auto !important; // Allow vertical scrolling
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow-y: auto !important;
   overflow-x: hidden !important;
   -webkit-overflow-scrolling: touch !important;
   position: relative !important;
@@ -83,11 +83,11 @@ ion-app {
   overflow: visible !important;
 }
 
-// ✅ FIX: Make ion-content scrollable on ALL pages
+// ✅ FIX: Make ion-content scrollable - BUT DON'T BREAK INPUTS
 ion-content {
   --offset-top: 0px !important;
   --padding-top: 0 !important;
-  --overflow: auto !important;
+  // REMOVED: --overflow: auto !important; - This was breaking inputs
   overflow-y: auto !important;
   height: 100% !important;
   min-height: 100vh !important;

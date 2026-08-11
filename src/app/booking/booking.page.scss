@@ -1,157 +1,7 @@
 // =========================
 // FONTS
 // =========================
-// ============================================================
-// ✅ FIX: MAKE ALL INPUTS CLICKABLE AND FOCUSABLE
-// ============================================================
 
-// Force all form inputs to be clickable
-ion-input,
-ion-select,
-ion-datetime,
-ion-textarea {
-  pointer-events: auto !important;
-  cursor: text !important;
-  position: relative !important;
-  z-index: 999 !important;
-  opacity: 1 !important;
-}
-
-.input-wrapper {
-  position: relative !important;
-  z-index: 999 !important;
-  pointer-events: auto !important;
-  cursor: text !important;
-}
-
-// Ensure native input is clickable
-.form-input .native-input,
-.form-textarea .native-textarea {
-  pointer-events: auto !important;
-  cursor: text !important;
-  position: relative !important;
-  z-index: 999 !important;
-}
-
-// Fix for ion-datetime
-ion-datetime {
-  .datetime-text {
-    pointer-events: auto !important;
-    cursor: pointer !important;
-    color: #0a0a0a !important;
-  }
-  
-  .datetime-placeholder {
-    color: #aaa !important;
-  }
-}
-
-// Fix for ion-select
-ion-select {
-  .select-text {
-    pointer-events: auto !important;
-    cursor: pointer !important;
-    color: #0a0a0a !important;
-  }
-  
-  .select-placeholder {
-    color: #aaa !important;
-  }
-}
-
-// Fix for ion-input
-ion-input {
-  --color: #0a0a0a !important;
-  
-  .native-input {
-    color: #0a0a0a !important;
-    font-size: 16px !important;
-  }
-}
-
-// Fix for ion-textarea
-ion-textarea {
-  --color: #0a0a0a !important;
-  
-  .native-textarea {
-    color: #0a0a0a !important;
-    font-size: 16px !important;
-  }
-}
-
-// Remove any overlay blocking clicks
-.nav-overlay {
-  pointer-events: none !important;
-}
-
-.nav-overlay.active {
-  pointer-events: none !important;
-}
-
-// Ensure the form is above everything
-.booking-form-wrapper {
-  position: relative !important;
-  z-index: 100 !important;
-}
-
-.booking-form {
-  position: relative !important;
-  z-index: 101 !important;
-}
-
-.form-group {
-  position: relative !important;
-  z-index: 102 !important;
-}
-
-// Fix for mobile keyboard
-@media (max-width: 768px) {
-  ion-input,
-  ion-textarea,
-  .form-input .native-input,
-  .form-textarea .native-textarea {
-    font-size: 16px !important; // Prevents zoom on iOS
-  }
-}
-
-// Fix for disabled-looking fields
-ion-input,
-ion-select,
-ion-datetime,
-ion-textarea {
-  opacity: 1 !important;
-  --opacity: 1 !important;
-}
-
-// Fix for the input wrapper background
-.booking-form .input-wrapper {
-  background: #ffffff !important;
-  border: 1px solid #ddd !important;
-  border-radius: 8px !important;
-  padding: 0 !important;
-  min-height: 46px !important;
-  display: flex !important;
-  align-items: center !important;
-  
-  .input-icon {
-    position: absolute !important;
-    left: 12px !important;
-    color: #888888 !important;
-    font-size: 18px !important;
-    z-index: 5 !important;
-    pointer-events: none !important;
-  }
-  
-  &.focused {
-    border-color: #c9a84c !important;
-    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15) !important;
-  }
-  
-  &.error {
-    border-color: #e74c3c !important;
-    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1) !important;
-  }
-}
 // =========================
 // VARIABLES
 // =========================
@@ -168,6 +18,8 @@ $white: #ffffff;
 $font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 $font-serif: 'Cormorant Garamond', Georgia, serif;
 $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+$header-height-desktop: 72px;
+$header-height-mobile: 56px;
 
 * {
   font-family: $font-primary !important;
@@ -1043,7 +895,7 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// BOOKING FORM - FIXED FOR CLICKABLE INPUTS
+// BOOKING FORM - FIXED FOR TYPING
 // =========================
 .booking-form-wrapper {
   background: $off-white;
@@ -1118,7 +970,7 @@ h1, h2, h3, h4,
   .form-group {
     margin-bottom: 16px;
     position: relative;
-    z-index: 1;
+    z-index: 10;
     
     label {
       display: block;
@@ -1135,164 +987,111 @@ h1, h2, h3, h4,
       }
     }
   }
-  
-  // =========================
-  // INPUT WRAPPER - FIX FOR CLICKABLE INPUTS
-  // =========================
+
+  // ============================================================
+  // INPUT WRAPPER - FIXED FOR TYPING
+  // ============================================================
   .input-wrapper {
     position: relative;
-    display: flex;
-    align-items: center;
+    width: 100%;
     background: #ffffff;
     border: 1px solid #ddd;
     border-radius: 8px;
-    transition: all 0.3s ease;
-    pointer-events: auto !important;
-    z-index: 10 !important;
-    
+    pointer-events: auto;
+    overflow: visible;
+
+    &.focused {
+      border-color: $gold;
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
+    }
+
+    &.error {
+      border-color: #e74c3c;
+    }
+
     .input-icon {
       position: absolute;
       left: 12px;
-      color: $grey;
-      font-size: 18px;
-      z-index: 5;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
       pointer-events: none;
+      color: #888;
+      font-size: 18px;
     }
-    
-    &.focused {
-      border-color: $gold !important;
-      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15) !important;
-    }
-    
-    &.error {
-      border-color: #e74c3c !important;
-      box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1) !important;
+
+    // For textarea icon position
+    .input-icon-top {
+      top: 16px;
+      transform: none;
     }
   }
-  
-  // Fix for ion-input
-  .form-input {
-    --background: transparent !important;
-    --color: #0a0a0a !important;
-    --placeholder-color: #aaa !important;
-    --placeholder-opacity: 1 !important;
-    --border-radius: 8px !important;
-    --padding-start: 44px !important;
-    --padding-end: 14px !important;
-    --padding-top: 12px !important;
-    --padding-bottom: 12px !important;
-    min-height: 46px !important;
-    width: 100% !important;
-    display: block !important;
-    pointer-events: auto !important;
-    position: relative !important;
-    z-index: 10 !important;
-    background: transparent !important;
-    border: none !important;
-    
-    .native-input {
-      color: #0a0a0a !important;
-      font-size: 14px !important;
-      padding: 0 !important;
-      pointer-events: auto !important;
-    }
-    
-    &.error {
-      border-color: #e74c3c !important;
-    }
+
+  // ============================================================
+  // IONIC INPUT - FIXED FOR TYPING
+  // ============================================================
+  ion-input.form-input {
+    --background: transparent;
+    --color: #0a0a0a;
+    --placeholder-color: #aaa;
+    --placeholder-opacity: 1;
+    --padding-start: 44px;
+    --padding-end: 14px;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+
+    display: block;
+    width: 100%;
+    min-height: 46px;
+    position: relative;
+    z-index: 25;
+    pointer-events: auto;
   }
-  
-  // Fix for ion-select
-  .form-select {
-    --background: transparent !important;
-    --color: #0a0a0a !important;
-    --placeholder-color: #aaa !important;
-    --placeholder-opacity: 1 !important;
-    --border-radius: 8px !important;
-    --padding-start: 44px !important;
-    --padding-end: 14px !important;
-    min-height: 46px !important;
-    width: 100% !important;
-    display: block !important;
-    pointer-events: auto !important;
-    position: relative !important;
-    z-index: 10 !important;
-    background: transparent !important;
-    border: none !important;
-    
-    .select-text {
-      color: #0a0a0a !important;
-      font-size: 14px !important;
-    }
-    
-    .select-placeholder {
-      color: #aaa !important;
-    }
+
+  // ============================================================
+  // IONIC TEXTAREA - FIXED FOR TYPING
+  // ============================================================
+  ion-textarea.form-textarea {
+    --background: transparent;
+    --color: #0a0a0a;
+    --placeholder-color: #aaa;
+    --placeholder-opacity: 1;
+    --padding-start: 44px;
+    --padding-end: 14px;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+
+    display: block;
+    width: 100%;
+    min-height: 100px;
+    position: relative;
+    z-index: 25;
+    pointer-events: auto;
   }
-  
-  // Fix for ion-datetime
-  .form-datetime {
-    --background: transparent !important;
-    --color: #0a0a0a !important;
-    --placeholder-color: #aaa !important;
-    --placeholder-opacity: 1 !important;
-    --border-radius: 8px !important;
-    --padding-start: 44px !important;
-    --padding-end: 14px !important;
-    min-height: 46px !important;
-    width: 100% !important;
-    display: block !important;
-    pointer-events: auto !important;
-    position: relative !important;
-    z-index: 10 !important;
-    background: transparent !important;
-    border: none !important;
-    padding: 10px 14px 10px 44px !important;
-    
-    .datetime-text {
-      color: #0a0a0a !important;
-      font-size: 14px !important;
-    }
-    
-    .datetime-placeholder {
-      color: #aaa !important;
-    }
-    
-    &.error {
-      border-color: #e74c3c !important;
-    }
+
+  // ============================================================
+  // IONIC SELECT - FIXED FOR CLICKING
+  // ============================================================
+  ion-select.form-select {
+    --background: transparent;
+    --color: #0a0a0a;
+    --placeholder-color: #aaa;
+    --placeholder-opacity: 1;
+    --padding-start: 44px;
+    --padding-end: 14px;
+
+    display: block;
+    width: 100%;
+    min-height: 46px;
+    position: relative;
+    z-index: 25;
+    pointer-events: auto;
+    cursor: pointer;
   }
-  
-  // Fix for ion-textarea
-  .form-textarea {
-    --background: transparent !important;
-    --color: #0a0a0a !important;
-    --placeholder-color: #aaa !important;
-    --placeholder-opacity: 1 !important;
-    --border-radius: 8px !important;
-    --padding-start: 44px !important;
-    --padding-end: 14px !important;
-    --padding-top: 12px !important;
-    --padding-bottom: 12px !important;
-    min-height: 100px !important;
-    width: 100% !important;
-    display: block !important;
-    pointer-events: auto !important;
-    position: relative !important;
-    z-index: 10 !important;
-    background: transparent !important;
-    border: none !important;
-    resize: vertical !important;
-    
-    .native-textarea {
-      color: #0a0a0a !important;
-      font-size: 14px !important;
-      line-height: 1.5 !important;
-      min-height: 80px !important;
-      pointer-events: auto !important;
-    }
-  }
-  
+
+  // ============================================================
+  // ERROR MESSAGES
+  // ============================================================
   .error-message {
     display: flex;
     align-items: center;
@@ -1301,13 +1100,16 @@ h1, h2, h3, h4,
     color: #e74c3c;
     margin-top: 4px;
     position: relative;
-    z-index: 1;
+    z-index: 10;
     
     ion-icon {
       font-size: 14px;
     }
   }
-  
+
+  // ============================================================
+  // FORM ACTIONS
+  // ============================================================
   .form-actions {
     display: flex;
     align-items: center;
@@ -1315,7 +1117,7 @@ h1, h2, h3, h4,
     margin-top: 20px;
     flex-wrap: wrap;
     position: relative;
-    z-index: 1;
+    z-index: 10;
     
     @media (max-width: 480px) {
       flex-direction: column;
@@ -1370,6 +1172,30 @@ h1, h2, h3, h4,
         font-weight: 700;
       }
     }
+  }
+}
+
+// ============================================================
+// IONIC NATIVE INPUT - PART SELECTOR
+// ============================================================
+ion-input::part(native) {
+  color: #0a0a0a;
+  font-size: 14px;
+  pointer-events: auto;
+}
+
+ion-textarea::part(native) {
+  color: #0a0a0a;
+  font-size: 14px;
+  line-height: 1.5;
+  pointer-events: auto;
+}
+
+// Mobile keyboard fix - prevents zoom
+@media (max-width: 768px) {
+  ion-input::part(native),
+  ion-textarea::part(native) {
+    font-size: 16px;
   }
 }
 
@@ -1990,7 +1816,7 @@ ion-content {
 }
 
 // ============================================================
-// ✅ PRODUCTION SCROLL FIX - BOOKING PAGE (MATCHING ABOUT)
+// ✅ PRODUCTION SCROLL FIX - KEEP THIS AS IS
 // ============================================================
 
 // Force the page to scroll in production
@@ -2115,93 +1941,5 @@ ion-content {
     -webkit-overflow-scrolling: touch !important;
     height: 100% !important;
     min-height: 100vh !important;
-  }
-}
-
-// ============================================================
-// ✅ FIX: MAKE ALL INPUTS CLICKABLE AND FOCUSABLE
-// ============================================================
-
-// Force all form inputs to be clickable
-ion-input,
-ion-select,
-ion-datetime,
-ion-textarea {
-  pointer-events: auto !important;
-  cursor: text !important;
-  position: relative !important;
-  z-index: 999 !important;
-}
-
-.input-wrapper {
-  position: relative !important;
-  z-index: 999 !important;
-  pointer-events: auto !important;
-}
-
-// Ensure native input is clickable
-.form-input .native-input,
-.form-textarea .native-textarea {
-  pointer-events: auto !important;
-  cursor: text !important;
-  position: relative !important;
-  z-index: 999 !important;
-}
-
-// Fix for ion-datetime button
-ion-datetime .datetime-text {
-  pointer-events: auto !important;
-  cursor: pointer !important;
-}
-
-// Fix for ion-select
-ion-select .select-text {
-  pointer-events: auto !important;
-  cursor: pointer !important;
-}
-
-// Ensure the input wrapper doesn't block clicks
-.booking-form .input-wrapper {
-  pointer-events: auto !important;
-  cursor: text !important;
-}
-
-// Fix for ion-item inside forms
-ion-item {
-  pointer-events: auto !important;
-  --inner-padding-end: 0 !important;
-  --inner-padding-start: 0 !important;
-}
-
-// Remove any overlay that might block clicks
-.nav-overlay.active {
-  pointer-events: none !important;
-}
-
-// Ensure the form is above everything
-.booking-form-wrapper {
-  position: relative !important;
-  z-index: 100 !important;
-}
-
-.booking-form {
-  position: relative !important;
-  z-index: 101 !important;
-}
-
-.form-group {
-  position: relative !important;
-  z-index: 102 !important;
-}
-
-// Fix for mobile keyboard
-@media (max-width: 768px) {
-  ion-input,
-  ion-textarea {
-    font-size: 16px !important; // Prevents zoom on iOS
-  }
-  
-  .form-input .native-input {
-    font-size: 16px !important;
   }
 }
