@@ -19,6 +19,9 @@ import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 })
 export class BookingPage implements OnInit {
 
+  // Mobile navigation state
+  mobileNavOpen: boolean = false;
+
   bookingData: any = {
     firstName: '',
     lastName: '',
@@ -29,12 +32,14 @@ export class BookingPage implements OnInit {
     guests: '',
     location: '',
     roomType: '',
-    specialRequests: ''
+    specialRequests: '',
+    nights: ''
   };
 
   selectedRoom: any = null;
   roomId: string | null = null;
 
+  // Validation errors
   firstNameError: boolean = false;
   lastNameError: boolean = false;
   emailError: boolean = false;
@@ -302,6 +307,23 @@ export class BookingPage implements OnInit {
     });
   }
 
+  // =========================
+  // MOBILE NAVIGATION
+  // =========================
+  toggleMobileNav() {
+    this.mobileNavOpen = !this.mobileNavOpen;
+    if (this.mobileNavOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }
+
+  closeMobileNav() {
+    this.mobileNavOpen = false;
+    document.body.style.overflow = '';
+  }
+
   loadRoomData(roomId: string) {
     const id = parseInt(roomId, 10);
     const room = this.allRooms.find(r => r.id === id);
@@ -334,7 +356,9 @@ export class BookingPage implements OnInit {
     }
   }
 
-  // Navigation functions
+  // =========================
+  // NAVIGATION FUNCTIONS
+  // =========================
   goToHome() {
     this.router.navigate(['/home']);
   }
@@ -344,14 +368,25 @@ export class BookingPage implements OnInit {
     this.router.navigate(['/rooms']);
   }
 
-  // Open WhatsApp - UPDATED NUMBER
+  // =========================
+  // BOOKING FUNCTIONS
+  // =========================
+  goToBookingPage() {
+    this.router.navigate(['/booking']);
+  }
+
+  // =========================
+  // WHATSAPP
+  // =========================
   openWhatsApp() {
     const phone = '27849009821';
     const message = 'Hello STAY@TIAH, I would like to make a booking enquiry.';
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
   }
 
-  // Submit booking form - UPDATED NUMBER
+  // =========================
+  // SUBMIT BOOKING FORM
+  // =========================
   submitBooking() {
     // Reset errors
     this.firstNameError = false;
@@ -364,18 +399,31 @@ export class BookingPage implements OnInit {
     // Validate First Name
     if (!this.bookingData.firstName || this.bookingData.firstName.trim() === '') {
       this.firstNameError = true;
+      // Scroll to first error
+      const firstError = document.querySelector('.error-message');
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
       return;
     }
 
     // Validate Last Name
     if (!this.bookingData.lastName || this.bookingData.lastName.trim() === '') {
       this.lastNameError = true;
+      const firstError = document.querySelector('.error-message');
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
       return;
     }
 
     // Validate Email
     if (!this.bookingData.email || this.bookingData.email.trim() === '') {
       this.emailError = true;
+      const firstError = document.querySelector('.error-message');
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
       return;
     }
 
@@ -383,39 +431,59 @@ export class BookingPage implements OnInit {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailPattern.test(this.bookingData.email)) {
       this.emailError = true;
+      const firstError = document.querySelector('.error-message');
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
       return;
     }
 
     // Validate Phone
     if (!this.bookingData.phone || this.bookingData.phone.trim() === '') {
       this.phoneError = true;
+      const firstError = document.querySelector('.error-message');
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
       return;
     }
 
     // Validate Check-in
     if (!this.bookingData.checkIn) {
       this.checkInError = true;
+      const firstError = document.querySelector('.error-message');
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
       return;
     }
 
     // Validate Check-out
     if (!this.bookingData.checkOut) {
       this.checkOutError = true;
+      const firstError = document.querySelector('.error-message');
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
       return;
     }
 
     // Validate Guests
     if (!this.bookingData.guests) {
+      // Show a toast or alert
+      alert('Please select the number of guests.');
       return;
     }
 
     // Validate Location
     if (!this.bookingData.location) {
+      alert('Please select a location.');
       return;
     }
 
     // Validate Room Type
     if (!this.bookingData.roomType) {
+      alert('Please select a room type.');
       return;
     }
 
@@ -443,9 +511,13 @@ export class BookingPage implements OnInit {
       message += `💰 *Price:* R${this.selectedRoom.price} / night%0A`;
     }
 
+    // Add nights if specified
+    if (this.bookingData.nights) {
+      message += `🌙 *Nights:* ${this.bookingData.nights}%0A`;
+    }
+
     message += `📝 *Special Requests:* ${this.bookingData.specialRequests || 'None'}`;
 
-    // UPDATED PHONE NUMBER
     const phone = '27849009821';
     
     // Open WhatsApp
@@ -463,7 +535,8 @@ export class BookingPage implements OnInit {
         guests: '',
         location: '',
         roomType: '',
-        specialRequests: ''
+        specialRequests: '',
+        nights: ''
       };
       this.firstNameError = false;
       this.lastNameError = false;
@@ -475,7 +548,9 @@ export class BookingPage implements OnInit {
     }, 1000);
   }
 
-  // Helper functions to get display names
+  // =========================
+  // HELPER FUNCTIONS
+  // =========================
   getLocationName(value: string): string {
     const locations: { [key: string]: string } = {
       'oceanic': 'Durban Oceanic (82A, 82B, 117)',

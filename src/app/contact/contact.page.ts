@@ -1,8 +1,8 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule, Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-contact',
@@ -18,6 +18,8 @@ import { FormsModule } from '@angular/forms';
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ContactPage {
+
+  @ViewChild('contactForm') contactForm!: NgForm;
 
   // Mobile navigation state
   mobileNavOpen: boolean = false;
@@ -37,6 +39,15 @@ export class ContactPage {
   subjectError: boolean = false;
   messageError: boolean = false;
   isSubmitting: boolean = false;
+
+  // Field focus states for highlighting
+  focusedField: string = '';
+
+  // Touched states for validation
+  nameTouched: boolean = false;
+  emailTouched: boolean = false;
+  subjectTouched: boolean = false;
+  messageTouched: boolean = false;
 
   // WhatsApp number
   private readonly whatsappNumber: string = '27849009821';
@@ -123,43 +134,86 @@ export class ContactPage {
     return emailRegex.test(email);
   }
 
+  // Field focus handlers
+  onFieldFocus(fieldName: string) {
+    this.focusedField = fieldName;
+  }
+
+  onFieldBlur(fieldName: string) {
+    this.focusedField = '';
+    // Mark as touched when blurred
+    if (fieldName === 'name') this.nameTouched = true;
+    if (fieldName === 'email') this.emailTouched = true;
+    if (fieldName === 'subject') this.subjectTouched = true;
+    if (fieldName === 'message') this.messageTouched = true;
+    
+    // Validate on blur
+    this.validateField(fieldName);
+  }
+
+  validateField(fieldName: string) {
+    switch(fieldName) {
+      case 'name':
+        this.nameError = !this.contactData.name || this.contactData.name.trim().length < 2;
+        break;
+      case 'email':
+        this.emailError = !this.contactData.email || !this.isValidEmail(this.contactData.email);
+        break;
+      case 'subject':
+        this.subjectError = !this.contactData.subject;
+        break;
+      case 'message':
+        this.messageError = !this.contactData.message || this.contactData.message.trim().length < 5;
+        break;
+    }
+  }
+
+  // Check if field should show error
+  shouldShowError(fieldName: string): boolean {
+    switch(fieldName) {
+      case 'name':
+        return this.nameError && this.nameTouched;
+      case 'email':
+        return this.emailError && this.emailTouched;
+      case 'subject':
+        return this.subjectError && this.subjectTouched;
+      case 'message':
+        return this.messageError && this.messageTouched;
+      default:
+        return false;
+    }
+  }
+
   // =========================
   // SUBMIT FORM
   // =========================
   submitContactForm() {
+    // Mark all fields as touched
+    this.nameTouched = true;
+    this.emailTouched = true;
+    this.subjectTouched = true;
+    this.messageTouched = true;
+
     // Reset errors
     this.nameError = false;
     this.emailError = false;
     this.subjectError = false;
     this.messageError = false;
 
-    // Validate
-    let isValid = true;
+    // Validate all fields
+    this.validateField('name');
+    this.validateField('email');
+    this.validateField('subject');
+    this.validateField('message');
 
-    if (!this.contactData.name) {
-      this.nameError = true;
-      isValid = false;
-    }
-
-    if (!this.contactData.email) {
-      this.emailError = true;
-      isValid = false;
-    } else if (!this.isValidEmail(this.contactData.email)) {
-      this.emailError = true;
-      isValid = false;
-    }
-
-    if (!this.contactData.subject) {
-      this.subjectError = true;
-      isValid = false;
-    }
-
-    if (!this.contactData.message) {
-      this.messageError = true;
-      isValid = false;
-    }
-
-    if (!isValid) {
+    // Check if form is valid
+    if (this.nameError || this.emailError || this.subjectError || this.messageError) {
+      // Scroll to first error field
+      const firstError = document.querySelector('.form-input.error, .form-select.error, .form-textarea.error');
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        (firstError as HTMLElement).focus();
+      }
       return;
     }
 
@@ -182,6 +236,24 @@ export class ContactPage {
         subject: '',
         message: ''
       };
+      
+      // Reset touched states
+      this.nameTouched = false;
+      this.emailTouched = false;
+      this.subjectTouched = false;
+      this.messageTouched = false;
+      
+      // Reset errors
+      this.nameError = false;
+      this.emailError = false;
+      this.subjectError = false;
+      this.messageError = false;
+      
+      // Reset focus
+      this.focusedField = '';
+      
+      // Reset form
+      this.contactForm?.resetForm();
     }, 1500);
   }
 }

@@ -1,6 +1,99 @@
-<ion-content [fullscreen]="true" class="no-scrollbar">
+<!-- ============================================= -->
+<!-- ✅ HEADER OUTSIDE ION-CONTENT (LIKE ABOUT)    -->
+<!-- ============================================= -->
+<ion-header>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="/" class="brand">
+        <span class="brand__name">TIAH</span>
+        <span class="brand__tagline">The Ideal Accommodation Haven</span>
+      </a>
+
+      <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
+
+      <nav class="nav" aria-label="Main">
+        <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="nav__link">Home</a>
+        <a routerLink="/about" routerLinkActive="is-active" class="nav__link">About</a>
+        <a routerLink="/rooms" routerLinkActive="is-active" class="nav__link">Rooms</a>
+        <a routerLink="/gallery" routerLinkActive="is-active" class="nav__link">Gallery</a>
+        <a routerLink="/rates" routerLinkActive="is-active" class="nav__link">Rates</a>
+        <a routerLink="/attractions" routerLinkActive="is-active" class="nav__link">Attractions</a>
+        <a routerLink="/faq" routerLinkActive="is-active" class="nav__link">FAQ</a>
+        <a routerLink="/contact" routerLinkActive="is-active" class="nav__link">Contact</a>
+      </nav>
+
+      <a class="btn-whatsapp desktop-only" (click)="goToBookingPage()">
+        <ion-icon name="logo-whatsapp"></ion-icon>
+        <span class="btn-text">Book on WhatsApp</span>
+      </a>
+    </div>
+  </header>
+</ion-header>
+
+<!-- ============================================= -->
+<!-- ✅ MOBILE NAV OUTSIDE ION-CONTENT (LIKE ABOUT) -->
+<!-- ============================================= -->
+<div class="nav-overlay" [class.active]="mobileNavOpen" (click)="closeMobileNav()"></div>
+
+<div class="mobile-nav" [class.active]="mobileNavOpen">
+  <div class="mobile-nav-header">
+    <button class="mobile-nav-close" (click)="closeMobileNav()">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+  </div>
   
-  <!-- ================= HERO / PAGE HEADER ================= -->
+  <div class="mobile-nav-brand">
+    <span class="mobile-brand-text">TIAH</span>
+    <span class="mobile-brand-tagline">The Ideal Accommodation Haven</span>
+  </div>
+  
+  <div class="mobile-nav-links">
+    <a routerLink="/home" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">🏠</span> Home
+    </a>
+    <a routerLink="/about" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">ℹ️</span> About
+    </a>
+    <a routerLink="/rooms" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">🛏️</span> Rooms
+    </a>
+    <a routerLink="/gallery" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">🖼️</span> Gallery
+    </a>
+    <a routerLink="/rates" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">💰</span> Rates
+    </a>
+    <a routerLink="/attractions" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">📍</span> Attractions
+    </a>
+    <a routerLink="/faq" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">❓</span> FAQ
+    </a>
+    <a routerLink="/contact" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">📧</span> Contact
+    </a>
+    
+    <div class="mobile-divider"></div>
+    
+    <a class="mobile-cta" (click)="goToBookingPage(); closeMobileNav()">
+      <ion-icon name="logo-whatsapp"></ion-icon>
+      Book on WhatsApp
+    </a>
+  </div>
+  
+  <div class="mobile-nav-footer">
+    <p>&copy; 2026 stay@tiah</p>
+  </div>
+</div>
+
+<!-- ============================================= -->
+<!-- ✅ ION-CONTENT WITH FULL SCROLLING - REMOVED no-scrollbar CLASS -->
+<!-- ============================================= -->
+<ion-content [fullscreen]="true">
+  
+  <!-- ================= PAGE HEADER ================= -->
   <section class="page-header">
     <div class="page-header-bg"></div>
     <div class="page-header-overlay"></div>
@@ -166,53 +259,81 @@
               <div class="form-row">
                 <div class="form-group">
                   <label>First Name <span class="required">*</span></label>
-                  <ion-input 
-                    [(ngModel)]="bookingData.firstName" 
-                    name="firstName" 
-                    type="text" 
-                    placeholder="John"
-                    required
-                    class="form-input"
-                    [class.error]="firstNameError && !bookingData.firstName">
-                  </ion-input>
+                  <div class="input-wrapper" [class.error]="firstNameError && !bookingData.firstName">
+                    <ion-icon name="person-outline" class="input-icon"></ion-icon>
+                    <ion-input 
+                      [(ngModel)]="bookingData.firstName" 
+                      name="firstName" 
+                      type="text" 
+                      placeholder="John"
+                      required
+                      class="form-input"
+                      [class.error]="firstNameError && !bookingData.firstName">
+                    </ion-input>
+                  </div>
+                  <div class="error-message" *ngIf="firstNameError && !bookingData.firstName">
+                    <ion-icon name="alert-circle-outline"></ion-icon>
+                    Please enter your first name
+                  </div>
                 </div>
                 <div class="form-group">
                   <label>Last Name <span class="required">*</span></label>
-                  <ion-input 
-                    [(ngModel)]="bookingData.lastName" 
-                    name="lastName" 
-                    type="text" 
-                    placeholder="Doe"
-                    required
-                    class="form-input"
-                    [class.error]="lastNameError && !bookingData.lastName">
-                  </ion-input>
+                  <div class="input-wrapper" [class.error]="lastNameError && !bookingData.lastName">
+                    <ion-icon name="person-outline" class="input-icon"></ion-icon>
+                    <ion-input 
+                      [(ngModel)]="bookingData.lastName" 
+                      name="lastName" 
+                      type="text" 
+                      placeholder="Doe"
+                      required
+                      class="form-input"
+                      [class.error]="lastNameError && !bookingData.lastName">
+                    </ion-input>
+                  </div>
+                  <div class="error-message" *ngIf="lastNameError && !bookingData.lastName">
+                    <ion-icon name="alert-circle-outline"></ion-icon>
+                    Please enter your last name
+                  </div>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group">
                   <label>Email Address <span class="required">*</span></label>
-                  <ion-input 
-                    [(ngModel)]="bookingData.email" 
-                    name="email" 
-                    type="email" 
-                    placeholder="info@example.com"
-                    required
-                    class="form-input"
-                    [class.error]="emailError && !bookingData.email">
-                  </ion-input>
+                  <div class="input-wrapper" [class.error]="emailError && !bookingData.email">
+                    <ion-icon name="mail-outline" class="input-icon"></ion-icon>
+                    <ion-input 
+                      [(ngModel)]="bookingData.email" 
+                      name="email" 
+                      type="email" 
+                      placeholder="info@example.com"
+                      required
+                      class="form-input"
+                      [class.error]="emailError && !bookingData.email">
+                    </ion-input>
+                  </div>
+                  <div class="error-message" *ngIf="emailError && !bookingData.email">
+                    <ion-icon name="alert-circle-outline"></ion-icon>
+                    Please enter a valid email address
+                  </div>
                 </div>
                 <div class="form-group">
                   <label>Phone Number <span class="required">*</span></label>
-                  <ion-input 
-                    [(ngModel)]="bookingData.phone" 
-                    name="phone" 
-                    type="tel" 
-                    placeholder="+27 84 900 9821"
-                    required
-                    class="form-input"
-                    [class.error]="phoneError && !bookingData.phone">
-                  </ion-input>
+                  <div class="input-wrapper" [class.error]="phoneError && !bookingData.phone">
+                    <ion-icon name="call-outline" class="input-icon"></ion-icon>
+                    <ion-input 
+                      [(ngModel)]="bookingData.phone" 
+                      name="phone" 
+                      type="tel" 
+                      placeholder="+27 84 900 9821"
+                      required
+                      class="form-input"
+                      [class.error]="phoneError && !bookingData.phone">
+                    </ion-input>
+                  </div>
+                  <div class="error-message" *ngIf="phoneError && !bookingData.phone">
+                    <ion-icon name="alert-circle-outline"></ion-icon>
+                    Please enter your phone number
+                  </div>
                 </div>
               </div>
             </div>
@@ -226,87 +347,113 @@
               <div class="form-row">
                 <div class="form-group">
                   <label>Check-in Date <span class="required">*</span></label>
-                  <ion-datetime 
-                    [(ngModel)]="bookingData.checkIn" 
-                    name="checkIn"
-                    presentation="date"
-                    placeholder="Select date"
-                    class="form-datetime"
-                    [class.error]="checkInError && !bookingData.checkIn">
-                  </ion-datetime>
+                  <div class="input-wrapper" [class.error]="checkInError && !bookingData.checkIn">
+                    <ion-icon name="calendar-outline" class="input-icon"></ion-icon>
+                    <ion-datetime 
+                      [(ngModel)]="bookingData.checkIn" 
+                      name="checkIn"
+                      presentation="date"
+                      placeholder="Select date"
+                      class="form-datetime"
+                      [class.error]="checkInError && !bookingData.checkIn">
+                    </ion-datetime>
+                  </div>
+                  <div class="error-message" *ngIf="checkInError && !bookingData.checkIn">
+                    <ion-icon name="alert-circle-outline"></ion-icon>
+                    Please select a check-in date
+                  </div>
                 </div>
                 <div class="form-group">
                   <label>Check-out Date <span class="required">*</span></label>
-                  <ion-datetime 
-                    [(ngModel)]="bookingData.checkOut" 
-                    name="checkOut"
-                    presentation="date"
-                    placeholder="Select date"
-                    class="form-datetime"
-                    [class.error]="checkOutError && !bookingData.checkOut">
-                  </ion-datetime>
+                  <div class="input-wrapper" [class.error]="checkOutError && !bookingData.checkOut">
+                    <ion-icon name="calendar-outline" class="input-icon"></ion-icon>
+                    <ion-datetime 
+                      [(ngModel)]="bookingData.checkOut" 
+                      name="checkOut"
+                      presentation="date"
+                      placeholder="Select date"
+                      class="form-datetime"
+                      [class.error]="checkOutError && !bookingData.checkOut">
+                    </ion-datetime>
+                  </div>
+                  <div class="error-message" *ngIf="checkOutError && !bookingData.checkOut">
+                    <ion-icon name="alert-circle-outline"></ion-icon>
+                    Please select a check-out date
+                  </div>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group">
                   <label>Number of Guests <span class="required">*</span></label>
-                  <ion-select 
-                    [(ngModel)]="bookingData.guests" 
-                    name="guests"
-                    placeholder="Select guests"
-                    interface="popover"
-                    class="form-select"
-                    required>
-                    <ion-select-option value="1">1 Guest</ion-select-option>
-                    <ion-select-option value="2">2 Guests</ion-select-option>
-                    <ion-select-option value="3">3 Guests</ion-select-option>
-                    <ion-select-option value="4">4 Guests</ion-select-option>
-                    <ion-select-option value="5">5 Guests</ion-select-option>
-                    <ion-select-option value="6">6+ Guests</ion-select-option>
-                  </ion-select>
+                  <div class="input-wrapper">
+                    <ion-icon name="people-outline" class="input-icon"></ion-icon>
+                    <ion-select 
+                      [(ngModel)]="bookingData.guests" 
+                      name="guests"
+                      placeholder="Select guests"
+                      interface="popover"
+                      class="form-select"
+                      required>
+                      <ion-select-option value="1">1 Guest</ion-select-option>
+                      <ion-select-option value="2">2 Guests</ion-select-option>
+                      <ion-select-option value="3">3 Guests</ion-select-option>
+                      <ion-select-option value="4">4 Guests</ion-select-option>
+                      <ion-select-option value="5">5 Guests</ion-select-option>
+                      <ion-select-option value="6">6+ Guests</ion-select-option>
+                    </ion-select>
+                  </div>
                 </div>
                 <div class="form-group">
                   <label>Location <span class="required">*</span></label>
-                  <ion-select 
-                    [(ngModel)]="bookingData.location" 
-                    name="location"
-                    placeholder="Select location"
-                    interface="popover"
-                    class="form-select"
-                    required>
-                    <ion-select-option value="oceanic">🌊 Durban Oceanic (82A, 82B, 117)</ion-select-option>
-                    <ion-select-option value="musgrave-la">🏠 La Tiah Musgrave</ion-select-option>
-                    <ion-select-option value="musgrave">🏠 Tiah Musgrave</ion-select-option>
-                    <ion-select-option value="halford">🎒 Halford Backpackers</ion-select-option>
-                  </ion-select>
+                  <div class="input-wrapper">
+                    <ion-icon name="location-outline" class="input-icon"></ion-icon>
+                    <ion-select 
+                      [(ngModel)]="bookingData.location" 
+                      name="location"
+                      placeholder="Select location"
+                      interface="popover"
+                      class="form-select"
+                      required>
+                      <ion-select-option value="oceanic">🌊 Durban Oceanic (82A, 82B, 117)</ion-select-option>
+                      <ion-select-option value="musgrave-la">🏠 La Tiah Musgrave</ion-select-option>
+                      <ion-select-option value="musgrave">🏠 Tiah Musgrave</ion-select-option>
+                      <ion-select-option value="halford">🎒 Halford Backpackers</ion-select-option>
+                    </ion-select>
+                  </div>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group">
                   <label>Room Type <span class="required">*</span></label>
-                  <ion-select 
-                    [(ngModel)]="bookingData.roomType" 
-                    name="roomType"
-                    placeholder="Select room type"
-                    interface="popover"
-                    class="form-select"
-                    required>
-                    <ion-select-option value="single">🛏 Single Room</ion-select-option>
-                    <ion-select-option value="double">🛏 Double Room</ion-select-option>
-                    <ion-select-option value="family">🛏 Family Room</ion-select-option>
-                    <ion-select-option value="suite">🛏 Suite</ion-select-option>
-                    <ion-select-option value="dormitory">🛏 Dormitory (Backpackers)</ion-select-option>
-                  </ion-select>
+                  <div class="input-wrapper">
+                    <ion-icon name="bed-outline" class="input-icon"></ion-icon>
+                    <ion-select 
+                      [(ngModel)]="bookingData.roomType" 
+                      name="roomType"
+                      placeholder="Select room type"
+                      interface="popover"
+                      class="form-select"
+                      required>
+                      <ion-select-option value="single">🛏 Single Room</ion-select-option>
+                      <ion-select-option value="double">🛏 Double Room</ion-select-option>
+                      <ion-select-option value="family">🛏 Family Room</ion-select-option>
+                      <ion-select-option value="suite">🛏 Suite</ion-select-option>
+                      <ion-select-option value="dormitory">🛏 Dormitory (Backpackers)</ion-select-option>
+                    </ion-select>
+                  </div>
                 </div>
                 <div class="form-group">
                   <label>Number of Nights</label>
-                  <ion-input 
-                    [(ngModel)]="bookingData.nights" 
-                    name="nights" 
-                    type="number" 
-                    placeholder="1"
-                    class="form-input">
-                  </ion-input>
+                  <div class="input-wrapper">
+                    <ion-icon name="time-outline" class="input-icon"></ion-icon>
+                    <ion-input 
+                      [(ngModel)]="bookingData.nights" 
+                      name="nights" 
+                      type="number" 
+                      placeholder="1"
+                      class="form-input">
+                    </ion-input>
+                  </div>
                 </div>
               </div>
             </div>
@@ -319,13 +466,16 @@
               </h4>
               <div class="form-group">
                 <label>Additional Requirements</label>
-                <ion-textarea 
-                  [(ngModel)]="bookingData.specialRequests" 
-                  name="specialRequests" 
-                  placeholder="Any special requirements or preferences..."
-                  rows="4"
-                  class="form-textarea">
-                </ion-textarea>
+                <div class="input-wrapper">
+                  <ion-icon name="chatbubbles-outline" class="input-icon"></ion-icon>
+                  <ion-textarea 
+                    [(ngModel)]="bookingData.specialRequests" 
+                    name="specialRequests" 
+                    placeholder="Any special requirements or preferences..."
+                    rows="4"
+                    class="form-textarea">
+                  </ion-textarea>
+                </div>
               </div>
             </div>
 
@@ -412,14 +562,14 @@
       <div class="footer-grid">
         <div class="footer-brand animate-fade-up">
           <div class="logo" (click)="goToHome()" style="cursor:pointer;">
-                        <span class="logo-text">STAY</span><span class="logo-gold">@TIAH</span>
+            <span class="logo-text">STAY</span><span class="logo-gold">@TIAH</span>
           </div>
           <p>The Ideal Accommodation Haven. Your comfortable home away from home in Durban.</p>
           <div class="socials">
-            <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
-            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+            <a href="https://www.instagram.com/stay.tiah?igsh=MXR0czJhcW5lanJ5OA=="><ion-icon name="logo-instagram"></ion-icon></a>
+            <a href="https://www.facebook.com/profile.php?id=61573594146514"><ion-icon name="logo-facebook"></ion-icon></a>
             <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
-            <a href="#"><ion-icon name="logo-tiktok"></ion-icon></a>
+            <a href="https://www.tiktok.com/@stay_at_tiah?_r=1&_t=ZS-98msEEY1WVw"><ion-icon name="logo-tiktok"></ion-icon></a>
           </div>
         </div>
         <div class="footer-column animate-fade-up">
