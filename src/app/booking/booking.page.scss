@@ -95,206 +95,308 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// GREY NAVBAR
+// HEADER / NAVBAR
 // =========================
-.custom-toolbar {
-  &.grey-nav {
-    --background: #1a1a1a;
-    --min-height: 72px;
-    --padding-start: 20px;
-    --padding-end: 20px;
-    --border-style: none;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    border-bottom: 2px solid $gold;
-    display: flex;
-    align-items: center;
-    
-    ion-menu-button {
-      --color: #ffffff;
-    }
-    
-    .logo-container {
-      display: flex;
-      align-items: center;
-      min-width: 80px;
-      flex-shrink: 0;
-      
-      .logo {
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        padding: 4px 0;
-        
-        .logo-img {
-          height: 50px;
-          width: auto;
-          object-fit: contain;
-          filter: drop-shadow(0 0 20px rgba(201, 168, 76, 0.1));
-          transition: all 0.4s ease;
-          
-          &:hover {
-            transform: scale(1.06) rotate(-2deg);
-            filter: drop-shadow(0 0 35px rgba(201, 168, 76, 0.25));
-          }
-        }
-      }
-    }
-    
-    .nav-center {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      
-      .nav-links {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        
-        a {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          color: rgba(255, 255, 255, 0.65);
-          font-size: 13px;
-          font-weight: 500;
-          cursor: pointer;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          white-space: nowrap;
-          padding: 8px 14px;
-          text-decoration: none;
-          letter-spacing: 0.3px;
-          border-radius: 8px;
-          position: relative;
-          
-          ion-icon {
-            font-size: 17px;
-            transition: all 0.3s ease;
-            color: rgba(255, 255, 255, 0.5);
-          }
-          
-          &:hover {
-            color: $white;
-            background: rgba(255, 255, 255, 0.06);
-            transform: translateY(-2px);
-            
-            ion-icon {
-              transform: scale(1.1);
-              color: $gold;
-            }
-          }
-          
-          &.active {
-            color: $gold;
-            background: rgba(201, 168, 76, 0.08);
-            
-            ion-icon {
-              color: $gold;
-            }
-            
-            &::after {
-              content: '';
-              position: absolute;
-              bottom: 4px;
-              left: 50%;
-              transform: translateX(-50%) scaleX(1);
-              width: 20px;
-              height: 2px;
-              background: $gold;
-              border-radius: 2px;
-              box-shadow: 0 0 15px rgba(201, 168, 76, 0.4);
-              animation: underlineGlowGold 2s ease-in-out infinite;
-            }
-          }
-          
-          &.nav-cta {
-            background: linear-gradient(135deg, $gold, $gold-dark);
-            color: $black;
-            font-weight: 600;
-            padding: 8px 20px;
-            border-radius: 50px;
-            letter-spacing: 0.5px;
-            font-size: 13px;
-            box-shadow: 0 4px 25px rgba(201, 168, 76, 0.15);
-            
-            ion-icon {
-              color: $black;
-              font-size: 17px;
-            }
-            
-            &:hover {
-              background: linear-gradient(135deg, $gold-light, $gold);
-              transform: translateY(-2px) scale(1.03);
-              box-shadow: 0 8px 40px rgba(201, 168, 76, 0.35);
-              color: $black;
-            }
-            
-            &::after {
-              display: none;
-            }
-          }
-        }
-      }
-    }
+.site-header {
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  transition: $transition-smooth;
+  height: 72px;
+  
+  @media (max-width: 992px) {
+    height: 56px;
+  }
+  
+  &.scrolled {
+    background: rgba(10, 10, 10, 0.98);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
   }
 }
 
-@keyframes underlineGlowGold {
-  0%, 100% {
-    box-shadow: 0 0 15px rgba(201, 168, 76, 0.4);
+.site-header__inner {
+  max-width: 82rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: nowrap;
+  
+  @media (max-width: 992px) {
+    padding: 0 1rem;
+    gap: 0.5rem;
   }
-  50% {
-    box-shadow: 0 0 30px rgba(201, 168, 76, 0.8);
+  
+  @media (max-width: 576px) {
+    padding: 0 0.75rem;
+    gap: 0.3rem;
   }
 }
 
-// Mobile responsive for navbar
-@media (max-width: 1024px) {
-  .custom-toolbar.grey-nav .nav-center .nav-links a {
+.brand {
+  text-decoration: none;
+  color: #fff;
+  line-height: 1;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  transition: $transition-smooth;
+  
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.brand__name {
+  display: block;
+  font-family: $font-serif !important;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  background: linear-gradient(135deg, #ffffff 0%, $gold 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  
+  @media (max-width: 992px) {
+    font-size: 1.4rem;
+  }
+  
+  @media (max-width: 576px) {
+    font-size: 1.2rem;
+  }
+}
+
+.brand__tagline {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 7px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 300;
+  
+  @media (max-width: 992px) {
+    font-size: 6px;
+  }
+  
+  @media (max-width: 576px) {
+    font-size: 5px;
+    margin-top: 0.1rem;
+  }
+}
+
+.nav {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  margin: 0 0.5rem;
+  
+  @media (max-width: 992px) {
+    display: none !important;
+  }
+}
+
+.nav__link {
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 0.6rem 1rem;
+  font-family: $font-primary !important;
+  transition: $transition-smooth;
+  white-space: nowrap;
+  position: relative;
+  border-radius: 8px;
+  letter-spacing: 0.3px;
+  
+  @media (max-width: 1200px) {
     font-size: 12px;
-    padding: 6px 10px;
+    padding: 0.5rem 0.8rem;
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 60%;
+    height: 2.5px;
+    background: linear-gradient(90deg, $gold, $gold-light);
+    border-radius: 2px;
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
+    
+    &::before {
+      transform: translateX(-50%) scaleX(1);
+    }
+  }
+  
+  &.is-active {
+    color: $gold;
+    background: rgba(201, 168, 76, 0.08);
+    
+    &::before {
+      transform: translateX(-50%) scaleX(1);
+    }
+  }
+}
+
+.btn-whatsapp {
+  background: linear-gradient(135deg, #25D366, #1da851);
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px;
+  font-family: $font-primary !important;
+  transition: $transition-smooth;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  
+  @media (max-width: 1200px) {
+    padding: 0.5rem 0.8rem;
+    font-size: 10px;
+    
+    .btn-text {
+      display: none;
+    }
     
     ion-icon {
-      font-size: 15px;
+      font-size: 16px;
     }
+  }
+  
+  &.desktop-only {
+    @media (max-width: 992px) {
+      display: flex !important;
+      padding: 0.4rem 0.7rem;
+      font-size: 10px;
+      border-radius: 50px;
+      
+      .btn-text {
+        display: none;
+      }
+      
+      ion-icon {
+        font-size: 16px;
+        margin: 0;
+      }
+    }
+  }
+  
+  &:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 35px rgba(37, 211, 102, 0.4);
+    background: linear-gradient(135deg, #2dd76e, #20b85a);
+    color: #ffffff;
+  }
+  
+  ion-icon {
+    font-size: 18px;
+  }
+}
+
+.hamburger-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 6px;
+  transition: $transition-smooth;
+  flex-shrink: 0;
+  margin-left: auto;
+  border-radius: 8px;
+  z-index: 1001;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  
+  &:hover {
+    color: $gold;
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  ion-icon {
+    font-size: 26px;
+  }
+  
+  @media (max-width: 992px) {
+    display: flex;
+  }
+  
+  @media (max-width: 576px) {
+    width: 36px;
+    height: 36px;
     
-    &.nav-cta {
-      padding: 6px 14px;
-      font-size: 12px;
+    ion-icon {
+      font-size: 22px;
     }
   }
 }
 
-@media (max-width: 900px) {
-  .custom-toolbar.grey-nav .nav-center .nav-links {
-    display: none;
+@media (max-width: 992px) {
+  .hamburger-btn {
+    display: flex !important;
+  }
+  
+  .nav {
+    display: none !important;
+  }
+  
+  .site-header__inner {
+    min-height: 56px;
+  }
+  
+  .btn-whatsapp.desktop-only {
+    display: flex !important;
   }
 }
 
-@media (max-width: 768px) {
-  .custom-toolbar.grey-nav {
-    --min-height: 60px;
-    --padding-start: 12px;
-    --padding-end: 12px;
-  }
-  
-  .custom-toolbar.grey-nav .logo-container {
-    min-width: auto;
-  }
-  
-  .custom-toolbar.grey-nav .logo-container .logo .logo-img {
-    height: 40px;
+@media (max-width: 576px) {
+  .btn-whatsapp.desktop-only {
+    padding: 0.3rem 0.5rem;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    justify-content: center;
+    
+    ion-icon {
+      font-size: 16px;
+      margin: 0;
+    }
   }
 }
 
-@media (max-width: 480px) {
-  .custom-toolbar.grey-nav .logo-container .logo .logo-img {
-    height: 34px;
+@media (min-width: 993px) {
+  .hamburger-btn {
+    display: none !important;
   }
 }
 
@@ -310,14 +412,14 @@ h1, h2, h3, h4,
   justify-content: center;
   color: white;
   overflow: hidden;
-  margin-top: 0; /* Changed from 72px to 0 to remove white space */
+  margin-top: 0;
   width: 100%;
   background: #1a1a2e;
   
   @media (max-width: 768px) {
     min-height: 40vh;
     height: 40vh;
-    margin-top: 0; /* Changed from 60px to 0 */
+    margin-top: 0;
   }
   
   .page-header-bg {
@@ -396,66 +498,6 @@ h1, h2, h3, h4,
         @media (max-width: 576px) {
           font-size: 0.95rem;
         }
-      }
-    }
-  }
-  
-  // =========================
-  // BACK BUTTON
-  // =========================
-  .back-button {
-    position: absolute;
-    top: 24px;
-    left: 24px;
-    z-index: 10;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    color: white;
-    padding: 10px 18px;
-    border-radius: 50px;
-    font-size: 14px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    cursor: pointer;
-    
-    ion-icon {
-      font-size: 20px;
-    }
-    
-    &:hover {
-      background: rgba(201, 168, 76, 0.3);
-      transform: translateX(-4px);
-      border-color: $gold;
-    }
-    
-    @media (max-width: 768px) {
-      top: 16px;
-      left: 16px;
-      padding: 8px 14px;
-      font-size: 12px;
-      
-      ion-icon {
-        font-size: 16px;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      top: 12px;
-      left: 12px;
-      padding: 6px 12px;
-      font-size: 11px;
-      
-      ion-icon {
-        font-size: 14px;
-      }
-      
-      .back-text {
-        display: none;
       }
     }
   }
@@ -712,9 +754,6 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
-// CONTACT INFO CARD
-// =========================
 .contact-info-card {
   background: linear-gradient(135deg, rgba(201, 168, 76, 0.08), rgba(201, 168, 76, 0.02)) !important;
   border: 1px solid rgba(201, 168, 76, 0.15) !important;
@@ -776,9 +815,6 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
-// HELP CARD
-// =========================
 .help-card {
   background: rgba(201, 168, 76, 0.05) !important;
   border: 1px solid rgba(201, 168, 76, 0.1) !important;
@@ -857,7 +893,7 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// BOOKING FORM
+// BOOKING FORM - FIXED FOR CLICKABLE INPUTS
 // =========================
 .booking-form-wrapper {
   background: $off-white;
@@ -931,6 +967,8 @@ h1, h2, h3, h4,
   
   .form-group {
     margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
     
     label {
       display: block;
@@ -948,65 +986,175 @@ h1, h2, h3, h4,
     }
   }
   
+  // =========================
+  // INPUT WRAPPER - FIX FOR CLICKABLE INPUTS
+  // =========================
+  .input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    pointer-events: auto !important;
+    z-index: 10 !important;
+    
+    .input-icon {
+      position: absolute;
+      left: 12px;
+      color: $grey;
+      font-size: 18px;
+      z-index: 5;
+      pointer-events: none;
+    }
+    
+    &.focused {
+      border-color: $gold !important;
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15) !important;
+    }
+    
+    &.error {
+      border-color: #e74c3c !important;
+      box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1) !important;
+    }
+  }
+  
+  // Fix for ion-input
   .form-input {
-    --background: $white;
-    --border-color: #ddd;
-    --color: $black;
-    --placeholder-color: #aaa;
-    --border-radius: 8px;
-    --padding-start: 14px;
-    --padding-end: 14px;
-    min-height: 46px;
-    background: $white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: 100%;
-    transition: border-color 0.3s ease;
+    --background: transparent !important;
+    --color: #0a0a0a !important;
+    --placeholder-color: #aaa !important;
+    --placeholder-opacity: 1 !important;
+    --border-radius: 8px !important;
+    --padding-start: 44px !important;
+    --padding-end: 14px !important;
+    --padding-top: 12px !important;
+    --padding-bottom: 12px !important;
+    min-height: 46px !important;
+    width: 100% !important;
+    display: block !important;
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 10 !important;
+    background: transparent !important;
+    border: none !important;
+    
+    .native-input {
+      color: #0a0a0a !important;
+      font-size: 14px !important;
+      padding: 0 !important;
+      pointer-events: auto !important;
+    }
     
     &.error {
-      border-color: #e74c3c;
+      border-color: #e74c3c !important;
     }
   }
   
+  // Fix for ion-select
   .form-select {
-    --padding-start: 14px;
-    min-height: 46px;
-    background: $white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: 100%;
-    padding: 0 14px;
-  }
-  
-  .form-datetime {
-    --padding-start: 14px;
-    --padding-end: 14px;
-    min-height: 46px;
-    background: $white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: 100%;
-    padding: 10px 14px;
+    --background: transparent !important;
+    --color: #0a0a0a !important;
+    --placeholder-color: #aaa !important;
+    --placeholder-opacity: 1 !important;
+    --border-radius: 8px !important;
+    --padding-start: 44px !important;
+    --padding-end: 14px !important;
+    min-height: 46px !important;
+    width: 100% !important;
+    display: block !important;
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 10 !important;
+    background: transparent !important;
+    border: none !important;
     
-    &.error {
-      border-color: #e74c3c;
+    .select-text {
+      color: #0a0a0a !important;
+      font-size: 14px !important;
+    }
+    
+    .select-placeholder {
+      color: #aaa !important;
     }
   }
   
-  .form-textarea {
-    min-height: 100px;
-    padding: 12px 14px;
-    resize: vertical;
-    font-family: $font-primary !important;
-    font-size: 14px;
-    background: $white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: 100%;
+  // Fix for ion-datetime
+  .form-datetime {
+    --background: transparent !important;
+    --color: #0a0a0a !important;
+    --placeholder-color: #aaa !important;
+    --placeholder-opacity: 1 !important;
+    --border-radius: 8px !important;
+    --padding-start: 44px !important;
+    --padding-end: 14px !important;
+    min-height: 46px !important;
+    width: 100% !important;
+    display: block !important;
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 10 !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 10px 14px 10px 44px !important;
     
-    &:focus {
-      border-color: $gold;
-      outline: none;
+    .datetime-text {
+      color: #0a0a0a !important;
+      font-size: 14px !important;
+    }
+    
+    .datetime-placeholder {
+      color: #aaa !important;
+    }
+    
+    &.error {
+      border-color: #e74c3c !important;
+    }
+  }
+  
+  // Fix for ion-textarea
+  .form-textarea {
+    --background: transparent !important;
+    --color: #0a0a0a !important;
+    --placeholder-color: #aaa !important;
+    --placeholder-opacity: 1 !important;
+    --border-radius: 8px !important;
+    --padding-start: 44px !important;
+    --padding-end: 14px !important;
+    --padding-top: 12px !important;
+    --padding-bottom: 12px !important;
+    min-height: 100px !important;
+    width: 100% !important;
+    display: block !important;
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 10 !important;
+    background: transparent !important;
+    border: none !important;
+    resize: vertical !important;
+    
+    .native-textarea {
+      color: #0a0a0a !important;
+      font-size: 14px !important;
+      line-height: 1.5 !important;
+      min-height: 80px !important;
+      pointer-events: auto !important;
+    }
+  }
+  
+  .error-message {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: #e74c3c;
+    margin-top: 4px;
+    position: relative;
+    z-index: 1;
+    
+    ion-icon {
+      font-size: 14px;
     }
   }
   
@@ -1016,6 +1164,8 @@ h1, h2, h3, h4,
     gap: 16px;
     margin-top: 20px;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
     
     @media (max-width: 480px) {
       flex-direction: column;
@@ -1419,18 +1569,6 @@ h1, h2, h3, h4,
         font-size: 26px;
       }
       
-      .logo-img {
-        height: 48px;
-        width: auto;
-        object-fit: contain;
-        filter: drop-shadow(0 0 12px rgba(201, 168, 76, 0.2));
-        transition: transform 0.3s ease;
-        
-        &:hover {
-          transform: scale(1.05);
-        }
-      }
-      
       .logo-text {
         color: $white;
         font-weight: 400;
@@ -1525,30 +1663,6 @@ h1, h2, h3, h4,
       }
     }
     
-    .footer-contact {
-      margin-top: 8px;
-      
-      p {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        color: rgba(255,255,255,0.5);
-        font-size: 13px;
-        
-        @media (max-width: 576px) {
-          font-size: 12px;
-        }
-        
-        ion-icon {
-          color: $gold;
-          font-size: 16px;
-        }
-      }
-    }
-    
-    // =========================
-    // FOOTER CONTACT DETAILS
-    // =========================
     .footer-contact-details {
       display: flex;
       flex-direction: column;
@@ -1722,5 +1836,134 @@ ion-content {
         font-size: 12px;
       }
     }
+  }
+}
+
+// ============================================================
+// ✅ PRODUCTION SCROLL FIX - BOOKING PAGE (MATCHING ABOUT)
+// ============================================================
+
+// Force the page to scroll in production
+:host {
+  display: block !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  overflow-y: auto !important;
+}
+
+// Override Ionic's production contain property
+ion-content {
+  contain: none !important;
+  --overflow: auto !important;
+  overflow-y: auto !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  display: block !important;
+  position: relative !important;
+  
+  &::part(scroll) {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    height: 100% !important;
+    min-height: 100vh !important;
+    display: block !important;
+  }
+}
+
+// Force all sections to be visible
+.page-header,
+.selected-room-section,
+.booking-section,
+.why-book-section,
+.cta-section {
+  height: auto !important;
+  min-height: auto !important;
+  overflow: visible !important;
+}
+
+// Ensure grid containers don't block scrolling
+.booking-container,
+.benefits-grid {
+  height: auto !important;
+  min-height: auto !important;
+  overflow: visible !important;
+}
+
+// Force all content to be visible
+.container {
+  height: auto !important;
+  min-height: auto !important;
+  overflow: visible !important;
+}
+
+// Ensure images don't overflow
+img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+// ============================================================
+// ✅ SCROLLBAR COMPLETELY REMOVED - Booking Page
+// ============================================================
+
+// Remove scrollbar completely - Chrome, Safari, Edge
+:host ::-webkit-scrollbar,
+ion-content ::-webkit-scrollbar,
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+:host ::-webkit-scrollbar-track,
+ion-content ::-webkit-scrollbar-track,
+::-webkit-scrollbar-track {
+  display: none !important;
+  background: transparent !important;
+}
+
+:host ::-webkit-scrollbar-thumb,
+ion-content ::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb {
+  display: none !important;
+  background: transparent !important;
+}
+
+:host ::-webkit-scrollbar-corner,
+ion-content ::-webkit-scrollbar-corner,
+::-webkit-scrollbar-corner {
+  display: none !important;
+  background: transparent !important;
+}
+
+// Firefox - remove scrollbar
+:host,
+ion-content,
+* {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+// Keep scrolling functional
+:host {
+  display: block !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  overflow-y: auto !important;
+}
+
+ion-content {
+  contain: none !important;
+  --overflow: auto !important;
+  overflow-y: auto !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  
+  &::part(scroll) {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    height: 100% !important;
+    min-height: 100vh !important;
   }
 }

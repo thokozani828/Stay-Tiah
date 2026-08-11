@@ -119,12 +119,14 @@
           <h3>Can't find your question?</h3>
           <p>Ask us directly and we'll get back to you within 24 hours.</p>
           <div class="ask-form">
-            <ion-input 
-              [(ngModel)]="userQuestion" 
-              placeholder="Type your question here..." 
-              class="ask-input"
-              (keyup.enter)="submitQuestion()">
-            </ion-input>
+            <div class="input-wrapper">
+              <ion-input 
+                [(ngModel)]="userQuestion" 
+                placeholder="Type your question here..." 
+                class="ask-input"
+                (keyup.enter)="submitQuestion()">
+              </ion-input>
+            </div>
             <button (click)="submitQuestion()" class="ask-btn">
               <ion-icon name="send-outline"></ion-icon>
               Ask
@@ -145,13 +147,15 @@
       <div class="search-wrapper animate-fade-up">
         <div class="search-box">
           <ion-icon name="search-outline"></ion-icon>
-          <input 
-            type="text" 
-            [(ngModel)]="searchTerm" 
-            (input)="filterFAQs()" 
-            placeholder="Search for answers..." 
-            class="search-input"
-          />
+          <div class="input-wrapper">
+            <input 
+              type="text" 
+              [(ngModel)]="searchTerm" 
+              (input)="filterFAQs()" 
+              placeholder="Search for answers..." 
+              class="search-input"
+            />
+          </div>
           <button *ngIf="searchTerm" (click)="clearSearch()" class="clear-search">
             <ion-icon name="close-outline"></ion-icon>
           </button>
@@ -269,7 +273,7 @@
           </div>
           <p>The Ideal Accommodation Haven. Your comfortable home away from home in Durban.</p>
           <div class="socials">
-            <a href="https://www.instagram.com/stay.tiah?igsh=MXR0czJhcW5lanJ5OA=="><ion-icon name="logo-instagram"></ion-icon></a>
+           <a href="https://www.instagram.com/stay.tiah?igsh=MXR0czJhcW5lanJ5OA=="><ion-icon name="logo-instagram"></ion-icon></a>
             <a href="https://www.facebook.com/profile.php?id=61573594146514"><ion-icon name="logo-facebook"></ion-icon></a>
             <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
             <a href="https://www.tiktok.com/@stay_at_tiah?_r=1&_t=ZS-98msEEY1WVw"><ion-icon name="logo-tiktok"></ion-icon></a>
