@@ -230,7 +230,7 @@ export class ContactPage {
 
     this.isSubmitting = true;
 
-    // Format message for WhatsApp (using the booking page style)
+    // Format message for WhatsApp (REDESIGNED)
     const message = this.formatWhatsAppMessage(this.contactData);
     
     const phone = '27849009821';
@@ -246,9 +246,21 @@ export class ContactPage {
   }
 
   // =========================
-  // FORMAT WHATSAPP MESSAGE (MATCHING BOOKING PAGE STYLE)
+  // FORMAT WHATSAPP MESSAGE - REDESIGNED FOR EASY READING
   // =========================
   private formatWhatsAppMessage(data: any): string {
+    // Get current date and time
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-ZA', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    const timeStr = now.toLocaleTimeString('en-ZA', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
     const subjectMap: { [key: string]: string } = {
       'booking': '🏨 Booking Enquiry',
       'availability': '📅 Availability Check',
@@ -259,17 +271,31 @@ export class ContactPage {
 
     const subjectLabel = subjectMap[data.subject] || data.subject || 'General Enquiry';
 
-    // Using the same format as booking page with %0A for line breaks
+    // Format the message with clear sections for easy reading
     return (
-      `🏨 *New Contact Form Submission - STAY@TIAH*%0A%0A` +
-      `👤 *Name:* ${data.name}%0A` +
-      `📧 *Email:* ${data.email}%0A` +
-      `📱 *Phone:* ${data.phone || 'Not provided'}%0A` +
-      `📋 *Subject:* ${subjectLabel}%0A%0A` +
-      `💬 *Message:*%0A` +
+      `🔔 *NEW CONTACT FORM SUBMISSION*%0A` +
+      `═══════════════════════════════════%0A%0A` +
+      `📋 *CONTACT DETAILS*%0A` +
+      `─────────────────────────────────%0A` +
+      `👤 Name: ${data.name}%0A` +
+      `📧 Email: ${data.email}%0A` +
+      `📱 Phone: ${data.phone || 'Not provided'}%0A` +
+      `📋 Subject: ${subjectLabel}%0A%0A` +
+      `💬 *MESSAGE*%0A` +
+      `─────────────────────────────────%0A` +
       `${data.message}%0A%0A` +
-      `---%0A` +
-      `📅 Sent via STAY@TIAH Contact Form%0A` +
+      `📅 *RECEIVED*%0A` +
+      `─────────────────────────────────%0A` +
+      `📆 Date: ${dateStr}%0A` +
+      `⏰ Time: ${timeStr}%0A` +
+      `📱 Source: Website Contact Form%0A%0A` +
+      `═══════════════════════════════════%0A` +
+      `💡 *ACTION REQUIRED*%0A` +
+      `─────────────────────────────────%0A` +
+      `📧 Reply to: ${data.email}%0A` +
+      `📞 Call: +27 84 900 9821%0A` +
+      `💬 WhatsApp: +27 84 900 9821%0A%0A` +
+      `🏨 *STAY@TIAH*%0A` +
       `🌐 staytiah.com`
     );
   }

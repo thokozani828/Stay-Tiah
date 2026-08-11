@@ -132,6 +132,10 @@ h1, h2, h3, h4,
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
 
 // =========================
 // HIDE SCROLLBAR
@@ -732,7 +736,7 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// PAGE HEADER WITH IMAGE
+// PAGE HEADER WITH IMAGE - REDESIGNED
 // =========================
 .page-header {
   min-height: 50vh;
@@ -769,7 +773,7 @@ h1, h2, h3, h4,
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(0,0,0,0.75), rgba(0,0,0,0.3));
+    background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(201,168,76,0.2) 100%);
     z-index: 1;
   }
   
@@ -818,7 +822,7 @@ h1, h2, h3, h4,
       }
       
       .page-subtitle {
-        color: rgba(255,255,255,0.8);
+        color: rgba(255,255,255,0.85);
         font-size: 1.15rem;
         line-height: 1.8;
         font-weight: 300;
@@ -834,58 +838,72 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// ASK QUESTION SECTION
+// ASK QUESTION SECTION - REDESIGNED
 // =========================
 .ask-question-section {
-  padding: 40px 0;
-  background: $off-white;
+  padding: 60px 0;
+  background: linear-gradient(135deg, $off-white 0%, #ffffff 100%);
   border-bottom: 1px solid rgba(0,0,0,0.04);
   
   @media (max-width: 768px) {
-    padding: 30px 0;
+    padding: 40px 0 30px;
   }
 }
 
 .ask-question-wrapper {
-  max-width: 700px;
+  max-width: 750px;
   margin: 0 auto;
 }
 
 .ask-question-content {
   text-align: center;
+  background: $white;
+  padding: 40px 50px;
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+  
+  @media (max-width: 768px) {
+    padding: 30px 24px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 24px 16px;
+  }
   
   .ask-icon {
-    width: 56px;
-    height: 56px;
-    background: rgba(201, 168, 76, 0.1);
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, rgba(201, 168, 76, 0.15), rgba(201, 168, 76, 0.05));
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 12px;
+    margin: 0 auto 16px;
+    border: 1px solid rgba(201, 168, 76, 0.15);
     
     ion-icon {
-      font-size: 28px;
+      font-size: 30px;
       color: $gold;
     }
   }
   
   h3 {
     font-family: $font-serif !important;
-    font-size: 26px;
+    font-size: 28px;
     margin: 0 0 8px;
     color: $black;
     
     @media (max-width: 768px) {
-      font-size: 22px;
+      font-size: 24px;
     }
   }
   
   p {
     color: $grey;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 300;
-    margin: 0 0 20px;
+    margin: 0 0 24px;
     font-family: $font-primary !important;
   }
   
@@ -899,36 +917,60 @@ h1, h2, h3, h4,
     }
   }
   
-  .ask-input {
-    flex: 1;
-    --background: #ffffff !important;
-    --color: #0a0a0a !important;
-    --placeholder-color: #aaa !important;
-    --placeholder-opacity: 1 !important;
-    --border-radius: 8px !important;
-    --padding-start: 16px !important;
-    --padding-end: 16px !important;
-    min-height: 50px !important;
-    background: #ffffff !important;
-    border: 1px solid #ddd !important;
-    border-radius: 8px !important;
-    width: 100% !important;
-    display: block !important;
-    pointer-events: auto !important;
-    z-index: 10 !important;
-    position: relative !important;
-    
-    &:focus {
-      border-color: $gold !important;
-      outline: none !important;
-    }
-  }
-  
   .input-wrapper {
     flex: 1;
     position: relative;
     z-index: 1;
     width: 100%;
+    background: $off-white;
+    border: 2px solid #e8e8e8;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    
+    &:focus-within {
+      border-color: $gold;
+      box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.1);
+      background: $white;
+    }
+    
+    &.error {
+      border-color: #e74c3c;
+      box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.1);
+    }
+    
+    .input-icon {
+      color: $gold;
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-right: 12px;
+    }
+    
+    .form-input-native {
+      width: 100%;
+      min-height: 54px;
+      padding: 12px 0;
+      border: none;
+      background: transparent;
+      color: $black;
+      font-size: 15px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      outline: none;
+      pointer-events: auto;
+      z-index: 2;
+      position: relative;
+      
+      &::placeholder {
+        color: #aaa;
+        opacity: 1;
+      }
+      
+      &:focus {
+        outline: none;
+      }
+    }
   }
   
   .ask-btn {
@@ -938,24 +980,30 @@ h1, h2, h3, h4,
     background: linear-gradient(135deg, $gold, $gold-dark);
     color: $black;
     font-weight: 600;
-    padding: 12px 28px;
+    padding: 14px 32px;
     border-radius: 50px;
     font-size: 14px;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
     white-space: nowrap;
-    box-shadow: 0 4px 20px rgba(201, 168, 76, 0.2);
+    box-shadow: 0 4px 20px rgba(201, 168, 76, 0.25);
     font-family: $font-primary !important;
     
     ion-icon {
       font-size: 18px;
     }
     
-    &:hover {
+    &:hover:not(:disabled) {
       background: linear-gradient(135deg, $gold-light, $gold);
       transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(201, 168, 76, 0.35);
+      box-shadow: 0 8px 30px rgba(201, 168, 76, 0.4);
+    }
+    
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
     }
     
     @media (max-width: 600px) {
@@ -964,42 +1012,62 @@ h1, h2, h3, h4,
     }
   }
   
-  .ask-success {
+  .error-message {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-top: 16px;
-    padding: 12px 20px;
-    background: rgba(76, 175, 80, 0.1);
-    border-radius: 8px;
-    color: #4caf50;
+    gap: 6px;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #e74c3c;
+    font-family: $font-primary !important;
     animation: slideDown 0.3s ease;
     
     ion-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+  }
+  
+  .ask-success {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05));
+    border-radius: 12px;
+    color: #2e7d32;
+    border: 1px solid rgba(76, 175, 80, 0.2);
+    animation: slideDown 0.4s ease;
+    
+    ion-icon {
       font-size: 24px;
+      color: #4caf50;
+      flex-shrink: 0;
     }
     
     span {
       font-size: 14px;
       font-family: $font-primary !important;
+      text-align: left;
     }
   }
 }
 
 // =========================
-// FAQ SEARCH SECTION
+// FAQ SEARCH SECTION - REDESIGNED
 // =========================
 .faq-search-section {
-  padding: 30px 0 20px;
+  padding: 40px 0 30px;
   background: $white;
   
   @media (max-width: 768px) {
-    padding: 20px 0 15px;
+    padding: 30px 0 20px;
   }
 }
 
 .search-wrapper {
-  max-width: 600px;
+  max-width: 650px;
   margin: 0 auto;
   text-align: center;
 }
@@ -1008,85 +1076,91 @@ h1, h2, h3, h4,
   position: relative;
   display: flex;
   align-items: center;
+  background: $off-white;
+  border-radius: 50px;
+  border: 2px solid #e8e8e8;
+  transition: all 0.3s ease;
+  padding: 0 16px;
+  
+  &:focus-within {
+    border-color: $gold;
+    box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.1);
+    background: $white;
+  }
   
   ion-icon {
-    position: absolute;
-    left: 16px;
+    color: $gold;
     font-size: 20px;
-    color: $grey;
-    pointer-events: none;
+    flex-shrink: 0;
+  }
+  
+  .input-wrapper {
+    flex: 1;
   }
   
   .search-input {
-    width: 100% !important;
-    padding: 14px 50px 14px 48px !important;
-    border: 2px solid #e8e8e8 !important;
-    border-radius: 50px !important;
-    font-size: 15px !important;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
-    background: #f8f7f4 !important;
-    color: #0a0a0a !important;
-    pointer-events: auto !important;
-    position: relative !important;
-    z-index: 10 !important;
-    transition: all 0.3s ease !important;
-    
-    @media (max-width: 768px) {
-      padding: 12px 44px 12px 42px !important;
-      font-size: 14px !important;
-    }
-    
-    &:focus {
-      border-color: #c9a84c !important;
-      outline: none !important;
-      background: #ffffff !important;
-      box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.1) !important;
-    }
+    width: 100%;
+    padding: 14px 16px 14px 12px;
+    border: none;
+    background: transparent;
+    color: $black;
+    font-size: 15px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    outline: none;
     
     &::placeholder {
-      color: $grey !important;
+      color: #aaa;
+    }
+    
+    @media (max-width: 768px) {
+      font-size: 14px;
+      padding: 12px 12px 12px 8px;
     }
   }
   
   .clear-search {
-    position: absolute;
-    right: 12px;
     background: none;
     border: none;
     cursor: pointer;
     padding: 8px;
     color: $grey;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
     
     &:hover {
       color: $black;
+      transform: scale(1.1);
     }
     
     ion-icon {
-      position: static;
       font-size: 18px;
     }
   }
 }
 
 .search-hint {
-  margin-top: 10px;
+  margin-top: 12px;
   font-size: 13px;
   color: $grey;
-  font-weight: 300;
+  font-weight: 400;
   font-family: $font-primary !important;
+  
+  span {
+    color: $gold;
+    font-weight: 600;
+  }
 }
 
 // =========================
-// FAQ CATEGORIES SECTION
+// FAQ CATEGORIES SECTION - REDESIGNED
 // =========================
 .faq-categories-section {
-  padding: 20px 0 40px;
+  padding: 30px 0 50px;
   background: $white;
   border-bottom: 1px solid rgba(0,0,0,0.04);
   
   @media (max-width: 768px) {
-    padding: 15px 0 30px;
+    padding: 20px 0 30px;
   }
 }
 
@@ -1107,26 +1181,27 @@ h1, h2, h3, h4,
   .category-tab {
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 8px 18px;
+    gap: 8px;
+    padding: 10px 22px;
     border-radius: 50px;
     font-size: 13px;
     font-weight: 500;
     color: $grey;
     background: $off-white;
     cursor: pointer;
-    transition: all 0.3s ease;
-    border: 1px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
     font-family: $font-primary !important;
     
     @media (max-width: 768px) {
-      padding: 6px 14px;
+      padding: 8px 16px;
       font-size: 12px;
     }
     
     @media (max-width: 480px) {
-      padding: 5px 12px;
+      padding: 6px 14px;
       font-size: 11px;
+      gap: 4px;
     }
     
     ion-icon {
@@ -1145,19 +1220,21 @@ h1, h2, h3, h4,
       color: $black;
       background: $light-grey;
       transform: translateY(-2px);
+      border-color: rgba(0,0,0,0.05);
     }
     
     &.active {
       color: $black;
-      background: $gold;
+      background: linear-gradient(135deg, $gold, $gold-light);
       border-color: $gold;
-      box-shadow: 0 4px 20px rgba(201, 168, 76, 0.25);
+      box-shadow: 0 4px 20px rgba(201, 168, 76, 0.3);
+      transform: translateY(-2px);
     }
   }
 }
 
 // =========================
-// FAQ SECTION
+// FAQ SECTION - REDESIGNED
 // =========================
 .faq-section {
   padding: 60px 0 80px;
@@ -1169,39 +1246,46 @@ h1, h2, h3, h4,
 }
 
 .faq-container {
-  max-width: 800px;
+  max-width: 850px;
   margin: 0 auto;
 }
 
 .faq-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 
 .faq-item {
-  background: $off-white;
-  border-radius: 12px;
+  background: $white;
+  border-radius: 16px;
   overflow: hidden;
-  border: 1px solid rgba(0,0,0,0.04);
-  transition: all 0.3s ease;
+  border: 1px solid rgba(0,0,0,0.06);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0;
   animation: fadeUp 0.5s ease forwards;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   
   &:hover {
     border-color: rgba(201, 168, 76, 0.2);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    transform: translateY(-2px);
   }
   
   &.active {
     border-color: $gold;
-    box-shadow: 0 4px 20px rgba(201, 168, 76, 0.08);
+    box-shadow: 0 8px 30px rgba(201, 168, 76, 0.12);
+    transform: translateY(-2px);
     
     .faq-question {
-      background: rgba(201, 168, 76, 0.05);
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.06), rgba(201, 168, 76, 0.02));
       
       ion-icon {
         transform: rotate(180deg);
         color: $gold-dark;
+        background: rgba(201, 168, 76, 0.1);
+        border-radius: 50%;
+        padding: 4px;
       }
     }
   }
@@ -1210,17 +1294,17 @@ h1, h2, h3, h4,
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 24px;
+    padding: 20px 28px;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
     gap: 16px;
     
     @media (max-width: 768px) {
-      padding: 14px 18px;
+      padding: 16px 20px;
     }
     
     @media (max-width: 480px) {
-      padding: 12px 16px;
+      padding: 14px 16px;
     }
     
     &:hover {
@@ -1231,52 +1315,53 @@ h1, h2, h3, h4,
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
       
       .faq-category-badge {
         display: inline-block;
         font-size: 10px;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.8px;
         font-weight: 600;
-        padding: 2px 12px;
-        border-radius: 12px;
+        padding: 4px 14px;
+        border-radius: 20px;
         width: fit-content;
         font-family: $font-primary !important;
         
         &.booking {
-          background: rgba(33, 150, 243, 0.1);
-          color: #2196F3;
+          background: linear-gradient(135deg, rgba(33, 150, 243, 0.12), rgba(33, 150, 243, 0.05));
+          color: #1976d2;
         }
         
         &.checkin {
-          background: rgba(76, 175, 80, 0.1);
-          color: #4caf50;
+          background: linear-gradient(135deg, rgba(76, 175, 80, 0.12), rgba(76, 175, 80, 0.05));
+          color: #388e3c;
         }
         
         &.amenities {
-          background: rgba(201, 168, 76, 0.1);
-          color: $gold;
+          background: linear-gradient(135deg, rgba(201, 168, 76, 0.12), rgba(201, 168, 76, 0.05));
+          color: $gold-dark;
         }
         
         &.location {
-          background: rgba(156, 39, 176, 0.1);
-          color: #9c27b0;
+          background: linear-gradient(135deg, rgba(156, 39, 176, 0.12), rgba(156, 39, 176, 0.05));
+          color: #7b1fa2;
         }
         
         &.policies {
-          background: rgba(244, 67, 54, 0.1);
-          color: #f44336;
+          background: linear-gradient(135deg, rgba(244, 67, 54, 0.12), rgba(244, 67, 54, 0.05));
+          color: #c62828;
         }
       }
       
       h3 {
-        font-size: 16px;
+        font-size: 17px;
         font-weight: 500;
         color: $black;
         margin: 0;
         line-height: 1.4;
         font-family: $font-primary !important;
+        transition: color 0.3s ease;
         
         @media (max-width: 768px) {
           font-size: 15px;
@@ -1289,32 +1374,32 @@ h1, h2, h3, h4,
     }
     
     ion-icon {
-      font-size: 24px;
+      font-size: 26px;
       color: $gold;
       transition: all 0.3s ease;
       flex-shrink: 0;
       
       @media (max-width: 480px) {
-        font-size: 20px;
+        font-size: 22px;
       }
     }
   }
   
   .faq-answer {
     display: none;
-    padding: 0 24px 20px;
+    padding: 0 28px 24px;
     animation: slideDown 0.3s ease;
     
     @media (max-width: 768px) {
-      padding: 0 18px 16px;
+      padding: 0 20px 20px;
     }
     
     p {
       font-size: 15px;
-      line-height: 1.7;
-      color: #444;
+      line-height: 1.8;
+      color: #555;
       font-weight: 300;
-      margin: 0 0 12px;
+      margin: 0 0 14px;
       font-family: $font-primary !important;
     }
     
@@ -1322,8 +1407,8 @@ h1, h2, h3, h4,
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 8px;
-      padding-top: 12px;
+      gap: 10px;
+      padding-top: 14px;
       border-top: 1px solid rgba(0,0,0,0.05);
       
       span {
@@ -1338,18 +1423,20 @@ h1, h2, h3, h4,
         color: $gold;
         cursor: pointer;
         text-decoration: none;
-        transition: color 0.3s ease;
+        transition: all 0.3s ease;
         font-family: $font-primary !important;
+        font-weight: 500;
         
         &:hover {
           color: $gold-dark;
           text-decoration: underline;
+          transform: translateX(2px);
         }
         
         &:not(:last-child)::after {
           content: '•';
           color: $grey;
-          margin-left: 8px;
+          margin-left: 10px;
         }
       }
     }
@@ -1361,53 +1448,30 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// NO RESULTS
+// NO RESULTS - REDESIGNED
 // =========================
 .no-results {
   text-align: center;
-  padding: 60px 20px;
+  padding: 80px 20px;
   
   ion-icon {
-    font-size: 64px;
+    font-size: 72px;
     color: $gold;
-    opacity: 0.3;
+    opacity: 0.2;
   }
   
   h3 {
     font-family: $font-serif !important;
-    font-size: 28px;
-    margin: 16px 0 8px;
+    font-size: 30px;
+    margin: 20px 0 10px;
     color: $black;
   }
   
   p {
     color: $grey;
-    font-size: 15px;
-    margin-bottom: 20px;
+    font-size: 16px;
+    margin-bottom: 24px;
     font-family: $font-primary !important;
-  }
-  
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: linear-gradient(135deg, $gold, $gold-dark);
-    color: $black;
-    font-weight: 600;
-    padding: 12px 28px;
-    border-radius: 50px;
-    font-size: 14px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    font-family: $font-primary !important;
-    
-    &:hover {
-      background: linear-gradient(135deg, $gold-light, $gold);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 20px rgba(201, 168, 76, 0.3);
-    }
   }
 }
 
@@ -1590,34 +1654,45 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// STILL HAVE QUESTIONS SECTION
+// STILL HAVE QUESTIONS SECTION - REDESIGNED
 // =========================
 .still-questions-section {
   padding: 80px 0;
-  background: $off-white;
+  background: linear-gradient(135deg, $off-white 0%, #ffffff 100%);
+  border-top: 1px solid rgba(0,0,0,0.04);
   
   @media (max-width: 768px) {
-    padding: 40px 0;
+    padding: 50px 0;
   }
 }
 
 .still-questions-content {
   text-align: center;
-  max-width: 600px;
+  max-width: 650px;
   margin: 0 auto;
+  background: $white;
+  padding: 50px 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+  
+  @media (max-width: 768px) {
+    padding: 30px 24px;
+  }
   
   .still-questions-icon {
     width: 72px;
     height: 72px;
-    background: rgba(201, 168, 76, 0.1);
+    background: linear-gradient(135deg, rgba(201, 168, 76, 0.15), rgba(201, 168, 76, 0.05));
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 20px;
+    border: 1px solid rgba(201, 168, 76, 0.15);
     
     ion-icon {
-      font-size: 32px;
+      font-size: 34px;
       color: $gold;
     }
   }
@@ -1938,8 +2013,12 @@ ion-content {
     padding: 30px 0;
   }
   
-  .ask-question-content h3 {
-    font-size: 22px;
+  .ask-question-content {
+    padding: 30px 24px;
+    
+    h3 {
+      font-size: 22px;
+    }
   }
   
   .faq-search-section {
@@ -1947,7 +2026,6 @@ ion-content {
   }
   
   .search-box .search-input {
-    padding: 12px 44px 12px 42px;
     font-size: 14px;
   }
   
@@ -1955,7 +2033,7 @@ ion-content {
     gap: 8px;
     
     .category-tab {
-      padding: 6px 14px;
+      padding: 8px 16px;
       font-size: 12px;
       
       ion-icon {
@@ -1969,7 +2047,7 @@ ion-content {
   }
   
   .faq-item .faq-question {
-    padding: 14px 18px;
+    padding: 16px 20px;
     
     .faq-question-content h3 {
       font-size: 15px;
@@ -1977,24 +2055,32 @@ ion-content {
   }
   
   .faq-item .faq-answer {
-    padding: 0 18px 16px;
+    padding: 0 20px 20px;
   }
   
   .still-questions-section {
     padding: 40px 0;
   }
   
-  .still-questions-content h2 {
-    font-size: 28px;
+  .still-questions-content {
+    padding: 30px 24px;
+    
+    h2 {
+      font-size: 28px;
+    }
   }
 }
 
 @media (max-width: 480px) {
+  .ask-question-content {
+    padding: 24px 16px;
+  }
+  
   .category-tabs {
     gap: 6px;
     
     .category-tab {
-      padding: 5px 12px;
+      padding: 6px 14px;
       font-size: 11px;
       
       ion-icon {
@@ -2004,14 +2090,14 @@ ion-content {
   }
   
   .faq-item .faq-question {
-    padding: 12px 16px;
+    padding: 14px 16px;
     
     .faq-question-content h3 {
       font-size: 14px;
     }
     
     ion-icon {
-      font-size: 20px;
+      font-size: 22px;
     }
   }
   
@@ -2027,7 +2113,7 @@ ion-content {
 }
 
 // ============================================================
-// ✅ PRODUCTION SCROLL FIX - FAQ PAGE (MATCHING ABOUT)
+// ✅ PRODUCTION SCROLL FIX - FAQ PAGE
 // ============================================================
 
 // Force the page to scroll in production

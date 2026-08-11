@@ -285,7 +285,7 @@ export class FaqPage {
   }
 
   // =========================
-  // SUBMIT QUESTION - SEND TO WHATSAPP (MATCHING BOOKING PAGE STYLE)
+  // SUBMIT QUESTION - SEND TO WHATSAPP (REDESIGNED FOR OWNER READABILITY)
   // =========================
   submitQuestion() {
     this.questionTouched = true;
@@ -301,7 +301,7 @@ export class FaqPage {
 
     this.isSubmittingQuestion = true;
 
-    // Format message for WhatsApp (using %0A for line breaks like booking page)
+    // Format message for WhatsApp (REDESIGNED)
     const message = this.formatWhatsAppQuestion(this.userQuestion);
     
     const phone = '27849009821';
@@ -323,17 +323,36 @@ export class FaqPage {
   }
 
   // =========================
-  // FORMAT WHATSAPP MESSAGE (MATCHING BOOKING PAGE STYLE WITH %0A)
+  // FORMAT WHATSAPP MESSAGE - REDESIGNED FOR EASY READING
   // =========================
   private formatWhatsAppQuestion(question: string): string {
+    // Get current date and time
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-ZA', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    const timeStr = now.toLocaleTimeString('en-ZA', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
     return (
-      `❓ *New FAQ Question - STAY@TIAH*%0A%0A` +
-      `📝 *Question:*%0A` +
-      `${question}%0A%0A` +
-      `---%0A` +
-      `📅 Sent via FAQ page%0A` +
-      `🌐 staytiah.com%0A%0A` +
-      `💡 *We'll respond within 24 hours!*`
+      `🔔 *NEW FAQ QUESTION*%0A` +
+      `═══════════════════════════%0A%0A` +
+      `📋 *QUESTION DETAILS*%0A` +
+      `─────────────────────────%0A` +
+      `📝 Question: ${question}%0A%0A` +
+      `📅 Date: ${dateStr}%0A` +
+      `⏰ Time: ${timeStr}%0A` +
+      `📱 Source: FAQ Page%0A%0A` +
+      `═══════════════════════════%0A` +
+      `💡 *Response Required*%0A` +
+      `📧 Reply to: info@staytiah.com%0A` +
+      `📞 Call: +27 84 900 9821%0A%0A` +
+      `🏨 *STAY@TIAH*%0A` +
+      `🌐 staytiah.com`
     );
   }
 }
