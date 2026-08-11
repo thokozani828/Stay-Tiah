@@ -895,7 +895,7 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// BOOKING FORM - FIXED FOR TYPING
+// BOOKING FORM - COMPLETE FIX
 // =========================
 .booking-form-wrapper {
   background: $off-white;
@@ -989,7 +989,7 @@ h1, h2, h3, h4,
   }
 
   // ============================================================
-  // INPUT WRAPPER - FIXED FOR TYPING
+  // INPUT WRAPPER - FIXED
   // ============================================================
   .input-wrapper {
     position: relative;
@@ -1019,12 +1019,6 @@ h1, h2, h3, h4,
       color: #888;
       font-size: 18px;
     }
-
-    // For textarea icon position
-    .input-icon-top {
-      top: 16px;
-      transform: none;
-    }
   }
 
   // ============================================================
@@ -1050,7 +1044,7 @@ h1, h2, h3, h4,
   }
 
   // ============================================================
-  // IONIC INPUT - FIXED FOR TYPING
+  // IONIC INPUT - FIXED
   // ============================================================
   ion-input.form-input {
     --background: transparent;
@@ -1071,7 +1065,7 @@ h1, h2, h3, h4,
   }
 
   // ============================================================
-  // IONIC TEXTAREA - FIXED FOR TYPING
+  // IONIC TEXTAREA - FIXED
   // ============================================================
   ion-textarea.form-textarea {
     --background: transparent;
@@ -1092,7 +1086,7 @@ h1, h2, h3, h4,
   }
 
   // ============================================================
-  // IONIC SELECT - FIXED FOR CLICKING
+  // IONIC SELECT - FIXED
   // ============================================================
   ion-select.form-select {
     --background: transparent;
@@ -1213,15 +1207,39 @@ ion-textarea::part(native) {
   pointer-events: auto;
 }
 
-// Mobile keyboard fix - prevents zoom
-@media (max-width: 768px) {
-  ion-input::part(native),
-  ion-textarea::part(native) {
-    font-size: 16px;
-  }
+// ============================================================
+// ✅ PROFESSIONAL UX - ALLOW TEXT SELECTION
+// ============================================================
+
+// Allow text selection on all content
+html, body, .ion-page, ion-content, .container, p, h1, h2, h3, h4, span, div, section,
+.booking-form,
+.form-group,
+.input-wrapper,
+.booking-form input,
+.booking-form ion-input,
+.booking-form ion-textarea,
+.booking-form label,
+.booking-form .section-label,
+.booking-form .form-header p {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
 }
 
-// ✅ Ensure all inputs are clickable
+// Prevent text selection only on buttons and interactive elements
+button, .btn-primary, .btn-secondary-cta, .btn-gold, .hamburger-btn, 
+.nav__link, .filter-tab, .category-tab, .faq-question,
+.room-badge, .attraction-btn, .change-room-btn,
+ion-button, .btn, [role="button"] {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+// ============================================================
+// ✅ FIX: ENSURE ALL INPUTS ARE CLICKABLE
+// ============================================================
 ion-input,
 ion-select,
 ion-textarea {
@@ -1233,17 +1251,12 @@ ion-select {
   cursor: pointer !important;
 }
 
-// ✅ Remove any user-select blocking
-.booking-form,
-.form-group,
-.input-wrapper {
-  user-select: none;
-}
-
-.booking-form input,
-.booking-form ion-input,
-.booking-form ion-textarea {
-  user-select: text !important;
+// Mobile keyboard fix - prevents zoom
+@media (max-width: 768px) {
+  ion-input::part(native),
+  ion-textarea::part(native) {
+    font-size: 16px;
+  }
 }
 
 // =========================

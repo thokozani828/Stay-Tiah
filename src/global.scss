@@ -83,7 +83,7 @@ ion-app {
   overflow: visible !important;
 }
 
-// ✅ FIX: Make ion-content scrollable - BUT DON'T BREAK INPUTS
+// ✅ FIX: Make ion-content scrollable - WITHOUT breaking inputs
 ion-content {
   --offset-top: 0px !important;
   --padding-top: 0 !important;
@@ -246,7 +246,7 @@ ion-fab-button.whatsapp-float {
 }
 
 // ============================================================
-// ✅ CUSTOM SCROLLBAR - ELEGANT GOLD DARK (FIXED)
+// ✅ CUSTOM SCROLLBAR - ELEGANT GOLD DARK
 // ============================================================
 
 // WebKit browsers (Chrome, Safari, Edge)
@@ -326,4 +326,272 @@ ion-content {
   .ion-page {
     min-height: 100vh !important;
   }
+}
+
+// ============================================================
+// ✅ PROFESSIONAL UX - ALLOW TEXT SELECTION
+// ============================================================
+
+// Allow text selection on ALL content for professional UX
+html, body, .ion-page, ion-content, .container, p, h1, h2, h3, h4, span, div, section,
+.booking-form,
+.form-group,
+.input-wrapper,
+.booking-form input,
+.booking-form ion-input,
+.booking-form ion-textarea,
+.booking-form label,
+.booking-form .section-label,
+.booking-form .form-header p,
+.about-section,
+.why-section,
+.rates-section,
+.faq-section,
+.attractions-section,
+.rooms-section,
+.gallery-section,
+.contact-section,
+.hero-text,
+.about-content,
+.faq-item,
+.testimonial-text,
+.attraction-info p,
+.room-info p,
+.location-info p,
+.benefit-card p,
+.info-card p,
+.contact-item span,
+.footer p,
+.footer a {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+}
+
+// Prevent text selection ONLY on interactive elements (buttons, tabs, etc.)
+button, 
+.btn-primary, 
+.btn-secondary, 
+.btn-secondary-cta, 
+.btn-gold, 
+.btn-whatsapp,
+.hamburger-btn, 
+.nav__link, 
+.filter-tab, 
+.category-tab, 
+.faq-question,
+.room-badge, 
+.attraction-btn, 
+.change-room-btn,
+.location-tab,
+.tab,
+.book-link,
+.btn-view,
+.mobile-cta,
+.mobile-nav-close,
+.ask-btn,
+.clear-search,
+.btn-location,
+.room-btn,
+.view-all-container a,
+.cta-buttons a,
+.footer .socials a,
+.hero-buttons a,
+.about-buttons a,
+.ask-question-content .ask-btn,
+.still-questions-buttons a,
+[role="button"],
+ion-button,
+.btn {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  cursor: pointer !important;
+}
+
+// Allow text selection in all form inputs
+input, 
+textarea, 
+ion-input, 
+ion-textarea, 
+.form-input, 
+.form-textarea,
+.form-input-native,
+.ask-input,
+.search-input {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  cursor: text !important;
+}
+
+// Allow selection in dropdown options
+ion-select-option {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+}
+
+// ============================================================
+// ✅ FIX: ENSURE ALL INPUTS ARE CLICKABLE
+// ============================================================
+
+ion-input,
+ion-select,
+ion-datetime,
+ion-textarea {
+  pointer-events: auto !important;
+  cursor: text !important;
+  opacity: 1 !important;
+}
+
+ion-select {
+  cursor: pointer !important;
+}
+
+// Fix for readonly inputs
+input[readonly] {
+  cursor: pointer;
+  background: transparent;
+}
+
+// Prevent icons from blocking clicks
+.input-icon {
+  pointer-events: none !important;
+}
+
+// ============================================================
+// ✅ MOBILE KEYBOARD FIX - Prevents zoom
+// ============================================================
+@media (max-width: 768px) {
+  ion-input::part(native),
+  ion-textarea::part(native),
+  input,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+// ============================================================
+// ✅ PRODUCTION SCROLL FIX - FOR ALL PAGES
+// ============================================================
+
+// Force the app to scroll in production
+html, body {
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  position: relative !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+ion-app {
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow: visible !important;
+}
+
+ion-content {
+  contain: none !important;
+  --overflow: auto !important;
+  overflow-y: auto !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  display: block !important;
+  position: relative !important;
+  
+  &::part(scroll) {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    height: 100% !important;
+    min-height: 100vh !important;
+    display: block !important;
+  }
+}
+
+// Force all pages to be scrollable
+.ion-page {
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow: visible !important;
+  display: block !important;
+  position: relative !important;
+}
+
+ion-router-outlet {
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow: visible !important;
+  display: block !important;
+}
+
+// Force all content containers to expand
+.container,
+.page-header,
+.about-section,
+.why-section,
+.rates-section,
+.faq-section,
+.gallery-section,
+.rooms-section,
+.features-section,
+.cta-section,
+.booking-section,
+.contact-section,
+.attractions-section,
+.selected-room-section,
+.why-book-section,
+.maps-section,
+.ask-question-section,
+.still-questions-section,
+.map-section,
+.filter-section {
+  height: auto !important;
+  min-height: auto !important;
+  overflow: visible !important;
+}
+
+// Ensure grids don't block scrolling
+.about-grid,
+.why-grid,
+.rates-table-wrapper,
+.faq-list,
+.gallery-grid,
+.rooms-grid,
+.features-grid,
+.benefits-grid,
+.booking-container,
+.contact-grid,
+.locations-grid,
+.attractions-grid,
+.maps-grid,
+.options-grid,
+.testimonials-grid,
+.amenities-grid {
+  height: auto !important;
+  min-height: auto !important;
+  overflow: visible !important;
+}
+
+// Fix for any hidden overflow - TARGETED NOT UNIVERSAL
+.hero-section,
+.page-header-hero,
+.rates-table-wrapper,
+.page-header {
+  overflow: hidden !important;
+}
+
+// Ensure images don't overflow
+img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+// Force scrollable content to be visible
+.scroll-y {
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  height: 100% !important;
+  min-height: 100vh !important;
 }
