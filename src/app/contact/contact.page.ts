@@ -122,8 +122,9 @@ export class ContactPage {
   // WHATSAPP
   // =========================
   openWhatsApp() {
+    const phone = '27849009821';
     const message = 'Hello STAY@TIAH, I would like to make a booking enquiry.';
-    window.open(`https://wa.me/${this.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
   }
 
   // =========================
@@ -137,6 +138,13 @@ export class ContactPage {
   // Field focus handlers
   onFieldFocus(fieldName: string) {
     this.focusedField = fieldName;
+    // Scroll to the field on mobile for better UX
+    setTimeout(() => {
+      const element = document.querySelector(`[name="${fieldName}"]`);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 300);
   }
 
   onFieldBlur(fieldName: string) {
@@ -220,24 +228,25 @@ export class ContactPage {
       return;
     }
 
-    // Format message for WhatsApp
-    const whatsappMessage = this.formatWhatsAppMessage(this.contactData);
+    this.isSubmitting = true;
+
+    // Format message for WhatsApp (using the booking page style)
+    const message = this.formatWhatsAppMessage(this.contactData);
     
-    // Send to WhatsApp
-    const whatsappUrl = `https://wa.me/${this.whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+    const phone = '27849009821';
     
-    // Open WhatsApp in new window/tab
-    window.open(whatsappUrl, '_blank');
+    // Open WhatsApp
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
     
-    // Show success message
-    alert('Your message has been opened in WhatsApp! Please click send to complete.');
-    
-    // Reset form
-    this.resetForm();
+    // Reset form after submission
+    setTimeout(() => {
+      this.resetForm();
+      this.isSubmitting = false;
+    }, 1000);
   }
 
   // =========================
-  // FORMAT WHATSAPP MESSAGE
+  // FORMAT WHATSAPP MESSAGE (MATCHING BOOKING PAGE STYLE)
   // =========================
   private formatWhatsAppMessage(data: any): string {
     const subjectMap: { [key: string]: string } = {
@@ -250,21 +259,19 @@ export class ContactPage {
 
     const subjectLabel = subjectMap[data.subject] || data.subject || 'General Enquiry';
 
-    return `
-🏨 *STAY@TIAH - New Contact Form Submission*
-
-👤 *Name:* ${data.name}
-📧 *Email:* ${data.email}
-📱 *Phone:* ${data.phone || 'Not provided'}
-📋 *Subject:* ${subjectLabel}
-
-💬 *Message:*
-${data.message}
-
----
-📅 Sent via STAY@TIAH Contact Form
-🌐 staytiah.com
-    `.trim();
+    // Using the same format as booking page with %0A for line breaks
+    return (
+      `🏨 *New Contact Form Submission - STAY@TIAH*%0A%0A` +
+      `👤 *Name:* ${data.name}%0A` +
+      `📧 *Email:* ${data.email}%0A` +
+      `📱 *Phone:* ${data.phone || 'Not provided'}%0A` +
+      `📋 *Subject:* ${subjectLabel}%0A%0A` +
+      `💬 *Message:*%0A` +
+      `${data.message}%0A%0A` +
+      `---%0A` +
+      `📅 Sent via STAY@TIAH Contact Form%0A` +
+      `🌐 staytiah.com`
+    );
   }
 
   // =========================

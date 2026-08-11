@@ -43,7 +43,7 @@ export class FaqPage {
   questionTouched: boolean = false;
   isSubmittingQuestion: boolean = false;
 
-  // WhatsApp number
+  // WhatsApp number (without + sign for URL)
   private readonly whatsappNumber: string = '27849009821';
 
   // FAQ Data
@@ -203,8 +203,9 @@ export class FaqPage {
   }
 
   openWhatsApp() {
+    const phone = '27849009821';
     const message = 'Hello STAY@TIAH, I have a question about my stay.';
-    window.open(`https://wa.me/${this.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
   }
 
   // =========================
@@ -278,13 +279,13 @@ export class FaqPage {
   // =========================
   // VALIDATE QUESTION
   // =========================
-  validateQuestion() {
+  validateQuestion(): boolean {
     this.questionError = !this.userQuestion || this.userQuestion.trim().length < 5;
     return !this.questionError;
   }
 
   // =========================
-  // SUBMIT QUESTION - SEND TO WHATSAPP
+  // SUBMIT QUESTION - SEND TO WHATSAPP (MATCHING BOOKING PAGE STYLE)
   // =========================
   submitQuestion() {
     this.questionTouched = true;
@@ -300,14 +301,13 @@ export class FaqPage {
 
     this.isSubmittingQuestion = true;
 
-    // Format message for WhatsApp
-    const whatsappMessage = this.formatWhatsAppQuestion(this.userQuestion);
+    // Format message for WhatsApp (using %0A for line breaks like booking page)
+    const message = this.formatWhatsAppQuestion(this.userQuestion);
     
-    // Send to WhatsApp
-    const whatsappUrl = `https://wa.me/${this.whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+    const phone = '27849009821';
     
-    // Open WhatsApp in new window/tab
-    window.open(whatsappUrl, '_blank');
+    // Open WhatsApp
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
     
     // Show success message
     this.questionSubmitted = true;
@@ -323,20 +323,17 @@ export class FaqPage {
   }
 
   // =========================
-  // FORMAT WHATSAPP MESSAGE FOR QUESTION
+  // FORMAT WHATSAPP MESSAGE (MATCHING BOOKING PAGE STYLE WITH %0A)
   // =========================
   private formatWhatsAppQuestion(question: string): string {
-    return `
-❓ *STAY@TIAH - New FAQ Question*
-
-📝 *Question:*
-${question}
-
----
-📅 Sent via FAQ page
-🌐 staytiah.com
-
-💡 *We'll respond within 24 hours!*
-    `.trim();
+    return (
+      `❓ *New FAQ Question - STAY@TIAH*%0A%0A` +
+      `📝 *Question:*%0A` +
+      `${question}%0A%0A` +
+      `---%0A` +
+      `📅 Sent via FAQ page%0A` +
+      `🌐 staytiah.com%0A%0A` +
+      `💡 *We'll respond within 24 hours!*`
+    );
   }
 }
