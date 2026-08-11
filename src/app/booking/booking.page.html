@@ -171,42 +171,43 @@
                 Personal Information
               </h4>
               <div class="form-row">
-                <!-- First Name -->
+                <!-- First Name - Using Native Input -->
                 <div class="form-group">
                   <label>First Name <span class="required">*</span></label>
-                  <div class="input-wrapper" [class.error]="firstNameError && !bookingData.firstName">
+                  <div class="input-wrapper" [class.error]="firstNameError">
                     <ion-icon name="person-outline" class="input-icon"></ion-icon>
-                    <!-- ✅ REMOVED readonly - Using standard input -->
-                    <ion-input
-                      class="form-input"
+                    <input
+                      class="form-input-native"
                       type="text"
                       [(ngModel)]="bookingData.firstName"
                       name="firstName"
                       placeholder="John"
-                      required>
-                    </ion-input>
+                      required
+                      (focus)="onFieldFocus('firstName')"
+                      (blur)="onFieldBlur('firstName')">
                   </div>
-                  <div class="error-message" *ngIf="firstNameError && !bookingData.firstName">
+                  <div class="error-message" *ngIf="firstNameError">
                     <ion-icon name="alert-circle-outline"></ion-icon>
                     Please enter your first name
                   </div>
                 </div>
 
-                <!-- Last Name -->
+                <!-- Last Name - Using Native Input -->
                 <div class="form-group">
                   <label>Last Name <span class="required">*</span></label>
-                  <div class="input-wrapper" [class.error]="lastNameError && !bookingData.lastName">
+                  <div class="input-wrapper" [class.error]="lastNameError">
                     <ion-icon name="person-outline" class="input-icon"></ion-icon>
-                    <ion-input
-                      class="form-input"
+                    <input
+                      class="form-input-native"
                       type="text"
                       [(ngModel)]="bookingData.lastName"
                       name="lastName"
                       placeholder="Doe"
-                      required>
-                    </ion-input>
+                      required
+                      (focus)="onFieldFocus('lastName')"
+                      (blur)="onFieldBlur('lastName')">
                   </div>
-                  <div class="error-message" *ngIf="lastNameError && !bookingData.lastName">
+                  <div class="error-message" *ngIf="lastNameError">
                     <ion-icon name="alert-circle-outline"></ion-icon>
                     Please enter your last name
                   </div>
@@ -214,41 +215,43 @@
               </div>
 
               <div class="form-row">
-                <!-- Email -->
+                <!-- Email - Using Native Input -->
                 <div class="form-group">
                   <label>Email Address <span class="required">*</span></label>
-                  <div class="input-wrapper" [class.error]="emailError && !bookingData.email">
+                  <div class="input-wrapper" [class.error]="emailError">
                     <ion-icon name="mail-outline" class="input-icon"></ion-icon>
-                    <ion-input
-                      class="form-input"
+                    <input
+                      class="form-input-native"
                       type="email"
                       [(ngModel)]="bookingData.email"
                       name="email"
                       placeholder="info@example.com"
-                      required>
-                    </ion-input>
+                      required
+                      (focus)="onFieldFocus('email')"
+                      (blur)="onFieldBlur('email')">
                   </div>
-                  <div class="error-message" *ngIf="emailError && !bookingData.email">
+                  <div class="error-message" *ngIf="emailError">
                     <ion-icon name="alert-circle-outline"></ion-icon>
                     Please enter a valid email address
                   </div>
                 </div>
 
-                <!-- Phone -->
+                <!-- Phone - Using Native Input -->
                 <div class="form-group">
                   <label>Phone Number <span class="required">*</span></label>
-                  <div class="input-wrapper" [class.error]="phoneError && !bookingData.phone">
+                  <div class="input-wrapper" [class.error]="phoneError">
                     <ion-icon name="call-outline" class="input-icon"></ion-icon>
-                    <ion-input
-                      class="form-input"
+                    <input
+                      class="form-input-native"
                       type="tel"
                       [(ngModel)]="bookingData.phone"
                       name="phone"
                       placeholder="+27 84 900 9821"
-                      required>
-                    </ion-input>
+                      required
+                      (focus)="onFieldFocus('phone')"
+                      (blur)="onFieldBlur('phone')">
                   </div>
-                  <div class="error-message" *ngIf="phoneError && !bookingData.phone">
+                  <div class="error-message" *ngIf="phoneError">
                     <ion-icon name="alert-circle-outline"></ion-icon>
                     Please enter your phone number
                   </div>
@@ -263,43 +266,45 @@
                 Stay Details
               </h4>
               <div class="form-row">
-                <!-- Check-in -->
+                <!-- Check-in - Using Native Input -->
                 <div class="form-group">
                   <label>Check-in Date <span class="required">*</span></label>
-                  <div class="input-wrapper" [class.error]="checkInError && !bookingData.checkIn">
+                  <div class="input-wrapper" [class.error]="checkInError">
                     <ion-icon name="calendar-outline" class="input-icon"></ion-icon>
-                    <!-- ✅ FIXED: Using standard input with click handler for date picker -->
                     <input
                       class="form-input-native"
                       type="text"
                       [(ngModel)]="bookingData.checkIn"
                       name="checkIn"
                       placeholder="Select check-in date"
+                      readonly
                       (click)="openDatePicker('checkIn')"
-                      readonly>
+                      (focus)="onFieldFocus('checkIn')"
+                      (blur)="onFieldBlur('checkIn')">
                   </div>
-                  <div class="error-message" *ngIf="checkInError && !bookingData.checkIn">
+                  <div class="error-message" *ngIf="checkInError">
                     <ion-icon name="alert-circle-outline"></ion-icon>
                     Please select a check-in date
                   </div>
                 </div>
 
-                <!-- Check-out -->
+                <!-- Check-out - Using Native Input -->
                 <div class="form-group">
                   <label>Check-out Date <span class="required">*</span></label>
-                  <div class="input-wrapper" [class.error]="checkOutError && !bookingData.checkOut">
+                  <div class="input-wrapper" [class.error]="checkOutError">
                     <ion-icon name="calendar-outline" class="input-icon"></ion-icon>
-                    <!-- ✅ FIXED: Using standard input with click handler for date picker -->
                     <input
                       class="form-input-native"
                       type="text"
                       [(ngModel)]="bookingData.checkOut"
                       name="checkOut"
                       placeholder="Select check-out date"
+                      readonly
                       (click)="openDatePicker('checkOut')"
-                      readonly>
+                      (focus)="onFieldFocus('checkOut')"
+                      (blur)="onFieldBlur('checkOut')">
                   </div>
-                  <div class="error-message" *ngIf="checkOutError && !bookingData.checkOut">
+                  <div class="error-message" *ngIf="checkOutError">
                     <ion-icon name="alert-circle-outline"></ion-icon>
                     Please select a check-out date
                   </div>
@@ -307,83 +312,87 @@
               </div>
 
               <div class="form-row">
-                <!-- Guests -->
+                <!-- Guests - Using Native Select -->
                 <div class="form-group">
                   <label>Number of Guests <span class="required">*</span></label>
                   <div class="input-wrapper">
                     <ion-icon name="people-outline" class="input-icon"></ion-icon>
-                    <ion-select
-                      class="form-select"
+                    <select
+                      class="form-select-native"
                       [(ngModel)]="bookingData.guests"
                       name="guests"
-                      placeholder="Select guests"
-                      interface="popover"
-                      required>
-                      <ion-select-option value="1">1 Guest</ion-select-option>
-                      <ion-select-option value="2">2 Guests</ion-select-option>
-                      <ion-select-option value="3">3 Guests</ion-select-option>
-                      <ion-select-option value="4">4 Guests</ion-select-option>
-                      <ion-select-option value="5">5 Guests</ion-select-option>
-                      <ion-select-option value="6">6+ Guests</ion-select-option>
-                    </ion-select>
+                      required
+                      (focus)="onFieldFocus('guests')"
+                      (blur)="onFieldBlur('guests')">
+                      <option value="">Select guests</option>
+                      <option value="1">1 Guest</option>
+                      <option value="2">2 Guests</option>
+                      <option value="3">3 Guests</option>
+                      <option value="4">4 Guests</option>
+                      <option value="5">5 Guests</option>
+                      <option value="6">6+ Guests</option>
+                    </select>
                   </div>
                 </div>
 
-                <!-- Location -->
+                <!-- Location - Using Native Select -->
                 <div class="form-group">
                   <label>Location <span class="required">*</span></label>
                   <div class="input-wrapper">
                     <ion-icon name="location-outline" class="input-icon"></ion-icon>
-                    <ion-select
-                      class="form-select"
+                    <select
+                      class="form-select-native"
                       [(ngModel)]="bookingData.location"
                       name="location"
-                      placeholder="Select location"
-                      interface="popover"
-                      required>
-                      <ion-select-option value="oceanic">🌊 Durban Oceanic (82A, 82B, 117)</ion-select-option>
-                      <ion-select-option value="musgrave-la">🏠 La Tiah Musgrave</ion-select-option>
-                      <ion-select-option value="musgrave">🏠 Tiah Musgrave</ion-select-option>
-                      <ion-select-option value="halford">🎒 Halford Backpackers</ion-select-option>
-                    </ion-select>
+                      required
+                      (focus)="onFieldFocus('location')"
+                      (blur)="onFieldBlur('location')">
+                      <option value="">Select location</option>
+                      <option value="oceanic">🌊 Durban Oceanic (82A, 82B, 117)</option>
+                      <option value="musgrave-la">🏠 La Tiah Musgrave</option>
+                      <option value="musgrave">🏠 Tiah Musgrave</option>
+                      <option value="halford">🎒 Halford Backpackers</option>
+                    </select>
                   </div>
                 </div>
               </div>
 
               <div class="form-row">
-                <!-- Room Type -->
+                <!-- Room Type - Using Native Select -->
                 <div class="form-group">
                   <label>Room Type <span class="required">*</span></label>
                   <div class="input-wrapper">
                     <ion-icon name="bed-outline" class="input-icon"></ion-icon>
-                    <ion-select
-                      class="form-select"
+                    <select
+                      class="form-select-native"
                       [(ngModel)]="bookingData.roomType"
                       name="roomType"
-                      placeholder="Select room type"
-                      interface="popover"
-                      required>
-                      <ion-select-option value="single">🛏 Single Room</ion-select-option>
-                      <ion-select-option value="double">🛏 Double Room</ion-select-option>
-                      <ion-select-option value="family">🛏 Family Room</ion-select-option>
-                      <ion-select-option value="suite">🛏 Suite</ion-select-option>
-                      <ion-select-option value="dormitory">🛏 Dormitory (Backpackers)</ion-select-option>
-                    </ion-select>
+                      required
+                      (focus)="onFieldFocus('roomType')"
+                      (blur)="onFieldBlur('roomType')">
+                      <option value="">Select room type</option>
+                      <option value="single">🛏 Single Room</option>
+                      <option value="double">🛏 Double Room</option>
+                      <option value="family">🛏 Family Room</option>
+                      <option value="suite">🛏 Suite</option>
+                      <option value="dormitory">🛏 Dormitory (Backpackers)</option>
+                    </select>
                   </div>
                 </div>
 
-                <!-- Nights -->
+                <!-- Nights - Using Native Input -->
                 <div class="form-group">
                   <label>Number of Nights</label>
                   <div class="input-wrapper">
                     <ion-icon name="time-outline" class="input-icon"></ion-icon>
-                    <ion-input
-                      class="form-input"
+                    <input
+                      class="form-input-native"
                       type="number"
                       [(ngModel)]="bookingData.nights"
                       name="nights"
-                      placeholder="1">
-                    </ion-input>
+                      placeholder="1"
+                      (focus)="onFieldFocus('nights')"
+                      (blur)="onFieldBlur('nights')">
                   </div>
                 </div>
               </div>
@@ -399,13 +408,15 @@
                 <label>Additional Requirements</label>
                 <div class="input-wrapper">
                   <ion-icon name="chatbubbles-outline" class="input-icon"></ion-icon>
-                  <ion-textarea
-                    class="form-textarea"
+                  <textarea
+                    class="form-textarea-native"
                     [(ngModel)]="bookingData.specialRequests"
                     name="specialRequests"
                     placeholder="Any special requirements or preferences..."
-                    rows="4">
-                  </ion-textarea>
+                    rows="4"
+                    (focus)="onFieldFocus('specialRequests')"
+                    (blur)="onFieldBlur('specialRequests')">
+                  </textarea>
                 </div>
               </div>
             </div>

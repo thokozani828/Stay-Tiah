@@ -895,7 +895,7 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// BOOKING FORM - COMPLETE FIX
+// BOOKING FORM - COMPLETE FIX WITH NATIVE INPUTS
 // =========================
 .booking-form-wrapper {
   background: $off-white;
@@ -1022,7 +1022,7 @@ h1, h2, h3, h4,
   }
 
   // ============================================================
-  // NATIVE INPUT STYLES FOR DATE PICKER
+  // ✅ NATIVE INPUT STYLES - FULLY WORKING
   // ============================================================
   .form-input-native {
     width: 100%;
@@ -1034,75 +1034,64 @@ h1, h2, h3, h4,
     font-size: 14px;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     outline: none;
-    cursor: pointer;
     pointer-events: auto;
   }
 
+  .form-input-native:focus {
+    outline: none;
+  }
+
+  // ============================================================
+  // ✅ NATIVE SELECT STYLES - FULLY WORKING
+  // ============================================================
+  .form-select-native {
+    width: 100%;
+    min-height: 46px;
+    padding: 12px 14px 12px 44px;
+    border: none;
+    background: transparent;
+    color: #0a0a0a;
+    font-size: 14px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    outline: none;
+    cursor: pointer;
+    pointer-events: auto;
+    appearance: auto;
+    -webkit-appearance: auto;
+  }
+
+  .form-select-native option {
+    color: #0a0a0a;
+    background: #ffffff;
+  }
+
+  // ============================================================
+  // ✅ NATIVE TEXTAREA STYLES - FULLY WORKING
+  // ============================================================
+  .form-textarea-native {
+    width: 100%;
+    min-height: 100px;
+    padding: 12px 14px 12px 44px;
+    border: none;
+    background: transparent;
+    color: #0a0a0a;
+    font-size: 14px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    outline: none;
+    resize: vertical;
+    pointer-events: auto;
+  }
+
+  .form-textarea-native:focus {
+    outline: none;
+  }
+
+  // ============================================================
+  // FIX FOR READONLY INPUTS (Date pickers)
+  // ============================================================
   input[readonly] {
     cursor: pointer;
     background: transparent;
-  }
-
-  // ============================================================
-  // IONIC INPUT - FIXED
-  // ============================================================
-  ion-input.form-input {
-    --background: transparent;
-    --color: #0a0a0a;
-    --placeholder-color: #aaa;
-    --placeholder-opacity: 1;
-    --padding-start: 44px;
-    --padding-end: 14px;
-    --padding-top: 12px;
-    --padding-bottom: 12px;
-
-    display: block;
-    width: 100%;
-    min-height: 46px;
-    position: relative;
-    z-index: 25;
-    pointer-events: auto;
-  }
-
-  // ============================================================
-  // IONIC TEXTAREA - FIXED
-  // ============================================================
-  ion-textarea.form-textarea {
-    --background: transparent;
-    --color: #0a0a0a;
-    --placeholder-color: #aaa;
-    --placeholder-opacity: 1;
-    --padding-start: 44px;
-    --padding-end: 14px;
-    --padding-top: 12px;
-    --padding-bottom: 12px;
-
-    display: block;
-    width: 100%;
-    min-height: 100px;
-    position: relative;
-    z-index: 25;
-    pointer-events: auto;
-  }
-
-  // ============================================================
-  // IONIC SELECT - FIXED
-  // ============================================================
-  ion-select.form-select {
-    --background: transparent;
-    --color: #0a0a0a;
-    --placeholder-color: #aaa;
-    --placeholder-opacity: 1;
-    --padding-start: 44px;
-    --padding-end: 14px;
-
-    display: block;
-    width: 100%;
-    min-height: 46px;
-    position: relative;
-    z-index: 25;
-    pointer-events: auto;
-    cursor: pointer;
   }
 
   // ============================================================
@@ -1192,22 +1181,6 @@ h1, h2, h3, h4,
 }
 
 // ============================================================
-// IONIC NATIVE INPUT - PART SELECTOR
-// ============================================================
-ion-input::part(native) {
-  color: #0a0a0a;
-  font-size: 14px;
-  pointer-events: auto;
-}
-
-ion-textarea::part(native) {
-  color: #0a0a0a;
-  font-size: 14px;
-  line-height: 1.5;
-  pointer-events: auto;
-}
-
-// ============================================================
 // ✅ PROFESSIONAL UX - ALLOW TEXT SELECTION
 // ============================================================
 
@@ -1251,10 +1224,21 @@ ion-select {
   cursor: pointer !important;
 }
 
+// ============================================================
+// ✅ REMOVE ANY BLOCKING
+// ============================================================
+.input-wrapper {
+  .input-icon {
+    pointer-events: none !important;
+  }
+}
+
 // Mobile keyboard fix - prevents zoom
 @media (max-width: 768px) {
   ion-input::part(native),
-  ion-textarea::part(native) {
+  ion-textarea::part(native),
+  .form-input-native,
+  .form-textarea-native {
     font-size: 16px;
   }
 }
