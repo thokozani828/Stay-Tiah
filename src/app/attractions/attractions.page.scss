@@ -933,6 +933,7 @@ h1, h2, h3, h4,
     position: relative;
     height: 200px;
     overflow: hidden;
+    cursor: pointer;
     
     @media (max-width: 576px) {
       height: 180px;
@@ -964,11 +965,48 @@ h1, h2, h3, h4,
       gap: 6px;
       backdrop-filter: blur(10px);
       font-family: $font-primary !important;
+      z-index: 1;
       
       ion-icon {
         font-size: 14px;
         color: $gold;
       }
+    }
+    
+    .attraction-map-hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: all 0.3s ease;
+      color: white;
+      border-radius: 12px 12px 0 0;
+      backdrop-filter: blur(4px);
+      z-index: 2;
+      
+      ion-icon {
+        font-size: 36px;
+        margin-bottom: 8px;
+        color: $gold;
+      }
+      
+      span {
+        font-size: 14px;
+        font-weight: 500;
+        font-family: $font-primary !important;
+        letter-spacing: 0.5px;
+      }
+    }
+    
+    &:hover .attraction-map-hover {
+      opacity: 1;
     }
   }
   
@@ -1094,15 +1132,23 @@ h1, h2, h3, h4,
     }
     
     .attraction-btn {
-      padding: 6px 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
       border-radius: 50px;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
       color: $gold;
       background: rgba(201, 168, 76, 0.1);
-      text-decoration: none;
+      border: none;
+      cursor: pointer;
       transition: all 0.3s ease;
       font-family: $font-primary !important;
+      
+      ion-icon {
+        font-size: 16px;
+      }
       
       &:hover {
         background: $gold;
@@ -1224,14 +1270,17 @@ h1, h2, h3, h4,
     background: $off-white;
     border-radius: 12px;
     transition: all 0.3s ease;
+    cursor: pointer;
     
     @media (max-width: 480px) {
       padding: 10px 14px;
     }
     
     &:hover {
-      transform: translateX(4px);
-      box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+      transform: translateX(6px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border-color: $gold;
+      background: $white;
     }
     
     .location-icon {
@@ -1297,6 +1346,32 @@ h1, h2, h3, h4,
         &.budget {
           background: rgba(233, 30, 99, 0.1);
           color: #e91e63;
+        }
+      }
+    }
+    
+    .location-map-btn {
+      width: 36px;
+      height: 36px;
+      background: rgba(201, 168, 76, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+      
+      ion-icon {
+        font-size: 18px;
+        color: $gold;
+        transition: all 0.3s ease;
+      }
+      
+      &:hover {
+        background: $gold;
+        
+        ion-icon {
+          color: $black;
         }
       }
     }

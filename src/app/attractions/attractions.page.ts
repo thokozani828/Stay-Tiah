@@ -31,29 +31,37 @@ export class AttractionsPage {
       name: 'Durban Oceanic',
       address: '82A, 82B & 117, Durban',
       tag: 'Beachfront',
-      tagClass: 'beach'
+      tagClass: 'beach',
+      lat: -29.8593,
+      lng: 31.0139
     },
     {
       name: 'La Tiah Musgrave',
       address: 'Musgrave, Durban',
       tag: 'Upscale',
-      tagClass: 'upscale'
+      tagClass: 'upscale',
+      lat: -29.8491,
+      lng: 30.9925
     },
     {
       name: 'Tiah Musgrave',
       address: 'Musgrave, Durban',
       tag: 'Comfort',
-      tagClass: 'comfort'
+      tagClass: 'comfort',
+      lat: -29.8485,
+      lng: 30.9918
     },
     {
       name: 'Halford Backpackers',
       address: 'Halford, Durban',
       tag: 'Budget',
-      tagClass: 'budget'
+      tagClass: 'budget',
+      lat: -29.8450,
+      lng: 30.9950
     }
   ];
 
-  // All attractions data - Full list
+  // All attractions data with Google Maps coordinates
   attractions: any[] = [
     // ===================== BEACHES =====================
     {
@@ -67,7 +75,9 @@ export class AttractionsPage {
       hours: '24/7',
       rating: 4.8,
       reviews: 245,
-      near: ['Durban Oceanic', 'Halford Backpackers']
+      near: ['Durban Oceanic', 'Halford Backpackers'],
+      lat: -29.8390,
+      lng: 31.0423
     },
     {
       id: 2,
@@ -80,7 +90,9 @@ export class AttractionsPage {
       hours: '09:00 - 17:00',
       rating: 4.7,
       reviews: 189,
-      near: ['Durban Oceanic']
+      near: ['Durban Oceanic'],
+      lat: -29.8650,
+      lng: 31.0270
     },
     {
       id: 3,
@@ -93,7 +105,9 @@ export class AttractionsPage {
       hours: '24/7',
       rating: 4.5,
       reviews: 156,
-      near: ['Durban Oceanic']
+      near: ['Durban Oceanic'],
+      lat: -29.8280,
+      lng: 31.0450
     },
     {
       id: 4,
@@ -106,7 +120,9 @@ export class AttractionsPage {
       hours: '24/7',
       rating: 4.6,
       reviews: 312,
-      near: ['Durban Oceanic', 'Halford Backpackers']
+      near: ['Durban Oceanic', 'Halford Backpackers'],
+      lat: -29.8330,
+      lng: 31.0400
     },
     {
       id: 5,
@@ -119,7 +135,9 @@ export class AttractionsPage {
       hours: '24/7',
       rating: 4.4,
       reviews: 98,
-      near: ['Durban Oceanic']
+      near: ['Durban Oceanic'],
+      lat: -29.8450,
+      lng: 31.0450
     },
     {
       id: 6,
@@ -132,7 +150,9 @@ export class AttractionsPage {
       hours: '24/7',
       rating: 4.9,
       reviews: 420,
-      near: ['Musgrave']
+      near: ['Musgrave'],
+      lat: -29.7270,
+      lng: 31.0860
     },
 
     // ===================== CULTURE =====================
@@ -147,7 +167,9 @@ export class AttractionsPage {
       hours: '08:00 - 18:00',
       rating: 4.7,
       reviews: 234,
-      near: ['Durban Oceanic']
+      near: ['Durban Oceanic'],
+      lat: -29.8280,
+      lng: 31.0320
     },
     {
       id: 8,
@@ -160,7 +182,9 @@ export class AttractionsPage {
       hours: '07:30 - 17:00',
       rating: 4.6,
       reviews: 178,
-      near: ['La Tiah Musgrave', 'Tiah Musgrave']
+      near: ['La Tiah Musgrave', 'Tiah Musgrave'],
+      lat: -29.8450,
+      lng: 30.9950
     },
     {
       id: 9,
@@ -173,20 +197,24 @@ export class AttractionsPage {
       hours: '08:30 - 16:00',
       rating: 4.3,
       reviews: 89,
-      near: ['Durban Oceanic']
+      near: ['Durban Oceanic'],
+      lat: -29.8570,
+      lng: 31.0230
     },
     {
       id: 10,
       name: 'Victoria Street Market',
       description: 'Vibrant Indian market offering spices, traditional clothing, and authentic Durban cuisine.',
-      image: 'https://imgs.search.brave.com/JSOv6ZrD8YT1yXn8Cx-xBMiIm1eAD-Bg_AhJN_ssIxQ/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/ZGlzY292ZXJ3YWxr/cy5jb20vYmxvZy93/cC1jb250ZW50L3Vw/bG9hZHMvMjAyMi8w/Ny96YS1kdXJiYW4t/dmljdC1zdHItbWFy/a2V0LmpwZw',
+      image: 'https://imgs.search.brave.com/JSOv6ZrD8YT1yXn8Cx-xBMiIm1eAD-Bg_AhJN_ssIxQ/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/ZGlzY292ZXJ3YWxr/cy5jb20vYmxvZy93/cC1jb250ZW50L3Vw/bG9hZHMiMjAyMi8w/Ny96YS1kdXJiYW4t/dmljdC1zdHItbWFy/a2V0LmpwZw',
       category: 'culture',
       distance: '3.5 km',
       location: 'City Centre',
       hours: '08:00 - 17:00',
       rating: 4.4,
       reviews: 145,
-      near: ['Durban Oceanic']
+      near: ['Durban Oceanic'],
+      lat: -29.8600,
+      lng: 31.0200
     },
     {
       id: 11,
@@ -199,7 +227,9 @@ export class AttractionsPage {
       hours: '08:00 - 16:30',
       rating: 4.5,
       reviews: 112,
-      near: ['Durban Oceanic']
+      near: ['Durban Oceanic'],
+      lat: -29.8550,
+      lng: 31.0280
     },
 
     // ===================== NATURE =====================
@@ -214,7 +244,9 @@ export class AttractionsPage {
       hours: '06:00 - 18:00',
       rating: 4.7,
       reviews: 156,
-      near: ['Musgrave']
+      near: ['Musgrave'],
+      lat: -29.7220,
+      lng: 31.0920
     },
     {
       id: 13,
@@ -227,7 +259,9 @@ export class AttractionsPage {
       hours: '07:00 - 17:00',
       rating: 4.5,
       reviews: 98,
-      near: ['La Tiah Musgrave', 'Tiah Musgrave']
+      near: ['La Tiah Musgrave', 'Tiah Musgrave'],
+      lat: -29.8350,
+      lng: 30.9600
     },
     {
       id: 14,
@@ -240,7 +274,9 @@ export class AttractionsPage {
       hours: '06:00 - 18:00',
       rating: 4.3,
       reviews: 67,
-      near: ['La Tiah Musgrave', 'Tiah Musgrave']
+      near: ['La Tiah Musgrave', 'Tiah Musgrave'],
+      lat: -29.8350,
+      lng: 31.0000
     },
 
     // ===================== ENTERTAINMENT =====================
@@ -255,7 +291,9 @@ export class AttractionsPage {
       hours: '09:00 - 21:00',
       rating: 4.6,
       reviews: 567,
-      near: ['Musgrave']
+      near: ['Musgrave'],
+      lat: -29.7200,
+      lng: 31.0750
     },
     {
       id: 16,
@@ -268,7 +306,9 @@ export class AttractionsPage {
       hours: '10:00 - 20:00',
       rating: 4.2,
       reviews: 78,
-      near: ['La Tiah Musgrave', 'Tiah Musgrave']
+      near: ['La Tiah Musgrave', 'Tiah Musgrave'],
+      lat: -29.8550,
+      lng: 30.9900
     },
 
     // ===================== MORE ATTRACTIONS =====================
@@ -283,7 +323,9 @@ export class AttractionsPage {
       hours: '24/7',
       rating: 4.5,
       reviews: 145,
-      near: ['Durban Oceanic']
+      near: ['Durban Oceanic'],
+      lat: -29.8700,
+      lng: 31.0300
     },
     {
       id: 20,
@@ -296,7 +338,9 @@ export class AttractionsPage {
       hours: '08:30 - 17:00',
       rating: 4.3,
       reviews: 89,
-      near: ['La Tiah Musgrave', 'Tiah Musgrave']
+      near: ['La Tiah Musgrave', 'Tiah Musgrave'],
+      lat: -29.8500,
+      lng: 31.0100
     },
     {
       id: 21,
@@ -309,7 +353,9 @@ export class AttractionsPage {
       hours: 'Varies',
       rating: 4.6,
       reviews: 234,
-      near: ['Durban Oceanic']
+      near: ['Durban Oceanic'],
+      lat: -29.8250,
+      lng: 31.0350
     },
     {
       id: 22,
@@ -322,7 +368,9 @@ export class AttractionsPage {
       hours: '24/7',
       rating: 4.5,
       reviews: 112,
-      near: ['Durban Oceanic']
+      near: ['Durban Oceanic'],
+      lat: -29.7950,
+      lng: 31.0500
     },
   ];
 
@@ -418,6 +466,34 @@ export class AttractionsPage {
       'entertainment': 'game-controller-outline'
     };
     return icons[category] || 'star-outline';
+  }
+
+  // =========================
+  // OPEN IN GOOGLE MAPS
+  // =========================
+  openInGoogleMaps(attraction: any) {
+    if (attraction.lat && attraction.lng) {
+      // Open with coordinates for exact location
+      const url = `https://www.google.com/maps/search/?api=1&query=${attraction.lat},${attraction.lng}`;
+      window.open(url, '_blank');
+    } else {
+      // Fallback to name search
+      const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(attraction.name + ' Durban South Africa')}`;
+      window.open(url, '_blank');
+    }
+  }
+
+  // =========================
+  // OPEN LOCATION IN GOOGLE MAPS
+  // =========================
+  openLocationInMaps(location: any) {
+    if (location.lat && location.lng) {
+      const url = `https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}`;
+      window.open(url, '_blank');
+    } else {
+      const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.name + ' Durban South Africa')}`;
+      window.open(url, '_blank');
+    }
   }
 
   // =========================

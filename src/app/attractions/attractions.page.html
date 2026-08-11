@@ -89,7 +89,7 @@
 </div>
 
 <!-- ============================================= -->
-<!-- ✅ ION-CONTENT WITH FULL SCROLLING (LIKE ABOUT) -->
+<!-- ✅ ION-CONTENT WITH FULL SCROLLING -->
 <!-- ============================================= -->
 <ion-content [fullscreen]="true">
   
@@ -147,11 +147,15 @@
 
       <div class="attractions-grid">
         <div class="attraction-card" *ngFor="let attraction of filteredAttractions; let i = index" [style.animation-delay]="i * 0.08 + 's'">
-          <div class="attraction-image">
+          <div class="attraction-image" (click)="openInGoogleMaps(attraction)" style="cursor:pointer;">
             <img [src]="attraction.image" [alt]="attraction.name" loading="lazy">
             <div class="attraction-badge">
               <ion-icon name="location-outline"></ion-icon>
               {{ attraction.distance }}
+            </div>
+            <div class="attraction-map-hover">
+              <ion-icon name="map-outline"></ion-icon>
+              <span>View on Map</span>
             </div>
           </div>
           <div class="attraction-info">
@@ -173,7 +177,10 @@
                 <span>{{ attraction.rating }}</span>
                 <small>({{ attraction.reviews }})</small>
               </div>
-              <a href="#" class="attraction-btn" (click)="$event.preventDefault()">Learn More</a>
+              <button class="attraction-btn" (click)="openInGoogleMaps(attraction)">
+                <ion-icon name="map-outline"></ion-icon>
+                Directions
+              </button>
             </div>
           </div>
         </div>
@@ -206,7 +213,7 @@
           </iframe>
         </div>
         <div class="location-list">
-          <div class="location-item" *ngFor="let location of locations">
+          <div class="location-item" (click)="openLocationInMaps(location)" style="cursor:pointer;">
             <div class="location-icon">
               <ion-icon name="location-outline"></ion-icon>
             </div>
@@ -214,6 +221,9 @@
               <h4>{{ location.name }}</h4>
               <p>{{ location.address }}</p>
               <span class="location-tag" [class]="location.tagClass">{{ location.tag }}</span>
+            </div>
+            <div class="location-map-btn">
+              <ion-icon name="map-outline"></ion-icon>
             </div>
           </div>
         </div>
