@@ -39,7 +39,6 @@ export class BookingPage implements OnInit {
   selectedRoom: any = null;
   roomId: string | null = null;
 
-  // Validation errors
   firstNameError: boolean = false;
   lastNameError: boolean = false;
   emailError: boolean = false;
@@ -324,6 +323,9 @@ export class BookingPage implements OnInit {
     document.body.style.overflow = '';
   }
 
+  // =========================
+  // LOAD ROOM DATA
+  // =========================
   loadRoomData(roomId: string) {
     const id = parseInt(roomId, 10);
     const room = this.allRooms.find(r => r.id === id);
@@ -361,18 +363,34 @@ export class BookingPage implements OnInit {
   // =========================
   goToHome() {
     this.router.navigate(['/home']);
+    this.closeMobileNav();
+  }
+
+  goToBookingPage() {
+    this.router.navigate(['/booking']);
+    this.closeMobileNav();
   }
 
   // Change room - navigate back to rooms page
   changeRoom() {
     this.router.navigate(['/rooms']);
+    this.closeMobileNav();
   }
 
   // =========================
-  // BOOKING FUNCTIONS
+  // DATE CHANGE HANDLER
   // =========================
-  goToBookingPage() {
-    this.router.navigate(['/booking']);
+  onDateChange() {
+    // Auto-calculate nights if both dates are selected
+    if (this.bookingData.checkIn && this.bookingData.checkOut) {
+      const checkIn = new Date(this.bookingData.checkIn);
+      const checkOut = new Date(this.bookingData.checkOut);
+      const diffTime = Math.abs(checkOut.getTime() - checkIn.getTime());
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      if (diffDays > 0) {
+        this.bookingData.nights = diffDays.toString();
+      }
+    }
   }
 
   // =========================
@@ -470,7 +488,6 @@ export class BookingPage implements OnInit {
 
     // Validate Guests
     if (!this.bookingData.guests) {
-      // Show a toast or alert
       alert('Please select the number of guests.');
       return;
     }
