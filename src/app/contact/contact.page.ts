@@ -49,7 +49,7 @@ export class ContactPage {
   subjectTouched: boolean = false;
   messageTouched: boolean = false;
 
-  // WhatsApp number
+  // WhatsApp number (without + sign for URL)
   private readonly whatsappNumber: string = '27849009821';
 
   constructor(private router: Router) {}
@@ -185,7 +185,7 @@ export class ContactPage {
   }
 
   // =========================
-  // SUBMIT FORM
+  // SUBMIT FORM - SEND TO WHATSAPP
   // =========================
   submitContactForm() {
     // Mark all fields as touched
@@ -209,51 +209,87 @@ export class ContactPage {
     // Check if form is valid
     if (this.nameError || this.emailError || this.subjectError || this.messageError) {
       // Scroll to first error field
-      const firstError = document.querySelector('.form-input.error, .form-select.error, .form-textarea.error');
+      const firstError = document.querySelector('.input-wrapper.error');
       if (firstError) {
         firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        (firstError as HTMLElement).focus();
+        const input = firstError.querySelector('input, select, textarea');
+        if (input) {
+          (input as HTMLElement).focus();
+        }
       }
       return;
     }
 
-    // Submit form
-    this.isSubmitting = true;
+    // Format message for WhatsApp
+    const whatsappMessage = this.formatWhatsAppMessage(this.contactData);
+    
+    // Send to WhatsApp
+    const whatsappUrl = `https://wa.me/${this.whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+    
+    // Open WhatsApp in new window/tab
+    window.open(whatsappUrl, '_blank');
+    
+    // Show success message
+    alert('Your message has been opened in WhatsApp! Please click send to complete.');
+    
+    // Reset form
+    this.resetForm();
+  }
 
-    // Simulate API call
-    setTimeout(() => {
-      console.log('Form Data:', this.contactData);
-      this.isSubmitting = false;
-      
-      // Show success message
-      alert('Thank you for your message! We will get back to you soon.');
-      
-      // Reset form
-      this.contactData = {
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: ''
-      };
-      
-      // Reset touched states
-      this.nameTouched = false;
-      this.emailTouched = false;
-      this.subjectTouched = false;
-      this.messageTouched = false;
-      
-      // Reset errors
-      this.nameError = false;
-      this.emailError = false;
-      this.subjectError = false;
-      this.messageError = false;
-      
-      // Reset focus
-      this.focusedField = '';
-      
-      // Reset form
-      this.contactForm?.resetForm();
-    }, 1500);
+  // =========================
+  // FORMAT WHATSAPP MESSAGE
+  // =========================
+  private formatWhatsAppMessage(data: any): string {
+    const subjectMap: { [key: string]: string } = {
+      'booking': '🏨 Booking Enquiry',
+      'availability': '📅 Availability Check',
+      'rates': '💰 Rates & Pricing',
+      'feedback': '⭐ Feedback',
+      'other': '📝 Other'
+    };
+
+    const subjectLabel = subjectMap[data.subject] || data.subject || 'General Enquiry';
+
+    return `
+🏨 *STAY@TIAH - New Contact Form Submission*
+
+👤 *Name:* ${data.name}
+📧 *Email:* ${data.email}
+📱 *Phone:* ${data.phone || 'Not provided'}
+📋 *Subject:* ${subjectLabel}
+
+💬 *Message:*
+${data.message}
+
+---
+📅 Sent via STAY@TIAH Contact Form
+🌐 staytiah.com
+    `.trim();
+  }
+
+  // =========================
+  // RESET FORM
+  // =========================
+  private resetForm() {
+    this.contactData = {
+      name: '',
+      email: '',
+      phone: '',
+      subject: '',
+      message: ''
+    };
+    
+    this.nameTouched = false;
+    this.emailTouched = false;
+    this.subjectTouched = false;
+    this.messageTouched = false;
+    
+    this.nameError = false;
+    this.emailError = false;
+    this.subjectError = false;
+    this.messageError = false;
+    
+    this.focusedField = '';
+    this.contactForm?.resetForm();
   }
 }

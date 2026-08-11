@@ -89,7 +89,7 @@
 </div>
 
 <!-- ============================================= -->
-<!-- ✅ ION-CONTENT WITH FULL SCROLLING - REMOVED no-scrollbar CLASS -->
+<!-- ✅ ION-CONTENT WITH FULL SCROLLING -->
 <!-- ============================================= -->
 <ion-content [fullscreen]="true">
   
@@ -119,18 +119,26 @@
           <h3>Can't find your question?</h3>
           <p>Ask us directly and we'll get back to you within 24 hours.</p>
           <div class="ask-form">
-            <div class="input-wrapper">
-              <ion-input 
-                [(ngModel)]="userQuestion" 
-                placeholder="Type your question here..." 
-                class="ask-input"
-                (keyup.enter)="submitQuestion()">
-              </ion-input>
+            <div class="input-wrapper" [class.error]="questionError && questionTouched">
+              <ion-icon name="chatbubble-outline" class="input-icon"></ion-icon>
+              <input
+                class="form-input-native"
+                type="text"
+                [(ngModel)]="userQuestion"
+                placeholder="Type your question here..."
+                (focus)="questionTouched = false"
+                (blur)="questionTouched = true; validateQuestion()"
+                (keyup.enter)="submitQuestion()"
+              />
             </div>
-            <button (click)="submitQuestion()" class="ask-btn">
+            <button (click)="submitQuestion()" class="ask-btn" [disabled]="isSubmittingQuestion">
               <ion-icon name="send-outline"></ion-icon>
-              Ask
+              {{ isSubmittingQuestion ? 'Sending...' : 'Ask' }}
             </button>
+          </div>
+          <div class="error-message" *ngIf="questionError && questionTouched">
+            <ion-icon name="alert-circle-outline"></ion-icon>
+            Please enter a question (at least 5 characters)
           </div>
           <div class="ask-success" *ngIf="questionSubmitted">
             <ion-icon name="checkmark-circle"></ion-icon>
@@ -273,7 +281,7 @@
           </div>
           <p>The Ideal Accommodation Haven. Your comfortable home away from home in Durban.</p>
           <div class="socials">
-           <a href="https://www.instagram.com/stay.tiah?igsh=MXR0czJhcW5lanJ5OA=="><ion-icon name="logo-instagram"></ion-icon></a>
+            <a href="https://www.instagram.com/stay.tiah?igsh=MXR0czJhcW5lanJ5OA=="><ion-icon name="logo-instagram"></ion-icon></a>
             <a href="https://www.facebook.com/profile.php?id=61573594146514"><ion-icon name="logo-facebook"></ion-icon></a>
             <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
             <a href="https://www.tiktok.com/@stay_at_tiah?_r=1&_t=ZS-98msEEY1WVw"><ion-icon name="logo-tiktok"></ion-icon></a>
