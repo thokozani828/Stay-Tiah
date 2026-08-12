@@ -436,7 +436,7 @@ export class BookingPage implements OnInit {
   }
 
   // =========================
-  // SUBMIT BOOKING FORM - REDESIGNED MESSAGE
+  // SUBMIT BOOKING FORM - REDESIGNED MESSAGE (NO EMOJIS)
   // =========================
   submitBooking() {
     // Reset errors
@@ -563,52 +563,52 @@ export class BookingPage implements OnInit {
       minute: '2-digit'
     });
 
-    // Prepare WhatsApp message with room details - REDESIGNED
+    // Prepare WhatsApp message with room details - REDESIGNED (NO EMOJIS)
     let message = 
-      `🔔 *NEW BOOKING ENQUIRY*%0A` +
-      `═══════════════════════════════════%0A%0A` +
-      `📋 *GUEST DETAILS*%0A` +
-      `─────────────────────────────────%0A` +
-      `👤 Name: ${this.bookingData.firstName} ${this.bookingData.lastName}%0A` +
-      `📧 Email: ${this.bookingData.email}%0A` +
-      `📱 Phone: ${this.bookingData.phone}%0A%0A` +
-      `🏨 *BOOKING DETAILS*%0A` +
-      `─────────────────────────────────%0A` +
-      `📅 Check-in: ${checkInDate}%0A` +
-      `📅 Check-out: ${checkOutDate}%0A` +
-      `🌙 Nights: ${this.bookingData.nights || 'Not specified'}%0A` +
-      `👥 Guests: ${this.bookingData.guests}%0A` +
-      `📍 Location: ${this.getLocationName(this.bookingData.location)}%0A` +
-      `🛏 Room Type: ${this.getRoomTypeName(this.bookingData.roomType)}%0A`;
+      `NEW BOOKING ENQUIRY%0A` +
+      `============================================================%0A%0A` +
+      `GUEST INFORMATION%0A` +
+      `------------------------------------------------------------%0A` +
+      `Name: ${this.bookingData.firstName} ${this.bookingData.lastName}%0A` +
+      `Email: ${this.bookingData.email}%0A` +
+      `Phone: ${this.bookingData.phone}%0A%0A` +
+      `STAY DETAILS%0A` +
+      `------------------------------------------------------------%0A` +
+      `Check-in: ${checkInDate}%0A` +
+      `Check-out: ${checkOutDate}%0A` +
+      `Nights: ${this.bookingData.nights || 'Not specified'}%0A` +
+      `Guests: ${this.bookingData.guests}%0A` +
+      `Location: ${this.getLocationName(this.bookingData.location)}%0A` +
+      `Room Type: ${this.getRoomTypeName(this.bookingData.roomType)}%0A`;
 
     // Add selected room details if available
     if (this.selectedRoom) {
-      message += `─────────────────────────────────%0A`;
-      message += `🛏 *Selected Room:* ${this.selectedRoom.name}%0A`;
-      message += `💰 *Price:* R${this.selectedRoom.price} / night%0A`;
-      message += `🛌 *Sleeps:* ${this.selectedRoom.sleeps}%0A`;
-      message += `📐 *Size:* ${this.selectedRoom.size}%0A`;
+      message += `------------------------------------------------------------%0A`;
+      message += `Selected Room: ${this.selectedRoom.name}%0A`;
+      message += `Price: R${this.selectedRoom.price} per night%0A`;
+      message += `Capacity: ${this.selectedRoom.sleeps}%0A`;
+      message += `Size: ${this.selectedRoom.size}%0A`;
     }
 
     // Add special requests
-    message += `%0A📝 *SPECIAL REQUESTS*%0A` +
-      `─────────────────────────────────%0A` +
-      `${this.bookingData.specialRequests || 'None'}`;
+    message += `%0ASPECIAL REQUESTS%0A` +
+      `------------------------------------------------------------%0A` +
+      `${this.bookingData.specialRequests || 'None specified'}`;
 
     // Add timestamp and source
-    message += `%0A%0A📅 *RECEIVED*%0A` +
-      `─────────────────────────────────%0A` +
-      `📆 Date: ${dateStr}%0A` +
-      `⏰ Time: ${timeStr}%0A` +
-      `📱 Source: Website Booking Form%0A%0A` +
-      `═══════════════════════════════════%0A` +
-      `💡 *ACTION REQUIRED*%0A` +
-      `─────────────────────────────────%0A` +
-      `📧 Reply to: ${this.bookingData.email}%0A` +
-      `📞 Call: +27 84 900 9821%0A` +
-      `💬 WhatsApp: +27 84 900 9821%0A%0A` +
-      `🏨 *STAY@TIAH*%0A` +
-      `🌐 staytiah.com`;
+    message += `%0A%0AENQUIRY RECEIVED%0A` +
+      `------------------------------------------------------------%0A` +
+      `Date: ${dateStr}%0A` +
+      `Time: ${timeStr}%0A` +
+      `Source: Website Booking Form%0A%0A` +
+      `============================================================%0A` +
+      `ACTION REQUIRED%0A` +
+      `------------------------------------------------------------%0A` +
+      `Reply to: ${this.bookingData.email}%0A` +
+      `Call: +27 84 900 9821%0A` +
+      `WhatsApp: +27 84 900 9821%0A%0A` +
+      `STAY@TIAH%0A` +
+      `staytiah.com`;
 
     const phone = '27849009821';
     
