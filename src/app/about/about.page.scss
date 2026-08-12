@@ -388,10 +388,6 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
-// MOBILE NAVIGATION - CLEAN DESIGN
-// =========================
-
 // Hamburger Button
 .hamburger-btn {
   display: none;
@@ -577,14 +573,15 @@ h1, h2, h3, h4,
         align-items: center;
         justify-content: center;
         width: 28px;
-        font-size: 18px;
-        opacity: 0.6;
-        transition: $transition-smooth;
-        flex-shrink: 0;
+        margin-right: 12px;
         color: $gold;
+        font-size: 1.1rem;
+        transition: $transition-smooth;
+        opacity: 0.6;
         
-        i {
-          font-size: 18px;
+        ion-icon {
+          font-size: 20px;
+          transition: $transition-smooth;
         }
       }
       
@@ -594,8 +591,13 @@ h1, h2, h3, h4,
         border-color: rgba(255, 255, 255, 0.05);
         
         .link-icon {
-          opacity: 1;
+          color: $gold-light;
           transform: scale(1.1);
+          opacity: 1;
+          
+          ion-icon {
+            transform: scale(1.1);
+          }
         }
       }
       
@@ -605,8 +607,8 @@ h1, h2, h3, h4,
         border-color: rgba(201, 168, 76, 0.12);
         
         .link-icon {
-          opacity: 1;
           color: $gold;
+          opacity: 1;
         }
       }
     }
@@ -2203,43 +2205,5 @@ ion-content {
     -webkit-overflow-scrolling: touch !important;
     height: 100% !important;
     min-height: 100vh !important;
-  }
-}
-
-// ============================================================
-// ✅ FONT AWESOME ICON STYLES - MOBILE NAV
-// ============================================================
-
-.mobile-nav-links {
-  .link-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    margin-right: 12px;
-    color: $gold;
-    font-size: 1.1rem;
-    transition: $transition-smooth;
-    
-    i {
-      font-size: 18px;
-      transition: $transition-smooth;
-    }
-  }
-  
-  a {
-    &:hover {
-      .link-icon {
-        color: $gold-light;
-        transform: scale(1.1);
-      }
-    }
-    
-    &.is-active {
-      .link-icon {
-        color: $gold;
-        opacity: 1;
-      }
-    }
   }
 }
