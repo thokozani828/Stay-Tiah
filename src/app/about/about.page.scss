@@ -573,12 +573,19 @@ h1, h2, h3, h4,
       }
       
       .link-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
         font-size: 18px;
-        opacity: 0.5;
+        opacity: 0.6;
         transition: $transition-smooth;
         flex-shrink: 0;
-        width: 24px;
-        text-align: center;
+        color: $gold;
+        
+        i {
+          font-size: 18px;
+        }
       }
       
       &:hover {
@@ -588,6 +595,7 @@ h1, h2, h3, h4,
         
         .link-icon {
           opacity: 1;
+          transform: scale(1.1);
         }
       }
       
@@ -598,6 +606,7 @@ h1, h2, h3, h4,
         
         .link-icon {
           opacity: 1;
+          color: $gold;
         }
       }
     }
@@ -2194,5 +2203,43 @@ ion-content {
     -webkit-overflow-scrolling: touch !important;
     height: 100% !important;
     min-height: 100vh !important;
+  }
+}
+
+// ============================================================
+// ✅ FONT AWESOME ICON STYLES - MOBILE NAV
+// ============================================================
+
+.mobile-nav-links {
+  .link-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    margin-right: 12px;
+    color: $gold;
+    font-size: 1.1rem;
+    transition: $transition-smooth;
+    
+    i {
+      font-size: 18px;
+      transition: $transition-smooth;
+    }
+  }
+  
+  a {
+    &:hover {
+      .link-icon {
+        color: $gold-light;
+        transform: scale(1.1);
+      }
+    }
+    
+    &.is-active {
+      .link-icon {
+        color: $gold;
+        opacity: 1;
+      }
+    }
   }
 }
