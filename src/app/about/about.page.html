@@ -52,38 +52,43 @@
     <span class="mobile-brand-tagline">The Ideal Accommodation Haven</span>
   </div>
   
- <div class="mobile-nav-links">
-  <a routerLink="/home" routerLinkActive="is-active" (click)="closeMobileNav()">
-    <span class="link-icon"><ion-icon name="home-outline"></ion-icon></span> Home
-  </a>
-  <a routerLink="/about" routerLinkActive="is-active" (click)="closeMobileNav()">
-    <span class="link-icon"><ion-icon name="information-circle-outline"></ion-icon></span> About
-  </a>
-  <a routerLink="/rooms" routerLinkActive="is-active" (click)="closeMobileNav()">
-    <span class="link-icon"><ion-icon name="bed-outline"></ion-icon></span> Rooms
-  </a>
-  <a routerLink="/gallery" routerLinkActive="is-active" (click)="closeMobileNav()">
-    <span class="link-icon"><ion-icon name="images-outline"></ion-icon></span> Gallery
-  </a>
-  <a routerLink="/rates" routerLinkActive="is-active" (click)="closeMobileNav()">
-    <span class="link-icon"><ion-icon name="cash-outline"></ion-icon></span> Rates
-  </a>
-  <a routerLink="/attractions" routerLinkActive="is-active" (click)="closeMobileNav()">
-    <span class="link-icon"><ion-icon name="location-outline"></ion-icon></span> Attractions
-  </a>
-  <a routerLink="/faq" routerLinkActive="is-active" (click)="closeMobileNav()">
-    <span class="link-icon"><ion-icon name="help-circle-outline"></ion-icon></span> FAQ
-  </a>
-  <a routerLink="/contact" routerLinkActive="is-active" (click)="closeMobileNav()">
-    <span class="link-icon"><ion-icon name="mail-outline"></ion-icon></span> Contact
-  </a>
+  <div class="mobile-nav-links">
+    <a routerLink="/home" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">🏠</span> Home
+    </a>
+    <a routerLink="/about" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">ℹ️</span> About
+    </a>
+    <a routerLink="/rooms" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">🛏️</span> Rooms
+    </a>
+    <a routerLink="/gallery" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">🖼️</span> Gallery
+    </a>
+    <a routerLink="/rates" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">💰</span> Rates
+    </a>
+    <a routerLink="/attractions" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">📍</span> Attractions
+    </a>
+    <a routerLink="/faq" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">❓</span> FAQ
+    </a>
+    <a routerLink="/contact" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <span class="link-icon">📧</span> Contact
+    </a>
+    
+    <div class="mobile-divider"></div>
+    
+    <a class="mobile-cta" (click)="goToBooking(); closeMobileNav()">
+      <ion-icon name="logo-whatsapp"></ion-icon>
+      Book on WhatsApp
+    </a>
+  </div>
   
-  <div class="mobile-divider"></div>
-  
-  <a class="mobile-cta" (click)="goToBooking(); closeMobileNav()">
-    <ion-icon name="logo-whatsapp"></ion-icon>
-    Book on WhatsApp
-  </a>
+  <div class="mobile-nav-footer">
+    <p>&copy; 2026 stay@tiah</p>
+  </div>
 </div>
 
 <!-- ============================================= -->

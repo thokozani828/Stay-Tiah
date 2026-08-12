@@ -388,44 +388,44 @@ h1, h2, h3, h4,
   }
 }
 
-// Hamburger Button
-.hamburger-btn {
-  display: none;
-  background: transparent;
-  border: none;
-  color: #fff;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 6px;
-  transition: $transition-smooth;
-  flex-shrink: 0;
-  margin-left: auto;
-  border-radius: 8px;
-  z-index: 1001;
-  width: 40px;
-  height: 40px;
-  align-items: center;
-  justify-content: center;
-  
-  &:hover {
+// ============================================================
+// ✅ ICON STYLES - MOBILE NAV (Like Social Icons)
+// ============================================================
+
+.mobile-nav-links {
+  .link-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    margin-right: 12px;
     color: $gold;
-    background: rgba(255, 255, 255, 0.05);
-  }
-  
-  ion-icon {
-    font-size: 26px;
-  }
-  
-  @media (max-width: 992px) {
-    display: flex;
-  }
-  
-  @media (max-width: 576px) {
-    width: 36px;
-    height: 36px;
+    font-size: 1.1rem;
+    transition: $transition-smooth;
     
     ion-icon {
-      font-size: 22px;
+      font-size: 20px;
+      transition: $transition-smooth;
+    }
+  }
+  
+  a {
+    &:hover {
+      .link-icon {
+        color: $gold-light;
+        transform: scale(1.1);
+        
+        ion-icon {
+          transform: scale(1.1);
+        }
+      }
+    }
+    
+    &.is-active {
+      .link-icon {
+        color: $gold;
+        opacity: 1;
+      }
     }
   }
 }
@@ -569,20 +569,12 @@ h1, h2, h3, h4,
       }
       
       .link-icon {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 28px;
-        margin-right: 12px;
-        color: $gold;
-        font-size: 1.1rem;
+        font-size: 18px;
+        opacity: 0.5;
         transition: $transition-smooth;
-        opacity: 0.6;
-        
-        ion-icon {
-          font-size: 20px;
-          transition: $transition-smooth;
-        }
+        flex-shrink: 0;
+        width: 24px;
+        text-align: center;
       }
       
       &:hover {
@@ -591,13 +583,7 @@ h1, h2, h3, h4,
         border-color: rgba(255, 255, 255, 0.05);
         
         .link-icon {
-          color: $gold-light;
-          transform: scale(1.1);
           opacity: 1;
-          
-          ion-icon {
-            transform: scale(1.1);
-          }
         }
       }
       
@@ -607,7 +593,6 @@ h1, h2, h3, h4,
         border-color: rgba(201, 168, 76, 0.12);
         
         .link-icon {
-          color: $gold;
           opacity: 1;
         }
       }
@@ -2206,4 +2191,4 @@ ion-content {
     height: 100% !important;
     min-height: 100vh !important;
   }
-}
+} give me the full code here
