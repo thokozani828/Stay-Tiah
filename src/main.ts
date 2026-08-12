@@ -5,6 +5,9 @@ import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalo
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 
+// Import Font Awesome
+// import '@fortawesome/fontawesome-free/css/all.min.css';
+
 // ⚠️ IMPORTANT: Import addIcons and icons BEFORE bootstrap
 import { addIcons } from 'ionicons';
 import { 
