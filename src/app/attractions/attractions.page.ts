@@ -318,7 +318,7 @@ export class AttractionsPage {
       id: 23,
       name: 'Phezulu Safari Park',
       description: 'Experience authentic African wildlife at Phezulu Safari Park. Home to lions, crocodiles, and a variety of antelope species. Enjoy traditional Zulu dancing and cultural performances.',
-      image: 'https://imgs.search.brave.com/xnNf5TxqKhC3_y1eIFxOBILkLtcKHS9K5-gV0CQ05Fg/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTMw/NTU5ODA2Mi9waG90/by9saW9uLWluLXRo/ZS1ncmFzcy5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9akZx/VFExeGNsNEc3dFg3/Tk1RZk4tVEF4U3Bo/ajlGaUZqMXdvbTJY/MG1nVT0',
+      image: 'https://imgs.search.brave.com/4ymukdWPXf6ASXNRBX9fydcW4-JJ678stuh3XYgpZmw/rs:fit:0:180:1:0/g:ce/aHR0cHM6Ly93d3cu/c2EtdmVudWVzLmNv/bS92aXNpdC9waGV6/dWx1c2FmYXJpcGFy/ay8wMW0uanBn',
       category: 'nature',
       distance: '35 km',
       location: 'Phezulu, Botha\'s Hill',
@@ -333,7 +333,7 @@ export class AttractionsPage {
       id: 24,
       name: 'Valley of a Thousand Hills',
       description: 'A breathtaking scenic valley offering panoramic views of the rolling hills and lush green landscapes. Perfect for hiking, photography, and experiencing the beauty of KwaZulu-Natal.',
-      image: 'https://imgs.search.brave.com/KfDHEPv0hZYCSwD6uCIVL4bbPk2sU4FyIGL0A3G3h48/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi92YWxs/ZXktb2YtdGhvdXNh/bmQtaGlsbHMta3dh/endsdWwtbmF0YWwt/c291dGgtYWZyaWNh/LTMyODI5MjI4NS5q/cGc',
+      image: 'https://imgs.search.brave.com/JSt9gqP-vGjrMUuJlrMg_xoQWzCLRQk2Ghp1y_cWpQI/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9zY2Vu/aWMtdmFsbGV5cy10/aG91c2FuZC1oaWxs/cy16dWx1LWhvbWVz/LW1pc3QtcnVnZ2Vk/LWJ1c2gtdGVycmFp/bi1tb3JuaW5nLWNs/b3VkLXJpc2luZy1v/dmVyLWxhbmRzY2Fw/ZS0xNDA0NzE4Mjcu/anBn',
       category: 'nature',
       distance: '40 km',
       location: 'Valley of a Thousand Hills, Botha\'s Hill',
@@ -471,20 +471,8 @@ export class AttractionsPage {
     this.router.navigate(['/rooms']);
   }
 
-  goToGallery() {
-    this.router.navigate(['/gallery']);
-  }
-
-  goToRates() {
-    this.router.navigate(['/rates']);
-  }
-
   goToAttractions() {
     this.router.navigate(['/attractions']);
-  }
-
-  goToFaq() {
-    this.router.navigate(['/faq']);
   }
 
   goToContact() {
@@ -492,15 +480,67 @@ export class AttractionsPage {
   }
 
   // =========================
-  // BOOKING FUNCTIONS
+  // WHATSAPP - Dynamic Messages Based on Context
   // =========================
-  goToBookingPage() {
-    this.router.navigate(['/booking']);
+
+  // Core WhatsApp sender
+  private sendWhatsAppMessage(message: string) {
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/${this.whatsappNumber}?text=${encodedMessage}`, '_blank');
   }
 
-  goToBooking() {
+  // General WhatsApp - for header, footer, floating button
+  openWhatsApp() {
+    const message = 'Hello STAY@TIAH, I would like to enquire about your accommodation and attractions in Durban.';
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for attraction enquiry
+  openWhatsAppForAttraction(attraction: any) {
+    const message = `Hello STAY@TIAH, I'm interested in visiting ${attraction.name}. Can you please provide more information about this attraction and nearby accommodation?`;
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for location enquiry
+  openWhatsAppForLocation(location: any) {
+    const message = `Hello STAY@TIAH, I'm interested in staying at ${location.name}. Can you please provide more information about availability and rates?`;
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for rooms
+  openWhatsAppForRooms() {
+    const message = 'Hello STAY@TIAH, I would like to enquire about your rooms and availability.';
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for rates
+  openWhatsAppForRates() {
+    const message = 'Hello STAY@TIAH, I would like to enquire about your rates and pricing.';
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for contact
+  openWhatsAppForContact() {
+    const message = 'Hello STAY@TIAH, I would like to get in touch regarding your accommodation.';
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for about
+  openWhatsAppForAbout() {
+    const message = 'Hello STAY@TIAH, I would like to learn more about your accommodation options.';
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for booking
+  openWhatsAppForBooking() {
     const message = 'Hello STAY@TIAH, I would like to make a booking enquiry.';
-    window.open(`https://wa.me/${this.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for FAQ
+  openWhatsAppForFaq() {
+    const message = 'Hello STAY@TIAH, I have a question about your accommodation.';
+    this.sendWhatsAppMessage(message);
   }
 
   // =========================
@@ -547,13 +587,5 @@ export class AttractionsPage {
       const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.name + ' Durban South Africa')}`;
       window.open(url, '_blank');
     }
-  }
-
-  // =========================
-  // WHATSAPP
-  // =========================
-  openWhatsApp() {
-    const message = 'Hello STAY@TIAH, I would like to make a booking enquiry.';
-    window.open(`https://wa.me/${this.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
   }
 }

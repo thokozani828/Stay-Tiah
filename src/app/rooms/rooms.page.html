@@ -115,19 +115,25 @@
 
       <!-- Rooms Grid - Clicking the card opens room detail -->
       <div class="rooms-grid animate-fade-up">
-        <div class="room-card" *ngFor="let room of filteredRooms; let i = index" [style.animation-delay]="i * 0.1 + 's'" (click)="viewRoomDetail(room.id)">
-          <div class="room-image">
+        <div class="room-card" *ngFor="let room of filteredRooms; let i = index" [style.animation-delay]="i * 0.1 + 's'">
+          <!-- Click the entire card to view room details -->
+          <div class="room-image" (click)="viewRoomDetail(room.id)">
             <img [src]="room.image" [alt]="room.name" (error)="onImageError($event)">
             <span class="room-badge" *ngIf="room.popular">✦ Popular</span>
             <span class="room-badge new" *ngIf="room.new">✦ New</span>
             <span class="room-badge featured" *ngIf="room.featured">✦ Featured</span>
+            <!-- View Details overlay on image -->
+            <div class="room-overlay">
+              <span>View Details</span>
+              <ion-icon name="arrow-forward-outline"></ion-icon>
+            </div>
           </div>
           <div class="room-info">
             <div class="room-location">
               <ion-icon name="location-outline"></ion-icon>
               {{ room.location }}
             </div>
-            <h3>{{ room.name }}</h3>
+            <h3 (click)="viewRoomDetail(room.id)" style="cursor:pointer;">{{ room.name }}</h3>
             <div class="room-distance">
               <ion-icon name="walk-outline"></ion-icon>
               <span>{{ room.distance || '1.8 km from downtown' }}</span>
@@ -148,8 +154,13 @@
             </div>
 
             <div class="room-bottom">
-              <!-- WhatsApp button only - no price -->
-              <a (click)="$event.stopPropagation(); openWhatsApp()" class="room-btn">
+              <!-- View Details button -->
+              <a (click)="$event.stopPropagation(); viewRoomDetail(room.id)" class="room-btn view-details-btn">
+                <ion-icon name="eye-outline"></ion-icon>
+                View Details
+              </a>
+              <!-- WhatsApp Enquiry button -->
+              <a (click)="$event.stopPropagation(); openWhatsAppForRoom(room)" class="room-btn whatsapp-btn">
                 <ion-icon name="logo-whatsapp"></ion-icon>
                 Enquire on WhatsApp
               </a>
@@ -212,7 +223,7 @@
         <h2>Ready to Book Your Stay?</h2>
         <p>Choose your perfect room and experience the comfort of STAY@TIAH.</p>
         <div class="cta-buttons">
-          <a class="btn-primary" (click)="openWhatsApp()">
+          <a class="btn-primary" (click)="openWhatsAppForCTA()">
             <ion-icon name="logo-whatsapp"></ion-icon>
             Check Availability
           </a>
@@ -258,7 +269,7 @@
         <div class="footer-column animate-fade-up">
           <h4>Book Your Stay</h4>
           <p>Ready for your Durban getaway?</p>
-          <a class="btn-gold" (click)="openWhatsApp()">
+          <a class="btn-gold" (click)="openWhatsAppForCTA()">
             <ion-icon name="logo-whatsapp"></ion-icon>
             Check Availability
           </a>

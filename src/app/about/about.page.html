@@ -105,77 +105,77 @@
   </section>
 
   <!-- ================= ABOUT INTRO ================= -->
-  <section class="about-intro">
-    <div class="container">
-      <div class="about-intro-grid">
-        <div class="about-intro-image animate-fade-up">
-          <!-- CORRECTED IMAGE PATH -->
-          <img [src]="aboutImage" alt="STAY@TIAH Luxury Accommodation" (error)="onImageError($event)">
-          <div class="image-badge">
-            <ion-icon name="star"></ion-icon>
-            <span>4.8 ★ Rating</span>
+<section class="about-intro">
+  <div class="container">
+    <div class="about-intro-grid">
+      <div class="about-intro-image animate-fade-up">
+        <!-- CORRECTED IMAGE PATH - Static -->
+        <img src="assets/images/c4a1cd64-22fb-439e-8823-0710f77be285.png" alt="STAY@TIAH Luxury Accommodation" (error)="onImageError($event)">
+        <div class="image-badge">
+          <ion-icon name="star"></ion-icon>
+          <span>4.8 ★ Rating</span>
+        </div>
+      </div>
+      <div class="about-intro-content animate-fade-up" style="animation-delay:0.2s">
+        <p class="about-description">
+          Come for convenience. Stay for comfort. Leave with peace of mind.
+        </p>
+        <p>
+          Stay for business travel, professional attendance, block study release, sports, events or just to rest, whether you are a solo guest, couple or otherwise.
+        </p>
+        
+        <!-- Location Options -->
+        <div class="location-options">
+          <h3 class="location-title">Choose the location that suits you best:</h3>
+          
+          <div class="location-card">
+            <div class="location-icon">
+              <ion-icon name="home-outline"></ion-icon>
+            </div>
+            <div class="location-content">
+              <h4 class="location-name">Musgrave Guesthouse</h4>
+              <p>Your room is waiting in a quiet guesthouse, in close proximity to all amenities with easy access to Durban's top attractions.</p>
+            </div>
+          </div>
+          
+          <div class="location-card">
+            <div class="location-icon">
+              <ion-icon name="beach-outline"></ion-icon>
+            </div>
+            <div class="location-content">
+              <h4 class="location-name">North Beach – Durban Oceanic Apartments</h4>
+              <p>Stay just a 3-minute walk from the beach and a few minutes' walk to restaurants, shops and entertainment areas.</p>
+            </div>
+          </div>
+          
+          <div class="location-card location-cta">
+            <p>We can't wait to host you.</p>
           </div>
         </div>
-        <div class="about-intro-content animate-fade-up" style="animation-delay:0.2s">
-          <p class="about-description">
-            Come for convenience. Stay for comfort. Leave with peace of mind.
-          </p>
-          <p>
-            Stay for business travel, professional attendance, block study release, sports, events or just to rest, whether you are a solo guest, couple or otherwise.
-          </p>
-          
-          <!-- Location Options -->
-          <div class="location-options">
-            <h3 class="location-title">Choose the location that suits you best:</h3>
-            
-            <div class="location-card">
-              <div class="location-icon">
-                <ion-icon name="home-outline"></ion-icon>
-              </div>
-              <div class="location-content">
-                <h4 class="location-name">Musgrave Guesthouse</h4>
-                <p>Your room is waiting in a quiet guesthouse, in close proximity to all amenities with easy access to Durban's top attractions.</p>
-              </div>
-            </div>
-            
-            <div class="location-card">
-              <div class="location-icon">
-                <ion-icon name="beach-outline"></ion-icon>
-              </div>
-              <div class="location-content">
-                <h4 class="location-name">North Beach – Durban Oceanic Apartments</h4>
-                <p>Stay just a 3-minute walk from the beach and a few minutes' walk to restaurants, shops and entertainment areas.</p>
-              </div>
-            </div>
-            
-            <div class="location-card location-cta">
-              <p>We can't wait to host you.</p>
-            </div>
+        
+        <div class="about-features">
+          <div class="feature">
+            <ion-icon name="wifi-outline"></ion-icon>
+            <span>Free Wi-Fi</span>
           </div>
-          
-          <div class="about-features">
-            <div class="feature">
-              <ion-icon name="wifi-outline"></ion-icon>
-              <span>Free Wi-Fi</span>
-            </div>
-            <div class="feature">
-              <ion-icon name="car-outline"></ion-icon>
-              <span>Free Parking</span>
-            </div>
-            <div class="feature">
-              <ion-icon name="shield-checkmark-outline"></ion-icon>
-              <span>24/7 Security</span>
-            </div>
+          <div class="feature">
+            <ion-icon name="car-outline"></ion-icon>
+            <span>Free Parking</span>
           </div>
-          
-          <div class="about-buttons">
-            <a routerLink="/rooms" class="btn-primary-small">View Rooms</a>
-            <a (click)="openWhatsApp()" class="btn-outline-small">Enquire on WhatsApp</a>
+          <div class="feature">
+            <ion-icon name="shield-checkmark-outline"></ion-icon>
+            <span>24/7 Security</span>
           </div>
+        </div>
+        
+        <div class="about-buttons">
+          <a routerLink="/rooms" class="btn-primary-small">View Rooms</a>
+          <a (click)="openWhatsApp()" class="btn-outline-small">Enquire on WhatsApp</a>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- ================= WHY CHOOSE US ================= -->
   <section class="why-choose-us">

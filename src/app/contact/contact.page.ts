@@ -134,12 +134,49 @@ export class ContactPage implements OnInit {
   }
 
   // =========================
-  // WHATSAPP
+  // WHATSAPP - Dynamic Messages Based on Context
   // =========================
+
+  // Core WhatsApp sender
+  private sendWhatsAppMessage(message: string) {
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/${this.whatsappNumber}?text=${encodedMessage}`, '_blank');
+  }
+
+  // General WhatsApp - for header, footer, floating button
   openWhatsApp() {
-    const phone = '27849009821';
     const message = 'Hello STAY@TIAH, I would like to make a booking enquiry.';
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for contact page
+  openWhatsAppForContact() {
+    const message = 'Hello STAY@TIAH, I would like to get in touch regarding your accommodation.';
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for rooms enquiry
+  openWhatsAppForRooms() {
+    const message = 'Hello STAY@TIAH, I would like to enquire about your rooms and availability.';
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for rates enquiry
+  openWhatsAppForRates() {
+    const message = 'Hello STAY@TIAH, I would like to enquire about your rates and pricing.';
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for attractions enquiry
+  openWhatsAppForAttractions() {
+    const message = 'Hello STAY@TIAH, I would like to enquire about attractions near your accommodation.';
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for about page
+  openWhatsAppForAbout() {
+    const message = 'Hello STAY@TIAH, I would like to learn more about your accommodation options.';
+    this.sendWhatsAppMessage(message);
   }
 
   // =========================
@@ -276,10 +313,8 @@ export class ContactPage implements OnInit {
     // Format message for WhatsApp
     const message = this.formatWhatsAppMessage(this.contactData);
     
-    const phone = '27849009821';
-    
-    // Open WhatsApp
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+    // Use the whatsappNumber variable
+    window.open(`https://wa.me/${this.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
     
     // Reset form after submission
     setTimeout(() => {

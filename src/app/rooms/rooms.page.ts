@@ -310,11 +310,65 @@ export class RoomsPage implements OnInit {
   }
 
   // ==========================================
-  // WHATSAPP METHOD - Direct WhatsApp only
+  // WHATSAPP METHODS - Dynamic Messages Based on Context
   // ==========================================
+
+  // Core WhatsApp sender
+  private sendWhatsAppMessage(message: string) {
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/${this.whatsappNumber}?text=${encodedMessage}`, '_blank');
+  }
+
+  // General WhatsApp - for header, footer, floating button
   openWhatsApp() {
-    const phone = this.whatsappNumber; // +27 84 900 9821
     const message = 'Hello STAY@TIAH, I would like to enquire about room availability and pricing.';
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for a specific room enquiry
+  openWhatsAppForRoom(room: any) {
+    const message = `Hello STAY@TIAH, I'm interested in the "${room.name}" located at ${room.location}. Can you please provide more information about availability, pricing, and booking options?`;
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for room detail page
+  openWhatsAppForRoomDetail(roomId: number) {
+    const room = this.allRooms.find(r => r.id === roomId);
+    if (room) {
+      const message = `Hello STAY@TIAH, I'm interested in the "${room.name}" located at ${room.location}. I would like to enquire about availability and rates.`;
+      this.sendWhatsAppMessage(message);
+    } else {
+      this.openWhatsApp();
+    }
+  }
+
+  // WhatsApp for location enquiry
+  openWhatsAppForLocation(location: string) {
+    const message = `Hello STAY@TIAH, I'm interested in staying at your ${location} location. Can you please provide more information about availability and rates?`;
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for CTA section
+  openWhatsAppForCTA() {
+    const message = 'Hello STAY@TIAH, I would like to book my stay. Can you please check availability and provide pricing?';
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for contact page
+  openWhatsAppForContact() {
+    const message = 'Hello STAY@TIAH, I would like to get in touch regarding your accommodation.';
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for attractions
+  openWhatsAppForAttractions() {
+    const message = 'Hello STAY@TIAH, I would like to enquire about attractions near your accommodation.';
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for about page
+  openWhatsAppForAbout() {
+    const message = 'Hello STAY@TIAH, I would like to learn more about your accommodation options.';
+    this.sendWhatsAppMessage(message);
   }
 }
