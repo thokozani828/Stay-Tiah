@@ -12,7 +12,9 @@ $grey: #888888;
 $light-grey: #e8e8e8;
 $off-white: #f8f7f4;
 $white: #ffffff;
-$font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+// FONTS - Using Tahoma as primary, Verdana as fallback, Kermit as alternative
+$font-primary: Tahoma, Verdana, 'Kermit', -apple-system, BlinkMacSystemFont, sans-serif;
 $font-serif: 'Cormorant Garamond', Georgia, serif;
 $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 $header-height-desktop: 72px;
@@ -36,7 +38,7 @@ h1, h2, h3, h4,
 .footer .logo,
 .footer .logo-text,
 .footer .logo-gold {
-  font-family: $font-serif !important;
+  font-family: $font-primary !important; // Changed to use Tahoma/Verdana/Kermit
 }
 
 // =============================================
@@ -95,7 +97,7 @@ h1, h2, h3, h4,
     }
 
     .splash-logo {
-      font-family: $font-serif !important;
+      font-family: $font-primary !important;
       font-size: 3.8rem;
       font-weight: 700;
       letter-spacing: 0.06em;
@@ -310,7 +312,7 @@ h1, h2, h3, h4,
 
 .brand__name {
   display: block;
-  font-family: $font-serif !important;
+  font-family: $font-primary !important;
   font-size: 1.8rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -560,7 +562,7 @@ h1, h2, h3, h4,
     
     .mobile-brand-text {
       display: block;
-      font-family: $font-serif !important;
+      font-family: $font-primary !important;
       font-size: 1.6rem;
       font-weight: 700;
       background: linear-gradient(135deg, #ffffff 0%, $gold 100%);
@@ -890,7 +892,7 @@ h1, h2, h3, h4,
 }
 
 .section-title {
-  font-family: $font-serif !important;
+  font-family: $font-primary !important;
   font-size: clamp(32px, 4.5vw, 52px);
   line-height: 1.1;
   margin: 10px 0 12px;
@@ -899,14 +901,14 @@ h1, h2, h3, h4,
 }
 
 .section-subtitle {
-  color: $grey;
+  color: $black; // Changed from grey to black for better visibility
   font-size: 16px;
   line-height: 1.8;
   margin-top: 8px;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  font-weight: 300;
+  font-weight: 400;
   font-family: $font-primary !important;
   @media (max-width: 576px) { font-size: 14px; }
 }
@@ -990,7 +992,7 @@ h1, h2, h3, h4,
   }
   
   .hero-title {
-    font-family: $font-serif !important;
+    font-family: $font-primary !important;
     font-size: clamp(36px, 5.5vw, 80px);
     line-height: 1.05;
     margin: 15px 0;
@@ -998,11 +1000,11 @@ h1, h2, h3, h4,
   }
   
   .hero-description {
-    color: rgba(255,255,255,0.7);
+    color: rgba(255,255,255,0.85);
     margin-bottom: 30px;
     font-size: 1.1rem;
     line-height: 1.8;
-    font-weight: 300;
+    font-weight: 400;
     font-family: $font-primary !important;
     @media (max-width: 576px) {
       font-size: 0.95rem;
@@ -1037,7 +1039,7 @@ h1, h2, h3, h4,
       flex-direction: column;
       
       .stat-number {
-        font-family: $font-serif !important;
+        font-family: $font-primary !important;
         font-size: 32px;
         font-weight: 700;
         color: $gold;
@@ -1048,7 +1050,7 @@ h1, h2, h3, h4,
         font-size: 12px;
         text-transform: uppercase;
         letter-spacing: 2px;
-        color: rgba(255,255,255,0.4);
+        color: rgba(255,255,255,0.5);
         margin-top: 2px;
         font-family: $font-primary !important;
         @media (max-width: 576px) {
@@ -1152,7 +1154,7 @@ h1, h2, h3, h4,
   .about-description {
     font-size: 17px;
     line-height: 1.8;
-    color: #333;
+    color: $black; // Changed from #333 to black
     margin-bottom: 16px;
     font-weight: 400;
     font-family: $font-primary !important;
@@ -1160,10 +1162,10 @@ h1, h2, h3, h4,
   }
   
   p {
-    color: $grey;
+    color: $black; // Changed from grey to black
     line-height: 1.7;
     margin-bottom: 20px;
-    font-weight: 300;
+    font-weight: 400;
     font-family: $font-primary !important;
     @media (max-width: 576px) { font-size: 14px; }
   }
@@ -1184,8 +1186,9 @@ h1, h2, h3, h4,
     align-items: center;
     gap: 10px;
     font-size: 14px;
-    color: #555;
+    color: $black; // Changed from #555 to black
     font-family: $font-primary !important;
+    font-weight: 400;
     @media (max-width: 576px) { font-size: 13px; }
     ion-icon { color: $gold; font-size: 20px; flex-shrink: 0; }
   }
@@ -1249,7 +1252,7 @@ h1, h2, h3, h4,
   }
   
   h3 {
-    font-family: $font-serif !important;
+    font-family: $font-primary !important;
     font-size: 22px;
     margin: 0 0 8px;
     color: $black;
@@ -1257,11 +1260,11 @@ h1, h2, h3, h4,
   }
   
   p {
-    color: $grey;
+    color: $black; // Changed from grey to black
     font-size: 14px;
     line-height: 1.6;
     margin: 0;
-    font-weight: 300;
+    font-weight: 400;
     font-family: $font-primary !important;
     @media (max-width: 576px) { font-size: 13px; }
   }
@@ -1334,8 +1337,8 @@ h1, h2, h3, h4,
   
   td {
     font-size: 14px;
-    font-weight: 300;
-    color: #333;
+    font-weight: 400;
+    color: $black; // Changed from #333 to black
     @media (max-width: 576px) { font-size: 12px; }
   }
   
@@ -1422,10 +1425,10 @@ h1, h2, h3, h4,
   .faq-answer {
     display: none;
     padding-bottom: 18px;
-    color: $grey;
+    color: $black; // Changed from grey to black
     line-height: 1.7;
     font-size: 15px;
-    font-weight: 300;
+    font-weight: 400;
     font-family: $font-primary !important;
     @media (max-width: 576px) {
       font-size: 13px;
@@ -1491,7 +1494,7 @@ h1, h2, h3, h4,
   
   .footer-brand {
     .logo {
-      font-family: $font-serif !important;
+      font-family: $font-primary !important;
       font-size: 30px;
       display: flex;
       align-items: center;
