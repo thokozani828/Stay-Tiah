@@ -13,22 +13,23 @@ $light-grey: #e8e8e8;
 $off-white: #f8f7f4;
 $white: #ffffff;
 
-// FONTS - Using Tahoma as primary, Verdana as fallback, Kermit as alternative
-$font-primary: Tahoma, Verdana, 'Kermit', -apple-system, BlinkMacSystemFont, sans-serif;
-$font-serif: 'Cormorant Garamond', Georgia, serif;
+// FIXED FONT - Verdana only
+$font-primary: Verdana, Geneva, sans-serif;
 $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 $header-height-desktop: 72px;
 $header-height-mobile: 56px;
 
 // =============================================
-// GLOBAL FONT RESET
+// GLOBAL FONT RESET - ALL elements use Verdana
 // =============================================
 * {
   font-family: $font-primary !important;
   box-sizing: border-box;
 }
 
-h1, h2, h3, h4, 
+// All headings and text use the same font
+h1, h2, h3, h4, h5, h6,
+p, span, a, div, li, button,
 .hero-title, 
 .section-title, 
 .brand__name, 
@@ -37,8 +38,24 @@ h1, h2, h3, h4,
 .why-card h3,
 .footer .logo,
 .footer .logo-text,
-.footer .logo-gold {
-  font-family: $font-primary !important; // Changed to use Tahoma/Verdana/Kermit
+.footer .logo-gold,
+.nav__link,
+.mobile-nav a,
+.faq-question,
+.hero-description,
+.section-subtitle,
+.about-description,
+.about-content p,
+.why-card p,
+.rates-table th,
+.rates-table td,
+.eyebrow,
+.hero-badge,
+.footer-column a,
+.footer-column p,
+.mobile-brand-text,
+.mobile-brand-tagline {
+  font-family: $font-primary !important;
 }
 
 // =============================================
@@ -901,7 +918,7 @@ h1, h2, h3, h4,
 }
 
 .section-subtitle {
-  color: $black; // Changed from grey to black for better visibility
+  color: $black;
   font-size: 16px;
   line-height: 1.8;
   margin-top: 8px;
@@ -1154,7 +1171,7 @@ h1, h2, h3, h4,
   .about-description {
     font-size: 17px;
     line-height: 1.8;
-    color: $black; // Changed from #333 to black
+    color: $black;
     margin-bottom: 16px;
     font-weight: 400;
     font-family: $font-primary !important;
@@ -1162,7 +1179,7 @@ h1, h2, h3, h4,
   }
   
   p {
-    color: $black; // Changed from grey to black
+    color: $black;
     line-height: 1.7;
     margin-bottom: 20px;
     font-weight: 400;
@@ -1186,7 +1203,7 @@ h1, h2, h3, h4,
     align-items: center;
     gap: 10px;
     font-size: 14px;
-    color: $black; // Changed from #555 to black
+    color: $black;
     font-family: $font-primary !important;
     font-weight: 400;
     @media (max-width: 576px) { font-size: 13px; }
@@ -1260,7 +1277,7 @@ h1, h2, h3, h4,
   }
   
   p {
-    color: $black; // Changed from grey to black
+    color: $black;
     font-size: 14px;
     line-height: 1.6;
     margin: 0;
@@ -1338,7 +1355,7 @@ h1, h2, h3, h4,
   td {
     font-size: 14px;
     font-weight: 400;
-    color: $black; // Changed from #333 to black
+    color: $black;
     @media (max-width: 576px) { font-size: 12px; }
   }
   
@@ -1425,7 +1442,7 @@ h1, h2, h3, h4,
   .faq-answer {
     display: none;
     padding-bottom: 18px;
-    color: $black; // Changed from grey to black
+    color: $black;
     line-height: 1.7;
     font-size: 15px;
     font-weight: 400;
