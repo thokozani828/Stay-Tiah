@@ -1014,10 +1014,58 @@ Convenient Location: Located 2.5 km from downtown Durban, the property is close 
     }
   }
 
-  openWhatsApp() {
+  // =========================
+  // WHATSAPP FUNCTIONS
+  // =========================
+  
+  /**
+   * Generic WhatsApp open with custom message
+   */
+  openWhatsAppWithMessage(message: string) {
     const phone = this.whatsappNumber;
-    const message = 'Hello STAY@TIAH, I would like to make a booking enquiry.';
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+  }
+
+  /**
+   * Default WhatsApp for the current room detail page
+   * Uses the room name and location in the message
+   */
+  openWhatsApp() {
+    let message = 'Hello STAY@TIAH, I would like to make a booking enquiry.';
+    
+    if (this.room) {
+      const roomName = this.room.name || 'this room';
+      const location = this.room.location || 'Durban';
+      const selectedType = this.selectedRoomType?.name || '';
+      const checkInText = this.checkIn ? ` on ${this.checkIn}` : '';
+      const checkOutText = this.checkOut ? ` and check-out on ${this.checkOut}` : '';
+      
+      message = `Hello STAY@TIAH,%0A%0AI would like to enquire about the **${roomName}** at **${location}**.${selectedType ? `%0A%0ARoom Type: ${selectedType}` : ''}${checkInText}${checkOutText}%0A%0APlease let me know about availability and pricing. Thank you!`;
+    }
+    
+    this.openWhatsAppWithMessage(message);
+  }
+
+  /**
+   * WhatsApp for a specific room from the rooms list
+   */
+  openWhatsAppForRoom(room: any) {
+    if (!room) return;
+    
+    const roomName = room.name || 'this room';
+    const location = room.location || 'Durban';
+    
+    const message = `Hello STAY@TIAH,%0A%0AI would like to enquire about the **${roomName}** at **${location}**.%0A%0APlease let me know about availability and pricing. Thank you!`;
+    
+    this.openWhatsAppWithMessage(message);
+  }
+
+  /**
+   * WhatsApp for CTA section
+   */
+  openWhatsAppForCTA() {
+    const message = 'Hello STAY@TIAH,%0A%0AI would like to enquire about room availability and pricing. Please let me know what\'s available. Thank you!';
+    this.openWhatsAppWithMessage(message);
   }
 
   // =========================
