@@ -1,5 +1,5 @@
 // =============================================
-// ABOUT PAGE - MATCHING ROOMS PAGE STYLES
+// ABOUT PAGE - MATCHING HOME PAGE STYLES
 // =============================================
 
 // =========================
@@ -94,25 +94,47 @@ p, span, a, div, li, button,
   opacity: 0;
   animation: fadeUp 0.8s ease forwards;
 }
+.animate-slide-left {
+  opacity: 0;
+  animation: slideLeft 0.8s ease forwards;
+}
+.animate-slide-right {
+  opacity: 0;
+  animation: slideRight 0.8s ease forwards;
+}
+.animate-scale {
+  opacity: 0;
+  animation: scaleIn 0.6s ease forwards;
+}
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
+@keyframes slideLeft {
+  from { opacity: 0; transform: translateX(-50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
 @keyframes kenBurns {
   0% { transform: scale(1) translate(0,0); }
   50% { transform: scale(1.08) translate(-2%,-1%); }
   100% { transform: scale(1.05) translate(1%,2%); }
 }
-
 @keyframes pulse {
   0% { transform: scale(1); opacity: 1; }
   100% { transform: scale(1.5); opacity: 0; }
 }
 
 // =========================
-// HEADER / NAVBAR
+// HEADER / NAVBAR - EXACTLY LIKE HOME PAGE
 // =========================
 .site-header {
   background: rgba(10, 10, 10, 0.95);

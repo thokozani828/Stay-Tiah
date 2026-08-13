@@ -43,7 +43,7 @@
       <!-- Desktop WhatsApp Button -->
       <a class="btn-whatsapp desktop-only" (click)="openWhatsApp()">
         <ion-icon name="logo-whatsapp"></ion-icon>
-        <span class="btn-text">Book on WhatsApp</span>
+        <span class="btn-text">Check Availability</span>
       </a>
     </div>
   </header>
@@ -92,7 +92,7 @@
     
     <a class="mobile-cta" (click)="openWhatsApp(); closeMobileNav()">
       <ion-icon name="logo-whatsapp"></ion-icon>
-      Book on WhatsApp
+      Check Availability
     </a>
   </div>
   
@@ -116,9 +116,9 @@
         <h1 class="hero-title">Your Ideal Haven</h1>
         <p class="hero-description">Your comfortable stay in the heart of Durban</p>
         <div class="hero-buttons">
-          <a routerLink="/booking" class="btn-primary">
-            <ion-icon name="calendar-outline"></ion-icon>
-            Book Your Stay
+          <a (click)="openWhatsApp()" class="btn-primary">
+            <ion-icon name="logo-whatsapp"></ion-icon>
+            Check Availability
           </a>
           <a (click)="scrollToSection('about')" class="btn-secondary">
             Learn More
@@ -156,6 +156,7 @@
       </div>
       <div class="about-grid">
         <div class="about-image animate-slide-left">
+          <!-- CORRECTED IMAGE PATH -->
           <img [src]="aboutImage" alt="stay@tiah Luxury Accommodation" (error)="onImageError($event)">
           <div class="about-image-badge">
             <ion-icon name="star"></ion-icon> 4.8 ★ (200+ Reviews)
@@ -308,9 +309,11 @@
         <div class="footer-column animate-fade-up">
           <h4>Book Your Stay</h4>
           <p>Ready for your Durban getaway?</p>
-          <a routerLink="/booking" class="btn-gold">Book Now</a>
+          <a (click)="openWhatsApp()" class="btn-gold">
+            <ion-icon name="logo-whatsapp"></ion-icon>
+            Check Availability
+          </a>
           <div class="footer-contact">
-            <p><ion-icon name="call-outline"></ion-icon> +27 84 900 9821</p>
             <p><ion-icon name="mail-outline"></ion-icon> info@staytiah.com</p>
           </div>
         </div>

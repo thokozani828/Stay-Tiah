@@ -282,10 +282,6 @@ export class RoomsPage implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  goToBooking() {
-    this.router.navigate(['/booking']);
-  }
-
   // ==========================================
   // VIEW ROOM DETAIL
   // ==========================================
@@ -314,7 +310,7 @@ export class RoomsPage implements OnInit {
   }
 
   // ==========================================
-  // WHATSAPP METHOD - Updated with correct number
+  // WHATSAPP METHOD - Direct WhatsApp only
   // ==========================================
   openWhatsApp() {
     const phone = this.whatsappNumber; // +27 84 900 9821

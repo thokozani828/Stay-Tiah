@@ -39,6 +39,11 @@ export class HomePage implements OnInit {
   isScrolled: boolean = false;
 
   // ==========================================
+  // WHATSAPP NUMBER
+  // ==========================================
+  whatsappNumber: string = '27849009821';
+
+  // ==========================================
   // IMAGE PATHS
   // ==========================================
   aboutImage: string = 'assets/images/ChatGPT Image Jul 29, 2026, 08_23_26 AM.png';
@@ -115,21 +120,35 @@ export class HomePage implements OnInit {
   // NAVIGATION METHODS
   // ==========================================
 
-  // Navigate to booking page
-  goToBooking() {
-    this.router.navigate(['/booking']);
-  }
-
-  // Navigate to booking page with room ID
-  goToBookingWithRoom(roomId: number) {
-    this.router.navigate(['/booking'], { queryParams: { roomId: roomId } });
-  }
-
   // Navigate to home
   goToHome() {
     this.currentSection = 'home';
     this.closeMobileNav();
     this.scrollToSection('home');
+  }
+
+  // Navigate to rooms page
+  goToRooms() {
+    this.router.navigate(['/rooms']);
+    this.closeMobileNav();
+  }
+
+  // Navigate to about page
+  goToAbout() {
+    this.router.navigate(['/about']);
+    this.closeMobileNav();
+  }
+
+  // Navigate to attractions page
+  goToAttractions() {
+    this.router.navigate(['/attractions']);
+    this.closeMobileNav();
+  }
+
+  // Navigate to contact page
+  goToContact() {
+    this.router.navigate(['/contact']);
+    this.closeMobileNav();
   }
 
   // ==========================================
@@ -214,13 +233,11 @@ export class HomePage implements OnInit {
   }
 
   // ==========================================
-  // WHATSAPP METHOD
+  // WHATSAPP METHOD - Direct WhatsApp only
   // ==========================================
-
-  // Open WhatsApp
   openWhatsApp() {
-    const phone = '27849009821';
-    const message = 'Hello stay@tiah, I would like to make a booking enquiry.';
+    const phone = this.whatsappNumber; // +27 84 900 9821
+    const message = 'Hello STAY@TIAH, I would like to enquire about room availability and pricing.';
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
   }
 }

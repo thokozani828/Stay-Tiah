@@ -2,9 +2,9 @@
 <!-- ✅ HEADER OUTSIDE ION-CONTENT (LIKE HOME)    -->
 <!-- ============================================= -->
 <ion-header>
-  <header class="site-header">
+  <header class="site-header" [class.scrolled]="isScrolled">
     <div class="site-header__inner">
-      <a href="/" class="brand">
+      <a href="/" class="brand" (click)="goToHome()">
         <span class="brand__name">TIAH</span>
         <span class="brand__tagline">The Ideal Accommodation Haven</span>
       </a>
@@ -26,7 +26,7 @@
       <!-- Desktop WhatsApp Button -->
       <a class="btn-whatsapp desktop-only" (click)="openWhatsApp()">
         <ion-icon name="logo-whatsapp"></ion-icon>
-        <span class="btn-text">Book on WhatsApp</span>
+        <span class="btn-text">Check Availability</span>
       </a>
     </div>
   </header>
@@ -75,7 +75,7 @@
     
     <a class="mobile-cta" (click)="openWhatsApp(); closeMobileNav()">
       <ion-icon name="logo-whatsapp"></ion-icon>
-      Book on WhatsApp
+      Check Availability
     </a>
   </div>
   
@@ -109,6 +109,7 @@
     <div class="container">
       <div class="about-intro-grid">
         <div class="about-intro-image animate-fade-up">
+          <!-- CORRECTED IMAGE PATH -->
           <img [src]="aboutImage" alt="STAY@TIAH Luxury Accommodation" (error)="onImageError($event)">
           <div class="image-badge">
             <ion-icon name="star"></ion-icon>
@@ -216,9 +217,9 @@
         <h2>Ready to Book Your Stay?</h2>
         <p>Choose your perfect room and experience the comfort of STAY@TIAH.</p>
         <div class="cta-buttons">
-          <a routerLink="/booking" class="btn-primary">
-            <ion-icon name="calendar-outline"></ion-icon>
-            Book Your Stay
+          <a (click)="openWhatsApp()" class="btn-primary">
+            <ion-icon name="logo-whatsapp"></ion-icon>
+            Check Availability
           </a>
           <a (click)="openWhatsApp()" class="btn-secondary-cta">
             <ion-icon name="logo-whatsapp"></ion-icon>
@@ -263,9 +264,11 @@
         <div class="footer-column animate-fade-up">
           <h4>Book Your Stay</h4>
           <p>Ready for your Durban getaway?</p>
-          <a routerLink="/booking" class="btn-gold">Book Now</a>
+          <a (click)="openWhatsApp()" class="btn-gold">
+            <ion-icon name="logo-whatsapp"></ion-icon>
+            Check Availability
+          </a>
           <div class="footer-contact">
-            <p><ion-icon name="call-outline"></ion-icon> +27 84 900 9821</p>
             <p><ion-icon name="mail-outline"></ion-icon> info@staytiah.com</p>
           </div>
         </div>
