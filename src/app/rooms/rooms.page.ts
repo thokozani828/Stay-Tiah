@@ -32,6 +32,11 @@ export class RoomsPage implements OnInit {
   fallbackImage: string = 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80';
 
   // ==========================================
+  // WHATSAPP NUMBER
+  // ==========================================
+  whatsappNumber: string = '27849009821';
+
+  // ==========================================
   // ROOMS DATA - Updated with better bedroom images
   // Removed: rating, reviews, price
   // ==========================================
@@ -309,10 +314,10 @@ export class RoomsPage implements OnInit {
   }
 
   // ==========================================
-  // WHATSAPP METHOD
+  // WHATSAPP METHOD - Updated with correct number
   // ==========================================
   openWhatsApp() {
-    const phone = '27791234567';
+    const phone = this.whatsappNumber; // +27 84 900 9821
     const message = 'Hello STAY@TIAH, I would like to enquire about room availability and pricing.';
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
   }
