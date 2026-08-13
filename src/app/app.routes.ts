@@ -15,10 +15,7 @@ export const routes: Routes = [
     path: 'rooms',
     loadComponent: () => import('./rooms/rooms.page').then(m => m.RoomsPage)
   },
-  {
-    path: 'gallery',
-    loadComponent: () => import('./gallery/gallery.page').then(m => m.GalleryPage)
-  },
+
   
   {
     path: 'attractions',
@@ -32,14 +29,7 @@ export const routes: Routes = [
     path: 'booking',
     loadComponent: () => import('./booking/booking.page').then(m => m.BookingPage)
   },
-  {
-  path: 'faq',
-  loadComponent: () => import('./faq/faq.page').then(m => m.FaqPage)
-},
 {
-  path: 'rates',
-  loadComponent: () => import('./rates/rates.page').then(m => m.RatesPage)
-},{
   path: 'room-detail',
   loadComponent: () => import('./room-detail/room-detail.page').then(m => m.RoomDetailPage)
 },

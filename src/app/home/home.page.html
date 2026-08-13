@@ -36,10 +36,7 @@
         <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="nav__link">Home</a>
         <a routerLink="/about" routerLinkActive="is-active" class="nav__link">About</a>
         <a routerLink="/rooms" routerLinkActive="is-active" class="nav__link">Rooms</a>
-        <a routerLink="/gallery" routerLinkActive="is-active" class="nav__link">Gallery</a>
-        <a routerLink="/rates" routerLinkActive="is-active" class="nav__link">Rates</a>
         <a routerLink="/attractions" routerLinkActive="is-active" class="nav__link">Attractions</a>
-        <a routerLink="/faq" routerLinkActive="is-active" class="nav__link">FAQ</a>
         <a routerLink="/contact" routerLinkActive="is-active" class="nav__link">Contact</a>
       </nav>
 
@@ -71,28 +68,24 @@
   
   <div class="mobile-nav-links">
     <a routerLink="/home" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">🏠</span> Home
+      <ion-icon name="home-outline" class="link-icon"></ion-icon>
+      Home
     </a>
     <a routerLink="/about" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">ℹ️</span> About
+      <ion-icon name="information-circle-outline" class="link-icon"></ion-icon>
+      About
     </a>
     <a routerLink="/rooms" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">🛏️</span> Rooms
-    </a>
-    <a routerLink="/gallery" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">🖼️</span> Gallery
-    </a>
-    <a routerLink="/rates" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">💰</span> Rates
+      <ion-icon name="bed-outline" class="link-icon"></ion-icon>
+      Rooms
     </a>
     <a routerLink="/attractions" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">📍</span> Attractions
-    </a>
-    <a routerLink="/faq" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">❓</span> FAQ
+      <ion-icon name="location-outline" class="link-icon"></ion-icon>
+      Attractions
     </a>
     <a routerLink="/contact" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">📧</span> Contact
+      <ion-icon name="mail-outline" class="link-icon"></ion-icon>
+      Contact
     </a>
     
     <div class="mobile-divider"></div>
@@ -121,7 +114,7 @@
       <div class="hero-text animate-fade-up">
         <span class="hero-badge">✦ Comfortable Stay</span>
         <h1 class="hero-title">Your Ideal Haven</h1>
-        <p class="hero-description">Experience luxurious, affordable short-stay accommodation in Durban's most desirable locations.</p>
+        <p class="hero-description">Your comfortable stay in the heart of Durban</p>
         <div class="hero-buttons">
           <a routerLink="/booking" class="btn-primary">
             <ion-icon name="calendar-outline"></ion-icon>
@@ -261,112 +254,6 @@
     </div>
   </section>
 
-  <!-- ================= RATES ================= -->
-  <section class="rates-section" id="rates">
-    <div class="container">
-      <div class="section-header center animate-fade-up">
-        <span class="eyebrow">✦ Rates</span>
-        <h2 class="section-title">Simple & Transparent Pricing</h2>
-        <p class="section-subtitle">Rates may vary depending on dates, availability and special offers.</p>
-      </div>
-      <div class="rates-table-wrapper animate-fade-up">
-        <table class="rates-table">
-          <thead>
-            <tr>
-              <th>Room</th>
-              <th>Location</th>
-              <th>Sleeps</th>
-              <th>From / Night</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Durban Oceanic Room 82A</td>
-              <td>Durban Oceanic</td>
-              <td>2</td>
-              <td>R1,200</td>
-              <td><a class="book-link" (click)="goToBookingWithRoom(1)">Book</a></td>
-            </tr>
-            <tr>
-              <td>Durban Oceanic Apartment 82B</td>
-              <td>Durban Oceanic</td>
-              <td>2</td>
-              <td>R896</td>
-              <td><a class="book-link" (click)="goToBookingWithRoom(11)">Book</a></td>
-            </tr>
-            <tr>
-              <td>Durban Oceanic Apartment 117</td>
-              <td>Durban Oceanic</td>
-              <td>2</td>
-              <td>R896</td>
-              <td><a class="book-link" (click)="goToBookingWithRoom(12)">Book</a></td>
-            </tr>
-            <tr>
-              <td>Tiah Whyte</td>
-              <td>Tiah Musgrave</td>
-              <td>2</td>
-              <td>R855</td>
-              <td><a class="book-link" (click)="goToBookingWithRoom(19)">Book</a></td>
-            </tr>
-            <tr>
-              <td>Tiah Grey</td>
-              <td>Tiah Musgrave</td>
-              <td>2</td>
-              <td>R675</td>
-              <td><a class="book-link" (click)="goToBookingWithRoom(17)">Book</a></td>
-            </tr>
-            <tr>
-              <td>Tiah Pastel</td>
-              <td>Tiah Musgrave</td>
-              <td>2</td>
-              <td>R675</td>
-              <td><a class="book-link" (click)="goToBookingWithRoom(18)">Book</a></td>
-            </tr>
-            <tr>
-              <td>La Tiah One</td>
-              <td>La Tiah Musgrave</td>
-              <td>2</td>
-              <td>R553</td>
-              <td><a class="book-link" (click)="goToBookingWithRoom(16)">Book</a></td>
-            </tr>
-            <tr>
-              <td>La Tiah Two</td>
-              <td>La Tiah Musgrave</td>
-              <td>2</td>
-              <td>R513.16</td>
-              <td><a class="book-link" (click)="goToBookingWithRoom(13)">Book</a></td>
-            </tr>
-            <tr>
-              <td>La Tiah Three</td>
-              <td>La Tiah Musgrave</td>
-              <td>2</td>
-              <td>R553</td>
-              <td><a class="book-link" (click)="goToBookingWithRoom(14)">Book</a></td>
-            </tr>
-            <tr>
-              <td>La Tiah Four</td>
-              <td>La Tiah Musgrave</td>
-              <td>2</td>
-              <td>R485</td>
-              <td><a class="book-link" (click)="goToBookingWithRoom(15)">Book</a></td>
-            </tr>
-            <tr>
-              <td>Halford Backpackers</td>
-              <td>Halford Backpackers</td>
-              <td>4</td>
-              <td>R450</td>
-              <td><a class="book-link" (click)="goToBookingWithRoom(2)">Book</a></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="view-all-container">
-        <a routerLink="/rates" class="btn-primary">View All Rates</a>
-      </div>
-    </div>
-  </section>
-
   <!-- ================= FAQ ================= -->
   <section class="faq-section" id="faq">
     <div class="container">
@@ -410,10 +297,7 @@
           <a routerLink="/home">Home</a>
           <a routerLink="/about">About Us</a>
           <a routerLink="/rooms">Rooms</a>
-          <a routerLink="/gallery">Gallery</a>
-          <a routerLink="/rates">Rates</a>
           <a routerLink="/attractions">Attractions</a>
-          <a routerLink="/faq">FAQ</a>
           <a routerLink="/contact">Contact Us</a>
         </div>
         <div class="footer-column animate-fade-up">
@@ -426,7 +310,7 @@
           <p>Ready for your Durban getaway?</p>
           <a routerLink="/booking" class="btn-gold">Book Now</a>
           <div class="footer-contact">
-            <p><ion-icon name="call-outline"></ion-icon> +27 79 123 4567</p>
+            <p><ion-icon name="call-outline"></ion-icon> +27 84 900 9821</p>
             <p><ion-icon name="mail-outline"></ion-icon> info@staytiah.com</p>
           </div>
         </div>
