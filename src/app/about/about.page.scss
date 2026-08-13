@@ -906,9 +906,9 @@ p, span, a, div, li, button,
   }
 }
 
-// =========================
-// LOCATION OPTIONS
-// =========================
+// =============================================
+// LOCATION OPTIONS - UPDATED WITH BEACH ICON
+// =============================================
 .location-options {
   margin: 24px 0 20px;
   
@@ -949,6 +949,34 @@ p, span, a, div, li, button,
         font-size: 20px;
         color: $gold;
       }
+      
+      // BEACH ICON WITH DUAL ICONS (sunny + umbrella)
+      &.beach-icon {
+        background: linear-gradient(135deg, rgba(201, 168, 76, 0.15), rgba(255, 200, 50, 0.15));
+        position: relative;
+        width: 44px;
+        height: 44px;
+        
+        ion-icon {
+          font-size: 16px;
+          
+          &:first-child {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            font-size: 14px;
+            color: #f9a825;
+          }
+          
+          &:last-child {
+            position: absolute;
+            bottom: 6px;
+            left: 6px;
+            font-size: 18px;
+            color: $gold;
+          }
+        }
+      }
     }
     
     .location-content {
@@ -982,6 +1010,7 @@ p, span, a, div, li, button,
         font-weight: 600;
         color: $gold;
         text-align: center;
+        margin: 0;
       }
     }
   }

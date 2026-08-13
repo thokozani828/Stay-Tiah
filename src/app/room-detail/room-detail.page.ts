@@ -1064,4 +1064,54 @@ Convenient Location: Located 2.5 km from downtown Durban, the property is close 
       }
     }
   }
+
+  // =========================
+  // RELATED ROOMS
+  // =========================
+  /**
+   * Get related rooms (excluding the current room)
+   * Returns up to 4 rooms that are either in the same location or popular
+   */
+  getRelatedRooms(): any[] {
+    if (!this.room) return [];
+    
+    // Filter out the current room
+    const otherRooms = this.allRooms.filter(r => r.id !== this.room.id);
+    
+    // First try to get rooms from the same location
+    const sameLocation = otherRooms.filter(r => r.location === this.room.location);
+    
+    // If we have enough rooms from the same location, return them
+    if (sameLocation.length >= 4) {
+      return sameLocation.slice(0, 4);
+    }
+    
+    // Otherwise, mix same location with popular rooms
+    const popularRooms = otherRooms
+      .filter(r => r.location !== this.room.location && r.popular)
+      .slice(0, 4 - sameLocation.length);
+    
+    // If we still don't have enough, add more rooms
+    let combined = [...sameLocation, ...popularRooms];
+    
+    if (combined.length < 4) {
+      const moreRooms = otherRooms
+        .filter(r => !combined.includes(r) && r.id !== this.room.id)
+        .slice(0, 4 - combined.length);
+      combined = [...combined, ...moreRooms];
+    }
+    
+    return combined.slice(0, 4);
+  }
+
+  /**
+   * Navigate to a related room
+   */
+  navigateToRoom(roomId: number) {
+    this.router.navigate(['/room-detail'], { 
+      queryParams: { roomId: roomId } 
+    });
+    // Scroll to top when navigating
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }

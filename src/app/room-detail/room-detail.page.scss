@@ -1,157 +1,120 @@
-// =========================
-// VARIABLES
-// =========================
+// =============================================
+// ROOM DETAIL PAGE - PROFESSIONAL LAYOUT
+// =============================================
+
 $gold: #c9a84c;
 $gold-light: #dbb95c;
 $gold-dark: #b8943a;
-$gold-pale: #f5e6c8;
-$gold-soft: #e8d5a8;
 $black: #0a0a0a;
-$dark: #121212;
-$grey: #888888;
-$light-grey: #e8e8e8;
-$off-white: #f8f7f4;
 $white: #ffffff;
+$off-white: #f8f7f4;
+$shadow: 0 4px 30px rgba(0,0,0,0.08);
+$radius: 16px;
 
-// FIXED FONT - Verdana only (consistent across entire site)
-$font-primary: Verdana, Geneva, sans-serif;
-$transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-$header-height-desktop: 72px;
-$header-height-mobile: 56px;
-
-// =========================
-// GLOBAL FONT RESET
-// =========================
-* {
-  font-family: $font-primary !important;
-  box-sizing: border-box;
-}
-
-// All headings and text use Verdana
-h1, h2, h3, h4, h5, h6,
-p, span, a, div, li, button,
-.room-title, 
-.room-price-hero .price,
-.detail-card h3,
-.type-info h4,
-.type-price .price,
-.booking-card .booking-price .price,
-.footer .logo,
-.footer .logo-text,
-.footer .logo-gold,
-.nav__link,
-.mobile-nav a,
-.footer-column a,
-.footer-column p,
-.btn-primary,
-.btn-gold,
-.btn-whatsapp,
-.room-location-hero,
-.room-rating-hero .label,
-.room-rating-hero .reviews,
-.room-rating-hero .rating-score .score,
-.booking-note,
-.location-address,
-.attraction-item,
-.facility-item,
-.amenity-item,
-.rule-item,
-.gallery-count span,
-.modal-counter,
-.back-button .back-text {
-  font-family: $font-primary !important;
-}
-
-// =========================
-// CONTAINER
-// =========================
-.container {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 0 20px;
-  
-  @media (max-width: 576px) {
-    padding: 0 16px;
-  }
-}
-
-// =========================
-// ANIMATIONS
-// =========================
-.animate-fade-up {
-  opacity: 0;
-  animation: fadeUp 0.8s ease forwards;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 1; }
-  100% { transform: scale(1.5); opacity: 0; }
-}
-
-// =========================
-// HIDE SCROLLBAR
-// =========================
-.no-scrollbar {
-  --scrollbar-width: 0px;
-  
-  &::-webkit-scrollbar {
-    display: none;
-    width: 0;
-    background: transparent;
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    display: none;
-  }
-  
-  &::-webkit-scrollbar-track {
-    display: none;
-  }
-  
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-// =========================
+// =============================================
 // ROOM HERO
-// =========================
+// =============================================
 .room-hero {
-  min-height: 60vh;
-  height: 60vh;
   position: relative;
+  min-height: 55vh;
   display: flex;
   align-items: center;
-  color: white;
   overflow: hidden;
-  margin-top: 0;
-  width: 100%;
+  
+  @media (max-width: 768px) {
+    min-height: 45vh;
+  }
+  
+  @media (max-width: 480px) {
+    min-height: 40vh;
+  }
   
   .room-hero-bg {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
+    z-index: 0;
     
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
+    
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 10;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 13px;
+      
+      @media (max-width: 480px) {
+        padding: 8px 12px;
+        font-size: 11px;
+        top: 12px;
+        left: 12px;
+        
+        .back-text {
+          display: none;
+        }
+      }
+      
+      &:hover {
+        background: rgba(201, 168, 76, 0.8);
+        transform: translateX(-4px);
+      }
+      
+      ion-icon {
+        font-size: 18px;
+      }
+    }
+    
+    .hero-whatsapp-btn {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      z-index: 10;
+      background: #25D366;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      transition: all 0.3s ease;
+      
+      @media (min-width: 769px) {
+        display: none;
+      }
+      
+      ion-icon {
+        font-size: 26px;
+        color: white;
+      }
+      
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
   }
   
   .room-hero-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(0,0,0,0.4));
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 100%);
     z-index: 1;
   }
   
@@ -159,43 +122,57 @@ p, span, a, div, li, button,
     position: relative;
     z-index: 2;
     width: 100%;
-    padding: 40px 20px;
+    padding: 40px 0;
+    
+    @media (max-width: 768px) {
+      padding: 20px 0;
+    }
   }
   
   .room-hero-text {
     max-width: 700px;
     
-    .room-badge {
-      display: inline-block;
-      background: $gold;
-      color: $black;
-      padding: 4px 14px;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      border-radius: 4px;
-      margin-right: 8px;
-      font-family: $font-primary !important;
+    .room-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
       
-      &.new {
-        background: #2196F3;
-        color: white;
-      }
-      
-      &.featured {
-        background: #e74c3c;
-        color: white;
+      .room-badge {
+        display: inline-block;
+        background: rgba(201, 168, 76, 0.2);
+        color: $gold;
+        padding: 4px 14px;
+        border-radius: 50px;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        border: 1px solid rgba(201, 168, 76, 0.2);
+        
+        &.new {
+          background: rgba(52, 211, 153, 0.2);
+          color: #34d399;
+          border-color: rgba(52, 211, 153, 0.2);
+        }
+        
+        &.featured {
+          background: rgba(251, 191, 36, 0.2);
+          color: #fbbf24;
+          border-color: rgba(251, 191, 36, 0.2);
+        }
       }
     }
     
     .room-title {
-      font-family: $font-primary !important;
-      font-size: clamp(36px, 5vw, 56px);
+      font-family: Verdana, Geneva, sans-serif;
+      font-size: clamp(32px, 5vw, 56px);
       line-height: 1.1;
-      margin: 12px 0 8px;
       color: white;
-      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+      margin: 8px 0 12px;
+      
+      @media (max-width: 480px) {
+        font-size: 28px;
+      }
     }
     
     .room-location-hero {
@@ -204,476 +181,418 @@ p, span, a, div, li, button,
       gap: 8px;
       color: rgba(255,255,255,0.7);
       font-size: 14px;
-      margin-bottom: 12px;
-      font-family: $font-primary !important;
+      margin-bottom: 16px;
       
       ion-icon {
         color: $gold;
         font-size: 18px;
+        flex-shrink: 0;
       }
     }
     
-    .room-rating-hero {
+    .room-quick-info {
       display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 16px;
-      
-      .rating-score {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        background: rgba(0,0,0,0.4);
-        padding: 4px 14px;
-        border-radius: 20px;
-        
-        .score {
-          font-size: 18px;
-          font-weight: 700;
-          color: $gold;
-          font-family: $font-primary !important;
-        }
-        
-        .label {
-          font-size: 13px;
-          color: rgba(255,255,255,0.7);
-          font-family: $font-primary !important;
-        }
-      }
-      
-      .reviews {
-        font-size: 13px;
-        color: rgba(255,255,255,0.5);
-        font-family: $font-primary !important;
-      }
-    }
-    
-    .room-price-hero {
-      margin-bottom: 20px;
-      
-      .price {
-        font-size: 32px;
-        font-weight: 700;
-        color: $gold;
-        font-family: $font-primary !important;
-      }
-      
-      .per-night {
-        font-size: 16px;
-        color: rgba(255,255,255,0.6);
-        font-family: $font-primary !important;
-      }
-    }
-  }
-  
-  .back-btn {
-    position: absolute;
-    top: 24px;
-    left: 24px;
-    z-index: 10;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    color: white;
-    padding: 10px 18px;
-    border-radius: 50px;
-    font-size: 14px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    cursor: pointer;
-    font-family: $font-primary !important;
-    
-    ion-icon {
-      font-size: 20px;
-    }
-    
-    &:hover {
-      background: rgba(201, 168, 76, 0.3);
-      transform: translateX(-4px);
-      border-color: $gold;
-    }
-    
-    @media (max-width: 768px) {
-      top: 16px;
-      left: 16px;
-      padding: 8px 14px;
-      font-size: 12px;
-      
-      ion-icon {
-        font-size: 16px;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      top: 12px;
-      left: 12px;
-      padding: 6px 12px;
-      font-size: 11px;
-      
-      ion-icon {
-        font-size: 14px;
-      }
-      
-      .back-text {
-        display: none;
-      }
-    }
-  }
-}
-
-// =========================
-// ROOM GALLERY
-// =========================
-.room-gallery {
-  padding: 40px 0 60px;
-  background: $off-white;
-}
-
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  @media (max-width: 480px) {
-    grid-template-columns: 1fr;
-  }
-  
-  .gallery-item {
-    position: relative;
-    border-radius: 12px;
-    overflow: hidden;
-    cursor: pointer;
-    aspect-ratio: 1 / 1;
-    
-    &.featured {
-      grid-column: span 2;
-      grid-row: span 2;
-      aspect-ratio: auto;
-      
-      @media (max-width: 768px) {
-        grid-column: span 1;
-        grid-row: span 1;
-        aspect-ratio: 1 / 1;
-      }
-    }
-    
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease;
-    }
-    
-    &:hover img {
-      transform: scale(1.05);
-    }
-    
-    .gallery-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      
-      ion-icon {
-        font-size: 32px;
-        color: white;
-        opacity: 0.8;
-      }
-    }
-    
-    &:hover .gallery-overlay {
-      opacity: 1;
-    }
-    
-    .gallery-count {
-      position: absolute;
-      bottom: 12px;
-      right: 12px;
-      background: rgba(0,0,0,0.7);
-      color: white;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 12px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      backdrop-filter: blur(10px);
-      font-family: $font-primary !important;
-      
-      ion-icon {
-        font-size: 14px;
-      }
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
       
       span {
-        font-family: $font-primary !important;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: rgba(255,255,255,0.8);
+        font-size: 13px;
+        
+        ion-icon {
+          color: $gold;
+          font-size: 16px;
+        }
+      }
+    }
+    
+    .hero-cta {
+      padding: 14px 36px;
+      font-size: 15px;
+      
+      @media (max-width: 480px) {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 24px;
+        font-size: 14px;
       }
     }
   }
 }
 
-// =========================
-// IMAGE MODAL / LIGHTBOX
-// =========================
-.image-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.92);
-  z-index: 2000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: fadeIn 0.3s ease;
+// =============================================
+// PROFESSIONAL GALLERY
+// =============================================
+.room-gallery {
+  padding: 40px 0 60px;
+  background: $white;
   
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  @media (max-width: 768px) {
+    padding: 20px 0 40px;
   }
   
-  .modal-content {
-    position: relative;
-    width: 90%;
-    max-width: 1000px;
-    max-height: 90vh;
+  .gallery-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
+    margin-bottom: 20px;
     
-    img {
-      max-width: 100%;
-      max-height: 85vh;
-      object-fit: contain;
-      border-radius: 8px;
-      box-shadow: 0 4px 60px rgba(0,0,0,0.5);
+    h2 {
+      font-family: Verdana, Geneva, sans-serif;
+      font-size: 24px;
+      color: $black;
+      margin: 0;
+      
+      @media (max-width: 480px) {
+        font-size: 20px;
+      }
+    }
+    
+    .gallery-count-badge {
+      background: $off-white;
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 13px;
+      color: $black;
     }
   }
   
-  .modal-close {
-    position: absolute;
-    top: -50px;
-    right: 0;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 32px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    padding: 8px;
-    
-    &:hover {
-      transform: rotate(90deg);
-    }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 12px;
     
     @media (max-width: 768px) {
-      top: -40px;
-      font-size: 28px;
-    }
-  }
-  
-  .modal-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255,255,255,0.1);
-    border: none;
-    color: white;
-    font-size: 36px;
-    padding: 16px 20px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    
-    &:hover {
-      background: rgba(255,255,255,0.2);
-      transform: translateY(-50%) scale(1.1);
+      grid-template-columns: 1fr;
+      gap: 10px;
     }
     
-    &.prev {
-      left: -70px;
+    .gallery-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
       
-      @media (max-width: 768px) {
-        left: 10px;
-        font-size: 24px;
-        padding: 10px 14px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      
+      &.featured {
+        grid-row: span 2;
+        
+        img {
+          height: 420px;
+          
+          @media (max-width: 768px) {
+            height: 280px;
+          }
+          
+          @media (max-width: 480px) {
+            height: 220px;
+          }
+        }
+      }
+      
+      .gallery-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.4);
+        opacity: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.3s ease;
+        gap: 8px;
+        
+        ion-icon {
+          font-size: 32px;
+          color: white;
+        }
+        
+        span {
+          color: white;
+          font-size: 13px;
+          font-weight: 500;
+        }
+      }
+      
+      &:hover .gallery-overlay {
+        opacity: 1;
+      }
+      
+      .gallery-count {
+        position: absolute;
+        bottom: 12px;
+        right: 12px;
+        background: rgba(0,0,0,0.7);
+        backdrop-filter: blur(10px);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 50px;
+        font-size: 13px;
+        font-weight: 600;
       }
     }
     
-    &.next {
-      right: -70px;
+    .gallery-thumbs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
       
       @media (max-width: 768px) {
-        right: 10px;
-        font-size: 24px;
-        padding: 10px 14px;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
+      
+      @media (max-width: 480px) {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      
+      .gallery-item {
+        img {
+          height: 198px;
+          
+          @media (max-width: 768px) {
+            height: 130px;
+          }
+          
+          @media (max-width: 480px) {
+            height: 100px;
+          }
+        }
       }
     }
-  }
-  
-  .modal-counter {
-    position: absolute;
-    bottom: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: rgba(255,255,255,0.6);
-    font-size: 14px;
-    background: rgba(0,0,0,0.3);
-    padding: 4px 16px;
-    border-radius: 20px;
-    font-family: $font-primary !important;
   }
 }
 
-// =========================
+// =============================================
 // ROOM DETAILS
-// =========================
+// =============================================
 .room-details-section {
-  padding: 40px 0 80px;
+  padding: 0 0 60px;
   background: $off-white;
+  
+  @media (max-width: 768px) {
+    padding: 0 0 40px;
+  }
 }
 
-.details-grid {
+.details-layout {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 40px;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
   
   @media (max-width: 992px) {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
 }
 
 .detail-card {
-  background: $white;
-  border-radius: 16px;
-  padding: 28px 30px;
+  background: white;
+  border-radius: $radius;
+  padding: 28px 32px;
   margin-bottom: 24px;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+  box-shadow: $shadow;
   border: 1px solid rgba(0,0,0,0.03);
   
-  h3 {
-    font-family: $font-primary !important;
-    font-size: 22px;
-    margin: 0 0 16px;
-    color: $black;
+  @media (max-width: 768px) {
+    padding: 20px;
+    margin-bottom: 16px;
   }
   
-  p {
+  @media (max-width: 480px) {
+    padding: 16px;
+  }
+  
+  h3 {
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 20px;
     color: $black;
-    font-size: 15px;
-    line-height: 1.7;
-    font-weight: 400;
-    margin: 0;
-    font-family: $font-primary !important;
+    margin: 0 0 16px;
+    
+    @media (max-width: 480px) {
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
   }
 }
 
-// =========================
-// ROOM TYPES
-// =========================
+// Description
+.description-content {
+  p {
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    color: #444;
+    margin: 0;
+    
+    @media (max-width: 480px) {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+  }
+}
+
+// Room Types
 .room-types-grid {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 12px;
   
-  .room-type-item {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    align-items: center;
-    padding: 14px 18px;
+  .room-type-card {
     background: $off-white;
     border-radius: 12px;
-    border: 1px solid rgba(0,0,0,0.04);
-    gap: 12px;
+    padding: 16px 20px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
     
-    @media (max-width: 600px) {
-      grid-template-columns: 1fr;
-      gap: 8px;
-      text-align: center;
+    @media (max-width: 480px) {
+      padding: 14px 16px;
     }
     
-    .type-info {
-      h4 {
-        font-size: 15px;
-        font-weight: 600;
-        margin: 0 0 2px;
-        color: $black;
-        font-family: $font-primary !important;
-      }
+    &:hover {
+      border-color: rgba($gold, 0.3);
+      transform: translateX(4px);
+    }
+    
+    &.selected {
+      border-color: $gold;
+      background: rgba($gold, 0.05);
+    }
+    
+    .type-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
       
-      p {
-        font-size: 13px;
+      h4 {
+        font-family: Verdana, Geneva, sans-serif;
+        font-size: 16px;
         color: $black;
         margin: 0;
-        font-weight: 400;
-        font-family: $font-primary !important;
-      }
-    }
-    
-    .type-price {
-      .price {
-        font-size: 20px;
-        font-weight: 700;
-        color: $gold-dark;
-        font-family: $font-primary !important;
+        
+        @media (max-width: 480px) {
+          font-size: 14px;
+        }
       }
       
-      .per-night {
-        font-size: 12px;
-        color: $grey;
-        font-family: $font-primary !important;
+      .type-badge {
+        background: $gold;
+        color: white;
+        padding: 2px 12px;
+        border-radius: 50px;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
       }
     }
     
-    .type-unavailable {
+    .type-details {
       display: flex;
-      align-items: center;
-      gap: 6px;
-      justify-content: flex-end;
-      
-      @media (max-width: 600px) {
-        justify-content: center;
-      }
-      
-      ion-icon {
-        color: #e74c3c;
-        font-size: 18px;
-      }
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
       
       span {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 13px;
+        color: #666;
+        
+        ion-icon {
+          font-size: 14px;
+          color: $gold;
+        }
+      }
+    }
+    
+    .type-amenities {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+      
+      span {
+        background: rgba(0,0,0,0.05);
+        padding: 2px 10px;
+        border-radius: 50px;
+        font-size: 11px;
+        color: #555;
+        
+        &.more {
+          background: rgba($gold, 0.1);
+          color: $gold;
+          font-weight: 600;
+        }
+      }
+    }
+    
+    .type-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      
+      .type-cancellation {
+        display: flex;
+        align-items: center;
+        gap: 6px;
         font-size: 12px;
-        color: #e74c3c;
-        font-weight: 500;
-        font-family: $font-primary !important;
+        color: #666;
+        
+        ion-icon {
+          color: #34d399;
+          font-size: 14px;
+        }
+      }
+      
+      .type-enquire-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: #25D366;
+        color: white;
+        padding: 6px 16px;
+        border-radius: 50px;
+        font-size: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        
+        &:hover {
+          transform: scale(1.05);
+          box-shadow: 0 4px 15px rgba(37,211,102,0.3);
+        }
+        
+        ion-icon {
+          font-size: 16px;
+        }
       }
     }
   }
 }
 
-// =========================
-// AMENITIES
-// =========================
+// Amenities
 .amenities-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 8px;
   
-  @media (max-width: 600px) {
+  @media (max-width: 480px) {
     grid-template-columns: 1fr;
   }
   
@@ -684,10 +603,8 @@ p, span, a, div, li, button,
     padding: 8px 12px;
     background: $off-white;
     border-radius: 8px;
-    font-size: 13px;
-    color: $black;
-    font-family: $font-primary !important;
-    font-weight: 400;
+    font-size: 14px;
+    color: #333;
     
     ion-icon {
       color: $gold;
@@ -697,24 +614,48 @@ p, span, a, div, li, button,
   }
 }
 
+// Facilities
 .facilities-grid {
+  display: grid;
+  gap: 6px;
+  
+  .facility-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 6px 0;
+    font-size: 14px;
+    color: #444;
+    line-height: 1.5;
+    
+    ion-icon {
+      color: $gold;
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+  }
+}
+
+// Rules
+.rules-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
   
-  @media (max-width: 600px) {
+  @media (max-width: 480px) {
     grid-template-columns: 1fr;
   }
   
-  .facility-item {
+  .rule-item {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    padding: 8px 12px;
+    background: $off-white;
+    border-radius: 8px;
     font-size: 13px;
-    color: $black;
-    padding: 4px 0;
-    font-family: $font-primary !important;
-    font-weight: 400;
+    color: #444;
     
     ion-icon {
       color: $gold;
@@ -724,125 +665,72 @@ p, span, a, div, li, button,
   }
 }
 
-// =========================
-// HOUSE RULES
-// =========================
-.rules-list {
-  .rule-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(0,0,0,0.04);
-    font-size: 14px;
-    color: $black;
-    font-family: $font-primary !important;
-    font-weight: 400;
-    
-    &:last-child {
-      border-bottom: none;
-    }
-    
-    ion-icon {
-      color: $gold;
-      font-size: 18px;
-      flex-shrink: 0;
-    }
-  }
-}
-
-// =========================
-// BOOKING CARD
-// =========================
+// =============================================
+// SIDEBAR - BOOKING CARD
+// =============================================
 .booking-card {
-  background: $white;
-  border-radius: 16px;
-  padding: 28px 30px;
-  margin-bottom: 24px;
-  box-shadow: 0 4px 30px rgba(0,0,0,0.08);
-  border: 1px solid rgba(201, 168, 76, 0.1);
+  background: white;
+  border-radius: $radius;
+  padding: 28px 32px;
+  box-shadow: $shadow;
+  border: 1px solid rgba($gold, 0.1);
+  position: sticky;
+  top: 20px;
   
-  .booking-price {
-    margin-bottom: 8px;
-    
-    .price {
-      font-size: 32px;
-      font-weight: 700;
-      color: $gold-dark;
-      font-family: $font-primary !important;
-    }
-    
-    .per-night {
-      font-size: 14px;
-      color: $grey;
-      font-family: $font-primary !important;
-    }
+  @media (max-width: 992px) {
+    position: static;
   }
   
-  .booking-rating {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 16px;
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 16px;
+  }
+  
+  .booking-header {
+    text-align: center;
+    margin-bottom: 20px;
     
-    .score {
-      background: $gold;
+    h3 {
+      font-family: Verdana, Geneva, sans-serif;
+      font-size: 20px;
       color: $black;
-      padding: 2px 10px;
-      border-radius: 4px;
-      font-weight: 700;
-      font-size: 14px;
-      font-family: $font-primary !important;
+      margin: 0 0 4px;
     }
     
-    .label {
+    p {
       font-size: 14px;
-      color: $black;
-      font-family: $font-primary !important;
-    }
-    
-    .reviews {
-      font-size: 13px;
-      color: $grey;
-      font-family: $font-primary !important;
+      color: #888;
+      margin: 0;
     }
   }
   
   .booking-dates {
     display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: 12px;
     margin-bottom: 16px;
     
     .date-group {
       label {
         display: block;
-        font-size: 11px;
+        font-size: 12px;
         font-weight: 600;
-        color: $grey;
+        color: #666;
+        margin-bottom: 4px;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        margin-bottom: 4px;
-        font-family: $font-primary !important;
       }
       
       .date-input {
-        --background: $off-white;
-        --border-color: #ddd;
-        --border-radius: 8px;
-        --padding-start: 12px;
-        --padding-end: 12px;
-        min-height: 40px;
-        background: $off-white;
+        width: 100%;
+        padding: 10px 12px;
         border: 1px solid #ddd;
         border-radius: 8px;
-        width: 100%;
-        font-size: 13px;
-        font-family: $font-primary !important;
-        
-        &.has-value {
-          border-color: $gold;
-        }
+        background: $off-white;
+        font-size: 14px;
+        color: $black;
       }
     }
   }
@@ -850,68 +738,83 @@ p, span, a, div, li, button,
   .book-btn {
     width: 100%;
     justify-content: center;
-    padding: 16px;
+    padding: 14px;
     font-size: 15px;
+    margin-bottom: 12px;
+    
+    @media (max-width: 480px) {
+      font-size: 14px;
+      padding: 12px;
+    }
   }
   
-  .booking-note {
-    text-align: center;
-    font-size: 12px;
-    color: $grey;
-    margin: 12px 0 0;
-    font-weight: 300;
-    font-family: $font-primary !important;
+  .booking-features {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    
+    span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: #888;
+      
+      ion-icon {
+        color: $gold;
+        font-size: 14px;
+      }
+    }
   }
 }
 
-// =========================
-// LOCATION
-// =========================
+// Location
 .location-address {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 16px;
   font-size: 14px;
-  color: $black;
-  margin-bottom: 12px;
-  font-family: $font-primary !important;
-  font-weight: 400;
+  color: #444;
+  line-height: 1.5;
   
   ion-icon {
     color: $gold;
     font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
   }
 }
 
 .location-map {
   border-radius: 12px;
   overflow: hidden;
-  height: 200px;
   
   iframe {
     width: 100%;
-    height: 100%;
+    height: 200px;
+    display: block;
+    
+    @media (max-width: 480px) {
+      height: 150px;
+    }
   }
 }
 
-// =========================
-// ATTRACTIONS LIST
-// =========================
+// Attractions
 .attraction-list {
+  display: grid;
+  gap: 8px;
+  
   .attraction-item {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(0,0,0,0.04);
+    padding: 8px 12px;
+    background: $off-white;
+    border-radius: 8px;
     font-size: 13px;
-    color: $black;
-    font-family: $font-primary !important;
-    font-weight: 400;
-    
-    &:last-child {
-      border-bottom: none;
-    }
     
     ion-icon {
       color: $gold;
@@ -919,523 +822,258 @@ p, span, a, div, li, button,
       flex-shrink: 0;
     }
     
-    .distance {
-      margin-left: auto;
-      color: $grey;
+    .attraction-name {
+      flex: 1;
+      color: #333;
+    }
+    
+    .attraction-distance {
+      color: #888;
       font-size: 12px;
-      font-family: $font-primary !important;
+      font-weight: 500;
     }
   }
 }
 
-// =========================
-// BUTTONS
-// =========================
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: linear-gradient(135deg, $gold, $gold-dark);
-  color: $black;
-  font-weight: 600;
-  padding: 14px 32px;
-  border-radius: 50px;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 25px rgba(201, 168, 76, 0.25);
-  font-family: $font-primary !important;
+// =============================================
+// RELATED ROOMS
+// =============================================
+.related-rooms {
+  padding: 40px 0 60px;
+  background: $white;
   
-  ion-icon {
-    font-size: 18px;
+  @media (max-width: 768px) {
+    padding: 20px 0 40px;
   }
   
-  &:hover {
-    background: linear-gradient(135deg, $gold-light, $gold);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 40px rgba(201, 168, 76, 0.4);
-  }
-}
-
-.btn-gold {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: linear-gradient(135deg, $gold, $gold-dark);
-  color: $black;
-  font-weight: 600;
-  padding: 12px 28px;
-  border-radius: 50px;
-  font-size: 13px;
-  letter-spacing: 0.5px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(201, 168, 76, 0.25);
-  cursor: pointer;
-  border: none;
-  font-family: $font-primary !important;
-  
-  &:hover {
-    background: linear-gradient(135deg, $gold-light, $gold);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 35px rgba(201, 168, 76, 0.4);
-  }
-}
-
-// =========================
-// FOOTER
-// =========================
-.footer {
-  position: relative;
-  color: white;
-  padding: 60px 0 0;
-  overflow: hidden;
-  margin: 0;
-  bottom: 0;
-  
-  @media (max-width: 576px) {
-    padding: 40px 0 0;
-  }
-  
-  .footer-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=90') center/cover no-repeat;
-    background-attachment: fixed;
-    z-index: 0;
-    transform: scale(1.1);
-  }
-  
-  .footer-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(0,0,0,0.92) 0%, rgba(10,10,10,0.85) 100%);
-    z-index: 1;
-  }
-  
-  .container {
-    position: relative;
-    z-index: 2;
-  }
-  
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 40px;
-    padding-bottom: 40px;
-    
-    @media (max-width: 900px) {
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-    }
-    @media (max-width: 500px) {
-      grid-template-columns: 1fr;
-      gap: 24px;
-      padding-bottom: 24px;
-    }
-  }
-  
-  .footer-brand {
-    .logo {
-      font-family: $font-primary !important;
-      font-size: 30px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
-      cursor: pointer;
-      
-      @media (max-width: 576px) {
-        font-size: 26px;
-      }
-      
-      .logo-text {
-        color: $white;
-        font-weight: 400;
-      }
-      .logo-gold {
-        color: $gold;
-        font-weight: 700;
-      }
-    }
-    
-    p {
-      color: rgba(255,255,255,0.7);
-      font-size: 14px;
-      max-width: 320px;
-      line-height: 1.7;
-      font-weight: 300;
-      font-family: $font-primary !important;
-      
-      @media (max-width: 576px) {
-        font-size: 13px;
-        max-width: 100%;
-      }
-    }
-    
-    .socials {
-      display: flex;
-      gap: 12px;
-      margin-top: 16px;
-      
-      a {
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255,255,255,0.08);
-        color: $gold;
-        border-radius: 50%;
-        font-size: 16px;
-        transition: all 0.3s;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255,255,255,0.05);
-        
-        @media (max-width: 576px) {
-          width: 36px;
-          height: 36px;
-          font-size: 14px;
-        }
-        
-        &:hover {
-          background: $gold;
-          color: $black;
-          transform: translateY(-3px);
-          box-shadow: 0 8px 25px rgba(201, 168, 76, 0.3);
-        }
-      }
-    }
-  }
-  
-  .footer-column {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    
-    h4 {
-      color: $gold;
-      margin-bottom: 6px;
-      font-size: 14px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      font-weight: 600;
-      font-family: $font-primary !important;
-      
-      @media (max-width: 576px) {
-        font-size: 13px;
-        letter-spacing: 1.5px;
-      }
-    }
-    
-    a, p {
-      color: rgba(255,255,255,0.6);
-      font-size: 14px;
-      cursor: pointer;
-      transition: color 0.3s;
-      font-weight: 300;
-      text-decoration: none;
-      font-family: $font-primary !important;
-      
-      @media (max-width: 576px) {
-        font-size: 13px;
-      }
-      
-      &:hover {
-        color: $gold;
-      }
-    }
-    
-    .footer-contact {
-      margin-top: 8px;
-      
-      p {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        color: rgba(255,255,255,0.5);
-        font-size: 13px;
-        font-family: $font-primary !important;
-        
-        @media (max-width: 576px) {
-          font-size: 12px;
-        }
-        
-        ion-icon {
-          color: $gold;
-          font-size: 16px;
-        }
-      }
-    }
-  }
-  
-  .footer-bottom {
-    border-top: 1px solid rgba(255,255,255,0.08);
-    padding: 20px 0;
+  .section-header {
     display: flex;
     justify-content: space-between;
-    color: rgba(255,255,255,0.4);
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    font-weight: 300;
-    font-family: $font-primary !important;
+    align-items: center;
+    margin-bottom: 24px;
     
-    @media (max-width: 500px) {
-      flex-direction: column;
-      gap: 6px;
-      text-align: center;
-      font-size: 10px;
-      padding: 16px 0;
-    }
-  }
-}
-
-// =========================
-// WHATSAPP FLOAT
-// =========================
-ion-fab {
-  position: fixed !important;
-  bottom: 20px !important;
-  right: 20px !important;
-  z-index: 1000;
-}
-
-ion-fab-button.whatsapp-float {
-  --background: #25D366;
-  --box-shadow: 0 4px 25px rgba(37, 211, 102, 0.4);
-  --border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  
-  @media (max-width: 576px) {
-    width: 50px;
-    height: 50px;
-  }
-  
-  .whatsapp-pulse {
-    position: absolute;
-    top: -4px;
-    left: -4px;
-    right: -4px;
-    bottom: -4px;
-    border-radius: 50%;
-    border: 2px solid #25D366;
-    animation: pulse 2s infinite;
-  }
-}
-
-// =========================
-// ENSURE NO WHITE SPACE AFTER FOOTER
-// =========================
-ion-content {
-  --padding-bottom: 0 !important;
-  --padding-end: 0 !important;
-  --padding-start: 0 !important;
-  --padding-top: 0 !important;
-}
-
-.footer {
-  margin-bottom: 0 !important;
-}
-
-// =========================
-// RESPONSIVE OVERRIDES
-// =========================
-@media (max-width: 768px) {
-  .room-hero {
-    min-height: 50vh;
-    height: 50vh;
-    margin-top: 0;
-  }
-  
-  .room-details-section {
-    padding: 30px 0 60px;
-  }
-  
-  .detail-card {
-    padding: 20px;
-  }
-  
-  .booking-card {
-    padding: 20px;
-  }
-  
-  .gallery-grid {
-    gap: 8px;
-  }
-}
-
-@media (max-width: 480px) {
-  .room-hero-text {
-    .room-title {
-      font-size: 28px;
-    }
-    
-    .room-price-hero .price {
+    h2 {
+      font-family: Verdana, Geneva, sans-serif;
       font-size: 24px;
+      color: $black;
+      margin: 0;
+      
+      @media (max-width: 480px) {
+        font-size: 20px;
+      }
     }
-  }
-  
-  .amenities-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .booking-card .booking-dates {
-    grid-template-columns: 1fr;
-  }
-  
-  .room-types-grid .room-type-item {
-    grid-template-columns: 1fr;
-    text-align: center;
     
-    .type-unavailable {
-      justify-content: center;
+    .view-all-link {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: $gold;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        gap: 8px;
+      }
     }
   }
   
-  .gallery-grid {
-    grid-template-columns: 1fr;
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    
+    @media (max-width: 992px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    
+    .related-card {
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: $off-white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+      
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      }
+      
+      img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        
+        @media (max-width: 480px) {
+          height: 120px;
+        }
+      }
+      
+      .related-info {
+        padding: 12px 16px;
+        
+        @media (max-width: 480px) {
+          padding: 8px 10px;
+        }
+        
+        h4 {
+          font-family: Verdana, Geneva, sans-serif;
+          font-size: 14px;
+          color: $black;
+          margin: 0 0 2px;
+          
+          @media (max-width: 480px) {
+            font-size: 12px;
+          }
+        }
+        
+        p {
+          font-size: 12px;
+          color: #888;
+          margin: 0 0 4px;
+          
+          @media (max-width: 480px) {
+            font-size: 10px;
+          }
+        }
+        
+        .related-badge {
+          display: inline-block;
+          background: rgba($gold, 0.1);
+          color: $gold;
+          padding: 1px 10px;
+          border-radius: 50px;
+          font-size: 10px;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+// =============================================
+// IMAGE MODAL
+// =============================================
+.image-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+  
+  .modal-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    
+    img {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: -50px;
+      right: 0;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: rotate(90deg);
+      }
+    }
+    
+    .modal-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: white;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: rgba(255,255,255,0.2);
+      }
+      
+      &.prev {
+        left: -60px;
+        
+        @media (max-width: 768px) {
+          left: 10px;
+        }
+      }
+      
+      &.next {
+        right: -60px;
+        
+        @media (max-width: 768px) {
+          right: 10px;
+        }
+      }
+      
+      ion-icon {
+        font-size: 24px;
+      }
+    }
+    
+    .modal-counter {
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.5);
+      font-size: 14px;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+// =============================================
+// RESPONSIVE FIXES
+// =============================================
+@media (max-width: 768px) {
+  .details-sidebar .booking-card {
+    position: static;
+  }
+}
+
+// No scrollbar
+.no-scrollbar {
+  &::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
   }
   
-  .gallery-item.featured {
-    grid-column: span 1;
-    grid-row: span 1;
-  }
-}
-
-// ============================================================
-// ✅ PRODUCTION SCROLL FIX - ROOM DETAIL PAGE
-// ============================================================
-
-// Force the page to scroll in production
-:host {
-  display: block !important;
-  height: 100% !important;
-  min-height: 100vh !important;
-  overflow-y: auto !important;
-}
-
-// Override Ionic's production contain property
-ion-content {
-  contain: none !important;
-  --overflow: auto !important;
-  overflow-y: auto !important;
-  height: 100% !important;
-  min-height: 100vh !important;
-  display: block !important;
-  position: relative !important;
-  
-  &::part(scroll) {
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    height: 100% !important;
-    min-height: 100vh !important;
-    display: block !important;
-  }
-}
-
-// Force all sections to be visible
-.room-hero,
-.room-gallery,
-.room-details-section {
-  height: auto !important;
-  min-height: auto !important;
-  overflow: visible !important;
-}
-
-// Ensure grid containers don't block scrolling
-.details-grid,
-.gallery-grid {
-  height: auto !important;
-  min-height: auto !important;
-  overflow: visible !important;
-}
-
-// Force all content to be visible
-.container {
-  height: auto !important;
-  min-height: auto !important;
-  overflow: visible !important;
-}
-
-// Ensure images don't overflow
-img {
-  max-width: 100% !important;
-  height: auto !important;
-}
-
-// ============================================================
-// ✅ SCROLLBAR COMPLETELY REMOVED - Room Detail Page
-// ============================================================
-
-// Remove scrollbar completely
-:host ::-webkit-scrollbar,
-ion-content ::-webkit-scrollbar,
-::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
-  background: transparent !important;
-}
-
-:host ::-webkit-scrollbar-track,
-ion-content ::-webkit-scrollbar-track,
-::-webkit-scrollbar-track {
-  display: none !important;
-  background: transparent !important;
-}
-
-:host ::-webkit-scrollbar-thumb,
-ion-content ::-webkit-scrollbar-thumb,
-::-webkit-scrollbar-thumb {
-  display: none !important;
-  background: transparent !important;
-}
-
-:host ::-webkit-scrollbar-corner,
-ion-content ::-webkit-scrollbar-corner,
-::-webkit-scrollbar-corner {
-  display: none !important;
-  background: transparent !important;
-}
-
-// Firefox - remove scrollbar
-:host,
-ion-content,
-* {
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;
-}
-
-// Keep scrolling functional
-:host {
-  display: block !important;
-  height: 100% !important;
-  min-height: 100vh !important;
-  overflow-y: auto !important;
-}
-
-ion-content {
-  contain: none !important;
-  --overflow: auto !important;
-  overflow-y: auto !important;
-  height: 100% !important;
-  min-height: 100vh !important;
-  
-  &::part(scroll) {
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    height: 100% !important;
-    min-height: 100vh !important;
-  }
 }
