@@ -282,6 +282,13 @@ export class RoomsPage implements OnInit {
   }
 
   // ==========================================
+  // VIEW ROOM DETAIL
+  // ==========================================
+  viewRoomDetail(roomId: number) {
+    this.router.navigate(['/room-detail'], { queryParams: { roomId: roomId } });
+  }
+
+  // ==========================================
   // MOBILE NAVIGATION
   // ==========================================
   toggleMobileNav(): void {
@@ -292,13 +299,6 @@ export class RoomsPage implements OnInit {
   closeMobileNav(): void {
     this.mobileNavOpen = false;
     document.body.style.overflow = '';
-  }
-
-  // ==========================================
-  // VIEW ROOM DETAIL
-  // ==========================================
-  viewRoomDetail(roomId: number) {
-    this.router.navigate(['/room-detail'], { queryParams: { roomId: roomId } });
   }
 
   // ==========================================

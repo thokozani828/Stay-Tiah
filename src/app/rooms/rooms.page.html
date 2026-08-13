@@ -1,45 +1,40 @@
-<!-- ============================================= -->
-<!-- HEADER                                        -->
-<!-- ============================================= -->
-<ion-header>
-  <header class="site-header" [class.scrolled]="isScrolled">
-    <div class="site-header__inner">
-      <a href="/" class="brand" (click)="goToHome()">
-        <span class="brand__name">TIAH</span>
-        <span class="brand__tagline">The Ideal Accommodation Haven</span>
-      </a>
+<!-- Your existing header -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="brand">
+      <span class="brand__name">TIAH</span>
+      <span class="brand__tagline">The Ideal Accommodation Haven</span>
+    </a>
 
-      <!-- Hamburger Button -->
-      <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
-        <ion-icon name="menu-outline"></ion-icon>
-      </button>
+    <!-- Hamburger Button -->
+    <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
+      <ion-icon name="menu-outline"></ion-icon>
+    </button>
 
-      <!-- Desktop Navigation -->
-      <nav class="nav" aria-label="Main">
-        <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="nav__link">Home</a>
-        <a routerLink="/about" routerLinkActive="is-active" class="nav__link">About</a>
-        <a routerLink="/rooms" routerLinkActive="is-active" class="nav__link">Rooms</a>
-        <a routerLink="/gallery" routerLinkActive="is-active" class="nav__link">Gallery</a>
-        <a routerLink="/rates" routerLinkActive="is-active" class="nav__link">Rates</a>
-        <a routerLink="/attractions" routerLinkActive="is-active" class="nav__link">Attractions</a>
-        <a routerLink="/faq" routerLinkActive="is-active" class="nav__link">FAQ</a>
-        <a routerLink="/contact" routerLinkActive="is-active" class="nav__link">Contact</a>
-      </nav>
+    <!-- Desktop Navigation -->
+    <nav class="nav" aria-label="Main">
+      <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="nav__link">Home</a>
+      <a routerLink="/about" routerLinkActive="is-active" class="nav__link">About</a>
+      <a routerLink="/rooms" routerLinkActive="is-active" class="nav__link">Rooms</a>
+      <a routerLink="/gallery" routerLinkActive="is-active" class="nav__link">Gallery</a>
+      <a routerLink="/rates" routerLinkActive="is-active" class="nav__link">Rates</a>
+      <a routerLink="/attractions" routerLinkActive="is-active" class="nav__link">Attractions</a>
+      <a routerLink="/faq" routerLinkActive="is-active" class="nav__link">FAQ</a>
+      <a routerLink="/contact" routerLinkActive="is-active" class="nav__link">Contact</a>
+    </nav>
 
-      <!-- Desktop WhatsApp Button -->
-      <a class="btn-whatsapp desktop-only" (click)="openWhatsApp()">
-        <ion-icon name="logo-whatsapp"></ion-icon>
-        <span class="btn-text">Book on WhatsApp</span>
-      </a>
-    </div>
-  </header>
-</ion-header>
+    <!-- Desktop WhatsApp Button -->
+    <a class="btn-whatsapp desktop-only" (click)="openWhatsApp()">
+      <ion-icon name="logo-whatsapp"></ion-icon>
+      <span class="btn-text">Book on WhatsApp</span>
+    </a>
+  </div>
+</header>
 
-<!-- ============================================= -->
-<!-- MOBILE NAV OVERLAY & DRAWER                   -->
-<!-- ============================================= -->
+<!-- Mobile Navigation Overlay -->
 <div class="nav-overlay" [class.active]="mobileNavOpen" (click)="closeMobileNav()"></div>
 
+<!-- Mobile Navigation Drawer -->
 <div class="mobile-nav" [class.active]="mobileNavOpen">
   <div class="mobile-nav-header">
     <button class="mobile-nav-close" (click)="closeMobileNav()">
@@ -54,28 +49,36 @@
   
   <div class="mobile-nav-links">
     <a routerLink="/home" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">🏠</span> Home
+      <span class="link-icon">🏠</span>
+      Home
     </a>
     <a routerLink="/about" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">ℹ️</span> About
+      <span class="link-icon">ℹ️</span>
+      About
     </a>
     <a routerLink="/rooms" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">🛏️</span> Rooms
+      <span class="link-icon">🛏️</span>
+      Rooms
     </a>
     <a routerLink="/gallery" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">🖼️</span> Gallery
+      <span class="link-icon">🖼️</span>
+      Gallery
     </a>
     <a routerLink="/rates" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">💰</span> Rates
+      <span class="link-icon">💰</span>
+      Rates
     </a>
     <a routerLink="/attractions" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">📍</span> Attractions
+      <span class="link-icon">📍</span>
+      Attractions
     </a>
     <a routerLink="/faq" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">❓</span> FAQ
+      <span class="link-icon">❓</span>
+      FAQ
     </a>
     <a routerLink="/contact" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">📧</span> Contact
+      <span class="link-icon">📧</span>
+      Contact
     </a>
     
     <div class="mobile-divider"></div>
@@ -96,16 +99,19 @@
 <!-- ============================================= -->
 <ion-content [fullscreen]="true" (ionScroll)="onScroll($event)">
   
-  <!-- ================= PAGE HEADER ================= -->
+  <!-- ================= HERO / PAGE HEADER ================= -->
   <section class="page-header">
     <div class="page-header-bg"></div>
     <div class="page-header-overlay"></div>
     <div class="page-header-content">
       <div class="container">
         <div class="page-header-text animate-fade-up">
-          <span class="hero-badge">✦ Our Rooms</span>
-          <h1 class="page-title">Find Your Perfect Stay</h1>
-          <p class="page-subtitle">Discover comfortable accommodation designed for every type of traveller.</p>
+          <!-- Changed: "Premium Accommodation" → "Comfortable Stay" -->
+          <span class="hero-badge">✦ Comfortable Stay</span>
+          <!-- Changed: "Find Your Perfect Stay" → "Your Ideal Haven" -->
+          <h1 class="page-title">Your Ideal Haven</h1>
+          <!-- Changed: "Discover comfortable accommodation designed for every type of traveller." → "Your comfortable stay in the heart of Durban" -->
+          <p class="page-subtitle">Your comfortable stay in the heart of Durban</p>
         </div>
       </div>
     </div>
@@ -120,9 +126,9 @@
         <p class="section-subtitle">Choose from a variety of comfortable rooms across our locations.</p>
       </div>
 
-      <!-- Rooms Grid -->
+      <!-- Rooms Grid - Clicking the card opens room detail -->
       <div class="rooms-grid animate-fade-up">
-        <div class="room-card" *ngFor="let room of filteredRooms; let i = index" [style.animation-delay]="i * 0.1 + 's'">
+        <div class="room-card" *ngFor="let room of filteredRooms; let i = index" [style.animation-delay]="i * 0.1 + 's'" (click)="viewRoomDetail(room.id)">
           <div class="room-image">
             <img [src]="room.image" [alt]="room.name" (error)="onImageError($event)">
             <span class="room-badge" *ngIf="room.popular">✦ Popular</span>
@@ -155,7 +161,8 @@
             </div>
 
             <div class="room-bottom">
-              <a (click)="openWhatsApp(); $event.stopPropagation()" class="room-btn">
+              <!-- Removed price - now just the WhatsApp button -->
+              <a (click)="$event.stopPropagation(); openWhatsApp()" class="room-btn">
                 <ion-icon name="logo-whatsapp"></ion-icon>
                 Enquire on WhatsApp
               </a>
@@ -280,5 +287,13 @@
       </div>
     </div>
   </footer>
+
+  <!-- WHATSAPP FLOAT -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openWhatsApp()" class="whatsapp-float">
+      <ion-icon name="logo-whatsapp"></ion-icon>
+      <div class="whatsapp-pulse"></div>
+    </ion-fab-button>
+  </ion-fab>
 
 </ion-content>

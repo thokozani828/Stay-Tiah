@@ -13,21 +13,21 @@ $light-grey: #e8e8e8;
 $off-white: #f8f7f4;
 $white: #ffffff;
 
-// FIXED FONT - Kermit only (consistent across entire site)
-$font-primary: 'Kermit', Verdana, Geneva, sans-serif;
+// FIXED FONT - Tahoma only (consistent across entire site)
+$font-primary: Tahoma, Geneva, Verdana, sans-serif;
 $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 $header-height-desktop: 72px;
 $header-height-mobile: 56px;
 
 // =========================
-// GLOBAL FONT RESET - ALL elements use Kermit
+// GLOBAL FONT RESET - ALL elements use Tahoma
 // =========================
 * {
   font-family: $font-primary !important;
   box-sizing: border-box;
 }
 
-// All headings and text use Kermit
+// All headings and text use Tahoma
 h1, h2, h3, h4, h5, h6,
 p, span, a, div, li, button,
 .page-title, 
@@ -37,17 +37,10 @@ p, span, a, div, li, button,
 .stat-number, 
 .cta-content h2,
 .room-card .room-info h3,
-.room-card .room-bottom .room-price strong,
 .nav__link,
 .mobile-nav a,
-.faq-question,
 .hero-description,
 .section-subtitle,
-.about-description,
-.about-content p,
-.why-card p,
-.rates-table th,
-.rates-table td,
 .eyebrow,
 .hero-badge,
 .footer-column a,
@@ -60,15 +53,13 @@ p, span, a, div, li, button,
 .feature-item span,
 .page-subtitle,
 .location-tabs .tab,
-.filter-tab,
 .room-details span,
 .room-distance,
-.unavailable-message span,
-.date-option,
 .btn-primary,
 .btn-secondary-cta,
 .btn-gold,
-.btn-whatsapp {
+.btn-whatsapp,
+.room-btn {
   font-family: $font-primary !important;
 }
 
