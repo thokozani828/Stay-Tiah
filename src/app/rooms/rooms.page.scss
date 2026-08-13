@@ -13,21 +13,21 @@ $light-grey: #e8e8e8;
 $off-white: #f8f7f4;
 $white: #ffffff;
 
-// FIXED FONT - Verdana only (consistent across entire site)
-$font-primary: Verdana, Geneva, sans-serif;
+// FIXED FONT - Kermit only (consistent across entire site)
+$font-primary: 'Kermit', Verdana, Geneva, sans-serif;
 $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 $header-height-desktop: 72px;
 $header-height-mobile: 56px;
 
 // =========================
-// GLOBAL FONT RESET - ALL elements use Verdana
+// GLOBAL FONT RESET - ALL elements use Kermit
 // =========================
 * {
   font-family: $font-primary !important;
   box-sizing: border-box;
 }
 
-// All headings and text use Verdana
+// All headings and text use Kermit
 h1, h2, h3, h4, h5, h6,
 p, span, a, div, li, button,
 .page-title, 
