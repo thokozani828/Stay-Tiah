@@ -25,15 +25,10 @@ export const routes: Routes = [
     path: 'contact',
     loadComponent: () => import('./contact/contact.page').then(m => m.ContactPage)
   },
-  {
-    path: 'booking',
-    loadComponent: () => import('./booking/booking.page').then(m => m.BookingPage)
-  },
 {
   path: 'room-detail',
   loadComponent: () => import('./room-detail/room-detail.page').then(m => m.RoomDetailPage)
 },
- 
   {
     path: '',
     redirectTo: 'home',
