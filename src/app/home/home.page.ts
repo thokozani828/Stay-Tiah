@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, ViewChild } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ViewChild, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, IonContent } from '@ionic/angular';
@@ -17,24 +17,36 @@ import { RouterModule, Router } from '@angular/router';
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
   // ==========================================
-  // FIX: Get a reference to <ion-content> 
+  // VIEW CHILD REFERENCE
   // ==========================================
   @ViewChild(IonContent, { static: false }) content!: IonContent;
 
-  // Navigation State
+  // ==========================================
+  // SPLASH SCREEN STATE
+  // ==========================================
+  splashHidden: boolean = false;
+
+  // ==========================================
+  // NAVIGATION STATE
+  // ==========================================
   activeTab: string = 'musgrave';
   currentSection: string = 'home';
   showHero: boolean = true;
   mobileNavOpen: boolean = false;
+  isScrolled: boolean = false;
 
-  // Image paths
+  // ==========================================
+  // IMAGE PATHS
+  // ==========================================
   aboutImage: string = 'assets/images/ChatGPT Image Jul 29, 2026, 08_23_26 AM.png';
   aboutImageFallback: string = 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80';
 
-  // FAQ Data
+  // ==========================================
+  // FAQ DATA
+  // ==========================================
   faqs: any[] = [
     {
       question: 'What are the check-in and check-out times?',
@@ -80,9 +92,28 @@ export class HomePage {
 
   constructor(private router: Router) {}
 
-  // =====================
+  // ==========================================
+  // LIFECYCLE HOOKS
+  // ==========================================
+
+  ngOnInit() {
+    // Hide splash screen after 2.5 seconds
+    setTimeout(() => {
+      this.splashHidden = true;
+    }, 2500);
+  }
+
+  // ==========================================
+  // WINDOW SCROLL LISTENER (for header)
+  // ==========================================
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.isScrolled = window.scrollY > 50;
+  }
+
+  // ==========================================
   // NAVIGATION METHODS
-  // =====================
+  // ==========================================
 
   // Navigate to booking page
   goToBooking() {
@@ -101,9 +132,9 @@ export class HomePage {
     this.scrollToSection('home');
   }
 
-  // =====================
-  // FIXED SCROLL METHODS
-  // =====================
+  // ==========================================
+  // SCROLL METHODS (Fixed)
+  // ==========================================
 
   // Scroll to specific section using Ionic's internal engine
   async scrollToSection(sectionId: string) {
@@ -113,23 +144,28 @@ export class HomePage {
     const targetElement = document.getElementById(sectionId);
     
     if (targetElement && this.content) {
-      // 1. Get Ionic's internal scroll element (Shadow DOM)
-      const scrollEl = await this.content.getScrollElement();
+      try {
+        // Get Ionic's internal scroll element (Shadow DOM)
+        const scrollEl = await this.content.getScrollElement();
 
-      // 2. Calculate the top position of the target element
-      // We subtract 72px to account for your fixed <ion-header>
-      const headerOffset = 72; 
-      const elementPosition = targetElement.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + scrollEl.scrollTop - headerOffset;
+        // Calculate the top position of the target element
+        const headerOffset = 72; // Account for fixed header
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + scrollEl.scrollTop - headerOffset;
 
-      // 3. Use Ionic's native scrollToPoint method (0px horizontal, Y position, 800ms duration)
-      this.content.scrollToPoint(0, offsetPosition, 800);
+        // Use Ionic's native scrollToPoint method
+        this.content.scrollToPoint(0, offsetPosition, 800);
+      } catch (error) {
+        console.error('Scroll error:', error);
+        // Fallback: use native scrollIntoView
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
   }
 
-  // =====================
+  // ==========================================
   // MOBILE NAVIGATION
-  // =====================
+  // ==========================================
 
   // Toggle mobile navigation
   toggleMobileNav() {
@@ -143,17 +179,18 @@ export class HomePage {
     document.body.style.overflow = '';
   }
 
-  // =====================
+  // ==========================================
   // EVENT HANDLERS
-  // =====================
+  // ==========================================
 
-  // Scroll event
+  // Scroll event for ion-content
   onScroll(event: any) {
     const scrollTop = event.detail.scrollTop;
     const heroHeight = window.innerHeight;
     
     this.showHero = scrollTop < heroHeight - 100;
     
+    // Also update scrolled state from ion-scroll
     const header = document.querySelector('.site-header');
     if (scrollTop > 50) {
       header?.classList.add('scrolled');
@@ -167,18 +204,18 @@ export class HomePage {
     event.target.src = this.aboutImageFallback;
   }
 
-  // =====================
+  // ==========================================
   // FAQ METHODS
-  // =====================
+  // ==========================================
 
   // Toggle FAQ item
   toggleFaq(index: number) {
     this.faqs[index].active = !this.faqs[index].active;
   }
 
-  // =====================
+  // ==========================================
   // WHATSAPP METHOD
-  // =====================
+  // ==========================================
 
   // Open WhatsApp
   openWhatsApp() {

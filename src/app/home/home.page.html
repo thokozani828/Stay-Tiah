@@ -1,12 +1,32 @@
+<!-- ============================================= -->
+<!-- SPLASH SCREEN (fullscreen overlay)            -->
+<!-- ============================================= -->
+<div id="splash" [class.hidden]="splashHidden">
+  <div class="splash-content">
+    <div class="splash-logo-container">
+      <div class="splash-ring"></div>
+      <div class="splash-ring-2"></div>
+      <span class="splash-logo">TIAH</span>
+    </div>
+    <div class="splash-tagline">The Ideal Accommodation Haven</div>
+    <div class="splash-loader">
+      <span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================= -->
+<!-- HEADER                                        -->
+<!-- ============================================= -->
 <ion-header>
-  <header class="site-header">
+  <header class="site-header" [class.scrolled]="isScrolled">
     <div class="site-header__inner">
       <a href="/" class="brand">
         <span class="brand__name">TIAH</span>
         <span class="brand__tagline">The Ideal Accommodation Haven</span>
       </a>
 
-      <!-- Hamburger Button - 3 lines -->
+      <!-- Hamburger Button -->
       <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
         <ion-icon name="menu-outline"></ion-icon>
       </button>
@@ -32,9 +52,9 @@
   </header>
 </ion-header>
 
-<!-- ==================================================== -->
-<!-- MOVED OUTSIDE: Mobile Navigation Overlay & Drawer    -->
-<!-- ==================================================== -->
+<!-- ============================================= -->
+<!-- MOBILE NAV OVERLAY & DRAWER                   -->
+<!-- ============================================= -->
 <div class="nav-overlay" [class.active]="mobileNavOpen" (click)="closeMobileNav()"></div>
 
 <div class="mobile-nav" [class.active]="mobileNavOpen">
@@ -88,9 +108,9 @@
   </div>
 </div>
 
-<!-- ==================================================== -->
-<!-- MAIN PAGE CONTENT (FIXED SCROLLING)                 -->
-<!-- ==================================================== -->
+<!-- ============================================= -->
+<!-- MAIN PAGE CONTENT                             -->
+<!-- ============================================= -->
 <ion-content [fullscreen]="true">
   
   <!-- ================= HERO SECTION ================= -->
