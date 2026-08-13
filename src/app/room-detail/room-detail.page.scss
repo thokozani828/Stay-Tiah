@@ -20,7 +20,6 @@ $radius-md: 12px;
 $radius-lg: 16px;
 $radius-xl: 24px;
 
-// FIXED FONT - Verdana only
 $font-primary: Verdana, Geneva, sans-serif;
 $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -67,9 +66,8 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   100% { transform: scale(1.5); opacity: 0; }
 }
 
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .animate-fade-up {
@@ -103,13 +101,8 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     p {
       color: $grey;
       font-size: 14px;
-      font-family: $font-primary !important;
     }
   }
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
 }
 
 // =========================
@@ -120,13 +113,17 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   margin: 0 auto;
   padding: 0 24px;
   
-  @media (max-width: 576px) {
+  @media (max-width: 768px) {
+    padding: 0 20px;
+  }
+  
+  @media (max-width: 480px) {
     padding: 0 16px;
   }
 }
 
 // =========================
-// ROOM HERO - CLEAN & MODERN
+// ROOM HERO - FULLY RESPONSIVE
 // =========================
 .room-hero {
   position: relative;
@@ -136,11 +133,19 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   background: $black;
   
+  @media (max-width: 1024px) {
+    min-height: 60vh;
+  }
+  
   @media (max-width: 768px) {
     min-height: 55vh;
   }
   
   @media (max-width: 480px) {
+    min-height: 50vh;
+  }
+  
+  @media (max-width: 360px) {
     min-height: 45vh;
   }
   
@@ -161,7 +166,11 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.6) 100%);
+    background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.6) 100%);
+    
+    @media (max-width: 768px) {
+      background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 100%);
+    }
   }
   
   .room-hero-content {
@@ -173,10 +182,18 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     @media (max-width: 768px) {
       padding: 40px 0 30px;
     }
+    
+    @media (max-width: 480px) {
+      padding: 30px 0 20px;
+    }
   }
   
   .room-hero-text {
     max-width: 700px;
+    
+    @media (max-width: 768px) {
+      max-width: 100%;
+    }
     
     .room-badges {
       display: flex;
@@ -195,6 +212,11 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         background: $gold;
         color: $black;
         
+        @media (max-width: 480px) {
+          font-size: 9px;
+          padding: 3px 12px;
+        }
+        
         &.new {
           background: #2196F3;
           color: white;
@@ -208,15 +230,18 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     .room-title {
-      font-family: $font-primary !important;
       font-size: clamp(32px, 5vw, 56px);
       line-height: 1.1;
       color: white;
       margin: 8px 0 12px;
       text-shadow: 0 2px 30px rgba(0,0,0,0.3);
       
+      @media (max-width: 768px) {
+        font-size: clamp(28px, 4.5vw, 40px);
+      }
+      
       @media (max-width: 480px) {
-        font-size: 28px;
+        font-size: clamp(24px, 6vw, 32px);
       }
     }
     
@@ -227,11 +252,20 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       color: rgba(255,255,255,0.7);
       font-size: 14px;
       margin-bottom: 16px;
+      flex-wrap: wrap;
+      
+      @media (max-width: 480px) {
+        font-size: 13px;
+      }
       
       ion-icon {
         color: $gold;
         font-size: 18px;
         flex-shrink: 0;
+        
+        @media (max-width: 480px) {
+          font-size: 16px;
+        }
       }
     }
     
@@ -241,6 +275,10 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       flex-wrap: wrap;
       margin-bottom: 24px;
       
+      @media (max-width: 480px) {
+        gap: 12px;
+      }
+      
       span {
         display: flex;
         align-items: center;
@@ -248,9 +286,17 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         color: rgba(255,255,255,0.8);
         font-size: 13px;
         
+        @media (max-width: 480px) {
+          font-size: 12px;
+        }
+        
         ion-icon {
           color: $gold;
           font-size: 16px;
+          
+          @media (max-width: 480px) {
+            font-size: 14px;
+          }
         }
       }
     }
@@ -258,6 +304,11 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     .hero-cta {
       padding: 14px 36px;
       font-size: 15px;
+      
+      @media (max-width: 768px) {
+        padding: 12px 28px;
+        font-size: 14px;
+      }
       
       @media (max-width: 480px) {
         width: 100%;
@@ -303,6 +354,10 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       left: 16px;
       padding: 8px 14px;
       font-size: 12px;
+      
+      ion-icon {
+        font-size: 16px;
+      }
     }
     
     @media (max-width: 480px) {
@@ -310,6 +365,10 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       left: 12px;
       padding: 6px 12px;
       font-size: 11px;
+      
+      ion-icon {
+        font-size: 14px;
+      }
       
       .back-text {
         display: none;
@@ -327,30 +386,43 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 50%;
     background: #25D366;
     border: none;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     box-shadow: 0 4px 25px rgba(37,211,102,0.4);
     transition: all 0.3s ease;
     
-    @media (min-width: 769px) {
-      display: none;
+    @media (max-width: 768px) {
+      display: flex;
+      width: 48px;
+      height: 48px;
+    }
+    
+    @media (max-width: 480px) {
+      width: 44px;
+      height: 44px;
+      bottom: 16px;
+      right: 16px;
     }
     
     ion-icon {
       font-size: 26px;
       color: white;
+      
+      @media (max-width: 480px) {
+        font-size: 22px;
+      }
     }
     
-    &:hover {
-      transform: scale(1.1);
+    &:active {
+      transform: scale(0.9);
     }
   }
 }
 
 // =========================
-// PROFESSIONAL GALLERY - CLEAN LAYOUT
+// PROFESSIONAL GALLERY - RESPONSIVE
 // =========================
 .room-gallery {
   padding: 50px 0 60px;
@@ -360,17 +432,32 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     padding: 30px 0 40px;
   }
   
+  @media (max-width: 480px) {
+    padding: 20px 0 30px;
+  }
+  
   .gallery-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+    
+    @media (max-width: 480px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
     
     h2 {
-      font-family: $font-primary !important;
       font-size: 24px;
       color: $black;
       margin: 0;
+      
+      @media (max-width: 768px) {
+        font-size: 22px;
+      }
       
       @media (max-width: 480px) {
         font-size: 20px;
@@ -387,8 +474,17 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       font-size: 13px;
       color: $grey;
       
+      @media (max-width: 480px) {
+        font-size: 12px;
+        padding: 4px 12px;
+      }
+      
       ion-icon {
         font-size: 16px;
+        
+        @media (max-width: 480px) {
+          font-size: 14px;
+        }
       }
     }
   }
@@ -398,9 +494,17 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     grid-template-columns: 2fr 1fr;
     gap: 12px;
     
+    @media (max-width: 992px) {
+      grid-template-columns: 1.5fr 1fr;
+    }
+    
     @media (max-width: 768px) {
       grid-template-columns: 1fr;
       gap: 10px;
+    }
+    
+    @media (max-width: 480px) {
+      gap: 8px;
     }
     
     .gallery-item {
@@ -409,6 +513,10 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       overflow: hidden;
       cursor: pointer;
       background: $off-white;
+      
+      @media (max-width: 480px) {
+        border-radius: $radius-sm;
+      }
       
       img {
         width: 100%;
@@ -425,20 +533,28 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           min-height: 400px;
         }
         
-        @media (max-width: 768px) {
-          grid-row: span 1;
-          min-height: 280px;
+        @media (max-width: 992px) {
+          min-height: 350px;
           
           img {
-            min-height: 280px;
+            min-height: 350px;
+          }
+        }
+        
+        @media (max-width: 768px) {
+          grid-row: span 1;
+          min-height: 320px;
+          
+          img {
+            min-height: 320px;
           }
         }
         
         @media (max-width: 480px) {
-          min-height: 220px;
+          min-height: 240px;
           
           img {
-            min-height: 220px;
+            min-height: 240px;
           }
         }
       }
@@ -446,7 +562,7 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       .gallery-overlay {
         position: absolute;
         inset: 0;
-        background: rgba(0,0,0,0.3);
+        background: rgba(0,0,0,0.35);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -458,12 +574,20 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         ion-icon {
           font-size: 32px;
           color: white;
+          
+          @media (max-width: 480px) {
+            font-size: 24px;
+          }
         }
         
         span {
           color: white;
           font-size: 13px;
           font-weight: 500;
+          
+          @media (max-width: 480px) {
+            font-size: 11px;
+          }
         }
       }
       
@@ -485,8 +609,19 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         align-items: center;
         gap: 6px;
         
+        @media (max-width: 480px) {
+          font-size: 10px;
+          padding: 3px 10px;
+          bottom: 8px;
+          right: 8px;
+        }
+        
         ion-icon {
           font-size: 14px;
+          
+          @media (max-width: 480px) {
+            font-size: 12px;
+          }
         }
       }
     }
@@ -498,6 +633,7 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       
       @media (max-width: 768px) {
         grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 10px;
       }
       
       @media (max-width: 480px) {
@@ -512,19 +648,27 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           min-height: 192px;
         }
         
-        @media (max-width: 768px) {
-          min-height: 130px;
+        @media (max-width: 992px) {
+          min-height: 160px;
           
           img {
-            min-height: 130px;
+            min-height: 160px;
+          }
+        }
+        
+        @media (max-width: 768px) {
+          min-height: 150px;
+          
+          img {
+            min-height: 150px;
           }
         }
         
         @media (max-width: 480px) {
-          min-height: 100px;
+          min-height: 110px;
           
           img {
-            min-height: 100px;
+            min-height: 110px;
           }
         }
       }
@@ -533,7 +677,7 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // =========================
-// IMAGE MODAL / LIGHTBOX
+// IMAGE MODAL - RESPONSIVE
 // =========================
 .image-modal {
   position: fixed;
@@ -545,11 +689,21 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   justify-content: center;
   animation: fadeIn 0.3s ease;
   backdrop-filter: blur(8px);
+  padding: 20px;
+  
+  @media (max-width: 480px) {
+    padding: 12px;
+  }
   
   .modal-content {
     position: relative;
-    max-width: 92vw;
+    max-width: 95vw;
     max-height: 92vh;
+    
+    @media (max-width: 768px) {
+      max-width: 98vw;
+      max-height: 90vh;
+    }
     
     img {
       max-width: 100%;
@@ -557,6 +711,10 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       object-fit: contain;
       border-radius: $radius-sm;
       box-shadow: 0 8px 60px rgba(0,0,0,0.5);
+      
+      @media (max-width: 768px) {
+        max-height: 80vh;
+      }
     }
     
     .modal-close {
@@ -570,6 +728,16 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
       padding: 8px;
       transition: transform 0.3s ease;
+      
+      @media (max-width: 768px) {
+        top: -44px;
+        font-size: 26px;
+      }
+      
+      @media (max-width: 480px) {
+        top: -38px;
+        font-size: 22px;
+      }
       
       &:hover {
         transform: rotate(90deg);
@@ -593,6 +761,16 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
       transition: all 0.3s ease;
       
+      @media (max-width: 768px) {
+        width: 40px;
+        height: 40px;
+      }
+      
+      @media (max-width: 480px) {
+        width: 36px;
+        height: 36px;
+      }
+      
       &:hover {
         background: rgba(255,255,255,0.2);
       }
@@ -615,6 +793,14 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       
       ion-icon {
         font-size: 24px;
+        
+        @media (max-width: 768px) {
+          font-size: 20px;
+        }
+        
+        @media (max-width: 480px) {
+          font-size: 18px;
+        }
       }
     }
     
@@ -628,19 +814,32 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       background: rgba(0,0,0,0.3);
       padding: 4px 16px;
       border-radius: 20px;
+      
+      @media (max-width: 480px) {
+        font-size: 12px;
+        padding: 3px 12px;
+      }
     }
   }
 }
 
 // =========================
-// ROOM DETAILS - CLEAN LAYOUT
+// ROOM DETAILS - RESPONSIVE
 // =========================
 .room-details-section {
   padding: 40px 0 80px;
   background: $off-white;
   
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     padding: 30px 0 60px;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 25px 0 50px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 20px 0 40px;
   }
 }
 
@@ -648,6 +847,10 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
   gap: 32px;
+  
+  @media (max-width: 1024px) {
+    gap: 28px;
+  }
   
   @media (max-width: 992px) {
     grid-template-columns: 1fr;
@@ -664,21 +867,30 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid rgba(0,0,0,0.03);
   
   @media (max-width: 768px) {
-    padding: 20px;
+    padding: 22px 24px;
+    border-radius: $radius-md;
+    margin-bottom: 16px;
   }
   
   @media (max-width: 480px) {
-    padding: 16px;
+    padding: 16px 18px;
+    border-radius: $radius-sm;
+    margin-bottom: 12px;
   }
   
   h3 {
-    font-family: $font-primary !important;
     font-size: 20px;
     color: $black;
     margin: 0 0 16px;
     
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
       font-size: 18px;
+      margin-bottom: 14px;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 17px;
+      margin-bottom: 12px;
     }
   }
   
@@ -689,20 +901,29 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       color: #444;
       margin: 0;
       
-      @media (max-width: 480px) {
+      @media (max-width: 768px) {
         font-size: 14px;
         line-height: 1.7;
+      }
+      
+      @media (max-width: 480px) {
+        font-size: 13px;
+        line-height: 1.6;
       }
     }
   }
 }
 
 // =========================
-// ROOM TYPES - CLEAN CARDS
+// ROOM TYPES - RESPONSIVE
 // =========================
 .room-types-grid {
   display: grid;
   gap: 12px;
+  
+  @media (max-width: 480px) {
+    gap: 10px;
+  }
   
   .room-type-card {
     background: $off-white;
@@ -712,13 +933,22 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transition: all 0.3s ease;
     cursor: pointer;
     
+    @media (max-width: 768px) {
+      padding: 14px 18px;
+    }
+    
     @media (max-width: 480px) {
-      padding: 14px 16px;
+      padding: 12px 14px;
+      border-radius: $radius-sm;
     }
     
     &:hover {
       border-color: rgba($gold, 0.3);
       transform: translateX(4px);
+      
+      @media (max-width: 480px) {
+        transform: translateX(2px);
+      }
     }
     
     &.selected {
@@ -731,15 +961,20 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       justify-content: space-between;
       align-items: center;
       margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 4px;
       
       h4 {
-        font-family: $font-primary !important;
         font-size: 15px;
         color: $black;
         margin: 0;
         
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
           font-size: 14px;
+        }
+        
+        @media (max-width: 480px) {
+          font-size: 13px;
         }
       }
       
@@ -752,6 +987,11 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        
+        @media (max-width: 480px) {
+          font-size: 9px;
+          padding: 1px 10px;
+        }
       }
     }
     
@@ -761,6 +1001,10 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       flex-wrap: wrap;
       margin-bottom: 8px;
       
+      @media (max-width: 480px) {
+        gap: 10px;
+      }
+      
       span {
         display: flex;
         align-items: center;
@@ -768,9 +1012,17 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         font-size: 13px;
         color: #666;
         
+        @media (max-width: 480px) {
+          font-size: 12px;
+        }
+        
         ion-icon {
           font-size: 14px;
           color: $gold;
+          
+          @media (max-width: 480px) {
+            font-size: 12px;
+          }
         }
       }
     }
@@ -788,6 +1040,11 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         font-size: 11px;
         color: #555;
         
+        @media (max-width: 480px) {
+          font-size: 10px;
+          padding: 1px 8px;
+        }
+        
         &.more {
           background: rgba($gold, 0.1);
           color: $gold;
@@ -803,12 +1060,23 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       padding-top: 10px;
       border-top: 1px solid rgba(0,0,0,0.06);
       
+      @media (max-width: 480px) {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+      }
+      
       .type-cancellation {
         display: flex;
         align-items: center;
         gap: 6px;
         font-size: 12px;
         color: #666;
+        
+        @media (max-width: 480px) {
+          font-size: 11px;
+          justify-content: center;
+        }
         
         ion-icon {
           color: #34d399;
@@ -830,13 +1098,27 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         transition: all 0.3s ease;
         cursor: pointer;
         
+        @media (max-width: 480px) {
+          justify-content: center;
+          padding: 8px 16px;
+          font-size: 13px;
+        }
+        
         &:hover {
           transform: scale(1.05);
           box-shadow: 0 4px 15px rgba(37,211,102,0.3);
         }
         
+        &:active {
+          transform: scale(0.95);
+        }
+        
         ion-icon {
           font-size: 16px;
+          
+          @media (max-width: 480px) {
+            font-size: 18px;
+          }
         }
       }
     }
@@ -844,15 +1126,20 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // =========================
-// AMENITIES & FACILITIES
+// AMENITIES - RESPONSIVE
 // =========================
 .amenities-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
   
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  
   @media (max-width: 480px) {
     grid-template-columns: 1fr;
+    gap: 6px;
   }
   
   .amenity-item {
@@ -865,10 +1152,19 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-size: 13px;
     color: #333;
     
+    @media (max-width: 480px) {
+      font-size: 12px;
+      padding: 6px 10px;
+    }
+    
     ion-icon {
       color: $gold;
       font-size: 18px;
       flex-shrink: 0;
+      
+      @media (max-width: 480px) {
+        font-size: 16px;
+      }
     }
   }
 }
@@ -886,17 +1182,25 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     color: #444;
     line-height: 1.5;
     
+    @media (max-width: 480px) {
+      font-size: 13px;
+    }
+    
     ion-icon {
       color: $gold;
       font-size: 16px;
       flex-shrink: 0;
       margin-top: 2px;
+      
+      @media (max-width: 480px) {
+        font-size: 14px;
+      }
     }
   }
 }
 
 // =========================
-// HOUSE RULES
+// HOUSE RULES - RESPONSIVE
 // =========================
 .rules-grid {
   display: grid;
@@ -905,6 +1209,7 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   
   @media (max-width: 480px) {
     grid-template-columns: 1fr;
+    gap: 6px;
   }
   
   .rule-item {
@@ -917,16 +1222,25 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-size: 13px;
     color: #444;
     
+    @media (max-width: 480px) {
+      font-size: 12px;
+      padding: 6px 10px;
+    }
+    
     ion-icon {
       color: $gold;
       font-size: 16px;
       flex-shrink: 0;
+      
+      @media (max-width: 480px) {
+        font-size: 14px;
+      }
     }
   }
 }
 
 // =========================
-// BOOKING CARD - SIDEBAR
+// BOOKING CARD - RESPONSIVE
 // =========================
 .booking-card {
   background: $white;
@@ -937,33 +1251,54 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: sticky;
   top: 24px;
   
+  @media (max-width: 1024px) {
+    padding: 24px 28px;
+  }
+  
   @media (max-width: 992px) {
     position: static;
+    padding: 24px 28px;
   }
   
   @media (max-width: 768px) {
-    padding: 20px;
+    padding: 20px 24px;
   }
   
   @media (max-width: 480px) {
-    padding: 16px;
+    padding: 16px 18px;
+    border-radius: $radius-md;
   }
   
   .booking-header {
     text-align: center;
     margin-bottom: 20px;
     
+    @media (max-width: 480px) {
+      margin-bottom: 16px;
+    }
+    
     h3 {
-      font-family: $font-primary !important;
       font-size: 20px;
       color: $black;
       margin: 0 0 4px;
+      
+      @media (max-width: 768px) {
+        font-size: 18px;
+      }
+      
+      @media (max-width: 480px) {
+        font-size: 17px;
+      }
     }
     
     p {
       font-size: 14px;
       color: $grey;
       margin: 0;
+      
+      @media (max-width: 480px) {
+        font-size: 13px;
+      }
     }
   }
   
@@ -975,6 +1310,7 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     
     @media (max-width: 480px) {
       grid-template-columns: 1fr;
+      gap: 10px;
     }
     
     .date-group {
@@ -986,6 +1322,10 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         text-transform: uppercase;
         letter-spacing: 0.5px;
         margin-bottom: 4px;
+        
+        @media (max-width: 480px) {
+          font-size: 10px;
+        }
       }
       
       .date-input {
@@ -997,6 +1337,11 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         font-size: 13px;
         color: $black;
         transition: border-color 0.3s ease;
+        
+        @media (max-width: 480px) {
+          padding: 8px 10px;
+          font-size: 12px;
+        }
         
         &:focus {
           border-color: $gold;
@@ -1013,9 +1358,14 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-size: 15px;
     margin-bottom: 12px;
     
-    @media (max-width: 480px) {
-      font-size: 14px;
+    @media (max-width: 768px) {
       padding: 12px;
+      font-size: 14px;
+    }
+    
+    @media (max-width: 480px) {
+      padding: 12px;
+      font-size: 14px;
     }
   }
   
@@ -1025,6 +1375,10 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     gap: 16px;
     flex-wrap: wrap;
     
+    @media (max-width: 480px) {
+      gap: 10px;
+    }
+    
     span {
       display: flex;
       align-items: center;
@@ -1032,16 +1386,24 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       font-size: 12px;
       color: $grey;
       
+      @media (max-width: 480px) {
+        font-size: 11px;
+      }
+      
       ion-icon {
         color: $gold;
         font-size: 14px;
+        
+        @media (max-width: 480px) {
+          font-size: 12px;
+        }
       }
     }
   }
 }
 
 // =========================
-// LOCATION
+// LOCATION - RESPONSIVE
 // =========================
 .location-address {
   display: flex;
@@ -1052,11 +1414,19 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   line-height: 1.5;
   margin-bottom: 16px;
   
+  @media (max-width: 480px) {
+    font-size: 13px;
+  }
+  
   ion-icon {
     color: $gold;
     font-size: 18px;
     flex-shrink: 0;
     margin-top: 2px;
+    
+    @media (max-width: 480px) {
+      font-size: 16px;
+    }
   }
 }
 
@@ -1069,6 +1439,10 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     height: 200px;
     display: block;
     
+    @media (max-width: 768px) {
+      height: 180px;
+    }
+    
     @media (max-width: 480px) {
       height: 150px;
     }
@@ -1076,7 +1450,7 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // =========================
-// ATTRACTIONS
+// ATTRACTIONS - RESPONSIVE
 // =========================
 .attraction-list {
   display: grid;
@@ -1091,10 +1465,19 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: $radius-sm;
     font-size: 13px;
     
+    @media (max-width: 480px) {
+      font-size: 12px;
+      padding: 6px 10px;
+    }
+    
     ion-icon {
       color: $gold;
       font-size: 16px;
       flex-shrink: 0;
+      
+      @media (max-width: 480px) {
+        font-size: 14px;
+      }
     }
     
     .attraction-name {
@@ -1106,12 +1489,16 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       color: $grey;
       font-size: 12px;
       font-weight: 500;
+      
+      @media (max-width: 480px) {
+        font-size: 11px;
+      }
     }
   }
 }
 
 // =========================
-// RELATED ROOMS
+// RELATED ROOMS - RESPONSIVE
 // =========================
 .related-rooms {
   padding: 40px 0 60px;
@@ -1121,17 +1508,32 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     padding: 30px 0 40px;
   }
   
+  @media (max-width: 480px) {
+    padding: 20px 0 30px;
+  }
+  
   .section-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+    
+    @media (max-width: 480px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
     
     h2 {
-      font-family: $font-primary !important;
       font-size: 24px;
       color: $black;
       margin: 0;
+      
+      @media (max-width: 768px) {
+        font-size: 22px;
+      }
       
       @media (max-width: 480px) {
         font-size: 20px;
@@ -1148,6 +1550,10 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       font-weight: 500;
       transition: all 0.3s ease;
       
+      @media (max-width: 480px) {
+        font-size: 13px;
+      }
+      
       &:hover {
         gap: 8px;
       }
@@ -1159,13 +1565,23 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
     
-    @media (max-width: 992px) {
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    @media (max-width: 768px) {
       grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
     }
     
     @media (max-width: 480px) {
       grid-template-columns: 1fr 1fr;
       gap: 10px;
+    }
+    
+    @media (max-width: 360px) {
+      grid-template-columns: 1fr;
+      gap: 12px;
     }
     
     .related-card {
@@ -1176,15 +1592,27 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       background: $off-white;
       box-shadow: $shadow-sm;
       
+      @media (max-width: 480px) {
+        border-radius: $radius-sm;
+      }
+      
       &:hover {
         transform: translateY(-4px);
         box-shadow: $shadow-lg;
+      }
+      
+      &:active {
+        transform: scale(0.97);
       }
       
       img {
         width: 100%;
         height: 160px;
         object-fit: cover;
+        
+        @media (max-width: 768px) {
+          height: 140px;
+        }
         
         @media (max-width: 480px) {
           height: 120px;
@@ -1195,14 +1623,17 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         padding: 12px 16px;
         
         @media (max-width: 480px) {
-          padding: 8px 10px;
+          padding: 8px 12px;
         }
         
         h4 {
-          font-family: $font-primary !important;
           font-size: 14px;
           color: $black;
           margin: 0 0 2px;
+          
+          @media (max-width: 768px) {
+            font-size: 13px;
+          }
           
           @media (max-width: 480px) {
             font-size: 12px;
@@ -1227,6 +1658,11 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           border-radius: 50px;
           font-size: 10px;
           font-weight: 600;
+          
+          @media (max-width: 480px) {
+            font-size: 9px;
+            padding: 1px 8px;
+          }
         }
       }
     }
@@ -1234,7 +1670,7 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // =========================
-// BUTTONS
+// BUTTONS - RESPONSIVE
 // =========================
 .btn-primary {
   display: inline-flex;
@@ -1252,10 +1688,25 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
   cursor: pointer;
   box-shadow: 0 4px 25px rgba($gold, 0.25);
-  font-family: $font-primary !important;
+  
+  @media (max-width: 768px) {
+    padding: 12px 28px;
+    font-size: 13px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 10px 20px;
+    font-size: 13px;
+    width: 100%;
+    justify-content: center;
+  }
   
   ion-icon {
     font-size: 18px;
+    
+    @media (max-width: 480px) {
+      font-size: 16px;
+    }
   }
   
   &:hover {
@@ -1286,12 +1737,18 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 20px rgba($gold, 0.25);
   cursor: pointer;
   border: none;
-  font-family: $font-primary !important;
   width: fit-content;
   
-  @media (max-width: 576px) {
+  @media (max-width: 768px) {
+    padding: 10px 24px;
+    font-size: 13px;
+  }
+  
+  @media (max-width: 480px) {
     width: 100%;
     padding: 12px 20px;
+    font-size: 14px;
+    justify-content: center;
   }
   
   &:hover {
@@ -1299,16 +1756,30 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateY(-2px);
     box-shadow: 0 8px 35px rgba($gold, 0.4);
   }
+  
+  &:active {
+    transform: scale(0.97);
+  }
 }
 
 // =========================
-// WHATSAPP FLOAT
+// WHATSAPP FLOAT - RESPONSIVE
 // =========================
 ion-fab {
   position: fixed !important;
   bottom: 24px !important;
   right: 24px !important;
   z-index: 1000;
+  
+  @media (max-width: 768px) {
+    bottom: 20px !important;
+    right: 20px !important;
+  }
+  
+  @media (max-width: 480px) {
+    bottom: 16px !important;
+    right: 16px !important;
+  }
 }
 
 ion-fab-button.whatsapp-float {
@@ -1318,11 +1789,14 @@ ion-fab-button.whatsapp-float {
   width: 60px;
   height: 60px;
   
-  @media (max-width: 576px) {
-    width: 50px;
-    height: 50px;
-    bottom: 16px !important;
-    right: 16px !important;
+  @media (max-width: 768px) {
+    width: 54px;
+    height: 54px;
+  }
+  
+  @media (max-width: 480px) {
+    width: 48px;
+    height: 48px;
   }
   
   .whatsapp-pulse {
@@ -1338,7 +1812,7 @@ ion-fab-button.whatsapp-float {
 }
 
 // =========================
-// FOOTER
+// FOOTER - RESPONSIVE
 // =========================
 .footer {
   position: relative;
@@ -1348,8 +1822,12 @@ ion-fab-button.whatsapp-float {
   margin: 0;
   bottom: 0;
   
-  @media (max-width: 576px) {
+  @media (max-width: 768px) {
     padding: 40px 0 0;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 30px 0 0;
   }
   
   .footer-background {
@@ -1385,11 +1863,16 @@ ion-fab-button.whatsapp-float {
     gap: 40px;
     padding-bottom: 40px;
     
+    @media (max-width: 1024px) {
+      gap: 30px;
+    }
+    
     @media (max-width: 900px) {
       grid-template-columns: 1fr 1fr;
       gap: 30px;
     }
-    @media (max-width: 500px) {
+    
+    @media (max-width: 600px) {
       grid-template-columns: 1fr;
       gap: 24px;
       padding-bottom: 24px;
@@ -1398,7 +1881,6 @@ ion-fab-button.whatsapp-float {
   
   .footer-brand {
     .logo {
-      font-family: $font-primary !important;
       font-size: 30px;
       display: flex;
       align-items: center;
@@ -1406,7 +1888,7 @@ ion-fab-button.whatsapp-float {
       margin-bottom: 12px;
       cursor: pointer;
       
-      @media (max-width: 576px) {
+      @media (max-width: 600px) {
         font-size: 26px;
       }
       
@@ -1426,9 +1908,8 @@ ion-fab-button.whatsapp-float {
       max-width: 320px;
       line-height: 1.7;
       font-weight: 300;
-      font-family: $font-primary !important;
       
-      @media (max-width: 576px) {
+      @media (max-width: 600px) {
         font-size: 13px;
         max-width: 100%;
       }
@@ -1453,7 +1934,7 @@ ion-fab-button.whatsapp-float {
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255,255,255,0.05);
         
-        @media (max-width: 576px) {
+        @media (max-width: 600px) {
           width: 36px;
           height: 36px;
           font-size: 14px;
@@ -1481,9 +1962,8 @@ ion-fab-button.whatsapp-float {
       letter-spacing: 2px;
       text-transform: uppercase;
       font-weight: 600;
-      font-family: $font-primary !important;
       
-      @media (max-width: 576px) {
+      @media (max-width: 600px) {
         font-size: 13px;
         letter-spacing: 1.5px;
       }
@@ -1496,9 +1976,8 @@ ion-fab-button.whatsapp-float {
       transition: color 0.3s;
       font-weight: 300;
       text-decoration: none;
-      font-family: $font-primary !important;
       
-      @media (max-width: 576px) {
+      @media (max-width: 600px) {
         font-size: 13px;
       }
       
@@ -1516,9 +1995,8 @@ ion-fab-button.whatsapp-float {
         gap: 10px;
         color: rgba(255,255,255,0.5);
         font-size: 13px;
-        font-family: $font-primary !important;
         
-        @media (max-width: 576px) {
+        @media (max-width: 600px) {
           font-size: 12px;
         }
         
@@ -1539,9 +2017,8 @@ ion-fab-button.whatsapp-float {
     font-size: 12px;
     letter-spacing: 0.5px;
     font-weight: 300;
-    font-family: $font-primary !important;
     
-    @media (max-width: 500px) {
+    @media (max-width: 600px) {
       flex-direction: column;
       gap: 6px;
       text-align: center;
@@ -1613,45 +2090,27 @@ ion-content,
 }
 
 // =========================
-// RESPONSIVE OVERRIDES
+// TOUCH IMPROVEMENTS
 // =========================
-@media (max-width: 768px) {
-  .room-details-section {
-    padding: 30px 0 60px;
-  }
-  
-  .detail-card {
-    padding: 20px;
-  }
-  
-  .booking-card {
-    padding: 20px;
-  }
+button, 
+a, 
+.clickable {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
-@media (max-width: 480px) {
-  .room-title {
-    font-size: 28px !important;
+// =========================
+// PRINT STYLES
+// =========================
+@media print {
+  .hero-whatsapp-btn,
+  ion-fab,
+  .back-btn,
+  .booking-card {
+    display: none !important;
   }
   
-  .amenities-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .booking-card .booking-dates {
-    grid-template-columns: 1fr;
-  }
-  
-  .room-types-grid .room-type-card {
-    padding: 14px 16px;
-  }
-  
-  .gallery-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .gallery-item.featured {
-    grid-row: span 1;
-    min-height: 220px;
+  .room-hero {
+    min-height: 30vh !important;
   }
 }
