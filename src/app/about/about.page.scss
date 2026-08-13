@@ -3,10 +3,6 @@
 // =============================================
 
 // =========================
-// FONTS - CONSISTENT ACROSS PAGE
-// =========================
-
-// =========================
 // VARIABLES
 // =========================
 $gold: #c9a84c;
@@ -20,8 +16,9 @@ $grey: #888888;
 $light-grey: #e8e8e8;
 $off-white: #f8f7f4;
 $white: #ffffff;
-$font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-$font-serif: 'Cormorant Garamond', Georgia, serif;
+
+// FIXED FONT - Tahoma only (consistent across entire site)
+$font-primary: Tahoma, Geneva, Verdana, sans-serif;
 $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 $header-height-desktop: 72px;
 $header-height-mobile: 56px;
@@ -34,8 +31,9 @@ $header-height-mobile: 56px;
   box-sizing: border-box;
 }
 
-// Override serif fonts where needed
-h1, h2, h3, h4, 
+// All headings and text use Tahoma
+h1, h2, h3, h4, h5, h6,
+p, span, a, div, li, button,
 .page-title, 
 .section-title, 
 .brand__name, 
@@ -47,8 +45,33 @@ h1, h2, h3, h4,
 .testimonial-card .author-info h4,
 .footer .logo,
 .footer .logo-text,
-.footer .logo-gold {
-  font-family: $font-serif !important;
+.footer .logo-gold,
+.nav__link,
+.mobile-nav a,
+.hero-description,
+.section-subtitle,
+.about-description,
+.about-content p,
+.why-card p,
+.eyebrow,
+.hero-badge,
+.footer-column a,
+.footer-column p,
+.mobile-brand-text,
+.mobile-brand-tagline,
+.location-title,
+.location-name,
+.location-card p,
+.about-features .feature span,
+.location-features li,
+.amenity-item span,
+.testimonial-text,
+.author-info span,
+.btn-primary,
+.btn-secondary-cta,
+.btn-gold,
+.btn-whatsapp {
+  font-family: $font-primary !important;
 }
 
 // =========================
@@ -71,88 +94,25 @@ h1, h2, h3, h4,
   opacity: 0;
   animation: fadeUp 0.8s ease forwards;
 }
-.animate-slide-left {
-  opacity: 0;
-  animation: slideLeft 0.8s ease forwards;
-}
-.animate-slide-right {
-  opacity: 0;
-  animation: slideRight 0.8s ease forwards;
-}
-.animate-scale {
-  opacity: 0;
-  animation: scaleIn 0.6s ease forwards;
-}
-.animate-pop {
-  opacity: 0;
-  animation: popIn 0.6s ease forwards;
-}
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
-@keyframes slideLeft {
-  from { opacity: 0; transform: translateX(-50px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-@keyframes slideRight {
-  from { opacity: 0; transform: translateX(50px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-@keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
-@keyframes popIn {
-  0% { opacity: 0; transform: scale(0.5); }
-  70% { transform: scale(1.1); }
-  100% { opacity: 1; transform: scale(1); }
-}
+
 @keyframes kenBurns {
   0% { transform: scale(1) translate(0,0); }
   50% { transform: scale(1.08) translate(-2%,-1%); }
   100% { transform: scale(1.05) translate(1%,2%); }
 }
-@keyframes bounce { 
-  0%,100% { transform: translateY(0); } 
-  50% { transform: translateY(8px); } 
-}
+
 @keyframes pulse {
   0% { transform: scale(1); opacity: 1; }
   100% { transform: scale(1.5); opacity: 0; }
 }
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
 
 // =========================
-// HIDE SCROLLBAR
-// =========================
-.no-scrollbar {
-  --scrollbar-width: 0px;
-  
-  &::-webkit-scrollbar {
-    display: none;
-    width: 0;
-    background: transparent;
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    display: none;
-  }
-  
-  &::-webkit-scrollbar-track {
-    display: none;
-  }
-  
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-// =========================
-// HEADER / NAVBAR - EXACTLY LIKE ORIGINAL
+// HEADER / NAVBAR
 // =========================
 .site-header {
   background: rgba(10, 10, 10, 0.95);
@@ -198,7 +158,6 @@ h1, h2, h3, h4,
   }
 }
 
-// Brand
 .brand {
   text-decoration: none;
   color: #fff;
@@ -207,6 +166,7 @@ h1, h2, h3, h4,
   display: flex;
   flex-direction: column;
   transition: $transition-smooth;
+  cursor: pointer;
   
   &:hover {
     transform: scale(1.02);
@@ -215,7 +175,7 @@ h1, h2, h3, h4,
 
 .brand__name {
   display: block;
-  font-family: $font-serif !important;
+  font-family: $font-primary !important;
   font-size: 1.8rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -281,6 +241,7 @@ h1, h2, h3, h4,
   position: relative;
   border-radius: 8px;
   letter-spacing: 0.3px;
+  cursor: pointer;
   
   @media (max-width: 1200px) {
     font-size: 12px;
@@ -389,10 +350,8 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// MOBILE NAVIGATION - CLEAN DESIGN
+// MOBILE NAVIGATION
 // =========================
-
-// Hamburger Button
 .hamburger-btn {
   display: none;
   background: transparent;
@@ -434,7 +393,6 @@ h1, h2, h3, h4,
   }
 }
 
-// Overlay
 .nav-overlay {
   display: none;
   position: fixed;
@@ -455,7 +413,6 @@ h1, h2, h3, h4,
   }
 }
 
-// Mobile Navigation Drawer - Clean
 .mobile-nav {
   position: fixed;
   top: 0;
@@ -480,7 +437,6 @@ h1, h2, h3, h4,
     right: 0;
   }
   
-  // Close Button
   .mobile-nav-header {
     padding: 16px 20px 8px;
     display: flex;
@@ -513,7 +469,6 @@ h1, h2, h3, h4,
     }
   }
   
-  // Brand
   .mobile-nav-brand {
     padding: 0 24px 24px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
@@ -521,7 +476,7 @@ h1, h2, h3, h4,
     
     .mobile-brand-text {
       display: block;
-      font-family: $font-serif !important;
+      font-family: $font-primary !important;
       font-size: 1.6rem;
       font-weight: 700;
       background: linear-gradient(135deg, #ffffff 0%, $gold 100%);
@@ -542,7 +497,6 @@ h1, h2, h3, h4,
     }
   }
   
-  // Navigation Links
   .mobile-nav-links {
     padding: 16px 16px 0;
     flex: 1;
@@ -573,20 +527,13 @@ h1, h2, h3, h4,
       }
       
       .link-icon {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 28px;
-        margin-right: 12px;
-        color: $gold;
-        font-size: 1.1rem;
-        transition: $transition-smooth;
+        font-size: 20px;
         opacity: 0.6;
-        
-        ion-icon {
-          font-size: 20px;
-          transition: $transition-smooth;
-        }
+        transition: $transition-smooth;
+        flex-shrink: 0;
+        width: 28px;
+        text-align: center;
+        color: $gold;
       }
       
       &:hover {
@@ -595,13 +542,8 @@ h1, h2, h3, h4,
         border-color: rgba(255, 255, 255, 0.05);
         
         .link-icon {
-          color: $gold-light;
-          transform: scale(1.1);
           opacity: 1;
-          
-          ion-icon {
-            transform: scale(1.1);
-          }
+          transform: scale(1.1);
         }
       }
       
@@ -611,7 +553,6 @@ h1, h2, h3, h4,
         border-color: rgba(201, 168, 76, 0.12);
         
         .link-icon {
-          color: $gold;
           opacity: 1;
         }
       }
@@ -660,7 +601,6 @@ h1, h2, h3, h4,
     }
   }
   
-  // Footer
   .mobile-nav-footer {
     padding: 16px 24px 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.04);
@@ -723,9 +663,6 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
-// DESKTOP OVERRIDES (Hide mobile elements)
-// =========================
 @media (min-width: 993px) {
   .hamburger-btn {
     display: none !important;
@@ -741,19 +678,16 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// PAGE HEADER WITH IMAGE
+// PAGE HEADER
 // =========================
 .page-header {
   min-height: 40vh;
-  height: auto;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   overflow: hidden;
-  margin-top: 0;
-  width: 100%;
   padding: 40px 0;
   background: #1a1a2e;
   
@@ -811,6 +745,7 @@ h1, h2, h3, h4,
         margin-bottom: 15px;
         border: 1px solid rgba(201, 168, 76, 0.3);
         backdrop-filter: blur(5px);
+        font-family: $font-primary !important;
         
         @media (max-width: 576px) {
           font-size: 11px;
@@ -819,7 +754,7 @@ h1, h2, h3, h4,
       }
       
       .page-title {
-        font-family: $font-serif !important;
+        font-family: $font-primary !important;
         font-size: clamp(36px, 6vw, 72px);
         line-height: 1.1;
         margin: 15px 0 20px;
@@ -838,6 +773,7 @@ h1, h2, h3, h4,
         font-weight: 300;
         max-width: 600px;
         margin: 0 auto;
+        font-family: $font-primary !important;
         
         @media (max-width: 576px) {
           font-size: 0.95rem;
@@ -848,7 +784,7 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// ABOUT INTRO SECTION
+// ABOUT INTRO
 // =========================
 .about-intro {
   padding: 80px 0;
@@ -868,70 +804,6 @@ h1, h2, h3, h4,
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
     gap: 40px;
-  }
-}
-
-.about-intro-content {
-  .about-description {
-    font-size: 17px;
-    line-height: 1.8;
-    color: #333;
-    margin-bottom: 16px;
-    font-weight: 400;
-    font-family: $font-primary !important;
-    
-    @media (max-width: 576px) {
-      font-size: 15px;
-    }
-  }
-  
-  p {
-    color: $grey;
-    line-height: 1.7;
-    margin-bottom: 20px;
-    font-weight: 300;
-    font-family: $font-primary !important;
-    
-    @media (max-width: 576px) {
-      font-size: 14px;
-    }
-  }
-}
-
-.about-highlights {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 20px;
-  
-  @media (max-width: 500px) {
-    grid-template-columns: 1fr;
-  }
-  
-  .highlight-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 16px;
-    background: $off-white;
-    border-radius: 8px;
-    
-    ion-icon {
-      color: $gold;
-      font-size: 20px;
-      flex-shrink: 0;
-    }
-    
-    span {
-      font-size: 14px;
-      color: #444;
-      font-weight: 400;
-      font-family: $font-primary !important;
-      
-      @media (max-width: 576px) {
-        font-size: 13px;
-      }
-    }
   }
 }
 
@@ -985,6 +857,226 @@ h1, h2, h3, h4,
   }
 }
 
+.about-intro-content {
+  .about-description {
+    font-size: 18px;
+    line-height: 1.8;
+    color: $black;
+    margin-bottom: 16px;
+    font-weight: 600;
+    font-family: $font-primary !important;
+    
+    @media (max-width: 576px) {
+      font-size: 16px;
+    }
+  }
+  
+  p {
+    color: $black;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-weight: 400;
+    font-family: $font-primary !important;
+    
+    @media (max-width: 576px) {
+      font-size: 14px;
+    }
+  }
+}
+
+// =========================
+// LOCATION OPTIONS
+// =========================
+.location-options {
+  margin: 24px 0 20px;
+  
+  .location-title {
+    font-family: $font-primary !important;
+    font-size: 16px;
+    font-weight: 600;
+    color: $black;
+    margin-bottom: 16px;
+  }
+  
+  .location-card {
+    display: flex;
+    gap: 14px;
+    padding: 16px 18px;
+    background: $off-white;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    border-left: 3px solid $gold;
+    transition: $transition-smooth;
+    
+    &:hover {
+      transform: translateX(4px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
+    
+    .location-icon {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      background: rgba(201, 168, 76, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      ion-icon {
+        font-size: 20px;
+        color: $gold;
+      }
+    }
+    
+    .location-content {
+      flex: 1;
+      
+      .location-name {
+        font-family: $font-primary !important;
+        font-size: 15px;
+        font-weight: 600;
+        color: $black;
+        margin: 0 0 4px 0;
+      }
+      
+      p {
+        font-size: 14px;
+        color: $black;
+        line-height: 1.5;
+        margin: 0;
+        font-weight: 400;
+        font-family: $font-primary !important;
+      }
+    }
+    
+    &.location-cta {
+      border-left-color: $gold;
+      background: rgba(201, 168, 76, 0.08);
+      justify-content: center;
+      
+      p {
+        font-size: 16px;
+        font-weight: 600;
+        color: $gold;
+        text-align: center;
+      }
+    }
+  }
+}
+
+// =========================
+// ABOUT FEATURES
+// =========================
+.about-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin: 20px 0 30px;
+  
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  .feature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: $black;
+    font-family: $font-primary !important;
+    font-weight: 400;
+    padding: 8px 12px;
+    background: $off-white;
+    border-radius: 8px;
+    
+    @media (max-width: 576px) {
+      font-size: 13px;
+    }
+    
+    ion-icon {
+      color: $gold;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+  }
+}
+
+// =========================
+// ABOUT BUTTONS
+// =========================
+.about-buttons {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  
+  @media (max-width: 576px) {
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+.btn-primary-small {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, $gold, $gold-dark);
+  color: $black;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 50px;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(201, 168, 76, 0.2);
+  font-family: $font-primary !important;
+  
+  @media (max-width: 576px) {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+  }
+  
+  &:hover {
+    background: linear-gradient(135deg, $gold-light, $gold);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(201, 168, 76, 0.35);
+  }
+}
+
+.btn-outline-small {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  color: $black;
+  font-weight: 500;
+  padding: 10px 24px;
+  border-radius: 50px;
+  font-size: 13px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  font-family: $font-primary !important;
+  
+  @media (max-width: 576px) {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+  }
+  
+  &:hover {
+    border-color: $black;
+    background: rgba(0, 0, 0, 0.03);
+    transform: translateY(-2px);
+  }
+}
+
 // =========================
 // WHY CHOOSE US
 // =========================
@@ -994,6 +1086,67 @@ h1, h2, h3, h4,
   
   @media (max-width: 768px) {
     padding: 40px 0;
+  }
+}
+
+.section-header {
+  max-width: 700px;
+  margin: 0 auto 50px;
+  padding: 0 20px;
+  text-align: center;
+  
+  @media (max-width: 576px) {
+    margin: 0 auto 30px;
+  }
+  
+  &.center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+}
+
+.eyebrow {
+  color: $gold;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: block;
+  font-family: $font-primary !important;
+  
+  @media (max-width: 576px) {
+    font-size: 10px;
+    letter-spacing: 3px;
+  }
+}
+
+.section-title {
+  font-family: $font-primary !important;
+  font-size: clamp(28px, 4.5vw, 52px);
+  line-height: 1.1;
+  margin: 10px 0 12px;
+  color: $black;
+  
+  @media (max-width: 576px) {
+    font-size: 26px;
+  }
+}
+
+.section-subtitle {
+  color: $black;
+  font-size: 16px;
+  line-height: 1.8;
+  margin-top: 8px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 400;
+  font-family: $font-primary !important;
+  
+  @media (max-width: 576px) {
+    font-size: 14px;
   }
 }
 
@@ -1054,7 +1207,7 @@ h1, h2, h3, h4,
   }
   
   h3 {
-    font-family: $font-serif !important;
+    font-family: $font-primary !important;
     font-size: 22px;
     margin: 0 0 8px;
     color: $black;
@@ -1065,473 +1218,15 @@ h1, h2, h3, h4,
   }
   
   p {
-    color: $grey;
+    color: $black;
     font-size: 14px;
     line-height: 1.6;
     margin: 0;
-    font-weight: 300;
+    font-weight: 400;
     font-family: $font-primary !important;
     
     @media (max-width: 576px) {
       font-size: 13px;
-    }
-  }
-}
-
-// =========================
-// ACCOMMODATION OPTIONS
-// =========================
-.accommodation-options {
-  padding: 80px 0;
-  background: $white;
-  
-  @media (max-width: 768px) {
-    padding: 40px 0;
-  }
-}
-
-.options-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  
-  @media (max-width: 900px) {
-    grid-template-columns: 1fr 1fr;
-  }
-  @media (max-width: 600px) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.option-card {
-  background: $off-white;
-  padding: 32px 24px;
-  border-radius: 16px;
-  text-align: center;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(0,0,0,0.03);
-  
-  @media (max-width: 576px) {
-    padding: 24px 16px;
-  }
-  
-  &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 8px 40px rgba(0,0,0,0.08);
-  }
-  
-  .option-icon {
-    width: 64px;
-    height: 64px;
-    background: rgba(201, 168, 76, 0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 16px;
-    
-    @media (max-width: 576px) {
-      width: 54px;
-      height: 54px;
-    }
-    
-    ion-icon {
-      font-size: 28px;
-      color: $gold;
-      
-      @media (max-width: 576px) {
-        font-size: 22px;
-      }
-    }
-  }
-  
-  h3 {
-    font-family: $font-serif !important;
-    font-size: 24px;
-    margin: 0 0 10px;
-    color: $black;
-    
-    @media (max-width: 576px) {
-      font-size: 20px;
-    }
-  }
-  
-  p {
-    color: $grey;
-    font-size: 14px;
-    line-height: 1.6;
-    font-weight: 300;
-    margin: 0 0 16px;
-    font-family: $font-primary !important;
-    
-    @media (max-width: 576px) {
-      font-size: 13px;
-    }
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    text-align: left;
-    
-    li {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      color: #555;
-      padding: 4px 0;
-      font-family: $font-primary !important;
-      
-      ion-icon {
-        color: $gold;
-        font-size: 16px;
-        flex-shrink: 0;
-      }
-    }
-  }
-}
-
-// =========================
-// LOCATIONS SECTION
-// =========================
-.locations-section {
-  padding: 80px 0;
-  background: $off-white;
-  
-  @media (max-width: 768px) {
-    padding: 40px 0;
-  }
-}
-
-.locations-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-  
-  @media (max-width: 800px) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.location-card {
-  background: $white;
-  border-radius: 16px;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.04);
-  
-  &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 8px 40px rgba(0,0,0,0.08);
-  }
-  
-  .location-image {
-    height: 220px;
-    overflow: hidden;
-    
-    @media (max-width: 576px) {
-      height: 180px;
-    }
-    
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease;
-    }
-    
-    &:hover img {
-      transform: scale(1.05);
-    }
-  }
-  
-  .location-info {
-    padding: 24px;
-    
-    @media (max-width: 576px) {
-      padding: 18px;
-    }
-    
-    .location-badge {
-      display: inline-block;
-      padding: 4px 14px;
-      border-radius: 50px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-      font-family: $font-primary !important;
-      
-      &.oceanic {
-        background: rgba(33, 150, 243, 0.15);
-        color: #2196F3;
-      }
-      
-      &.musgrave {
-        background: rgba(201, 168, 76, 0.15);
-        color: $gold;
-      }
-      
-      &.backpackers {
-        background: rgba(233, 30, 99, 0.15);
-        color: #e91e63;
-      }
-    }
-    
-    h3 {
-      font-family: $font-serif !important;
-      font-size: 26px;
-      margin: 0 0 4px;
-      color: $black;
-      
-      @media (max-width: 576px) {
-        font-size: 22px;
-      }
-    }
-    
-    .location-address {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      color: $grey;
-      margin: 0 0 12px;
-      font-family: $font-primary !important;
-      
-      ion-icon {
-        color: $gold;
-        font-size: 16px;
-      }
-    }
-    
-    p {
-      color: $grey;
-      font-size: 14px;
-      line-height: 1.6;
-      font-weight: 300;
-      margin: 0 0 16px;
-      font-family: $font-primary !important;
-      
-      @media (max-width: 576px) {
-        font-size: 13px;
-      }
-    }
-  }
-}
-
-.location-features {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 16px;
-  
-  li {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    color: #555;
-    padding: 4px 0;
-    font-family: $font-primary !important;
-    
-    ion-icon {
-      color: $gold;
-      font-size: 16px;
-      flex-shrink: 0;
-    }
-  }
-}
-
-.btn-location {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: $gold;
-  font-weight: 600;
-  font-size: 14px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  padding: 8px 0;
-  font-family: $font-primary !important;
-  
-  &:hover {
-    color: $gold-dark;
-    transform: translateX(4px);
-  }
-}
-
-// =========================
-// AMENITIES SECTION
-// =========================
-.amenities-section {
-  padding: 80px 0;
-  background: $white;
-  
-  @media (max-width: 768px) {
-    padding: 40px 0;
-  }
-}
-
-.amenities-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  
-  @media (max-width: 900px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (max-width: 500px) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.amenity-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px 20px;
-  background: $off-white;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-  border: 1px solid rgba(0,0,0,0.02);
-  transition: all 0.3s ease;
-  
-  @media (max-width: 576px) {
-    padding: 14px 16px;
-  }
-  
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-  }
-  
-  ion-icon {
-    font-size: 24px;
-    color: $gold;
-    
-    @media (max-width: 576px) {
-      font-size: 20px;
-    }
-  }
-  
-  span {
-    font-size: 14px;
-    font-weight: 500;
-    color: $black;
-    font-family: $font-primary !important;
-    
-    @media (max-width: 576px) {
-      font-size: 13px;
-    }
-  }
-}
-
-// =========================
-// TESTIMONIALS SECTION
-// =========================
-.testimonials-section {
-  padding: 80px 0;
-  background: $off-white;
-  
-  @media (max-width: 768px) {
-    padding: 40px 0;
-  }
-}
-
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  
-  @media (max-width: 900px) {
-    grid-template-columns: 1fr 1fr;
-  }
-  @media (max-width: 600px) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.testimonial-card {
-  background: $white;
-  padding: 28px 24px;
-  border-radius: 16px;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(0,0,0,0.02);
-  
-  @media (max-width: 576px) {
-    padding: 20px 16px;
-  }
-  
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
-  }
-  
-  .testimonial-stars {
-    display: flex;
-    gap: 4px;
-    margin-bottom: 12px;
-    
-    ion-icon {
-      color: $gold;
-      font-size: 18px;
-      
-      @media (max-width: 576px) {
-        font-size: 16px;
-      }
-    }
-  }
-  
-  .testimonial-text {
-    font-size: 15px;
-    line-height: 1.7;
-    color: #444;
-    font-weight: 300;
-    margin: 0 0 16px;
-    font-style: italic;
-    font-family: $font-primary !important;
-    
-    @media (max-width: 576px) {
-      font-size: 14px;
-    }
-  }
-  
-  .testimonial-author {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    
-    .author-avatar {
-      width: 44px;
-      height: 44px;
-      background: linear-gradient(135deg, $gold, $gold-dark);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: $white;
-      font-weight: 600;
-      font-size: 14px;
-      font-family: $font-primary !important;
-    }
-    
-    .author-info {
-      h4 {
-        font-size: 15px;
-        font-weight: 600;
-        margin: 0 0 2px;
-        color: $black;
-        font-family: $font-serif !important;
-      }
-      
-      span {
-        font-size: 12px;
-        color: $grey;
-        font-weight: 300;
-        font-family: $font-primary !important;
-      }
     }
   }
 }
@@ -1554,7 +1249,7 @@ h1, h2, h3, h4,
   margin: 0 auto;
   
   h2 {
-    font-family: $font-serif !important;
+    font-family: $font-primary !important;
     font-size: clamp(28px, 4vw, 48px);
     color: $white;
     margin: 0 0 12px;
@@ -1582,9 +1277,6 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
-// BUTTONS
-// =========================
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -1697,70 +1389,6 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// SECTION HEADERS
-// =========================
-.section-header {
-  max-width: 700px;
-  margin: 0 auto 50px;
-  padding: 0 20px;
-  text-align: center;
-  
-  @media (max-width: 576px) {
-    margin: 0 auto 30px;
-  }
-  
-  &.center {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-  }
-}
-
-.eyebrow {
-  color: $gold;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  display: block;
-  font-family: $font-primary !important;
-  
-  @media (max-width: 576px) {
-    font-size: 10px;
-    letter-spacing: 3px;
-  }
-}
-
-.section-title {
-  font-family: $font-serif !important;
-  font-size: clamp(28px, 4.5vw, 52px);
-  line-height: 1.1;
-  margin: 10px 0 12px;
-  color: $black;
-  
-  @media (max-width: 576px) {
-    font-size: 26px;
-  }
-}
-
-.section-subtitle {
-  color: $grey;
-  font-size: 16px;
-  line-height: 1.8;
-  margin-top: 8px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  font-weight: 300;
-  font-family: $font-primary !important;
-  
-  @media (max-width: 576px) {
-    font-size: 14px;
-  }
-}
-
-// =========================
 // FOOTER
 // =========================
 .footer {
@@ -1821,7 +1449,7 @@ h1, h2, h3, h4,
   
   .footer-brand {
     .logo {
-      font-family: $font-serif !important;
+      font-family: $font-primary !important;
       font-size: 30px;
       display: flex;
       align-items: center;
@@ -2008,24 +1636,8 @@ ion-fab-button.whatsapp-float {
 }
 
 // =========================
-// ENSURE NO WHITE SPACE AFTER FOOTER
+// SCROLL FIX - PRODUCTION
 // =========================
-ion-content {
-  --padding-bottom: 0 !important;
-  --padding-end: 0 !important;
-  --padding-start: 0 !important;
-  --padding-top: 0 !important;
-}
-
-.footer {
-  margin-bottom: 0 !important;
-}
-
-// ============================================================
-// ✅ PRODUCTION SCROLL FIX - ABOUT PAGE (MATCHING ROOMS PAGE)
-// ============================================================
-
-// Force the page to scroll in production
 :host {
   display: block !important;
   height: 100% !important;
@@ -2033,7 +1645,6 @@ ion-content {
   overflow-y: auto !important;
 }
 
-// Override Ionic's production contain property
 ion-content {
   contain: none !important;
   --overflow: auto !important;
@@ -2052,162 +1663,35 @@ ion-content {
   }
 }
 
-// Force all sections to be visible
-.page-header,
-.about-intro,
-.why-choose-us,
-.accommodation-options,
-.locations-section,
-.amenities-section,
-.testimonials-section,
-.cta-section {
-  height: auto !important;
-  min-height: auto !important;
-  overflow: visible !important;
+// =========================
+// REMOVE SCROLLBAR
+// =========================
+:host ::-webkit-scrollbar,
+ion-content ::-webkit-scrollbar,
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
 }
 
-// Ensure grid containers don't block scrolling
-.about-intro-grid,
-.locations-grid,
-.testimonials-grid,
-.features-grid,
-.options-grid,
-.amenities-grid {
-  height: auto !important;
-  min-height: auto !important;
-  overflow: visible !important;
+:host ::-webkit-scrollbar-track,
+ion-content ::-webkit-scrollbar-track,
+::-webkit-scrollbar-track {
+  display: none !important;
+  background: transparent !important;
 }
 
-// Force all content to be visible
-.container {
-  height: auto !important;
-  min-height: auto !important;
-  overflow: visible !important;
+:host ::-webkit-scrollbar-thumb,
+ion-content ::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb {
+  display: none !important;
+  background: transparent !important;
 }
 
-// Ensure images don't overflow
-img {
-  max-width: 100% !important;
-  height: auto !important;
-}
-
-// ============================================================
-// ✅ RESPONSIVE OVERRIDES - MATCHING ROOMS PAGE
-// ============================================================
-@media (max-width: 768px) {
-  .about-intro { padding: 40px 0; }
-  .why-choose-us { padding: 40px 0; }
-  .accommodation-options { padding: 40px 0; }
-  .locations-section { padding: 40px 0; }
-  .amenities-section { padding: 40px 0; }
-  .testimonials-section { padding: 40px 0; }
-  .cta-section { padding: 40px 0; }
-}
-
-@media (max-width: 480px) {
-  .about-highlights {
-    grid-template-columns: 1fr;
-  }
-  
-  .cta-content .cta-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .btn-primary, .btn-secondary-cta {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-// ============================================================
-// ✅ SCROLLBAR COMPLETELY REMOVED - About Page
-// ============================================================
-
-// Remove scrollbar completely
-:host {
-  ::-webkit-scrollbar {
-    display: none !important;
-    width: 0 !important;
-    height: 0 !important;
-    background: transparent !important;
-  }
-  
-  ::-webkit-scrollbar-track {
-    display: none !important;
-    background: transparent !important;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    display: none !important;
-    background: transparent !important;
-  }
-  
-  ::-webkit-scrollbar-corner {
-    display: none !important;
-    background: transparent !important;
-  }
-  
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
-}
-
-// Remove scrollbar from ion-content
-ion-content {
-  --overflow: auto !important;
-  overflow-y: auto !important;
-  
-  &::-webkit-scrollbar {
-    display: none !important;
-    width: 0 !important;
-    height: 0 !important;
-    background: transparent !important;
-  }
-  
-  &::-webkit-scrollbar-track {
-    display: none !important;
-    background: transparent !important;
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    display: none !important;
-    background: transparent !important;
-  }
-  
-  &::-webkit-scrollbar-corner {
-    display: none !important;
-    background: transparent !important;
-  }
-  
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
-}
-
-// Remove scrollbar from all elements
+:host,
+ion-content,
 * {
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;
-}
-
-// Keep scrolling functional
-:host {
-  display: block !important;
-  height: 100% !important;
-  min-height: 100vh !important;
-  overflow-y: auto !important;
-}
-
-ion-content {
-  contain: none !important;
-  --overflow: auto !important;
-  overflow-y: auto !important;
-  height: 100% !important;
-  min-height: 100vh !important;
-  
-  &::part(scroll) {
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    height: 100% !important;
-    min-height: 100vh !important;
-  }
 }

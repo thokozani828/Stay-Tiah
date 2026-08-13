@@ -7,6 +7,7 @@
       <!-- Back Button -->
       <button class="back-btn" (click)="goBack()">
         <ion-icon name="arrow-back-outline"></ion-icon>
+        <span class="back-text">Back to Rooms</span>
       </button>
     </div>
     <div class="room-hero-overlay"></div>
@@ -23,23 +24,12 @@
             <ion-icon name="location-outline"></ion-icon>
             <span>{{ room.address || room.location }}</span>
           </div>
-          <div class="room-rating-hero">
-            <div class="rating-score" *ngIf="room.rating">
-              <span class="score">{{ room.rating }}</span>
-              <span class="label">Pleasant</span>
-            </div>
-            <div class="rating-score" *ngIf="!room.rating">
-              <span class="score">N/A</span>
-              <span class="label">No reviews yet</span>
-            </div>
-            <span class="reviews" *ngIf="room.reviews > 0">{{ room.reviews }} reviews</span>
-            <span class="reviews" *ngIf="room.reviews === 0">No reviews yet</span>
-          </div>
-          <div class="room-price-hero">
-            <span class="price">R{{ room.price }}</span>
-            <span class="per-night">/ night</span>
-          </div>
-          <a (click)="bookNow()" class="btn-primary">Book Now</a>
+          <!-- REMOVED: rating and reviews -->
+          <!-- REMOVED: price display -->
+          <a (click)="openWhatsApp()" class="btn-primary">
+            <ion-icon name="logo-whatsapp"></ion-icon>
+            Check Availability
+          </a>
         </div>
       </div>
     </div>
@@ -86,12 +76,10 @@
                   <h4>{{ type.name }}</h4>
                   <p>{{ type.beds }} · Sleeps {{ type.sleeps }}</p>
                 </div>
-                <div class="type-price">
-                  <span class="price">R{{ type.price }}</span>
-                  <span class="per-night">/ night</span>
-                </div>
+                <!-- REMOVED: price display -->
                 <div class="type-unavailable">
-                  <ion-icon name="close-circle-outline"></ion-icon>
+                  <ion-icon name="logo-whatsapp"></ion-icon>
+                  <a (click)="openWhatsApp()" class="whatsapp-enquire">Enquire</a>
                 </div>
               </div>
             </div>
@@ -133,17 +121,11 @@
 
         <!-- Right Column -->
         <div class="details-right">
-          <!-- Booking Card -->
+          <!-- Booking Card - Updated to WhatsApp -->
           <div class="booking-card animate-fade-up">
-            <div class="booking-price">
-              <span class="price">R{{ room.price }}</span>
-              <span class="per-night">/ night</span>
-            </div>
-            <div class="booking-rating">
-              <span class="score" *ngIf="room.rating">{{ room.rating }}</span>
-              <span class="score" *ngIf="!room.rating">N/A</span>
-              <span class="label">{{ room.rating ? 'Pleasant' : 'No reviews' }}</span>
-              <span class="reviews" *ngIf="room.reviews > 0">· {{ room.reviews }} reviews</span>
+            <div class="booking-header">
+              <h3>Check Availability</h3>
+              <p>Enquire about this room via WhatsApp</p>
             </div>
             <div class="booking-dates">
               <div class="date-group">
@@ -165,8 +147,11 @@
                 </ion-datetime>
               </div>
             </div>
-            <a (click)="bookNow()" class="btn-primary book-btn">Reserve Now</a>
-            <p class="booking-note">You won't be charged yet</p>
+            <a (click)="openWhatsApp()" class="btn-primary book-btn">
+              <ion-icon name="logo-whatsapp"></ion-icon>
+              Check Availability on WhatsApp
+            </a>
+            <p class="booking-note">Get pricing and availability instantly via WhatsApp</p>
           </div>
 
           <!-- Location -->
@@ -244,10 +229,7 @@
           <a routerLink="/home">Home</a>
           <a routerLink="/about">About Us</a>
           <a routerLink="/rooms">Rooms</a>
-          <a routerLink="/gallery">Gallery</a>
-          <a routerLink="/rates">Rates</a>
           <a routerLink="/attractions">Attractions</a>
-          <a routerLink="/faq">FAQ</a>
           <a routerLink="/contact">Contact Us</a>
         </div>
         <div class="footer-column animate-fade-up">
@@ -260,9 +242,11 @@
         <div class="footer-column animate-fade-up">
           <h4>Book Your Stay</h4>
           <p>Ready for your Durban getaway?</p>
-          <a routerLink="/booking" class="btn-gold">Book Now</a>
+          <a (click)="openWhatsApp()" class="btn-gold">
+            <ion-icon name="logo-whatsapp"></ion-icon>
+            Check Availability
+          </a>
           <div class="footer-contact">
-            <p><ion-icon name="call-outline"></ion-icon> +27 79 123 4567</p>
             <p><ion-icon name="mail-outline"></ion-icon> info@staytiah.com</p>
           </div>
         </div>

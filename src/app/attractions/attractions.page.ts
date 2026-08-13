@@ -1,6 +1,6 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, IonContent } from '@ionic/angular';
 import { RouterModule, Router } from '@angular/router';
 
 @Component({
@@ -17,9 +17,11 @@ import { RouterModule, Router } from '@angular/router';
 })
 export class AttractionsPage {
 
+  @ViewChild(IonContent, { static: false }) content!: IonContent;
+
   // Mobile navigation state
   mobileNavOpen: boolean = false;
-
+  isScrolled: boolean = false;
   activeFilter: string = 'all';
 
   // WhatsApp number
@@ -311,6 +313,38 @@ export class AttractionsPage {
       lng: 30.9900
     },
 
+    // ===================== NEW: PHEZULU & VALLEY OF A THOUSAND HILLS =====================
+    {
+      id: 23,
+      name: 'Phezulu Safari Park',
+      description: 'Experience authentic African wildlife at Phezulu Safari Park. Home to lions, crocodiles, and a variety of antelope species. Enjoy traditional Zulu dancing and cultural performances.',
+      image: 'https://imgs.search.brave.com/xnNf5TxqKhC3_y1eIFxOBILkLtcKHS9K5-gV0CQ05Fg/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTMw/NTU5ODA2Mi9waG90/by9saW9uLWluLXRo/ZS1ncmFzcy5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9akZx/VFExeGNsNEc3dFg3/Tk1RZk4tVEF4U3Bo/ajlGaUZqMXdvbTJY/MG1nVT0',
+      category: 'nature',
+      distance: '35 km',
+      location: 'Phezulu, Botha\'s Hill',
+      hours: '08:00 - 17:00',
+      rating: 4.7,
+      reviews: 234,
+      near: ['Musgrave'],
+      lat: -29.7580,
+      lng: 30.7730
+    },
+    {
+      id: 24,
+      name: 'Valley of a Thousand Hills',
+      description: 'A breathtaking scenic valley offering panoramic views of the rolling hills and lush green landscapes. Perfect for hiking, photography, and experiencing the beauty of KwaZulu-Natal.',
+      image: 'https://imgs.search.brave.com/KfDHEPv0hZYCSwD6uCIVL4bbPk2sU4FyIGL0A3G3h48/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi92YWxs/ZXktb2YtdGhvdXNh/bmQtaGlsbHMta3dh/endsdWwtbmF0YWwt/c291dGgtYWZyaWNh/LTMyODI5MjI4NS5q/cGc',
+      category: 'nature',
+      distance: '40 km',
+      location: 'Valley of a Thousand Hills, Botha\'s Hill',
+      hours: '24/7',
+      rating: 4.8,
+      reviews: 189,
+      near: ['Musgrave'],
+      lat: -29.7350,
+      lng: 30.7900
+    },
+
     // ===================== MORE ATTRACTIONS =====================
     {
       id: 19,
@@ -361,7 +395,7 @@ export class AttractionsPage {
       id: 22,
       name: 'Blue Lagoon',
       description: 'A popular spot where the Umgeni River meets the Indian Ocean, perfect for walks and picnics.',
-      image: 'https://imgs.search.brave.com/WLNbIvih9cpVdqnOqzlHfXN5z7sd__vT8uqfXKIPaC4/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9ibHVl/LWxhZ29vbi1zb3V0/aC1hZnJpY2EtZHVy/YmFuLWFyZWEtdHJh/ZGl0aW9uYWwtbWVl/dGluZy1wb2ludC1p/bmRpYW4tY29tdW5p/dHktNjA3ODY5NDMu/anBn',
+      image: 'https://imgs.search.brave.com/WLNbIvih9cpVdqnOqzlHfXN5z7sd__vT8uqfXKIPaC4/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9ibHVl/LWxhZ29vbi1zb3V0/aC1hZnJpY2EtZHVy/YmFuLWFyZWEtdHJh/ZGl0aW9uYWwtbWVl/dGluZy1wb2ludC1p/bmlhbi1jb211bml0/eS02MDc4Njk0My5q/cGc',
       category: 'nature',
       distance: '6.5 km',
       location: 'Blue Lagoon',
@@ -383,6 +417,27 @@ export class AttractionsPage {
   }
 
   constructor(private router: Router) {}
+
+  // ==========================================
+  // WINDOW SCROLL LISTENER
+  // ==========================================
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.isScrolled = window.scrollY > 50;
+  }
+
+  // ==========================================
+  // SCROLL EVENT FOR ION-CONTENT
+  // ==========================================
+  onScroll(event: any) {
+    const scrollTop = event.detail.scrollTop;
+    const header = document.querySelector('.site-header');
+    if (scrollTop > 50) {
+      header?.classList.add('scrolled');
+    } else {
+      header?.classList.remove('scrolled');
+    }
+  }
 
   // =========================
   // MOBILE NAVIGATION
@@ -473,11 +528,9 @@ export class AttractionsPage {
   // =========================
   openInGoogleMaps(attraction: any) {
     if (attraction.lat && attraction.lng) {
-      // Open with coordinates for exact location
       const url = `https://www.google.com/maps/search/?api=1&query=${attraction.lat},${attraction.lng}`;
       window.open(url, '_blank');
     } else {
-      // Fallback to name search
       const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(attraction.name + ' Durban South Africa')}`;
       window.open(url, '_blank');
     }

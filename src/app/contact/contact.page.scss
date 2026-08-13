@@ -1,8 +1,4 @@
 // =========================
-// FONTS - CONSISTENT ACROSS PAGE
-// =========================
-
-// =========================
 // VARIABLES
 // =========================
 $gold: #c9a84c;
@@ -16,8 +12,9 @@ $grey: #888888;
 $light-grey: #e8e8e8;
 $off-white: #f8f7f4;
 $white: #ffffff;
-$font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-$font-serif: 'Cormorant Garamond', Georgia, serif;
+
+// FIXED FONT - Tahoma only (consistent across entire site)
+$font-primary: Tahoma, Geneva, Verdana, sans-serif;
 $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 $header-height-desktop: 72px;
 $header-height-mobile: 56px;
@@ -30,8 +27,9 @@ $header-height-mobile: 56px;
   box-sizing: border-box;
 }
 
-// Override serif fonts where needed
-h1, h2, h3, h4, 
+// All headings and text use Tahoma
+h1, h2, h3, h4, h5, h6,
+p, span, a, div, li, button,
 .page-title, 
 .section-title, 
 .brand__name, 
@@ -43,8 +41,36 @@ h1, h2, h3, h4,
 .testimonial-card .author-info h4,
 .contact-info h2,
 .form-header h3,
-.cta-content h2 {
-  font-family: $font-serif !important;
+.cta-content h2,
+.nav__link,
+.mobile-nav a,
+.hero-description,
+.section-subtitle,
+.eyebrow,
+.hero-badge,
+.footer-column a,
+.footer-column p,
+.mobile-brand-text,
+.mobile-brand-tagline,
+.info-card .info-content h4,
+.info-card .info-content a,
+.info-card .info-content p,
+.info-card .info-content span,
+.social-connect h4,
+.contact-form label,
+.contact-form .required-note,
+.form-actions .required-note,
+.footer .logo,
+.footer .logo-text,
+.footer .logo-gold,
+.btn-primary,
+.btn-secondary-cta,
+.btn-gold,
+.btn-whatsapp,
+.footer-contact p,
+.map-label span,
+.error-message {
+  font-family: $font-primary !important;
 }
 
 // =========================
@@ -120,31 +146,7 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// HIDE SCROLLBAR
-// =========================
-.no-scrollbar {
-  --scrollbar-width: 0px;
-  
-  &::-webkit-scrollbar {
-    display: none;
-    width: 0;
-    background: transparent;
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    display: none;
-  }
-  
-  &::-webkit-scrollbar-track {
-    display: none;
-  }
-  
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-// =========================
-// HEADER / NAVBAR - EXACTLY LIKE ORIGINAL
+// HEADER / NAVBAR
 // =========================
 .site-header {
   background: rgba(10, 10, 10, 0.95);
@@ -199,6 +201,7 @@ h1, h2, h3, h4,
   display: flex;
   flex-direction: column;
   transition: $transition-smooth;
+  cursor: pointer;
   
   &:hover {
     transform: scale(1.02);
@@ -207,7 +210,7 @@ h1, h2, h3, h4,
 
 .brand__name {
   display: block;
-  font-family: $font-serif !important;
+  font-family: $font-primary !important;
   font-size: 1.8rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -273,6 +276,7 @@ h1, h2, h3, h4,
   position: relative;
   border-radius: 8px;
   letter-spacing: 0.3px;
+  cursor: pointer;
   
   @media (max-width: 1200px) {
     font-size: 12px;
@@ -381,10 +385,8 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// MOBILE NAVIGATION - CLEAN DESIGN
+// MOBILE NAVIGATION
 // =========================
-
-// Hamburger Button
 .hamburger-btn {
   display: none;
   background: transparent;
@@ -426,7 +428,6 @@ h1, h2, h3, h4,
   }
 }
 
-// Overlay
 .nav-overlay {
   display: none;
   position: fixed;
@@ -447,7 +448,6 @@ h1, h2, h3, h4,
   }
 }
 
-// Mobile Navigation Drawer - Clean
 .mobile-nav {
   position: fixed;
   top: 0;
@@ -472,7 +472,6 @@ h1, h2, h3, h4,
     right: 0;
   }
   
-  // Close Button
   .mobile-nav-header {
     padding: 16px 20px 8px;
     display: flex;
@@ -505,7 +504,6 @@ h1, h2, h3, h4,
     }
   }
   
-  // Brand
   .mobile-nav-brand {
     padding: 0 24px 24px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
@@ -513,7 +511,7 @@ h1, h2, h3, h4,
     
     .mobile-brand-text {
       display: block;
-      font-family: $font-serif !important;
+      font-family: $font-primary !important;
       font-size: 1.6rem;
       font-weight: 700;
       background: linear-gradient(135deg, #ffffff 0%, $gold 100%);
@@ -534,7 +532,6 @@ h1, h2, h3, h4,
     }
   }
   
-  // Navigation Links
   .mobile-nav-links {
     padding: 16px 16px 0;
     flex: 1;
@@ -565,12 +562,13 @@ h1, h2, h3, h4,
       }
       
       .link-icon {
-        font-size: 18px;
-        opacity: 0.5;
+        font-size: 20px;
+        opacity: 0.6;
         transition: $transition-smooth;
         flex-shrink: 0;
-        width: 24px;
+        width: 28px;
         text-align: center;
+        color: $gold;
       }
       
       &:hover {
@@ -580,6 +578,7 @@ h1, h2, h3, h4,
         
         .link-icon {
           opacity: 1;
+          transform: scale(1.1);
         }
       }
       
@@ -637,7 +636,6 @@ h1, h2, h3, h4,
     }
   }
   
-  // Footer
   .mobile-nav-footer {
     padding: 16px 24px 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.04);
@@ -700,9 +698,6 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
-// DESKTOP OVERRIDES (Hide mobile elements)
-// =========================
 @media (min-width: 993px) {
   .hamburger-btn {
     display: none !important;
@@ -718,7 +713,7 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// PAGE HEADER WITH IMAGE
+// PAGE HEADER
 // =========================
 .page-header {
   min-height: 50vh;
@@ -783,6 +778,7 @@ h1, h2, h3, h4,
         margin-bottom: 15px;
         border: 1px solid rgba(201, 168, 76, 0.3);
         backdrop-filter: blur(5px);
+        font-family: $font-primary !important;
         
         @media (max-width: 576px) {
           font-size: 11px;
@@ -791,7 +787,7 @@ h1, h2, h3, h4,
       }
       
       .page-title {
-        font-family: $font-serif !important;
+        font-family: $font-primary !important;
         font-size: clamp(36px, 6vw, 72px);
         line-height: 1.1;
         margin: 15px 0 20px;
@@ -810,6 +806,7 @@ h1, h2, h3, h4,
         font-weight: 300;
         max-width: 600px;
         margin: 0 auto;
+        font-family: $font-primary !important;
         
         @media (max-width: 576px) {
           font-size: 0.95rem;
@@ -845,7 +842,7 @@ h1, h2, h3, h4,
 // Contact Info
 .contact-info {
   h2 {
-    font-family: $font-serif !important;
+    font-family: $font-primary !important;
     font-size: 36px;
     margin: 0 0 12px;
     color: $black;
@@ -856,11 +853,11 @@ h1, h2, h3, h4,
   }
   
   > p {
-    color: $grey;
+    color: $black;
     font-size: 15px;
     line-height: 1.7;
     margin-bottom: 30px;
-    font-weight: 300;
+    font-weight: 400;
   }
 }
 
@@ -911,6 +908,7 @@ h1, h2, h3, h4,
       text-transform: uppercase;
       letter-spacing: 1px;
       margin: 0 0 2px;
+      font-family: $font-primary !important;
     }
     
     a {
@@ -920,6 +918,7 @@ h1, h2, h3, h4,
       text-decoration: none;
       cursor: pointer;
       transition: color 0.3s;
+      font-family: $font-primary !important;
       
       &:hover {
         color: $gold;
@@ -931,6 +930,7 @@ h1, h2, h3, h4,
       font-size: 15px;
       font-weight: 500;
       margin: 0;
+      font-family: $font-primary !important;
     }
     
     span {
@@ -939,6 +939,7 @@ h1, h2, h3, h4,
       font-weight: 300;
       display: block;
       margin-top: 2px;
+      font-family: $font-primary !important;
     }
   }
 }
@@ -949,6 +950,7 @@ h1, h2, h3, h4,
     font-weight: 600;
     color: $black;
     margin: 0 0 12px;
+    font-family: $font-primary !important;
   }
   
   .social-links {
@@ -994,35 +996,25 @@ h1, h2, h3, h4,
   margin-bottom: 28px;
   
   h3 {
-    font-family: $font-serif !important;
+    font-family: $font-primary !important;
     font-size: 28px;
     margin: 0 0 8px;
     color: $black;
   }
   
   p {
-    color: $grey;
+    color: $black;
     font-size: 14px;
-    font-weight: 300;
+    font-weight: 400;
     margin: 0;
+    font-family: $font-primary !important;
   }
 }
 
 // =========================
-// CONTACT FORM - IMPROVED INPUT STYLES
+// CONTACT FORM
 // =========================
 .contact-form {
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    
-    @media (max-width: 600px) {
-      grid-template-columns: 1fr;
-      gap: 0;
-    }
-  }
-  
   .form-group {
     margin-bottom: 16px;
     position: relative;
@@ -1036,10 +1028,11 @@ h1, h2, h3, h4,
       display: block;
       font-size: 12px;
       font-weight: 600;
-      color: #444;
+      color: $black;
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: 6px;
+      font-family: $font-primary !important;
       
       .required {
         color: #e74c3c;
@@ -1094,9 +1087,9 @@ h1, h2, h3, h4,
   padding: 12px 14px 12px 44px;
   border: none;
   background: transparent;
-  color: #0a0a0a;
+  color: $black;
   font-size: 14px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: $font-primary !important;
   outline: none;
   pointer-events: auto;
   z-index: 2;
@@ -1113,7 +1106,7 @@ h1, h2, h3, h4,
   
   &:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
-    -webkit-text-fill-color: #0a0a0a !important;
+    -webkit-text-fill-color: $black !important;
   }
 }
 
@@ -1123,9 +1116,9 @@ h1, h2, h3, h4,
   padding: 12px 14px 12px 44px;
   border: none;
   background: transparent;
-  color: #0a0a0a;
+  color: $black;
   font-size: 14px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: $font-primary !important;
   outline: none;
   cursor: pointer;
   pointer-events: auto;
@@ -1134,9 +1127,9 @@ h1, h2, h3, h4,
   z-index: 2;
   position: relative;
   
-  & option {
-    color: #0a0a0a;
-    background: #ffffff;
+  option {
+    color: $black;
+    background: $white;
     padding: 8px;
   }
   
@@ -1151,9 +1144,9 @@ h1, h2, h3, h4,
   padding: 12px 14px 12px 44px;
   border: none;
   background: transparent;
-  color: #0a0a0a;
+  color: $black;
   font-size: 14px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: $font-primary !important;
   outline: none;
   resize: vertical;
   pointer-events: auto;
@@ -1181,6 +1174,7 @@ h1, h2, h3, h4,
   margin-top: 4px;
   position: relative;
   z-index: 1;
+  font-family: $font-primary !important;
   
   ion-icon {
     font-size: 14px;
@@ -1212,6 +1206,7 @@ h1, h2, h3, h4,
     border: none;
     cursor: pointer;
     box-shadow: 0 4px 25px rgba(201, 168, 76, 0.25);
+    font-family: $font-primary !important;
     
     ion-icon {
       font-size: 18px;
@@ -1233,6 +1228,7 @@ h1, h2, h3, h4,
   .required-note {
     font-size: 12px;
     color: $grey;
+    font-family: $font-primary !important;
     
     .required {
       color: #e74c3c;
@@ -1290,6 +1286,7 @@ h1, h2, h3, h4,
     font-size: 14px;
     color: $black;
     border-bottom: 1px solid rgba(0,0,0,0.05);
+    font-family: $font-primary !important;
     
     ion-icon {
       color: $gold;
@@ -1335,7 +1332,7 @@ h1, h2, h3, h4,
 }
 
 .section-title {
-  font-family: $font-serif !important;
+  font-family: $font-primary !important;
   font-size: clamp(28px, 4.5vw, 52px);
   line-height: 1.1;
   margin: 10px 0 12px;
@@ -1347,14 +1344,14 @@ h1, h2, h3, h4,
 }
 
 .section-subtitle {
-  color: $grey;
+  color: $black;
   font-size: 16px;
   line-height: 1.8;
   margin-top: 8px;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  font-weight: 300;
+  font-weight: 400;
   font-family: $font-primary !important;
   
   @media (max-width: 576px) {
@@ -1528,7 +1525,7 @@ h1, h2, h3, h4,
   
   .footer-brand {
     .logo {
-      font-family: $font-serif !important;
+      font-family: $font-primary !important;
       font-size: 30px;
       display: flex;
       align-items: center;
@@ -1646,6 +1643,7 @@ h1, h2, h3, h4,
         gap: 10px;
         color: rgba(255,255,255,0.5);
         font-size: 13px;
+        font-family: $font-primary !important;
         
         @media (max-width: 576px) {
           font-size: 12px;
@@ -1788,7 +1786,7 @@ ion-content {
 }
 
 // ============================================================
-// ✅ PRODUCTION SCROLL FIX - CONTACT PAGE (MATCHING ABOUT)
+// ✅ PRODUCTION SCROLL FIX - CONTACT PAGE
 // ============================================================
 
 // Force the page to scroll in production
@@ -1852,7 +1850,7 @@ img {
 // ✅ SCROLLBAR COMPLETELY REMOVED - Contact Page
 // ============================================================
 
-// Remove scrollbar completely - Chrome, Safari, Edge
+// Remove scrollbar completely
 :host ::-webkit-scrollbar,
 ion-content ::-webkit-scrollbar,
 ::-webkit-scrollbar {
@@ -1911,206 +1909,5 @@ ion-content {
     -webkit-overflow-scrolling: touch !important;
     height: 100% !important;
     min-height: 100vh !important;
-  }
-}
-
-// ============================================================
-// ✅ NATIVE INPUT & SELECT STYLES (Complete)
-// ============================================================
-
-// Input wrapper base
-.input-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  background: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  pointer-events: auto !important;
-  z-index: 10 !important;
-  width: 100%;
-  min-height: 46px;
-
-  .input-icon {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #c9a84c;
-    font-size: 18px;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  &.focused {
-    border-color: #c9a84c !important;
-    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15) !important;
-  }
-
-  &.error {
-    border-color: #e74c3c !important;
-    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1) !important;
-  }
-}
-
-// Native Input
-.form-input-native {
-  width: 100%;
-  min-height: 46px;
-  padding: 12px 14px 12px 44px;
-  border: none;
-  background: transparent;
-  color: #0a0a0a;
-  font-size: 14px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  outline: none;
-  pointer-events: auto;
-  z-index: 2;
-  position: relative;
-
-  &:focus {
-    outline: none;
-  }
-
-  &::placeholder {
-    color: #aaa;
-    opacity: 1;
-  }
-
-  // For textarea variant
-  &.textarea {
-    min-height: 100px;
-    resize: vertical;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    line-height: 1.5;
-  }
-}
-
-// Native Select
-.form-select-native {
-  width: 100%;
-  min-height: 46px;
-  padding: 12px 14px 12px 44px;
-  border: none;
-  background: transparent;
-  color: #0a0a0a;
-  font-size: 14px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  outline: none;
-  cursor: pointer;
-  pointer-events: auto;
-  appearance: auto;
-  -webkit-appearance: auto;
-  z-index: 2;
-  position: relative;
-
-  option {
-    color: #0a0a0a;
-    background: #ffffff;
-    padding: 8px;
-  }
-
-  &:focus {
-    outline: none;
-  }
-}
-
-// Native Textarea
-.form-textarea-native {
-  width: 100%;
-  min-height: 100px;
-  padding: 12px 14px 12px 44px;
-  border: none;
-  background: transparent;
-  color: #0a0a0a;
-  font-size: 14px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  outline: none;
-  resize: vertical;
-  pointer-events: auto;
-  z-index: 2;
-  position: relative;
-  line-height: 1.5;
-
-  &:focus {
-    outline: none;
-  }
-
-  &::placeholder {
-    color: #aaa;
-    opacity: 1;
-  }
-}
-
-// Error Message
-.error-message {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 12px;
-  color: #e74c3c;
-  margin-top: 4px;
-  position: relative;
-  z-index: 1;
-
-  ion-icon {
-    font-size: 14px;
-  }
-}
-
-// Form Actions
-.form-actions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-top: 8px;
-  flex-wrap: wrap;
-  position: relative;
-  z-index: 1;
-
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: linear-gradient(135deg, #c9a84c, #b8943a);
-    color: #0a0a0a;
-    font-weight: 600;
-    padding: 14px 36px;
-    border-radius: 50px;
-    font-size: 14px;
-    letter-spacing: 0.5px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 4px 25px rgba(201, 168, 76, 0.25);
-
-    ion-icon {
-      font-size: 18px;
-    }
-
-    &:hover:not(:disabled) {
-      background: linear-gradient(135deg, #dbb95c, #c9a84c);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 40px rgba(201, 168, 76, 0.4);
-    }
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
-  }
-
-  .required-note {
-    font-size: 12px;
-    color: #888888;
-
-    .required {
-      color: #e74c3c;
-      font-weight: 700;
-    }
   }
 }

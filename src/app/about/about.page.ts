@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, OnInit, OnDestroy, CUSTOM_ELEMENTS_SCHEMA, HostListener, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, IonContent } from '@ionic/angular';
 import { RouterModule, Router } from '@angular/router';
 
 interface LocationImages {
@@ -24,11 +24,18 @@ interface LocationImages {
 })
 export class AboutPage implements OnInit, OnDestroy {
 
-  // Mobile navigation state
+  @ViewChild(IonContent, { static: false }) content!: IonContent;
+
+  // ==========================================
+  // NAVIGATION STATE
+  // ==========================================
   mobileNavOpen: boolean = false;
+  isScrolled: boolean = false;
   private originalOverflow: string = '';
 
-  // Image paths
+  // ==========================================
+  // IMAGE PATHS
+  // ==========================================
   aboutImage: string = 'assets/images/ChatGPT Image Jul 29, 2026, 08_23_26 AM.png';
   aboutImageFallback: string = 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80';
 
@@ -40,22 +47,82 @@ export class AboutPage implements OnInit, OnDestroy {
     halford: 'assets/images/Halford Backpackers, Durban/1.jpg'
   };
 
+  // ==========================================
+  // FALLBACK IMAGE FOR LOCATION IMAGES
+  // ==========================================
+  locationFallback: string = 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80';
+
   constructor(private router: Router) {}
 
+  // ==========================================
+  // LIFECYCLE HOOKS
+  // ==========================================
   ngOnInit() {}
 
-  // =============================================
-  // ✅ Image Error Handler - ADD THIS METHOD
-  // =============================================
-  
+  ngOnDestroy(): void {
+    this.restoreScroll();
+  }
+
+  // ==========================================
+  // WINDOW SCROLL LISTENER
+  // ==========================================
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.isScrolled = window.scrollY > 50;
+  }
+
+  // ==========================================
+  // SCROLL EVENT FOR ION-CONTENT
+  // ==========================================
+  onScroll(event: any) {
+    const scrollTop = event.detail.scrollTop;
+    const header = document.querySelector('.site-header');
+    if (scrollTop > 50) {
+      header?.classList.add('scrolled');
+    } else {
+      header?.classList.remove('scrolled');
+    }
+  }
+
+  // ==========================================
+  // SCROLL TO SECTION
+  // ==========================================
+  async scrollToSection(sectionId: string) {
+    this.closeMobileNav();
+
+    const targetElement = document.getElementById(sectionId);
+    
+    if (targetElement && this.content) {
+      try {
+        const scrollEl = await this.content.getScrollElement();
+        const headerOffset = 72;
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + scrollEl.scrollTop - headerOffset;
+        this.content.scrollToPoint(0, offsetPosition, 800);
+      } catch (error) {
+        console.error('Scroll error:', error);
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  }
+
+  // ==========================================
+  // IMAGE ERROR HANDLER
+  // ==========================================
   onImageError(event: any): void {
     event.target.src = this.aboutImageFallback;
   }
 
-  // =============================================
-  // ✅ Mobile Navigation
-  // =============================================
-  
+  // ==========================================
+  // LOCATION IMAGE ERROR HANDLER
+  // ==========================================
+  onLocationImageError(event: any): void {
+    event.target.src = this.locationFallback;
+  }
+
+  // ==========================================
+  // MOBILE NAVIGATION
+  // ==========================================
   toggleMobileNav(): void {
     this.mobileNavOpen = !this.mobileNavOpen;
     
@@ -78,10 +145,9 @@ export class AboutPage implements OnInit, OnDestroy {
     document.documentElement.style.overflow = this.originalOverflow || '';
   }
 
-  // =============================================
-  // Navigation methods
-  // =============================================
-
+  // ==========================================
+  // NAVIGATION METHODS
+  // ==========================================
   goToHome(): void {
     this.router.navigate(['/home']);
     this.closeMobileNav();
@@ -97,17 +163,22 @@ export class AboutPage implements OnInit, OnDestroy {
     this.closeMobileNav();
   }
 
+  goToAttractions(): void {
+    this.router.navigate(['/attractions']);
+    this.closeMobileNav();
+  }
+
+  goToContact(): void {
+    this.router.navigate(['/contact']);
+    this.closeMobileNav();
+  }
+
+  // ==========================================
+  // WHATSAPP METHOD
+  // ==========================================
   openWhatsApp(): void {
     const phone = '27849009821';
     const message = 'Hello stay@tiah, I would like to make a booking enquiry.';
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
-  }
-
-  // =============================================
-  // ✅ Clean up on destroy
-  // =============================================
-
-  ngOnDestroy(): void {
-    this.restoreScroll();
   }
 }

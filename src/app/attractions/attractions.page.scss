@@ -1,8 +1,4 @@
 // =========================
-// FONTS - CONSISTENT ACROSS PAGE
-// =========================
-
-// =========================
 // VARIABLES
 // =========================
 $gold: #c9a84c;
@@ -16,8 +12,9 @@ $grey: #888888;
 $light-grey: #e8e8e8;
 $off-white: #f8f7f4;
 $white: #ffffff;
-$font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-$font-serif: 'Cormorant Garamond', Georgia, serif;
+
+// FIXED FONT - Tahoma only (consistent across entire site)
+$font-primary: Tahoma, Geneva, Verdana, sans-serif;
 $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 $header-height-desktop: 72px;
 $header-height-mobile: 56px;
@@ -30,8 +27,9 @@ $header-height-mobile: 56px;
   box-sizing: border-box;
 }
 
-// Override serif fonts where needed
-h1, h2, h3, h4, 
+// All headings and text use Tahoma
+h1, h2, h3, h4, h5, h6,
+p, span, a, div, li, button,
 .page-title, 
 .section-title, 
 .brand__name, 
@@ -50,8 +48,36 @@ h1, h2, h3, h4,
 .rates-table .price-cell,
 .empty-state h3,
 .attraction-card h3,
-.location-item h4 {
-  font-family: $font-serif !important;
+.location-item h4,
+.nav__link,
+.mobile-nav a,
+.hero-description,
+.section-subtitle,
+.about-description,
+.about-content p,
+.why-card p,
+.eyebrow,
+.hero-badge,
+.footer-column a,
+.footer-column p,
+.mobile-brand-text,
+.mobile-brand-tagline,
+.filter-tab,
+.attraction-details span,
+.attraction-rating small,
+.location-info p,
+.location-tag,
+.cta-content p,
+.attraction-btn,
+.footer .logo,
+.footer .logo-text,
+.footer .logo-gold,
+.btn-primary,
+.btn-secondary-cta,
+.btn-gold,
+.btn-whatsapp,
+.footer-contact p {
+  font-family: $font-primary !important;
 }
 
 // =========================
@@ -151,7 +177,7 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// HEADER / NAVBAR - EXACTLY LIKE ORIGINAL
+// HEADER / NAVBAR
 // =========================
 .site-header {
   background: rgba(10, 10, 10, 0.95);
@@ -206,6 +232,7 @@ h1, h2, h3, h4,
   display: flex;
   flex-direction: column;
   transition: $transition-smooth;
+  cursor: pointer;
   
   &:hover {
     transform: scale(1.02);
@@ -214,7 +241,7 @@ h1, h2, h3, h4,
 
 .brand__name {
   display: block;
-  font-family: $font-serif !important;
+  font-family: $font-primary !important;
   font-size: 1.8rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -280,6 +307,7 @@ h1, h2, h3, h4,
   position: relative;
   border-radius: 8px;
   letter-spacing: 0.3px;
+  cursor: pointer;
   
   @media (max-width: 1200px) {
     font-size: 12px;
@@ -388,10 +416,8 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// MOBILE NAVIGATION - CLEAN DESIGN
+// MOBILE NAVIGATION
 // =========================
-
-// Hamburger Button
 .hamburger-btn {
   display: none;
   background: transparent;
@@ -433,7 +459,6 @@ h1, h2, h3, h4,
   }
 }
 
-// Overlay
 .nav-overlay {
   display: none;
   position: fixed;
@@ -454,7 +479,6 @@ h1, h2, h3, h4,
   }
 }
 
-// Mobile Navigation Drawer - Clean
 .mobile-nav {
   position: fixed;
   top: 0;
@@ -479,7 +503,6 @@ h1, h2, h3, h4,
     right: 0;
   }
   
-  // Close Button
   .mobile-nav-header {
     padding: 16px 20px 8px;
     display: flex;
@@ -512,7 +535,6 @@ h1, h2, h3, h4,
     }
   }
   
-  // Brand
   .mobile-nav-brand {
     padding: 0 24px 24px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
@@ -520,7 +542,7 @@ h1, h2, h3, h4,
     
     .mobile-brand-text {
       display: block;
-      font-family: $font-serif !important;
+      font-family: $font-primary !important;
       font-size: 1.6rem;
       font-weight: 700;
       background: linear-gradient(135deg, #ffffff 0%, $gold 100%);
@@ -541,7 +563,6 @@ h1, h2, h3, h4,
     }
   }
   
-  // Navigation Links
   .mobile-nav-links {
     padding: 16px 16px 0;
     flex: 1;
@@ -572,12 +593,13 @@ h1, h2, h3, h4,
       }
       
       .link-icon {
-        font-size: 18px;
-        opacity: 0.5;
+        font-size: 20px;
+        opacity: 0.6;
         transition: $transition-smooth;
         flex-shrink: 0;
-        width: 24px;
+        width: 28px;
         text-align: center;
+        color: $gold;
       }
       
       &:hover {
@@ -587,6 +609,7 @@ h1, h2, h3, h4,
         
         .link-icon {
           opacity: 1;
+          transform: scale(1.1);
         }
       }
       
@@ -644,7 +667,6 @@ h1, h2, h3, h4,
     }
   }
   
-  // Footer
   .mobile-nav-footer {
     padding: 16px 24px 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.04);
@@ -707,9 +729,6 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
-// DESKTOP OVERRIDES (Hide mobile elements)
-// =========================
 @media (min-width: 993px) {
   .hamburger-btn {
     display: none !important;
@@ -725,7 +744,7 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// PAGE HEADER WITH IMAGE
+// PAGE HEADER
 // =========================
 .page-header {
   min-height: 50vh;
@@ -790,6 +809,7 @@ h1, h2, h3, h4,
         margin-bottom: 15px;
         border: 1px solid rgba(201, 168, 76, 0.3);
         backdrop-filter: blur(5px);
+        font-family: $font-primary !important;
         
         @media (max-width: 576px) {
           font-size: 11px;
@@ -798,7 +818,7 @@ h1, h2, h3, h4,
       }
       
       .page-title {
-        font-family: $font-serif !important;
+        font-family: $font-primary !important;
         font-size: clamp(36px, 6vw, 72px);
         line-height: 1.1;
         margin: 15px 0 20px;
@@ -817,6 +837,7 @@ h1, h2, h3, h4,
         font-weight: 300;
         max-width: 600px;
         margin: 0 auto;
+        font-family: $font-primary !important;
         
         @media (max-width: 576px) {
           font-size: 0.95rem;
@@ -853,7 +874,7 @@ h1, h2, h3, h4,
     border-radius: 50px;
     font-size: 13px;
     font-weight: 500;
-    color: $grey;
+    color: $black;
     background: $off-white;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -1055,7 +1076,7 @@ h1, h2, h3, h4,
     }
     
     h3 {
-      font-family: $font-serif !important;
+      font-family: $font-primary !important;
       font-size: 20px;
       margin: 0 0 8px;
       color: $black;
@@ -1066,10 +1087,10 @@ h1, h2, h3, h4,
     }
     
     p {
-      color: $grey;
+      color: $black;
       font-size: 14px;
       line-height: 1.6;
-      font-weight: 300;
+      font-weight: 400;
       margin: 0 0 12px;
       font-family: $font-primary !important;
       
@@ -1090,8 +1111,8 @@ h1, h2, h3, h4,
       align-items: center;
       gap: 4px;
       font-size: 12px;
-      color: $grey;
-      font-weight: 300;
+      color: $black;
+      font-weight: 400;
       font-family: $font-primary !important;
       
       ion-icon {
@@ -1122,12 +1143,14 @@ h1, h2, h3, h4,
         font-weight: 600;
         color: $black;
         font-size: 14px;
+        font-family: $font-primary !important;
       }
       
       small {
         color: $grey;
         font-size: 12px;
         font-weight: 300;
+        font-family: $font-primary !important;
       }
     }
     
@@ -1174,16 +1197,17 @@ h1, h2, h3, h4,
   }
   
   h3 {
-    font-family: $font-serif !important;
+    font-family: $font-primary !important;
     font-size: 24px;
     margin: 12px 0 6px;
     color: $black;
   }
   
   p {
-    color: $grey;
+    color: $black;
     font-size: 14px;
     font-family: $font-primary !important;
+    font-weight: 400;
     margin-bottom: 16px;
   }
   
@@ -1303,18 +1327,18 @@ h1, h2, h3, h4,
       flex: 1;
       
       h4 {
+        font-family: $font-primary !important;
         font-size: 15px;
         font-weight: 600;
         margin: 0 0 2px;
         color: $black;
-        font-family: $font-serif !important;
       }
       
       p {
         font-size: 13px;
-        color: $grey;
+        color: $black;
         margin: 0 0 4px;
-        font-weight: 300;
+        font-weight: 400;
         font-family: $font-primary !important;
       }
       
@@ -1415,7 +1439,7 @@ h1, h2, h3, h4,
 }
 
 .section-title {
-  font-family: $font-serif !important;
+  font-family: $font-primary !important;
   font-size: clamp(28px, 4.5vw, 52px);
   line-height: 1.1;
   margin: 10px 0 12px;
@@ -1427,14 +1451,14 @@ h1, h2, h3, h4,
 }
 
 .section-subtitle {
-  color: $grey;
+  color: $black;
   font-size: 16px;
   line-height: 1.8;
   margin-top: 8px;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  font-weight: 300;
+  font-weight: 400;
   font-family: $font-primary !important;
   
   @media (max-width: 576px) {
@@ -1574,7 +1598,7 @@ h1, h2, h3, h4,
   margin: 0 auto;
   
   h2 {
-    font-family: $font-serif !important;
+    font-family: $font-primary !important;
     font-size: clamp(28px, 4vw, 48px);
     color: $white;
     margin: 0 0 12px;
@@ -1663,7 +1687,7 @@ h1, h2, h3, h4,
   
   .footer-brand {
     .logo {
-      font-family: $font-serif !important;
+      font-family: $font-primary !important;
       font-size: 30px;
       display: flex;
       align-items: center;
@@ -1781,6 +1805,7 @@ h1, h2, h3, h4,
         gap: 10px;
         color: rgba(255,255,255,0.5);
         font-size: 13px;
+        font-family: $font-primary !important;
         
         @media (max-width: 576px) {
           font-size: 12px;
@@ -1959,7 +1984,7 @@ ion-content {
 }
 
 // ============================================================
-// ✅ PRODUCTION SCROLL FIX - ATTRACTIONS PAGE (MATCHING ABOUT)
+// ✅ PRODUCTION SCROLL FIX - ATTRACTIONS PAGE
 // ============================================================
 
 // Force the page to scroll in production

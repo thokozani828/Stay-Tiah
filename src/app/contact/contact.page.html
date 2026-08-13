@@ -2,9 +2,9 @@
 <!-- ✅ HEADER OUTSIDE ION-CONTENT (LIKE ABOUT)    -->
 <!-- ============================================= -->
 <ion-header>
-  <header class="site-header">
+  <header class="site-header" [class.scrolled]="isScrolled">
     <div class="site-header__inner">
-      <a href="/" class="brand">
+      <a href="/" class="brand" (click)="goToHome()">
         <span class="brand__name">TIAH</span>
         <span class="brand__tagline">The Ideal Accommodation Haven</span>
       </a>
@@ -16,17 +16,14 @@
       <nav class="nav" aria-label="Main">
         <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="nav__link">Home</a>
         <a routerLink="/about" routerLinkActive="is-active" class="nav__link">About</a>
-        <a routerLink="/accommodation" routerLinkActive="is-active" class="nav__link">Accommodation</a>
-        <a routerLink="/gallery" routerLinkActive="is-active" class="nav__link">Gallery</a>
-        <a routerLink="/rates" routerLinkActive="is-active" class="nav__link">Rates</a>
+        <a routerLink="/rooms" routerLinkActive="is-active" class="nav__link">Rooms</a>
         <a routerLink="/attractions" routerLinkActive="is-active" class="nav__link">Attractions</a>
-        <a routerLink="/faq" routerLinkActive="is-active" class="nav__link">FAQ</a>
         <a routerLink="/contact" routerLinkActive="is-active" class="nav__link">Contact</a>
       </nav>
 
-      <a class="btn-whatsapp desktop-only" (click)="goToBookingPage()">
+      <a class="btn-whatsapp desktop-only" (click)="openWhatsApp()">
         <ion-icon name="logo-whatsapp"></ion-icon>
-        <span class="btn-text">Book on WhatsApp</span>
+        <span class="btn-text">Check Availability</span>
       </a>
     </div>
   </header>
@@ -51,35 +48,31 @@
   
   <div class="mobile-nav-links">
     <a routerLink="/home" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">🏠</span> Home
+      <ion-icon name="home-outline" class="link-icon"></ion-icon>
+      Home
     </a>
     <a routerLink="/about" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">ℹ️</span> About
+      <ion-icon name="information-circle-outline" class="link-icon"></ion-icon>
+      About
     </a>
-    <a routerLink="/accommodation" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">🛏️</span> Accommodation
-    </a>
-    <a routerLink="/gallery" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">🖼️</span> Gallery
-    </a>
-    <a routerLink="/rates" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">💰</span> Rates
+    <a routerLink="/rooms" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <ion-icon name="bed-outline" class="link-icon"></ion-icon>
+      Rooms
     </a>
     <a routerLink="/attractions" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">📍</span> Attractions
-    </a>
-    <a routerLink="/faq" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">❓</span> FAQ
+      <ion-icon name="location-outline" class="link-icon"></ion-icon>
+      Attractions
     </a>
     <a routerLink="/contact" routerLinkActive="is-active" (click)="closeMobileNav()">
-      <span class="link-icon">📧</span> Contact
+      <ion-icon name="mail-outline" class="link-icon"></ion-icon>
+      Contact
     </a>
     
     <div class="mobile-divider"></div>
     
-    <a class="mobile-cta" (click)="goToBookingPage(); closeMobileNav()">
+    <a class="mobile-cta" (click)="openWhatsApp(); closeMobileNav()">
       <ion-icon name="logo-whatsapp"></ion-icon>
-      Book on WhatsApp
+      Check Availability
     </a>
   </div>
   
@@ -91,7 +84,7 @@
 <!-- ============================================= -->
 <!-- ✅ ION-CONTENT WITH FULL SCROLLING -->
 <!-- ============================================= -->
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" (ionScroll)="onScroll($event)">
   
   <!-- ================= PAGE HEADER ================= -->
   <section class="page-header">
@@ -118,14 +111,15 @@
           <p>Have questions about your stay, bookings, or anything else? We're here to help.</p>
           
           <div class="contact-info-cards">
+            <!-- WhatsApp Only - Phone Number Hidden -->
             <div class="info-card">
               <div class="info-icon">
-                <ion-icon name="call-outline"></ion-icon>
+                <ion-icon name="logo-whatsapp"></ion-icon>
               </div>
               <div class="info-content">
-                <h4>Phone</h4>
-                <a href="tel:+27849009821">+27 84 900 9821</a>
-                <span>Available 24/7</span>
+                <h4>WhatsApp Only</h4>
+                <a (click)="openWhatsApp()">Chat with us on WhatsApp</a>
+                <span>Quick response • 24/7</span>
               </div>
             </div>
             
@@ -137,17 +131,6 @@
                 <h4>Email</h4>
                 <a href="mailto:info@staytiah.com">info@staytiah.com</a>
                 <span>We respond within 24h</span>
-              </div>
-            </div>
-            
-            <div class="info-card">
-              <div class="info-icon">
-                <ion-icon name="logo-whatsapp"></ion-icon>
-              </div>
-              <div class="info-content">
-                <h4>WhatsApp</h4>
-                <a (click)="openWhatsApp()">+27 84 900 9821</a>
-                <span>Quick chat</span>
               </div>
             </div>
             
@@ -166,23 +149,23 @@
           <div class="social-connect">
             <h4>Follow Us</h4>
             <div class="social-links">
-             <a href="https://www.instagram.com/stay.tiah?igsh=MXR0czJhcW5lanJ5OA=="><ion-icon name="logo-instagram"></ion-icon></a>
-            <a href="https://www.facebook.com/profile.php?id=61573594146514"><ion-icon name="logo-facebook"></ion-icon></a>
-            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
-            <a href="https://www.tiktok.com/@stay_at_tiah?_r=1&_t=ZS-98msEEY1WVw"><ion-icon name="logo-tiktok"></ion-icon></a>
+              <a href="https://www.instagram.com/stay.tiah?igsh=MXR0czJhcW5lanJ5OA=="><ion-icon name="logo-instagram"></ion-icon></a>
+              <a href="https://www.facebook.com/profile.php?id=61573594146514"><ion-icon name="logo-facebook"></ion-icon></a>
+              <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+              <a href="https://www.tiktok.com/@stay_at_tiah?_r=1&_t=ZS-98msEEY1WVw"><ion-icon name="logo-tiktok"></ion-icon></a>
             </div>
           </div>
         </div>
         
-        <!-- Contact Form - Using Native Inputs -->
+        <!-- Contact Form - Check Availability -->
         <div class="contact-form-wrapper animate-fade-up" style="animation-delay:0.2s">
           <div class="form-header">
-            <h3>Send Us a Message</h3>
-            <p>Fill in the form below and we'll get back to you as soon as possible.</p>
+            <h3>Check Availability</h3>
+            <p>Fill in the form below and we'll get back to you with availability and pricing.</p>
           </div>
           
           <form (ngSubmit)="submitContactForm()" #contactForm="ngForm" class="contact-form">
-            <!-- Name Field - Native Input -->
+            <!-- Name Field -->
             <div class="form-group">
               <label>Full Name <span class="required">*</span></label>
               <div class="input-wrapper" [class.error]="shouldShowError('name')">
@@ -199,11 +182,11 @@
               </div>
               <div class="error-message" *ngIf="shouldShowError('name')">
                 <ion-icon name="alert-circle-outline"></ion-icon>
-                Please enter your full name (at least 2 characters)
+                Please enter your full name
               </div>
             </div>
 
-            <!-- Email Field - Native Input -->
+            <!-- Email Field -->
             <div class="form-group">
               <label>Email Address <span class="required">*</span></label>
               <div class="input-wrapper" [class.error]="shouldShowError('email')">
@@ -224,7 +207,7 @@
               </div>
             </div>
 
-            <!-- Phone Field - Native Input -->
+            <!-- Phone Field - Optional -->
             <div class="form-group">
               <label>Phone Number</label>
               <div class="input-wrapper">
@@ -240,8 +223,75 @@
               </div>
             </div>
 
-            <!-- Subject Field - Native Select -->
+            <!-- Check-in Date -->
             <div class="form-group">
+              <label>Check-in Date <span class="required">*</span></label>
+              <div class="input-wrapper" [class.error]="shouldShowError('checkIn')">
+                <ion-icon name="calendar-outline" class="input-icon"></ion-icon>
+                <input
+                  class="form-input-native"
+                  type="date"
+                  [(ngModel)]="contactData.checkIn"
+                  name="checkIn"
+                  required
+                  (focus)="onFieldFocus('checkIn')"
+                  (blur)="onFieldBlur('checkIn')">
+              </div>
+              <div class="error-message" *ngIf="shouldShowError('checkIn')">
+                <ion-icon name="alert-circle-outline"></ion-icon>
+                Please select your check-in date
+              </div>
+            </div>
+
+            <!-- Check-out Date -->
+            <div class="form-group">
+              <label>Check-out Date <span class="required">*</span></label>
+              <div class="input-wrapper" [class.error]="shouldShowError('checkOut')">
+                <ion-icon name="calendar-outline" class="input-icon"></ion-icon>
+                <input
+                  class="form-input-native"
+                  type="date"
+                  [(ngModel)]="contactData.checkOut"
+                  name="checkOut"
+                  required
+                  (focus)="onFieldFocus('checkOut')"
+                  (blur)="onFieldBlur('checkOut')">
+              </div>
+              <div class="error-message" *ngIf="shouldShowError('checkOut')">
+                <ion-icon name="alert-circle-outline"></ion-icon>
+                Please select your check-out date
+              </div>
+            </div>
+
+            <!-- Guests -->
+            <div class="form-group">
+              <label>Number of Guests <span class="required">*</span></label>
+              <div class="input-wrapper" [class.error]="shouldShowError('guests')">
+                <ion-icon name="people-outline" class="input-icon"></ion-icon>
+                <select
+                  class="form-select-native"
+                  [(ngModel)]="contactData.guests"
+                  name="guests"
+                  required
+                  (focus)="onFieldFocus('guests')"
+                  (blur)="onFieldBlur('guests')">
+                  <option value="">Select guests</option>
+                  <option value="1">1 Guest</option>
+                  <option value="2">2 Guests</option>
+                  <option value="3">3 Guests</option>
+                  <option value="4">4 Guests</option>
+                  <option value="5">5 Guests</option>
+                  <option value="6+">6+ Guests</option>
+                </select>
+              </div>
+              <div class="error-message" *ngIf="shouldShowError('guests')">
+                <ion-icon name="alert-circle-outline"></ion-icon>
+                Please select number of guests
+              </div>
+            </div>
+
+            <!-- Subject Field -->
+            <div class="form-group full-width">
               <label>Subject <span class="required">*</span></label>
               <div class="input-wrapper" [class.error]="shouldShowError('subject')">
                 <ion-icon name="bookmark-outline" class="input-icon"></ion-icon>
@@ -253,8 +303,8 @@
                   (focus)="onFieldFocus('subject')"
                   (blur)="onFieldBlur('subject')">
                   <option value="">Select a subject</option>
-                  <option value="booking">Booking Enquiry</option>
                   <option value="availability">Availability Check</option>
+                  <option value="booking">Booking Enquiry</option>
                   <option value="rates">Rates &amp; Pricing</option>
                   <option value="feedback">Feedback</option>
                   <option value="other">Other</option>
@@ -266,7 +316,7 @@
               </div>
             </div>
 
-            <!-- Message Field - Native Textarea -->
+            <!-- Message Field -->
             <div class="form-group full-width">
               <label>Message <span class="required">*</span></label>
               <div class="input-wrapper" [class.error]="shouldShowError('message')">
@@ -275,7 +325,7 @@
                   class="form-textarea-native"
                   [(ngModel)]="contactData.message"
                   name="message"
-                  placeholder="Tell us how we can help you..."
+                  placeholder="Tell us about your stay preferences, special requests, or any questions..."
                   rows="5"
                   required
                   (focus)="onFieldFocus('message')"
@@ -284,14 +334,14 @@
               </div>
               <div class="error-message" *ngIf="shouldShowError('message')">
                 <ion-icon name="alert-circle-outline"></ion-icon>
-                Please enter your message (at least 5 characters)
+                Please enter your message
               </div>
             </div>
             
             <div class="form-actions">
               <button type="submit" class="btn-primary" [disabled]="isSubmitting">
-                <ion-icon name="send-outline"></ion-icon>
-                {{ isSubmitting ? 'Sending...' : 'Send Message' }}
+                <ion-icon name="logo-whatsapp"></ion-icon>
+                {{ isSubmitting ? 'Sending...' : 'Check Availability on WhatsApp' }}
               </button>
               <span class="required-note"><span class="required">*</span> Required fields</span>
             </div>
@@ -360,31 +410,24 @@
           <h4>Quick Links</h4>
           <a routerLink="/home">Home</a>
           <a routerLink="/about">About Us</a>
-          <a routerLink="/accommodation">Accommodation</a>
-          <a routerLink="/gallery">Gallery</a>
-          <a routerLink="/rates">Rates</a>
+          <a routerLink="/rooms">Rooms</a>
           <a routerLink="/attractions">Attractions</a>
-          <a routerLink="/faq">FAQ</a>
           <a routerLink="/contact">Contact Us</a>
         </div>
         <div class="footer-column animate-fade-up">
-          <h4>Our Locations</h4>
-          <a href="#">Musgrave</a>
-          <a href="#">North Beach</a>
-          <a href="#">Durban Oceanic</a>
+          <h4>Legal</h4>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms &amp; Conditions</a>
         </div>
         <div class="footer-column animate-fade-up">
-          <h4>Contact Info</h4>
-          <div class="footer-contact-details">
-            <p><ion-icon name="location-outline"></ion-icon> 57 Vause Rd, Musgrave, Berea, 4001</p>
-            <p><ion-icon name="call-outline"></ion-icon> +27 84 900 9821</p>
-            <p><ion-icon name="restaurant-outline"></ion-icon> Mon - Sun, 04 pm - 11 pm</p>
+          <h4>Book Your Stay</h4>
+          <p>Ready for your Durban getaway?</p>
+          <a (click)="openWhatsApp()" class="btn-gold">
+            <ion-icon name="logo-whatsapp"></ion-icon>
+            Check Availability
+          </a>
+          <div class="footer-contact">
             <p><ion-icon name="mail-outline"></ion-icon> info@staytiah.com</p>
-          </div>
-          <div class="footer-legal">
-            <a href="#">Legal Notice</a>
-            <span>|</span>
-            <a href="#">Privacy for bookings</a>
           </div>
         </div>
       </div>

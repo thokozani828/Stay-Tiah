@@ -1,13 +1,11 @@
 // =========================
-// FONTS
-// =========================
-
-// =========================
 // VARIABLES
 // =========================
 $gold: #c9a84c;
 $gold-light: #dbb95c;
 $gold-dark: #b8943a;
+$gold-pale: #f5e6c8;
+$gold-soft: #e8d5a8;
 $black: #0a0a0a;
 $dark: #121212;
 $grey: #888888;
@@ -15,8 +13,53 @@ $light-grey: #e8e8e8;
 $off-white: #f8f7f4;
 $white: #ffffff;
 
+// FIXED FONT - Tahoma only (consistent across entire site)
+$font-primary: Tahoma, Geneva, Verdana, sans-serif;
+$transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+$header-height-desktop: 72px;
+$header-height-mobile: 56px;
+
+// =========================
+// GLOBAL FONT RESET
+// =========================
 * {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: $font-primary !important;
+  box-sizing: border-box;
+}
+
+// All headings and text use Tahoma
+h1, h2, h3, h4, h5, h6,
+p, span, a, div, li, button,
+.room-title, 
+.room-price-hero .price,
+.detail-card h3,
+.type-info h4,
+.type-price .price,
+.booking-card .booking-price .price,
+.footer .logo,
+.footer .logo-text,
+.footer .logo-gold,
+.nav__link,
+.mobile-nav a,
+.footer-column a,
+.footer-column p,
+.btn-primary,
+.btn-gold,
+.btn-whatsapp,
+.room-location-hero,
+.room-rating-hero .label,
+.room-rating-hero .reviews,
+.room-rating-hero .rating-score .score,
+.booking-note,
+.location-address,
+.attraction-item,
+.facility-item,
+.amenity-item,
+.rule-item,
+.gallery-count span,
+.modal-counter,
+.back-button .back-text {
+  font-family: $font-primary !important;
 }
 
 // =========================
@@ -26,6 +69,10 @@ $white: #ffffff;
   max-width: 1180px;
   margin: 0 auto;
   padding: 0 20px;
+  
+  @media (max-width: 576px) {
+    padding: 0 16px;
+  }
 }
 
 // =========================
@@ -129,15 +176,21 @@ $white: #ffffff;
       text-transform: uppercase;
       border-radius: 4px;
       margin-right: 8px;
+      font-family: $font-primary !important;
       
       &.new {
         background: #2196F3;
         color: white;
       }
+      
+      &.featured {
+        background: #e74c3c;
+        color: white;
+      }
     }
     
     .room-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: $font-primary !important;
       font-size: clamp(36px, 5vw, 56px);
       line-height: 1.1;
       margin: 12px 0 8px;
@@ -152,6 +205,7 @@ $white: #ffffff;
       color: rgba(255,255,255,0.7);
       font-size: 14px;
       margin-bottom: 12px;
+      font-family: $font-primary !important;
       
       ion-icon {
         color: $gold;
@@ -177,17 +231,20 @@ $white: #ffffff;
           font-size: 18px;
           font-weight: 700;
           color: $gold;
+          font-family: $font-primary !important;
         }
         
         .label {
           font-size: 13px;
           color: rgba(255,255,255,0.7);
+          font-family: $font-primary !important;
         }
       }
       
       .reviews {
         font-size: 13px;
         color: rgba(255,255,255,0.5);
+        font-family: $font-primary !important;
       }
     }
     
@@ -198,20 +255,18 @@ $white: #ffffff;
         font-size: 32px;
         font-weight: 700;
         color: $gold;
-        font-family: 'Cormorant Garamond', serif;
+        font-family: $font-primary !important;
       }
       
       .per-night {
         font-size: 16px;
         color: rgba(255,255,255,0.6);
+        font-family: $font-primary !important;
       }
     }
   }
   
-  // =========================
-  // BACK BUTTON
-  // =========================
-  .back-button {
+  .back-btn {
     position: absolute;
     top: 24px;
     left: 24px;
@@ -230,6 +285,7 @@ $white: #ffffff;
     transition: all 0.3s ease;
     border: 1px solid rgba(255, 255, 255, 0.1);
     cursor: pointer;
+    font-family: $font-primary !important;
     
     ion-icon {
       font-size: 20px;
@@ -357,9 +413,14 @@ $white: #ffffff;
       align-items: center;
       gap: 6px;
       backdrop-filter: blur(10px);
+      font-family: $font-primary !important;
       
       ion-icon {
         font-size: 14px;
+      }
+      
+      span {
+        font-family: $font-primary !important;
       }
     }
   }
@@ -475,6 +536,7 @@ $white: #ffffff;
     background: rgba(0,0,0,0.3);
     padding: 4px 16px;
     border-radius: 20px;
+    font-family: $font-primary !important;
   }
 }
 
@@ -505,18 +567,19 @@ $white: #ffffff;
   border: 1px solid rgba(0,0,0,0.03);
   
   h3 {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: $font-primary !important;
     font-size: 22px;
     margin: 0 0 16px;
     color: $black;
   }
   
   p {
-    color: #444;
+    color: $black;
     font-size: 15px;
     line-height: 1.7;
-    font-weight: 300;
+    font-weight: 400;
     margin: 0;
+    font-family: $font-primary !important;
   }
 }
 
@@ -550,13 +613,15 @@ $white: #ffffff;
         font-weight: 600;
         margin: 0 0 2px;
         color: $black;
+        font-family: $font-primary !important;
       }
       
       p {
         font-size: 13px;
-        color: $grey;
+        color: $black;
         margin: 0;
-        font-weight: 300;
+        font-weight: 400;
+        font-family: $font-primary !important;
       }
     }
     
@@ -565,12 +630,13 @@ $white: #ffffff;
         font-size: 20px;
         font-weight: 700;
         color: $gold-dark;
-        font-family: 'Cormorant Garamond', serif;
+        font-family: $font-primary !important;
       }
       
       .per-night {
         font-size: 12px;
         color: $grey;
+        font-family: $font-primary !important;
       }
     }
     
@@ -593,6 +659,7 @@ $white: #ffffff;
         font-size: 12px;
         color: #e74c3c;
         font-weight: 500;
+        font-family: $font-primary !important;
       }
     }
   }
@@ -618,7 +685,9 @@ $white: #ffffff;
     background: $off-white;
     border-radius: 8px;
     font-size: 13px;
-    color: #444;
+    color: $black;
+    font-family: $font-primary !important;
+    font-weight: 400;
     
     ion-icon {
       color: $gold;
@@ -642,8 +711,10 @@ $white: #ffffff;
     align-items: center;
     gap: 8px;
     font-size: 13px;
-    color: #444;
+    color: $black;
     padding: 4px 0;
+    font-family: $font-primary !important;
+    font-weight: 400;
     
     ion-icon {
       color: $gold;
@@ -664,7 +735,9 @@ $white: #ffffff;
     padding: 8px 0;
     border-bottom: 1px solid rgba(0,0,0,0.04);
     font-size: 14px;
-    color: #444;
+    color: $black;
+    font-family: $font-primary !important;
+    font-weight: 400;
     
     &:last-child {
       border-bottom: none;
@@ -696,12 +769,13 @@ $white: #ffffff;
       font-size: 32px;
       font-weight: 700;
       color: $gold-dark;
-      font-family: 'Cormorant Garamond', serif;
+      font-family: $font-primary !important;
     }
     
     .per-night {
       font-size: 14px;
       color: $grey;
+      font-family: $font-primary !important;
     }
   }
   
@@ -718,16 +792,19 @@ $white: #ffffff;
       border-radius: 4px;
       font-weight: 700;
       font-size: 14px;
+      font-family: $font-primary !important;
     }
     
     .label {
       font-size: 14px;
       color: $black;
+      font-family: $font-primary !important;
     }
     
     .reviews {
       font-size: 13px;
       color: $grey;
+      font-family: $font-primary !important;
     }
   }
   
@@ -746,6 +823,7 @@ $white: #ffffff;
         text-transform: uppercase;
         letter-spacing: 0.5px;
         margin-bottom: 4px;
+        font-family: $font-primary !important;
       }
       
       .date-input {
@@ -760,6 +838,7 @@ $white: #ffffff;
         border-radius: 8px;
         width: 100%;
         font-size: 13px;
+        font-family: $font-primary !important;
         
         &.has-value {
           border-color: $gold;
@@ -781,6 +860,7 @@ $white: #ffffff;
     color: $grey;
     margin: 12px 0 0;
     font-weight: 300;
+    font-family: $font-primary !important;
   }
 }
 
@@ -792,8 +872,10 @@ $white: #ffffff;
   align-items: center;
   gap: 8px;
   font-size: 14px;
-  color: #444;
+  color: $black;
   margin-bottom: 12px;
+  font-family: $font-primary !important;
+  font-weight: 400;
   
   ion-icon {
     color: $gold;
@@ -823,7 +905,9 @@ $white: #ffffff;
     padding: 8px 0;
     border-bottom: 1px solid rgba(0,0,0,0.04);
     font-size: 13px;
-    color: #444;
+    color: $black;
+    font-family: $font-primary !important;
+    font-weight: 400;
     
     &:last-child {
       border-bottom: none;
@@ -839,6 +923,7 @@ $white: #ffffff;
       margin-left: auto;
       color: $grey;
       font-size: 12px;
+      font-family: $font-primary !important;
     }
   }
 }
@@ -862,6 +947,7 @@ $white: #ffffff;
   border: none;
   cursor: pointer;
   box-shadow: 0 4px 25px rgba(201, 168, 76, 0.25);
+  font-family: $font-primary !important;
   
   ion-icon {
     font-size: 18px;
@@ -891,6 +977,7 @@ $white: #ffffff;
   box-shadow: 0 4px 20px rgba(201, 168, 76, 0.25);
   cursor: pointer;
   border: none;
+  font-family: $font-primary !important;
   
   &:hover {
     background: linear-gradient(135deg, $gold-light, $gold);
@@ -907,6 +994,12 @@ $white: #ffffff;
   color: white;
   padding: 60px 0 0;
   overflow: hidden;
+  margin: 0;
+  bottom: 0;
+  
+  @media (max-width: 576px) {
+    padding: 40px 0 0;
+  }
   
   .footer-background {
     position: absolute;
@@ -943,32 +1036,27 @@ $white: #ffffff;
     
     @media (max-width: 900px) {
       grid-template-columns: 1fr 1fr;
+      gap: 30px;
     }
     @media (max-width: 500px) {
       grid-template-columns: 1fr;
       gap: 24px;
+      padding-bottom: 24px;
     }
   }
   
   .footer-brand {
     .logo {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: $font-primary !important;
       font-size: 30px;
       display: flex;
       align-items: center;
       gap: 10px;
       margin-bottom: 12px;
+      cursor: pointer;
       
-      .logo-img {
-        height: 48px;
-        width: auto;
-        object-fit: contain;
-        filter: drop-shadow(0 0 12px rgba(201, 168, 76, 0.2));
-        transition: transform 0.3s ease;
-        
-        &:hover {
-          transform: scale(1.05);
-        }
+      @media (max-width: 576px) {
+        font-size: 26px;
       }
       
       .logo-text {
@@ -987,6 +1075,12 @@ $white: #ffffff;
       max-width: 320px;
       line-height: 1.7;
       font-weight: 300;
+      font-family: $font-primary !important;
+      
+      @media (max-width: 576px) {
+        font-size: 13px;
+        max-width: 100%;
+      }
     }
     
     .socials {
@@ -1007,6 +1101,12 @@ $white: #ffffff;
         transition: all 0.3s;
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255,255,255,0.05);
+        
+        @media (max-width: 576px) {
+          width: 36px;
+          height: 36px;
+          font-size: 14px;
+        }
         
         &:hover {
           background: $gold;
@@ -1030,6 +1130,12 @@ $white: #ffffff;
       letter-spacing: 2px;
       text-transform: uppercase;
       font-weight: 600;
+      font-family: $font-primary !important;
+      
+      @media (max-width: 576px) {
+        font-size: 13px;
+        letter-spacing: 1.5px;
+      }
     }
     
     a, p {
@@ -1039,6 +1145,11 @@ $white: #ffffff;
       transition: color 0.3s;
       font-weight: 300;
       text-decoration: none;
+      font-family: $font-primary !important;
+      
+      @media (max-width: 576px) {
+        font-size: 13px;
+      }
       
       &:hover {
         color: $gold;
@@ -1054,6 +1165,11 @@ $white: #ffffff;
         gap: 10px;
         color: rgba(255,255,255,0.5);
         font-size: 13px;
+        font-family: $font-primary !important;
+        
+        @media (max-width: 576px) {
+          font-size: 12px;
+        }
         
         ion-icon {
           color: $gold;
@@ -1072,11 +1188,14 @@ $white: #ffffff;
     font-size: 12px;
     letter-spacing: 0.5px;
     font-weight: 300;
+    font-family: $font-primary !important;
     
     @media (max-width: 500px) {
       flex-direction: column;
       gap: 6px;
       text-align: center;
+      font-size: 10px;
+      padding: 16px 0;
     }
   }
 }
@@ -1084,12 +1203,24 @@ $white: #ffffff;
 // =========================
 // WHATSAPP FLOAT
 // =========================
+ion-fab {
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  z-index: 1000;
+}
+
 ion-fab-button.whatsapp-float {
   --background: #25D366;
   --box-shadow: 0 4px 25px rgba(37, 211, 102, 0.4);
   --border-radius: 50%;
   width: 60px;
   height: 60px;
+  
+  @media (max-width: 576px) {
+    width: 50px;
+    height: 50px;
+  }
   
   .whatsapp-pulse {
     position: absolute;
@@ -1104,7 +1235,21 @@ ion-fab-button.whatsapp-float {
 }
 
 // =========================
-// RESPONSIVE
+// ENSURE NO WHITE SPACE AFTER FOOTER
+// =========================
+ion-content {
+  --padding-bottom: 0 !important;
+  --padding-end: 0 !important;
+  --padding-start: 0 !important;
+  --padding-top: 0 !important;
+}
+
+.footer {
+  margin-bottom: 0 !important;
+}
+
+// =========================
+// RESPONSIVE OVERRIDES
 // =========================
 @media (max-width: 768px) {
   .room-hero {
@@ -1165,5 +1310,132 @@ ion-fab-button.whatsapp-float {
   .gallery-item.featured {
     grid-column: span 1;
     grid-row: span 1;
+  }
+}
+
+// ============================================================
+// ✅ PRODUCTION SCROLL FIX - ROOM DETAIL PAGE
+// ============================================================
+
+// Force the page to scroll in production
+:host {
+  display: block !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  overflow-y: auto !important;
+}
+
+// Override Ionic's production contain property
+ion-content {
+  contain: none !important;
+  --overflow: auto !important;
+  overflow-y: auto !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  display: block !important;
+  position: relative !important;
+  
+  &::part(scroll) {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    height: 100% !important;
+    min-height: 100vh !important;
+    display: block !important;
+  }
+}
+
+// Force all sections to be visible
+.room-hero,
+.room-gallery,
+.room-details-section {
+  height: auto !important;
+  min-height: auto !important;
+  overflow: visible !important;
+}
+
+// Ensure grid containers don't block scrolling
+.details-grid,
+.gallery-grid {
+  height: auto !important;
+  min-height: auto !important;
+  overflow: visible !important;
+}
+
+// Force all content to be visible
+.container {
+  height: auto !important;
+  min-height: auto !important;
+  overflow: visible !important;
+}
+
+// Ensure images don't overflow
+img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+// ============================================================
+// ✅ SCROLLBAR COMPLETELY REMOVED - Room Detail Page
+// ============================================================
+
+// Remove scrollbar completely
+:host ::-webkit-scrollbar,
+ion-content ::-webkit-scrollbar,
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+:host ::-webkit-scrollbar-track,
+ion-content ::-webkit-scrollbar-track,
+::-webkit-scrollbar-track {
+  display: none !important;
+  background: transparent !important;
+}
+
+:host ::-webkit-scrollbar-thumb,
+ion-content ::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb {
+  display: none !important;
+  background: transparent !important;
+}
+
+:host ::-webkit-scrollbar-corner,
+ion-content ::-webkit-scrollbar-corner,
+::-webkit-scrollbar-corner {
+  display: none !important;
+  background: transparent !important;
+}
+
+// Firefox - remove scrollbar
+:host,
+ion-content,
+* {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+// Keep scrolling functional
+:host {
+  display: block !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  overflow-y: auto !important;
+}
+
+ion-content {
+  contain: none !important;
+  --overflow: auto !important;
+  overflow-y: auto !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  
+  &::part(scroll) {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    height: 100% !important;
+    min-height: 100vh !important;
   }
 }
