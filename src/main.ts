@@ -15,8 +15,6 @@ import {
   chevronForwardOutline,
   chevronDownOutline,
   arrowForwardOutline,
-  arrowBackOutline,
-  chevronUpOutline,
   
   // Home & Layout
   homeOutline,
@@ -52,8 +50,6 @@ import {
   peopleCircleOutline,
   squareOutline,
   businessOutline,
-  walkOutline,
-  
   
   // Social Media
   logoWhatsapp,
@@ -67,7 +63,6 @@ import {
   callSharp,
   mailOutline,
   mailSharp,
-  mailUnreadOutline,
   
   // FAQ & Forms
   addOutline,
@@ -75,7 +70,7 @@ import {
   addSharp,
   removeSharp,
   
-  
+  // Sections
   informationCircleOutline,
   informationCircleSharp,
   imagesOutline,
@@ -99,9 +94,11 @@ import {
   shieldCheckmarkOutline,
   shieldCheckmarkSharp,
   
-  // Additional Outline Icons
+  // Additional Icons
   checkmarkCircleOutline,
   checkmarkCircle,
+  chevronUpOutline,
+  arrowBackOutline,
   searchOutline,
   filterOutline,
   heartOutline,
@@ -111,7 +108,6 @@ import {
   eyeOutline,
   folderOutline,
   chatbubbleOutline,
-  chatbubblesOutline,
   gameControllerOutline,
   bookOutline,
   leafOutline,
@@ -167,15 +163,6 @@ import {
   leaf,
   compass,
   gift,
-  home,
-  shieldCheckmark,
-  informationCircle,
-  helpCircle,
-  images,
-  cash,
-  grid,
-  walk,
-  
   
   // Sharp variants
   menuSharp,
@@ -183,7 +170,6 @@ import {
   arrowForwardSharp,
   chevronDownSharp,
   checkmarkSharp,
-  
 } from 'ionicons/icons';
 
 // ⚠️ REGISTER ALL ICONS BEFORE BOOTSTRAPPING
@@ -194,9 +180,7 @@ addIcons({
   'chevron-back-outline': chevronBackOutline,
   'chevron-forward-outline': chevronForwardOutline,
   'arrow-forward-outline': arrowForwardOutline,
-  'arrow-back-outline': arrowBackOutline,
   'close-outline': closeOutline,
-  'chevron-up-outline': chevronUpOutline,
   
   // Home & Layout
   'home-outline': homeOutline,
@@ -232,8 +216,6 @@ addIcons({
   'people-circle-outline': peopleCircleOutline,
   'square-outline': squareOutline,
   'business-outline': businessOutline,
-  'walk-outline': walkOutline,
-  
   
   // Social Media
   'logo-whatsapp': logoWhatsapp,
@@ -247,7 +229,6 @@ addIcons({
   'call-sharp': callSharp,
   'mail-outline': mailOutline,
   'mail-sharp': mailSharp,
-  'mail-unread-outline': mailUnreadOutline,
   
   // FAQ & Forms
   'add-outline': addOutline,
@@ -281,6 +262,8 @@ addIcons({
   
   // Additional Outline Icons
   'checkmark-circle-outline': checkmarkCircleOutline,
+  'chevron-up-outline': chevronUpOutline,
+  'arrow-back-outline': arrowBackOutline,
   'search-outline': searchOutline,
   'filter-outline': filterOutline,
   'heart-outline': heartOutline,
@@ -290,7 +273,6 @@ addIcons({
   'eye-outline': eyeOutline,
   'folder-outline': folderOutline,
   'chatbubble-outline': chatbubbleOutline,
-  'chatbubbles-outline': chatbubblesOutline,
   'game-controller-outline': gameControllerOutline,
   'book-outline': bookOutline,
   'leaf-outline': leafOutline,
@@ -347,15 +329,6 @@ addIcons({
   'leaf': leaf,
   'compass': compass,
   'gift': gift,
-  'home': home,
-  'shield-checkmark': shieldCheckmark,
-  'information-circle': informationCircle,
-  'help-circle': helpCircle,
-  'images': images,
-  'cash': cash,
-  'grid': grid,
-  'walk': walk,
-  
   
   // Sharp Icons
   'menu-sharp': menuSharp,

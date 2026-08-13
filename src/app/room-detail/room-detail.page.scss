@@ -13,8 +13,8 @@ $light-grey: #e8e8e8;
 $off-white: #f8f7f4;
 $white: #ffffff;
 
-// FIXED FONT - Tahoma only (consistent across entire site)
-$font-primary: Tahoma, Geneva, Verdana, sans-serif;
+// FIXED FONT - Verdana only (consistent across entire site)
+$font-primary: Verdana, Geneva, sans-serif;
 $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 $header-height-desktop: 72px;
 $header-height-mobile: 56px;
@@ -27,7 +27,7 @@ $header-height-mobile: 56px;
   box-sizing: border-box;
 }
 
-// All headings and text use Tahoma
+// All headings and text use Verdana
 h1, h2, h3, h4, h5, h6,
 p, span, a, div, li, button,
 .room-title, 

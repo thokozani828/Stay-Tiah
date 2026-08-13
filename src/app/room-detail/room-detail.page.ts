@@ -27,6 +27,9 @@ export class RoomDetailPage implements OnInit {
   currentImageIndex: number = 0;
   selectedRoomType: any = null;
 
+  // WhatsApp number
+  private readonly whatsappNumber: string = '27849009821';
+
   // All rooms data - Eleven Rooms with Gallery Images
   allRooms: any[] = [
     // ==================== ROOM 1: DURBAN OCEANIC ROOM 82A ====================
@@ -1012,7 +1015,7 @@ Convenient Location: Located 2.5 km from downtown Durban, the property is close 
   }
 
   openWhatsApp() {
-    const phone = '27791234567';
+    const phone = this.whatsappNumber;
     const message = 'Hello STAY@TIAH, I would like to make a booking enquiry.';
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
   }
