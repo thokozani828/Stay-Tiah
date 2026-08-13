@@ -90,7 +90,7 @@ export class HomePage implements OnInit {
     },
     {
       question: 'Is breakfast included?',
-      answer: 'Breakfast is available upon request at an additional cost. Please let us know in advance if you would like to include breakfast during your stay.',
+      answer: 'No, breakfast is not included in the room rate. However, we offer a variety of breakfast options at nearby restaurants.',
       active: false
     }
   ];
