@@ -1,6 +1,6 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, ViewChild, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, IonContent } from '@ionic/angular';
 import { RouterModule, Router } from '@angular/router';
 
 @Component({
@@ -15,12 +15,26 @@ import { RouterModule, Router } from '@angular/router';
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class RoomsPage {
+export class RoomsPage implements OnInit {
 
-  // Add this property for mobile navigation
+  @ViewChild(IonContent, { static: false }) content!: IonContent;
+
+  // ==========================================
+  // NAVIGATION STATE
+  // ==========================================
   mobileNavOpen: boolean = false;
+  isScrolled: boolean = false;
+  activeLocation: string = 'all';
 
-  // Eleven rooms with local images
+  // ==========================================
+  // FALLBACK IMAGE
+  // ==========================================
+  fallbackImage: string = 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80';
+
+  // ==========================================
+  // ROOMS DATA - Updated with better bedroom images
+  // Removed: rating, reviews, price
+  // ==========================================
   allRooms: any[] = [
     // ==================== ROOM 1: DURBAN OCEANIC ROOM 82A ====================
     {
@@ -31,23 +45,13 @@ export class RoomsPage {
       sleeps: '2 Guests',
       bed: 'Queen Bed',
       size: '30 m²',
-      price: '1,200',
-      rating: 6.7,
-      reviews: 37,
-      distance: '1.8 km from downtown',
-      beachDistance: '250 m from beach',
-      description: 'Comfortable Living Space: Durban Oceanic Room 82A offers a spacious apartment in Durban.',
+      distance: '250 m from beach',
+      description: 'Spacious room with stunning ocean views, perfect for a romantic getaway.',
       image: 'assets/images/Durban Oceanic Room 82A/1.jpg',
       amenities: ['Swimming pool', 'Free parking', 'Free Wifi', 'Terrace', 'Hot tub', 'Flat-screen TV', 'Shower', 'View'],
-      type: 'double',
       popular: true,
       new: false,
-      featured: true,
-      alternativeDates: [
-        { range: 'Aug 9 – Aug 19', nights: '10 nights', price: '6,710.53' },
-        { range: 'Aug 9 – Aug 20', nights: '11 nights', price: '7,381.58' },
-        { range: 'Aug 9 – Aug 21', nights: '12 nights', price: '8,052.63' }
-      ]
+      featured: true
     },
     // ==================== ROOM 2: DURBAN OCEANIC APARTMENT 82B ====================
     {
@@ -58,23 +62,13 @@ export class RoomsPage {
       sleeps: '2 Guests',
       bed: '1 Full Bed',
       size: '30 m²',
-      price: '896',
-      rating: 8.4,
-      reviews: 62,
-      distance: '1.8 km from downtown',
-      beachDistance: '250 m from beach',
-      description: 'Essential Facilities: Durban Oceanic Apartment 82B offers a terrace, outdoor swimming pool, and free WiFi.',
+      distance: '250 m from beach',
+      description: 'Modern apartment with a fully equipped kitchen and balcony.',
       image: 'assets/images/Durban Oceanic Apartment 82B/8.jpg',
       amenities: ['Outdoor swimming pool', 'Private Parking', 'Free Wifi', 'Terrace', 'Kitchen', 'Bath', 'Washing machine', 'Flat-screen TV'],
-      type: 'double',
       popular: true,
       new: true,
-      featured: true,
-      alternativeDates: [
-        { range: 'Aug 9 – Aug 19', nights: '10 nights', price: '6,150.00' },
-        { range: 'Aug 9 – Aug 20', nights: '11 nights', price: '6,765.00' },
-        { range: 'Aug 9 – Aug 21', nights: '12 nights', price: '7,380.00' }
-      ]
+      featured: true
     },
     // ==================== ROOM 3: DURBAN OCEANIC APARTMENT 117 ====================
     {
@@ -85,25 +79,15 @@ export class RoomsPage {
       sleeps: '2 Guests',
       bed: '1 Full Bed',
       size: '30 m²',
-      price: '896',
-      rating: 8.6,
-      reviews: 15,
-      distance: '1.8 km from downtown',
-      beachDistance: '250 m from beach',
-      description: 'Comfortable Living Space: Durban Oceanic Apartment 117 offers a one-bedroom apartment with a private pool.',
+      distance: '250 m from beach',
+      description: 'Elegant apartment with modern finishes and city views.',
       image: 'assets/images/Durban Oceanic Apartment 117/3.jpg',
       amenities: ['Swimming pool', 'Free parking', 'Free Wifi', 'Air conditioning', 'Private pool', 'Kitchenette', 'Washing machine', 'Flat-screen TV'],
-      type: 'double',
       popular: true,
       new: true,
-      featured: true,
-      alternativeDates: [
-        { range: 'Aug 9 – Aug 19', nights: '10 nights', price: '6,500.00' },
-        { range: 'Aug 9 – Aug 20', nights: '11 nights', price: '7,150.00' },
-        { range: 'Aug 9 – Aug 21', nights: '12 nights', price: '7,800.00' }
-      ]
+      featured: true
     },
-    // ==================== ROOM 4: TIAH WHYTE (FIXED) ====================
+    // ==================== ROOM 4: TIAH WHYTE ====================
     {
       id: 19,
       name: 'Tiah Whyte',
@@ -112,22 +96,13 @@ export class RoomsPage {
       sleeps: '2 Guests',
       bed: 'Queen Bed',
       size: '24 m²',
-      price: '855',
-      rating: 8.8,
-      reviews: 57,
       distance: '2.3 km from downtown',
-      beachDistance: '4.8 km from beach',
-      description: 'Comfortable Accommodations: Tiah Whyte offers a guest house with free WiFi and free on-site private parking.',
+      description: 'Stylish room in a quiet guesthouse close to all amenities.',
       image: 'assets/images/Tiah Whyte, Durban/1.jpg',
       amenities: ['Free parking', 'Non-smoking rooms', 'Free Wifi', 'Air conditioning', 'Private bathroom', 'Flat-screen TV', 'Tea/Coffee maker'],
-      type: 'double',
       popular: true,
       new: true,
-      featured: true,
-      alternativeDates: [
-        { range: 'Sep 5 – Sep 6', nights: '1 night', price: '855' },
-        { range: 'Sep 6 – Sep 7', nights: '1 night', price: '855' }
-      ]
+      featured: true
     },
     // ==================== ROOM 5: TIAH GREY ====================
     {
@@ -138,22 +113,13 @@ export class RoomsPage {
       sleeps: '2 Guests',
       bed: 'Queen Bed',
       size: '20 m²',
-      price: '675',
-      rating: 8.2,
-      reviews: 45,
       distance: '2.3 km from downtown',
-      beachDistance: '4.8 km from beach',
-      description: 'Comfortable Accommodations: Tiah Grey offers a homestay experience in Durban, South Africa.',
+      description: 'Comfortable room with a neutral palette for a relaxing stay.',
       image: 'assets/images/Tiah Grey, Durban/1.jpg',
       amenities: ['Free parking', 'Non-smoking rooms', 'Air conditioning', 'Kitchenette', 'Private bathroom', 'Flat-screen TV', 'Tea/Coffee maker'],
-      type: 'double',
       popular: true,
       new: true,
-      featured: true,
-      alternativeDates: [
-        { range: 'Sep 6 – Sep 7', nights: '1 night', price: '675' },
-        { range: 'Sep 7 – Sep 8', nights: '1 night', price: '675' }
-      ]
+      featured: true
     },
     // ==================== ROOM 6: TIAH PASTEL ====================
     {
@@ -164,22 +130,13 @@ export class RoomsPage {
       sleeps: '2 Guests',
       bed: 'Queen Bed',
       size: '20 m²',
-      price: '675',
-      rating: 7.8,
-      reviews: 30,
       distance: '2.3 km from downtown',
-      beachDistance: '4.8 km from beach',
-      description: 'Comfortable Accommodations: Tiah Pastel offers a guest house with air-conditioning, a kitchenette, and a private bathroom.',
+      description: 'Bright and airy room with a cozy atmosphere.',
       image: 'assets/images/Tiah Pastel, Durban/1.jpg',
       amenities: ['Free parking', 'Air conditioning', 'Kitchenette', 'Private bathroom', 'Flat-screen TV', 'Tea/Coffee maker'],
-      type: 'double',
       popular: true,
       new: true,
-      featured: true,
-      alternativeDates: [
-        { range: 'Sep 3 – Sep 4', nights: '1 night', price: '675' },
-        { range: 'Sep 6 – Sep 7', nights: '1 night', price: '675' }
-      ]
+      featured: true
     },
     // ==================== ROOM 7: LA TIAH ONE ====================
     {
@@ -190,22 +147,13 @@ export class RoomsPage {
       sleeps: '2 Guests',
       bed: 'Full Bed + Queen Bed',
       size: '20 m²',
-      price: '553',
-      rating: null,
-      reviews: 0,
       distance: '2.2 km from downtown',
-      beachDistance: '4.6 km from beach',
-      description: 'Comfortable Accommodations: La Tiah One offers a guest house experience with free WiFi and free on-site private parking.',
+      description: 'Luxurious room with premium finishes and comfort.',
       image: 'assets/images/La Tiah One, Durban/1.jpg',
       amenities: ['Free parking', 'Free Wifi', 'Private bathroom', 'Flat-screen TV', 'Tea/Coffee maker', 'Refrigerator', 'Electric kettle'],
-      type: 'double',
       popular: false,
       new: true,
-      featured: false,
-      isNewToBooking: true,
-      alternativeDates: [
-        { range: 'Sep 3 – Sep 4', nights: '1 night', price: '553' }
-      ]
+      featured: false
     },
     // ==================== ROOM 8: LA TIAH TWO ====================
     {
@@ -216,25 +164,13 @@ export class RoomsPage {
       sleeps: '2 Guests',
       bed: 'Full Bed',
       size: '25 m²',
-      price: '513.16',
-      rating: 5.8,
-      reviews: 6,
       distance: '2.2 km from downtown',
-      beachDistance: '4.6 km from beach',
-      description: 'Comfortable Accommodations: La Tiah Two offers a guest house experience with free WiFi and a shared kitchen.',
+      description: 'Spacious room with a separate seating area.',
       image: 'assets/images/La Tiah Two, Durban/1.jpg',
       amenities: ['Free parking', 'Free Wifi', 'Shared kitchen', 'Daily housekeeping', 'Private bathroom', 'Flat-screen TV', 'Tea/Coffee maker'],
-      type: 'double',
       popular: false,
       new: true,
-      featured: false,
-      isNewToBooking: true,
-      isUnavailable: true,
-      unavailableMessage: 'This property is unavailable on our site for your dates',
-      availableDates: 'Oct 22 – Oct 23 (1 night)',
-      alternativeDates: [
-        { range: 'Oct 22 – Oct 23', nights: '1 night', price: '513.16' }
-      ]
+      featured: false
     },
     // ==================== ROOM 9: LA TIAH THREE ====================
     {
@@ -245,21 +181,13 @@ export class RoomsPage {
       sleeps: '2 Guests',
       bed: 'Queen Bed',
       size: '16 m²',
-      price: '553',
-      rating: null,
-      reviews: 0,
       distance: '2.5 km from downtown',
-      beachDistance: '4.6 km from beach',
-      description: 'Comfortable Accommodations: La Tiah Three offers a guest house experience with free WiFi and free on-site private parking.',
+      description: 'Comfortable room with all essential amenities.',
       image: 'assets/images/La Tiah Three, Durban/1.jpg',
       amenities: ['Free parking', 'Free Wifi', 'Private bathroom', 'Flat-screen TV', 'Tea/Coffee maker', 'Refrigerator', 'Electric kettle'],
-      type: 'double',
       popular: false,
       new: true,
-      featured: false,
-      alternativeDates: [
-        { range: 'Sep 5 – Sep 6', nights: '1 night', price: '553.00' }
-      ]
+      featured: false
     },
     // ==================== ROOM 10: LA TIAH FOUR ====================
     {
@@ -270,21 +198,13 @@ export class RoomsPage {
       sleeps: '2 Guests',
       bed: 'King Bed',
       size: '20 m²',
-      price: '485',
-      rating: 9.5,
-      reviews: 2,
       distance: '2.5 km from downtown',
-      beachDistance: '4.6 km from beach',
-      description: 'Comfortable Accommodations: La Tiah Four offers a guest house experience with free WiFi and free on-site private parking.',
+      description: 'Cozy room perfect for a short stay.',
       image: 'assets/images/La Tiah Four, Durban/1.jpg',
       amenities: ['Free parking', 'Free Wifi', 'Private bathroom', 'Flat-screen TV', 'Tea/Coffee maker', 'Refrigerator', 'Electric kettle'],
-      type: 'double',
       popular: true,
       new: true,
-      featured: true,
-      alternativeDates: [
-        { range: 'Sep 3 – Sep 4', nights: '1 night', price: '485' }
-      ]
+      featured: true
     },
     // ==================== ROOM 11: HALFORD BACKPACKERS ====================
     {
@@ -295,84 +215,105 @@ export class RoomsPage {
       sleeps: '4 Guests',
       bed: 'Bunk Beds',
       size: '20 m²',
-      price: '450',
-      rating: null,
-      reviews: 0,
-      distance: '2.3 km from downtown',
-      beachDistance: '800 m from beach',
-      description: 'Comfortable Accommodations: Halford Backpackers offers a hostel experience with free WiFi and a shared kitchen.',
+      distance: '800 m from beach',
+      description: 'Affordable shared accommodation perfect for backpackers and groups.',
       image: 'assets/images/Halford Backpackers, Durban/6.jpg',
       amenities: ['Free Wifi', 'Pet Friendly', 'Shower', 'Shared Kitchen', 'Work Desk', 'Microwave', 'Electric Kettle'],
-      type: 'single',
       popular: true,
       new: false,
-      featured: false,
-      alternativeDates: [
-        { range: 'Aug 9 – Aug 19', nights: '10 nights', price: '3,850.00' }
-      ]
+      featured: false
     }
   ];
 
+  // ==========================================
+  // FILTERED ROOMS
+  // ==========================================
   get filteredRooms(): any[] {
-    return this.allRooms;
+    if (this.activeLocation === 'all') {
+      return this.allRooms;
+    }
+    return this.allRooms.filter(room => room.locationType === this.activeLocation);
   }
 
   constructor(private router: Router) {}
 
-  // Add these methods for mobile navigation
-  toggleMobileNav(): void {
-    this.mobileNavOpen = !this.mobileNavOpen;
+  // ==========================================
+  // LIFECYCLE HOOKS
+  // ==========================================
+  ngOnInit() {}
+
+  // ==========================================
+  // WINDOW SCROLL LISTENER
+  // ==========================================
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.isScrolled = window.scrollY > 50;
   }
 
-  closeMobileNav(): void {
-    this.mobileNavOpen = false;
+  // ==========================================
+  // SCROLL EVENT FOR ION-CONTENT
+  // ==========================================
+  onScroll(event: any) {
+    const scrollTop = event.detail.scrollTop;
+    const header = document.querySelector('.site-header');
+    if (scrollTop > 50) {
+      header?.classList.add('scrolled');
+    } else {
+      header?.classList.remove('scrolled');
+    }
   }
 
-  // Add this method for booking navigation
-  goToBooking(): void {
-    this.router.navigate(['/booking']);
+  // ==========================================
+  // FILTER ROOMS BY LOCATION
+  // ==========================================
+  filterRooms(location: string) {
+    this.activeLocation = location;
   }
 
-  // Navigation methods
+  // ==========================================
+  // NAVIGATION METHODS
+  // ==========================================
   goToHome() {
     this.router.navigate(['/home']);
   }
 
-  goToAbout() {
-    this.router.navigate(['/about']);
+  goToBooking() {
+    this.router.navigate(['/booking']);
   }
 
-  goToRooms() {
-    this.router.navigate(['/rooms']);
+  // ==========================================
+  // MOBILE NAVIGATION
+  // ==========================================
+  toggleMobileNav(): void {
+    this.mobileNavOpen = !this.mobileNavOpen;
+    document.body.style.overflow = this.mobileNavOpen ? 'hidden' : '';
   }
 
-  goToGallery() {
-    this.router.navigate(['/gallery']);
+  closeMobileNav(): void {
+    this.mobileNavOpen = false;
+    document.body.style.overflow = '';
   }
 
-  goToRates() {
-    this.router.navigate(['/rates']);
-  }
-
-  goToAttractions() {
-    this.router.navigate(['/attractions']);
-  }
-
-  goToFaq() {
-    this.router.navigate(['/faq']);
-  }
-
-  goToContact() {
-    this.router.navigate(['/contact']);
-  }
-
+  // ==========================================
+  // VIEW ROOM DETAIL
+  // ==========================================
   viewRoomDetail(roomId: number) {
     this.router.navigate(['/room-detail'], { queryParams: { roomId: roomId } });
   }
 
+  // ==========================================
+  // IMAGE ERROR HANDLER
+  // ==========================================
+  onImageError(event: any) {
+    event.target.src = this.fallbackImage;
+  }
+
+  // ==========================================
+  // WHATSAPP METHOD
+  // ==========================================
   openWhatsApp() {
     const phone = '27791234567';
-    const message = 'Hello STAY@TIAH, I would like to make a booking enquiry.';
+    const message = 'Hello STAY@TIAH, I would like to enquire about room availability and pricing.';
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
   }
 }

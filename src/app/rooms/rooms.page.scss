@@ -1,8 +1,4 @@
 // =========================
-// FONTS - CONSISTENT ACROSS PAGE
-// =========================
-
-// =========================
 // VARIABLES
 // =========================
 $gold: #c9a84c;
@@ -16,47 +12,64 @@ $grey: #888888;
 $light-grey: #e8e8e8;
 $off-white: #f8f7f4;
 $white: #ffffff;
-$font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-$font-serif: 'Cormorant Garamond', Georgia, serif;
+
+// FIXED FONT - Verdana only (consistent across entire site)
+$font-primary: Verdana, Geneva, sans-serif;
 $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 $header-height-desktop: 72px;
 $header-height-mobile: 56px;
 
 // =========================
-// GLOBAL FONT RESET
+// GLOBAL FONT RESET - ALL elements use Verdana
 // =========================
 * {
   font-family: $font-primary !important;
   box-sizing: border-box;
 }
 
-// Override serif fonts where needed
-h1, h2, h3, h4, 
+// All headings and text use Verdana
+h1, h2, h3, h4, h5, h6,
+p, span, a, div, li, button,
 .page-title, 
 .section-title, 
 .brand__name, 
 .logo, 
 .stat-number, 
-.feature-card h3,
-.option-card h3,
-.location-card h3,
-.testimonial-card .author-info h4,
-.contact-info h2,
-.form-header h3,
 .cta-content h2,
-.gallery-item .gallery-info h4,
-.lightbox-info h3,
-.no-results h3,
-.rates-table .price-cell,
-.empty-state h3,
-.attraction-card h3,
-.location-item h4,
-.ask-question-content h3,
-.faq-item .faq-question .faq-question-content h3,
-.still-questions-content h2,
 .room-card .room-info h3,
-.room-card .room-bottom .room-price strong {
-  font-family: $font-serif !important;
+.room-card .room-bottom .room-price strong,
+.nav__link,
+.mobile-nav a,
+.faq-question,
+.hero-description,
+.section-subtitle,
+.about-description,
+.about-content p,
+.why-card p,
+.rates-table th,
+.rates-table td,
+.eyebrow,
+.hero-badge,
+.footer-column a,
+.footer-column p,
+.mobile-brand-text,
+.mobile-brand-tagline,
+.room-location,
+.room-description,
+.room-amenities span,
+.feature-item span,
+.page-subtitle,
+.location-tabs .tab,
+.filter-tab,
+.room-details span,
+.room-distance,
+.unavailable-message span,
+.date-option,
+.btn-primary,
+.btn-secondary-cta,
+.btn-gold,
+.btn-whatsapp {
+  font-family: $font-primary !important;
 }
 
 // =========================
@@ -79,88 +92,25 @@ h1, h2, h3, h4,
   opacity: 0;
   animation: fadeUp 0.8s ease forwards;
 }
-.animate-slide-left {
-  opacity: 0;
-  animation: slideLeft 0.8s ease forwards;
-}
-.animate-slide-right {
-  opacity: 0;
-  animation: slideRight 0.8s ease forwards;
-}
-.animate-scale {
-  opacity: 0;
-  animation: scaleIn 0.6s ease forwards;
-}
-.animate-pop {
-  opacity: 0;
-  animation: popIn 0.6s ease forwards;
-}
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
-@keyframes slideLeft {
-  from { opacity: 0; transform: translateX(-50px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-@keyframes slideRight {
-  from { opacity: 0; transform: translateX(50px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-@keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
-@keyframes popIn {
-  0% { opacity: 0; transform: scale(0.5); }
-  70% { transform: scale(1.1); }
-  100% { opacity: 1; transform: scale(1); }
-}
+
 @keyframes kenBurns {
   0% { transform: scale(1) translate(0,0); }
   50% { transform: scale(1.08) translate(-2%,-1%); }
   100% { transform: scale(1.05) translate(1%,2%); }
 }
-@keyframes bounce { 
-  0%,100% { transform: translateY(0); } 
-  50% { transform: translateY(8px); } 
-}
+
 @keyframes pulse {
   0% { transform: scale(1); opacity: 1; }
   100% { transform: scale(1.5); opacity: 0; }
 }
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
 
 // =========================
-// HIDE SCROLLBAR
-// =========================
-.no-scrollbar {
-  --scrollbar-width: 0px;
-  
-  &::-webkit-scrollbar {
-    display: none;
-    width: 0;
-    background: transparent;
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    display: none;
-  }
-  
-  &::-webkit-scrollbar-track {
-    display: none;
-  }
-  
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-// =========================
-// HEADER / NAVBAR - EXACTLY LIKE ORIGINAL
+// HEADER / NAVBAR
 // =========================
 .site-header {
   background: rgba(10, 10, 10, 0.95);
@@ -206,7 +156,6 @@ h1, h2, h3, h4,
   }
 }
 
-// Brand
 .brand {
   text-decoration: none;
   color: #fff;
@@ -215,6 +164,7 @@ h1, h2, h3, h4,
   display: flex;
   flex-direction: column;
   transition: $transition-smooth;
+  cursor: pointer;
   
   &:hover {
     transform: scale(1.02);
@@ -223,7 +173,7 @@ h1, h2, h3, h4,
 
 .brand__name {
   display: block;
-  font-family: $font-serif !important;
+  font-family: $font-primary !important;
   font-size: 1.8rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -289,6 +239,7 @@ h1, h2, h3, h4,
   position: relative;
   border-radius: 8px;
   letter-spacing: 0.3px;
+  cursor: pointer;
   
   @media (max-width: 1200px) {
     font-size: 12px;
@@ -397,10 +348,8 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// MOBILE NAVIGATION - CLEAN DESIGN
+// MOBILE NAVIGATION
 // =========================
-
-// Hamburger Button
 .hamburger-btn {
   display: none;
   background: transparent;
@@ -442,7 +391,6 @@ h1, h2, h3, h4,
   }
 }
 
-// Overlay
 .nav-overlay {
   display: none;
   position: fixed;
@@ -463,7 +411,6 @@ h1, h2, h3, h4,
   }
 }
 
-// Mobile Navigation Drawer - Clean
 .mobile-nav {
   position: fixed;
   top: 0;
@@ -488,7 +435,6 @@ h1, h2, h3, h4,
     right: 0;
   }
   
-  // Close Button
   .mobile-nav-header {
     padding: 16px 20px 8px;
     display: flex;
@@ -521,7 +467,6 @@ h1, h2, h3, h4,
     }
   }
   
-  // Brand
   .mobile-nav-brand {
     padding: 0 24px 24px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
@@ -529,7 +474,7 @@ h1, h2, h3, h4,
     
     .mobile-brand-text {
       display: block;
-      font-family: $font-serif !important;
+      font-family: $font-primary !important;
       font-size: 1.6rem;
       font-weight: 700;
       background: linear-gradient(135deg, #ffffff 0%, $gold 100%);
@@ -550,7 +495,6 @@ h1, h2, h3, h4,
     }
   }
   
-  // Navigation Links
   .mobile-nav-links {
     padding: 16px 16px 0;
     flex: 1;
@@ -653,7 +597,6 @@ h1, h2, h3, h4,
     }
   }
   
-  // Footer
   .mobile-nav-footer {
     padding: 16px 24px 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.04);
@@ -716,9 +659,6 @@ h1, h2, h3, h4,
   }
 }
 
-// =========================
-// DESKTOP OVERRIDES (Hide mobile elements)
-// =========================
 @media (min-width: 993px) {
   .hamburger-btn {
     display: none !important;
@@ -734,19 +674,16 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// PAGE HEADER WITH IMAGE
+// PAGE HEADER
 // =========================
 .page-header {
   min-height: 40vh;
-  height: auto;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   overflow: hidden;
-  margin-top: 0;
-  width: 100%;
   padding: 40px 0;
   background: #1a1a2e;
   
@@ -804,6 +741,7 @@ h1, h2, h3, h4,
         margin-bottom: 15px;
         border: 1px solid rgba(201, 168, 76, 0.3);
         backdrop-filter: blur(5px);
+        font-family: $font-primary !important;
         
         @media (max-width: 576px) {
           font-size: 11px;
@@ -812,7 +750,7 @@ h1, h2, h3, h4,
       }
       
       .page-title {
-        font-family: $font-serif !important;
+        font-family: $font-primary !important;
         font-size: clamp(36px, 6vw, 72px);
         line-height: 1.1;
         margin: 15px 0 20px;
@@ -831,82 +769,12 @@ h1, h2, h3, h4,
         font-weight: 300;
         max-width: 600px;
         margin: 0 auto;
+        font-family: $font-primary !important;
         
         @media (max-width: 576px) {
           font-size: 0.95rem;
         }
       }
-    }
-  }
-}
-
-// =========================
-// FILTER SECTION
-// =========================
-.filter-section {
-  padding: 30px 0;
-  background: $white;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  
-  @media (max-width: 768px) {
-    padding: 20px 0;
-  }
-}
-
-.filter-tabs {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-  
-  @media (max-width: 768px) {
-    gap: 8px;
-  }
-  
-  .filter-tab {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 24px;
-    border-radius: 50px;
-    font-size: 13px;
-    font-weight: 500;
-    color: $grey;
-    background: $off-white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 1px solid transparent;
-    font-family: $font-primary !important;
-    
-    @media (max-width: 768px) {
-      padding: 8px 16px;
-      font-size: 12px;
-    }
-    
-    @media (max-width: 480px) {
-      padding: 6px 12px;
-      font-size: 11px;
-    }
-    
-    ion-icon {
-      font-size: 18px;
-      
-      @media (max-width: 480px) {
-        font-size: 14px;
-      }
-    }
-    
-    &:hover {
-      color: $black;
-      background: $light-grey;
-      transform: translateY(-2px);
-    }
-    
-    &.active {
-      color: $black;
-      background: $gold;
-      border-color: $gold;
-      box-shadow: 0 4px 20px rgba(201, 168, 76, 0.25);
     }
   }
 }
@@ -920,6 +788,67 @@ h1, h2, h3, h4,
   
   @media (max-width: 768px) {
     padding: 40px 0 60px;
+  }
+}
+
+.section-header {
+  max-width: 700px;
+  margin: 0 auto 50px;
+  padding: 0 20px;
+  text-align: center;
+  
+  @media (max-width: 576px) {
+    margin: 0 auto 30px;
+  }
+  
+  &.center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+}
+
+.eyebrow {
+  color: $gold;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: block;
+  font-family: $font-primary !important;
+  
+  @media (max-width: 576px) {
+    font-size: 10px;
+    letter-spacing: 3px;
+  }
+}
+
+.section-title {
+  font-family: $font-primary !important;
+  font-size: clamp(28px, 4.5vw, 52px);
+  line-height: 1.1;
+  margin: 10px 0 12px;
+  color: $black;
+  
+  @media (max-width: 576px) {
+    font-size: 26px;
+  }
+}
+
+.section-subtitle {
+  color: $black;
+  font-size: 16px;
+  line-height: 1.8;
+  margin-top: 8px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 400;
+  font-family: $font-primary !important;
+  
+  @media (max-width: 576px) {
+    font-size: 14px;
   }
 }
 
@@ -992,7 +921,7 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// ROOM CARD - COMPLETE
+// ROOM CARD
 // =========================
 .room-card {
   background: $white;
@@ -1008,10 +937,6 @@ h1, h2, h3, h4,
   &:hover {
     box-shadow: 0 8px 40px rgba(0,0,0,0.12);
     transform: translateY(-6px);
-  }
-  
-  &:active {
-    transform: scale(0.98);
   }
   
   .room-image {
@@ -1058,23 +983,6 @@ h1, h2, h3, h4,
         color: white;
       }
     }
-    
-    .room-unavailable-badge {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      background: rgba(231, 76, 60, 0.9);
-      color: white;
-      padding: 6px 14px;
-      font-size: 11px;
-      font-weight: 600;
-      border-radius: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      backdrop-filter: blur(10px);
-      z-index: 2;
-      font-family: $font-primary !important;
-    }
   }
   
   .room-info {
@@ -1102,7 +1010,7 @@ h1, h2, h3, h4,
     }
     
     h3 {
-      font-family: $font-serif !important;
+      font-family: $font-primary !important;
       font-size: 24px;
       margin: 0 0 8px;
       color: $black;
@@ -1112,41 +1020,12 @@ h1, h2, h3, h4,
       }
     }
     
-    .room-rating {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 6px;
-      
-      .score {
-        background: #003580;
-        color: white;
-        padding: 2px 8px;
-        border-radius: 4px;
-        font-weight: 700;
-        font-size: 14px;
-        font-family: $font-primary !important;
-      }
-      
-      .label {
-        font-size: 13px;
-        color: #333;
-        font-family: $font-primary !important;
-      }
-      
-      .reviews {
-        font-size: 13px;
-        color: $grey;
-        font-family: $font-primary !important;
-      }
-    }
-    
     .room-distance {
       display: flex;
       align-items: center;
       gap: 4px;
       font-size: 13px;
-      color: $grey;
+      color: $black;
       margin-bottom: 10px;
       flex-wrap: wrap;
       font-family: $font-primary !important;
@@ -1155,17 +1034,13 @@ h1, h2, h3, h4,
         color: $gold;
         font-size: 16px;
       }
-      
-      .beach-distance {
-        color: #2196F3;
-      }
     }
     
     .room-details {
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
-      color: $grey;
+      color: $black;
       font-size: 12px;
       margin-bottom: 10px;
       
@@ -1183,10 +1058,10 @@ h1, h2, h3, h4,
     }
     
     .room-description {
-      color: $grey;
+      color: $black;
       font-size: 14px;
       line-height: 1.6;
-      font-weight: 300;
+      font-weight: 400;
       margin-bottom: 12px;
       font-family: $font-primary !important;
     }
@@ -1202,11 +1077,12 @@ h1, h2, h3, h4,
         align-items: center;
         gap: 4px;
         font-size: 11px;
-        color: #555;
+        color: $black;
         background: $off-white;
         padding: 4px 12px;
         border-radius: 20px;
         font-family: $font-primary !important;
+        font-weight: 400;
         
         ion-icon {
           color: $gold;
@@ -1221,116 +1097,22 @@ h1, h2, h3, h4,
       }
     }
     
-    .unavailable-message {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      background: rgba(231, 76, 60, 0.08);
-      border-radius: 8px;
-      border: 1px solid rgba(231, 76, 60, 0.15);
-      margin-bottom: 16px;
-      
-      ion-icon {
-        color: #e74c3c;
-        font-size: 20px;
-        flex-shrink: 0;
-      }
-      
-      span {
-        font-size: 13px;
-        color: #e74c3c;
-        font-weight: 500;
-        font-family: $font-primary !important;
-      }
-    }
-    
-    .alternative-dates {
-      background: $off-white;
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 16px;
-      border: 1px solid rgba(0,0,0,0.04);
-      
-      h4 {
-        font-size: 13px;
-        font-weight: 600;
-        color: $black;
-        margin: 0 0 12px;
-        font-family: $font-primary !important;
-      }
-      
-      .date-options {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-        
-        @media (max-width: 500px) {
-          grid-template-columns: 1fr;
-        }
-      }
-      
-      .date-option {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 6px 10px;
-        background: $white;
-        border-radius: 6px;
-        border: 1px solid rgba(0,0,0,0.04);
-        font-size: 12px;
-        font-family: $font-primary !important;
-        
-        .date-range {
-          font-weight: 500;
-          color: $black;
-        }
-        
-        .nights {
-          color: $grey;
-        }
-        
-        .price {
-          color: $gold-dark;
-          font-weight: 600;
-        }
-      }
-    }
-    
     .room-bottom {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-end;
       border-top: 1px solid #eee;
       padding-top: 16px;
       margin-top: 4px;
       
-      .room-price {
-        strong {
-          font-size: 26px;
-          color: $black;
-          font-family: $font-serif !important;
-          
-          @media (max-width: 480px) {
-            font-size: 22px;
-          }
-        }
-        small {
-          color: $grey;
-          font-size: 13px;
-          font-weight: 300;
-          font-family: $font-primary !important;
-        }
-      }
-      
       .room-btn {
         display: inline-flex;
         align-items: center;
-        background: $black;
+        gap: 8px;
+        background: linear-gradient(135deg, #25D366, #1da851);
         color: $white;
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 600;
-        text-transform: uppercase;
         padding: 10px 24px;
         border-radius: 50px;
         letter-spacing: 0.5px;
@@ -1339,12 +1121,16 @@ h1, h2, h3, h4,
         transition: all 0.3s ease;
         border: none;
         font-family: $font-primary !important;
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.25);
+        
+        ion-icon {
+          font-size: 18px;
+        }
         
         &:hover {
-          background: $gold;
-          color: $black;
           transform: translateY(-2px);
-          box-shadow: 0 4px 20px rgba(201, 168, 76, 0.3);
+          box-shadow: 0 8px 30px rgba(37, 211, 102, 0.35);
+          background: linear-gradient(135deg, #2dd76e, #20b85a);
         }
       }
     }
@@ -1352,123 +1138,105 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// NO RESULTS
+// FEATURES SECTION
 // =========================
-.no-results {
-  text-align: center;
-  padding: 60px 20px;
+.features-section {
+  padding: 80px 0;
+  background: $off-white;
   
-  ion-icon {
-    font-size: 64px;
-    color: $gold;
-    opacity: 0.3;
+  @media (max-width: 768px) {
+    padding: 40px 0;
+  }
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: $white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.02);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
   }
   
-  h3 {
-    font-family: $font-serif !important;
-    font-size: 28px;
-    margin: 16px 0 8px;
+  ion-icon {
+    font-size: 24px;
+    color: $gold;
+  }
+  
+  span {
+    font-size: 14px;
+    font-weight: 500;
     color: $black;
+    font-family: $font-primary !important;
+  }
+}
+
+// =========================
+// CTA SECTION
+// =========================
+.cta-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+  
+  @media (max-width: 768px) {
+    padding: 40px 0;
+  }
+}
+
+.cta-content {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  
+  h2 {
+    font-family: $font-primary !important;
+    font-size: clamp(28px, 4vw, 48px);
+    color: $white;
+    margin: 0 0 12px;
   }
   
   p {
-    color: $grey;
-    font-size: 15px;
-    margin-bottom: 20px;
+    color: rgba(255,255,255,0.6);
+    font-size: 16px;
+    line-height: 1.8;
+    font-weight: 300;
+    margin: 0 0 30px;
     font-family: $font-primary !important;
   }
   
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: linear-gradient(135deg, $gold, $gold-dark);
-    color: $black;
-    font-weight: 600;
-    padding: 12px 28px;
-    border-radius: 50px;
-    font-size: 14px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    font-family: $font-primary !important;
+  .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
     
-    &:hover {
-      background: linear-gradient(135deg, $gold-light, $gold);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 20px rgba(201, 168, 76, 0.3);
+    @media (max-width: 480px) {
+      flex-direction: column;
+      align-items: center;
     }
   }
 }
 
-// =========================
-// SECTION HEADERS
-// =========================
-.section-header {
-  max-width: 700px;
-  margin: 0 auto 50px;
-  padding: 0 20px;
-  text-align: center;
-  
-  @media (max-width: 576px) {
-    margin: 0 auto 30px;
-  }
-  
-  &.center {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-  }
-}
-
-.eyebrow {
-  color: $gold;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  display: block;
-  font-family: $font-primary !important;
-  
-  @media (max-width: 576px) {
-    font-size: 10px;
-    letter-spacing: 3px;
-  }
-}
-
-.section-title {
-  font-family: $font-serif !important;
-  font-size: clamp(28px, 4.5vw, 52px);
-  line-height: 1.1;
-  margin: 10px 0 12px;
-  color: $black;
-  
-  @media (max-width: 576px) {
-    font-size: 26px;
-  }
-}
-
-.section-subtitle {
-  color: $grey;
-  font-size: 16px;
-  line-height: 1.8;
-  margin-top: 8px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  font-weight: 300;
-  font-family: $font-primary !important;
-  
-  @media (max-width: 576px) {
-    font-size: 14px;
-  }
-}
-
-// =========================
-// BUTTONS
-// =========================
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -1581,106 +1349,6 @@ h1, h2, h3, h4,
 }
 
 // =========================
-// FEATURES SECTION
-// =========================
-.features-section {
-  padding: 80px 0;
-  background: $off-white;
-  
-  @media (max-width: 768px) {
-    padding: 40px 0;
-  }
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  
-  @media (max-width: 900px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (max-width: 500px) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.feature-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px 20px;
-  background: $white;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-  border: 1px solid rgba(0,0,0,0.02);
-  transition: all 0.3s ease;
-  
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-  }
-  
-  ion-icon {
-    font-size: 24px;
-    color: $gold;
-  }
-  
-  span {
-    font-size: 14px;
-    font-weight: 500;
-    color: $black;
-    font-family: $font-primary !important;
-  }
-}
-
-// =========================
-// CTA SECTION
-// =========================
-.cta-section {
-  padding: 80px 0;
-  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-  
-  @media (max-width: 768px) {
-    padding: 40px 0;
-  }
-}
-
-.cta-content {
-  text-align: center;
-  max-width: 700px;
-  margin: 0 auto;
-  
-  h2 {
-    font-family: $font-serif !important;
-    font-size: clamp(28px, 4vw, 48px);
-    color: $white;
-    margin: 0 0 12px;
-  }
-  
-  p {
-    color: rgba(255,255,255,0.6);
-    font-size: 16px;
-    line-height: 1.8;
-    font-weight: 300;
-    margin: 0 0 30px;
-    font-family: $font-primary !important;
-  }
-  
-  .cta-buttons {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
-    
-    @media (max-width: 480px) {
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-}
-
-// =========================
 // FOOTER
 // =========================
 .footer {
@@ -1741,7 +1409,7 @@ h1, h2, h3, h4,
   
   .footer-brand {
     .logo {
-      font-family: $font-serif !important;
+      font-family: $font-primary !important;
       font-size: 30px;
       display: flex;
       align-items: center;
@@ -1928,127 +1596,8 @@ ion-fab-button.whatsapp-float {
 }
 
 // =========================
-// ENSURE NO WHITE SPACE AFTER FOOTER
+// SCROLL FIX - PRODUCTION
 // =========================
-ion-content {
-  --padding-bottom: 0 !important;
-  --padding-end: 0 !important;
-  --padding-start: 0 !important;
-  --padding-top: 0 !important;
-}
-
-.footer {
-  margin-bottom: 0 !important;
-}
-
-// =========================
-// RESPONSIVE OVERRIDES
-// =========================
-@media (max-width: 768px) {
-  .page-header {
-    min-height: 40vh;
-    height: 40vh;
-    
-    .page-header-text {
-      .page-title {
-        font-size: 36px;
-      }
-      .page-subtitle {
-        font-size: 14px;
-      }
-    }
-  }
-  
-  .filter-section {
-    padding: 20px 0;
-  }
-  
-  .filter-tabs {
-    gap: 8px;
-    
-    .filter-tab {
-      padding: 8px 16px;
-      font-size: 12px;
-    }
-  }
-  
-  .rooms-section {
-    padding: 40px 0 60px;
-  }
-  
-  .location-tabs {
-    gap: 8px;
-    
-    .tab {
-      padding: 8px 16px;
-      font-size: 12px;
-    }
-  }
-  
-  .rooms-grid {
-    gap: 20px;
-  }
-  
-  .room-card .room-image {
-    height: 200px;
-  }
-  
-  .features-section {
-    padding: 40px 0;
-  }
-  
-  .cta-section {
-    padding: 40px 0;
-  }
-  
-  .alternative-dates .date-options {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 480px) {
-  .filter-tabs {
-    .filter-tab {
-      padding: 6px 12px;
-      font-size: 11px;
-      
-      ion-icon {
-        font-size: 14px;
-      }
-    }
-  }
-  
-  .location-tabs {
-    .tab {
-      padding: 6px 14px;
-      font-size: 11px;
-    }
-  }
-  
-  .room-card .room-info {
-    padding: 16px 18px;
-    
-    h3 {
-      font-size: 20px;
-    }
-  }
-  
-  .cta-content .cta-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .btn-primary, .btn-secondary-cta {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-// ============================================================
-// ✅ PRODUCTION SCROLL FIX - ROOMS PAGE
-// ============================================================
-
-// Force the page to scroll in production
 :host {
   display: block !important;
   height: 100% !important;
@@ -2056,7 +1605,6 @@ ion-content {
   overflow-y: auto !important;
 }
 
-// Override Ionic's production contain property
 ion-content {
   contain: none !important;
   --overflow: auto !important;
@@ -2075,42 +1623,9 @@ ion-content {
   }
 }
 
-// Force all sections to be visible
-.page-header,
-.rooms-section,
-.features-section,
-.cta-section {
-  height: auto !important;
-  min-height: auto !important;
-  overflow: visible !important;
-}
-
-// Ensure grid containers don't block scrolling
-.rooms-grid,
-.features-grid {
-  height: auto !important;
-  min-height: auto !important;
-  overflow: visible !important;
-}
-
-// Force all content to be visible
-.container {
-  height: auto !important;
-  min-height: auto !important;
-  overflow: visible !important;
-}
-
-// Ensure images don't overflow
-img {
-  max-width: 100% !important;
-  height: auto !important;
-}
-
-// ============================================================
-// ✅ SCROLLBAR COMPLETELY REMOVED - Rooms Page
-// ============================================================
-
-// Remove scrollbar completely - Chrome, Safari, Edge
+// =========================
+// REMOVE SCROLLBAR
+// =========================
 :host ::-webkit-scrollbar,
 ion-content ::-webkit-scrollbar,
 ::-webkit-scrollbar {
@@ -2134,40 +1649,9 @@ ion-content ::-webkit-scrollbar-thumb,
   background: transparent !important;
 }
 
-:host ::-webkit-scrollbar-corner,
-ion-content ::-webkit-scrollbar-corner,
-::-webkit-scrollbar-corner {
-  display: none !important;
-  background: transparent !important;
-}
-
-// Firefox - remove scrollbar
 :host,
 ion-content,
 * {
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;
-}
-
-// Keep scrolling functional
-:host {
-  display: block !important;
-  height: 100% !important;
-  min-height: 100vh !important;
-  overflow-y: auto !important;
-}
-
-ion-content {
-  contain: none !important;
-  --overflow: auto !important;
-  overflow-y: auto !important;
-  height: 100% !important;
-  min-height: 100vh !important;
-  
-  &::part(scroll) {
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    height: 100% !important;
-    min-height: 100vh !important;
-  }
 }
