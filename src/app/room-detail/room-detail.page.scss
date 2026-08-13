@@ -1,32 +1,147 @@
-// =============================================
-// ROOM DETAIL PAGE - PROFESSIONAL LAYOUT
-// =============================================
-
+// =========================
+// VARIABLES
+// =========================
 $gold: #c9a84c;
 $gold-light: #dbb95c;
 $gold-dark: #b8943a;
+$gold-pale: #f5e6c8;
+$gold-soft: #e8d5a8;
 $black: #0a0a0a;
-$white: #ffffff;
+$dark: #121212;
+$grey: #888888;
+$light-grey: #e8e8e8;
 $off-white: #f8f7f4;
-$shadow: 0 4px 30px rgba(0,0,0,0.08);
-$radius: 16px;
+$white: #ffffff;
+$shadow-sm: 0 2px 20px rgba(0,0,0,0.06);
+$shadow-md: 0 4px 30px rgba(0,0,0,0.08);
+$shadow-lg: 0 8px 50px rgba(0,0,0,0.12);
+$radius-sm: 8px;
+$radius-md: 12px;
+$radius-lg: 16px;
+$radius-xl: 24px;
 
-// =============================================
-// ROOM HERO
-// =============================================
+// FIXED FONT - Verdana only
+$font-primary: Verdana, Geneva, sans-serif;
+$transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// =========================
+// GLOBAL FONT RESET
+// =========================
+* {
+  font-family: $font-primary !important;
+  box-sizing: border-box;
+}
+
+// =========================
+// HIDE SCROLLBAR
+// =========================
+.no-scrollbar {
+  --scrollbar-width: 0px;
+  
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb { display: none; }
+  &::-webkit-scrollbar-track { display: none; }
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+// =========================
+// ANIMATIONS
+// =========================
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-up {
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards;
+}
+
+// =========================
+// LOADING STATE
+// =========================
+.loading-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 40px;
+  
+  .loading-spinner {
+    text-align: center;
+    
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid $off-white;
+      border-top-color: $gold;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+    
+    p {
+      color: $grey;
+      font-size: 14px;
+      font-family: $font-primary !important;
+    }
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// =========================
+// CONTAINER
+// =========================
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+  
+  @media (max-width: 576px) {
+    padding: 0 16px;
+  }
+}
+
+// =========================
+// ROOM HERO - CLEAN & MODERN
+// =========================
 .room-hero {
   position: relative;
-  min-height: 55vh;
+  min-height: 65vh;
   display: flex;
   align-items: center;
   overflow: hidden;
+  background: $black;
   
   @media (max-width: 768px) {
-    min-height: 45vh;
+    min-height: 55vh;
   }
   
   @media (max-width: 480px) {
-    min-height: 40vh;
+    min-height: 45vh;
   }
   
   .room-hero-bg {
@@ -38,94 +153,25 @@ $radius: 16px;
       width: 100%;
       height: 100%;
       object-fit: cover;
-    }
-    
-    .back-btn {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      z-index: 10;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: white;
-      padding: 10px 16px;
-      border-radius: 50px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 13px;
-      
-      @media (max-width: 480px) {
-        padding: 8px 12px;
-        font-size: 11px;
-        top: 12px;
-        left: 12px;
-        
-        .back-text {
-          display: none;
-        }
-      }
-      
-      &:hover {
-        background: rgba(201, 168, 76, 0.8);
-        transform: translateX(-4px);
-      }
-      
-      ion-icon {
-        font-size: 18px;
-      }
-    }
-    
-    .hero-whatsapp-btn {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      z-index: 10;
-      background: #25D366;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
-      transition: all 0.3s ease;
-      
-      @media (min-width: 769px) {
-        display: none;
-      }
-      
-      ion-icon {
-        font-size: 26px;
-        color: white;
-      }
-      
-      &:hover {
-        transform: scale(1.1);
-      }
+      transition: transform 0.8s ease;
     }
   }
   
   .room-hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 100%);
     z-index: 1;
+    background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.6) 100%);
   }
   
   .room-hero-content {
     position: relative;
     z-index: 2;
     width: 100%;
-    padding: 40px 0;
+    padding: 60px 0 40px;
     
     @media (max-width: 768px) {
-      padding: 20px 0;
+      padding: 40px 0 30px;
     }
   }
   
@@ -140,35 +186,34 @@ $radius: 16px;
       
       .room-badge {
         display: inline-block;
-        background: rgba(201, 168, 76, 0.2);
-        color: $gold;
-        padding: 4px 14px;
+        padding: 4px 16px;
         border-radius: 50px;
-        font-size: 11px;
-        font-weight: 500;
-        letter-spacing: 1px;
-        border: 1px solid rgba(201, 168, 76, 0.2);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        background: $gold;
+        color: $black;
         
         &.new {
-          background: rgba(52, 211, 153, 0.2);
-          color: #34d399;
-          border-color: rgba(52, 211, 153, 0.2);
+          background: #2196F3;
+          color: white;
         }
         
         &.featured {
-          background: rgba(251, 191, 36, 0.2);
-          color: #fbbf24;
-          border-color: rgba(251, 191, 36, 0.2);
+          background: #e74c3c;
+          color: white;
         }
       }
     }
     
     .room-title {
-      font-family: Verdana, Geneva, sans-serif;
+      font-family: $font-primary !important;
       font-size: clamp(32px, 5vw, 56px);
       line-height: 1.1;
       color: white;
       margin: 8px 0 12px;
+      text-shadow: 0 2px 30px rgba(0,0,0,0.3);
       
       @media (max-width: 480px) {
         font-size: 28px;
@@ -222,27 +267,107 @@ $radius: 16px;
       }
     }
   }
+  
+  .back-btn {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    ion-icon {
+      font-size: 18px;
+    }
+    
+    &:hover {
+      background: rgba($gold, 0.3);
+      border-color: $gold;
+      transform: translateX(-4px);
+    }
+    
+    @media (max-width: 768px) {
+      top: 16px;
+      left: 16px;
+      padding: 8px 14px;
+      font-size: 12px;
+    }
+    
+    @media (max-width: 480px) {
+      top: 12px;
+      left: 12px;
+      padding: 6px 12px;
+      font-size: 11px;
+      
+      .back-text {
+        display: none;
+      }
+    }
+  }
+  
+  .hero-whatsapp-btn {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    z-index: 10;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #25D366;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 25px rgba(37,211,102,0.4);
+    transition: all 0.3s ease;
+    
+    @media (min-width: 769px) {
+      display: none;
+    }
+    
+    ion-icon {
+      font-size: 26px;
+      color: white;
+    }
+    
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
 }
 
-// =============================================
-// PROFESSIONAL GALLERY
-// =============================================
+// =========================
+// PROFESSIONAL GALLERY - CLEAN LAYOUT
+// =========================
 .room-gallery {
-  padding: 40px 0 60px;
+  padding: 50px 0 60px;
   background: $white;
   
   @media (max-width: 768px) {
-    padding: 20px 0 40px;
+    padding: 30px 0 40px;
   }
   
   .gallery-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     
     h2 {
-      font-family: Verdana, Geneva, sans-serif;
+      font-family: $font-primary !important;
       font-size: 24px;
       color: $black;
       margin: 0;
@@ -253,17 +378,24 @@ $radius: 16px;
     }
     
     .gallery-count-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
       background: $off-white;
       padding: 6px 16px;
       border-radius: 50px;
       font-size: 13px;
-      color: $black;
+      color: $grey;
+      
+      ion-icon {
+        font-size: 16px;
+      }
     }
   }
   
   .gallery-grid {
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
+    grid-template-columns: 2fr 1fr;
     gap: 12px;
     
     @media (max-width: 768px) {
@@ -273,9 +405,10 @@ $radius: 16px;
     
     .gallery-item {
       position: relative;
-      border-radius: 12px;
+      border-radius: $radius-md;
       overflow: hidden;
       cursor: pointer;
+      background: $off-white;
       
       img {
         width: 100%;
@@ -286,16 +419,26 @@ $radius: 16px;
       
       &.featured {
         grid-row: span 2;
+        min-height: 400px;
         
         img {
-          height: 420px;
+          min-height: 400px;
+        }
+        
+        @media (max-width: 768px) {
+          grid-row: span 1;
+          min-height: 280px;
           
-          @media (max-width: 768px) {
-            height: 280px;
+          img {
+            min-height: 280px;
           }
+        }
+        
+        @media (max-width: 480px) {
+          min-height: 220px;
           
-          @media (max-width: 480px) {
-            height: 220px;
+          img {
+            min-height: 220px;
           }
         }
       }
@@ -303,14 +446,14 @@ $radius: 16px;
       .gallery-overlay {
         position: absolute;
         inset: 0;
-        background: rgba(0,0,0,0.4);
-        opacity: 0;
+        background: rgba(0,0,0,0.3);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        opacity: 0;
         transition: opacity 0.3s ease;
-        gap: 8px;
+        gap: 6px;
         
         ion-icon {
           font-size: 32px;
@@ -335,10 +478,16 @@ $radius: 16px;
         background: rgba(0,0,0,0.7);
         backdrop-filter: blur(10px);
         color: white;
-        padding: 4px 12px;
+        padding: 4px 14px;
         border-radius: 50px;
-        font-size: 13px;
-        font-weight: 600;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        
+        ion-icon {
+          font-size: 14px;
+        }
       }
     }
     
@@ -357,15 +506,25 @@ $radius: 16px;
       }
       
       .gallery-item {
+        min-height: 192px;
+        
         img {
-          height: 198px;
+          min-height: 192px;
+        }
+        
+        @media (max-width: 768px) {
+          min-height: 130px;
           
-          @media (max-width: 768px) {
-            height: 130px;
+          img {
+            min-height: 130px;
           }
+        }
+        
+        @media (max-width: 480px) {
+          min-height: 100px;
           
-          @media (max-width: 480px) {
-            height: 100px;
+          img {
+            min-height: 100px;
           }
         }
       }
@@ -373,22 +532,122 @@ $radius: 16px;
   }
 }
 
-// =============================================
-// ROOM DETAILS
-// =============================================
+// =========================
+// IMAGE MODAL / LIGHTBOX
+// =========================
+.image-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(8px);
+  
+  .modal-content {
+    position: relative;
+    max-width: 92vw;
+    max-height: 92vh;
+    
+    img {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: $radius-sm;
+      box-shadow: 0 8px 60px rgba(0,0,0,0.5);
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: -50px;
+      right: 0;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+      padding: 8px;
+      transition: transform 0.3s ease;
+      
+      &:hover {
+        transform: rotate(90deg);
+      }
+    }
+    
+    .modal-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: white;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: rgba(255,255,255,0.2);
+      }
+      
+      &.prev {
+        left: -60px;
+        
+        @media (max-width: 768px) {
+          left: 10px;
+        }
+      }
+      
+      &.next {
+        right: -60px;
+        
+        @media (max-width: 768px) {
+          right: 10px;
+        }
+      }
+      
+      ion-icon {
+        font-size: 24px;
+      }
+    }
+    
+    .modal-counter {
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.5);
+      font-size: 14px;
+      background: rgba(0,0,0,0.3);
+      padding: 4px 16px;
+      border-radius: 20px;
+    }
+  }
+}
+
+// =========================
+// ROOM DETAILS - CLEAN LAYOUT
+// =========================
 .room-details-section {
-  padding: 0 0 60px;
+  padding: 40px 0 80px;
   background: $off-white;
   
   @media (max-width: 768px) {
-    padding: 0 0 40px;
+    padding: 30px 0 60px;
   }
 }
 
 .details-layout {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 30px;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 32px;
   
   @media (max-width: 992px) {
     grid-template-columns: 1fr;
@@ -397,16 +656,15 @@ $radius: 16px;
 }
 
 .detail-card {
-  background: white;
-  border-radius: $radius;
+  background: $white;
+  border-radius: $radius-lg;
   padding: 28px 32px;
-  margin-bottom: 24px;
-  box-shadow: $shadow;
+  margin-bottom: 20px;
+  box-shadow: $shadow-sm;
   border: 1px solid rgba(0,0,0,0.03);
   
   @media (max-width: 768px) {
     padding: 20px;
-    margin-bottom: 16px;
   }
   
   @media (max-width: 480px) {
@@ -414,42 +672,41 @@ $radius: 16px;
   }
   
   h3 {
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: $font-primary !important;
     font-size: 20px;
     color: $black;
     margin: 0 0 16px;
     
     @media (max-width: 480px) {
       font-size: 18px;
-      margin-bottom: 12px;
+    }
+  }
+  
+  .description-content {
+    p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #444;
+      margin: 0;
+      
+      @media (max-width: 480px) {
+        font-size: 14px;
+        line-height: 1.7;
+      }
     }
   }
 }
 
-// Description
-.description-content {
-  p {
-    font-family: Verdana, Geneva, sans-serif;
-    font-size: 15px;
-    line-height: 1.8;
-    color: #444;
-    margin: 0;
-    
-    @media (max-width: 480px) {
-      font-size: 14px;
-      line-height: 1.7;
-    }
-  }
-}
-
-// Room Types
+// =========================
+// ROOM TYPES - CLEAN CARDS
+// =========================
 .room-types-grid {
   display: grid;
   gap: 12px;
   
   .room-type-card {
     background: $off-white;
-    border-radius: 12px;
+    border-radius: $radius-md;
     padding: 16px 20px;
     border: 2px solid transparent;
     transition: all 0.3s ease;
@@ -476,8 +733,8 @@ $radius: 16px;
       margin-bottom: 8px;
       
       h4 {
-        font-family: Verdana, Geneva, sans-serif;
-        font-size: 16px;
+        font-family: $font-primary !important;
+        font-size: 15px;
         color: $black;
         margin: 0;
         
@@ -525,7 +782,7 @@ $radius: 16px;
       margin-bottom: 12px;
       
       span {
-        background: rgba(0,0,0,0.05);
+        background: rgba(0,0,0,0.04);
         padding: 2px 10px;
         border-radius: 50px;
         font-size: 11px;
@@ -586,7 +843,9 @@ $radius: 16px;
   }
 }
 
-// Amenities
+// =========================
+// AMENITIES & FACILITIES
+// =========================
 .amenities-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -602,8 +861,8 @@ $radius: 16px;
     gap: 10px;
     padding: 8px 12px;
     background: $off-white;
-    border-radius: 8px;
-    font-size: 14px;
+    border-radius: $radius-sm;
+    font-size: 13px;
     color: #333;
     
     ion-icon {
@@ -614,7 +873,6 @@ $radius: 16px;
   }
 }
 
-// Facilities
 .facilities-grid {
   display: grid;
   gap: 6px;
@@ -637,7 +895,9 @@ $radius: 16px;
   }
 }
 
-// Rules
+// =========================
+// HOUSE RULES
+// =========================
 .rules-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -653,7 +913,7 @@ $radius: 16px;
     gap: 10px;
     padding: 8px 12px;
     background: $off-white;
-    border-radius: 8px;
+    border-radius: $radius-sm;
     font-size: 13px;
     color: #444;
     
@@ -665,17 +925,17 @@ $radius: 16px;
   }
 }
 
-// =============================================
-// SIDEBAR - BOOKING CARD
-// =============================================
+// =========================
+// BOOKING CARD - SIDEBAR
+// =========================
 .booking-card {
-  background: white;
-  border-radius: $radius;
+  background: $white;
+  border-radius: $radius-lg;
   padding: 28px 32px;
-  box-shadow: $shadow;
+  box-shadow: $shadow-md;
   border: 1px solid rgba($gold, 0.1);
   position: sticky;
-  top: 20px;
+  top: 24px;
   
   @media (max-width: 992px) {
     position: static;
@@ -694,7 +954,7 @@ $radius: 16px;
     margin-bottom: 20px;
     
     h3 {
-      font-family: Verdana, Geneva, sans-serif;
+      font-family: $font-primary !important;
       font-size: 20px;
       color: $black;
       margin: 0 0 4px;
@@ -702,35 +962,46 @@ $radius: 16px;
     
     p {
       font-size: 14px;
-      color: #888;
+      color: $grey;
       margin: 0;
     }
   }
   
   .booking-dates {
     display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 12px;
     margin-bottom: 16px;
+    
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
     
     .date-group {
       label {
         display: block;
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 600;
-        color: #666;
-        margin-bottom: 4px;
+        color: $grey;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        margin-bottom: 4px;
       }
       
       .date-input {
         width: 100%;
         padding: 10px 12px;
         border: 1px solid #ddd;
-        border-radius: 8px;
+        border-radius: $radius-sm;
         background: $off-white;
-        font-size: 14px;
+        font-size: 13px;
         color: $black;
+        transition: border-color 0.3s ease;
+        
+        &:focus {
+          border-color: $gold;
+          outline: none;
+        }
       }
     }
   }
@@ -759,7 +1030,7 @@ $radius: 16px;
       align-items: center;
       gap: 4px;
       font-size: 12px;
-      color: #888;
+      color: $grey;
       
       ion-icon {
         color: $gold;
@@ -769,15 +1040,17 @@ $radius: 16px;
   }
 }
 
-// Location
+// =========================
+// LOCATION
+// =========================
 .location-address {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  margin-bottom: 16px;
   font-size: 14px;
   color: #444;
   line-height: 1.5;
+  margin-bottom: 16px;
   
   ion-icon {
     color: $gold;
@@ -788,7 +1061,7 @@ $radius: 16px;
 }
 
 .location-map {
-  border-radius: 12px;
+  border-radius: $radius-md;
   overflow: hidden;
   
   iframe {
@@ -802,7 +1075,9 @@ $radius: 16px;
   }
 }
 
-// Attractions
+// =========================
+// ATTRACTIONS
+// =========================
 .attraction-list {
   display: grid;
   gap: 8px;
@@ -813,7 +1088,7 @@ $radius: 16px;
     gap: 10px;
     padding: 8px 12px;
     background: $off-white;
-    border-radius: 8px;
+    border-radius: $radius-sm;
     font-size: 13px;
     
     ion-icon {
@@ -828,22 +1103,22 @@ $radius: 16px;
     }
     
     .attraction-distance {
-      color: #888;
+      color: $grey;
       font-size: 12px;
       font-weight: 500;
     }
   }
 }
 
-// =============================================
+// =========================
 // RELATED ROOMS
-// =============================================
+// =========================
 .related-rooms {
   padding: 40px 0 60px;
   background: $white;
   
   @media (max-width: 768px) {
-    padding: 20px 0 40px;
+    padding: 30px 0 40px;
   }
   
   .section-header {
@@ -853,7 +1128,7 @@ $radius: 16px;
     margin-bottom: 24px;
     
     h2 {
-      font-family: Verdana, Geneva, sans-serif;
+      font-family: $font-primary !important;
       font-size: 24px;
       color: $black;
       margin: 0;
@@ -894,16 +1169,16 @@ $radius: 16px;
     }
     
     .related-card {
-      border-radius: 12px;
+      border-radius: $radius-md;
       overflow: hidden;
       cursor: pointer;
       transition: all 0.3s ease;
       background: $off-white;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+      box-shadow: $shadow-sm;
       
       &:hover {
         transform: translateY(-4px);
-        box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        box-shadow: $shadow-lg;
       }
       
       img {
@@ -924,7 +1199,7 @@ $radius: 16px;
         }
         
         h4 {
-          font-family: Verdana, Geneva, sans-serif;
+          font-family: $font-primary !important;
           font-size: 14px;
           color: $black;
           margin: 0 0 2px;
@@ -936,7 +1211,7 @@ $radius: 16px;
         
         p {
           font-size: 12px;
-          color: #888;
+          color: $grey;
           margin: 0 0 4px;
           
           @media (max-width: 480px) {
@@ -958,122 +1233,425 @@ $radius: 16px;
   }
 }
 
-// =============================================
-// IMAGE MODAL
-// =============================================
-.image-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: rgba(0,0,0,0.92);
-  display: flex;
+// =========================
+// BUTTONS
+// =========================
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, $gold, $gold-dark);
+  color: $black;
+  font-weight: 600;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 25px rgba($gold, 0.25);
+  font-family: $font-primary !important;
+  
+  ion-icon {
+    font-size: 18px;
+  }
+  
+  &:hover {
+    background: linear-gradient(135deg, $gold-light, $gold);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 40px rgba($gold, 0.4);
+  }
+  
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.btn-gold {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  animation: fadeIn 0.3s ease;
+  gap: 8px;
+  background: linear-gradient(135deg, $gold, $gold-dark);
+  color: $black;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba($gold, 0.25);
+  cursor: pointer;
+  border: none;
+  font-family: $font-primary !important;
+  width: fit-content;
   
-  .modal-content {
+  @media (max-width: 576px) {
+    width: 100%;
+    padding: 12px 20px;
+  }
+  
+  &:hover {
+    background: linear-gradient(135deg, $gold-light, $gold);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 35px rgba($gold, 0.4);
+  }
+}
+
+// =========================
+// WHATSAPP FLOAT
+// =========================
+ion-fab {
+  position: fixed !important;
+  bottom: 24px !important;
+  right: 24px !important;
+  z-index: 1000;
+}
+
+ion-fab-button.whatsapp-float {
+  --background: #25D366;
+  --box-shadow: 0 4px 25px rgba(37, 211, 102, 0.4);
+  --border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  
+  @media (max-width: 576px) {
+    width: 50px;
+    height: 50px;
+    bottom: 16px !important;
+    right: 16px !important;
+  }
+  
+  .whatsapp-pulse {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 50%;
+    border: 2px solid #25D366;
+    animation: pulse 2s infinite;
+  }
+}
+
+// =========================
+// FOOTER
+// =========================
+.footer {
+  position: relative;
+  color: white;
+  padding: 60px 0 0;
+  overflow: hidden;
+  margin: 0;
+  bottom: 0;
+  
+  @media (max-width: 576px) {
+    padding: 40px 0 0;
+  }
+  
+  .footer-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=90') center/cover no-repeat;
+    background-attachment: fixed;
+    z-index: 0;
+    transform: scale(1.1);
+  }
+  
+  .footer-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0,0,0,0.92) 0%, rgba(10,10,10,0.85) 100%);
+    z-index: 1;
+  }
+  
+  .container {
     position: relative;
-    max-width: 90vw;
-    max-height: 90vh;
+    z-index: 2;
+  }
+  
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 40px;
     
-    img {
-      max-width: 100%;
-      max-height: 85vh;
-      object-fit: contain;
-      border-radius: 8px;
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
     }
-    
-    .modal-close {
-      position: absolute;
-      top: -50px;
-      right: 0;
-      background: none;
-      border: none;
-      color: white;
-      font-size: 28px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      
-      &:hover {
-        transform: rotate(90deg);
-      }
+    @media (max-width: 500px) {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding-bottom: 24px;
     }
-    
-    .modal-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: white;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
+  }
+  
+  .footer-brand {
+    .logo {
+      font-family: $font-primary !important;
+      font-size: 30px;
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 10px;
+      margin-bottom: 12px;
       cursor: pointer;
-      transition: all 0.3s ease;
       
-      &:hover {
-        background: rgba(255,255,255,0.2);
+      @media (max-width: 576px) {
+        font-size: 26px;
       }
       
-      &.prev {
-        left: -60px;
-        
-        @media (max-width: 768px) {
-          left: 10px;
-        }
+      .logo-text {
+        color: $white;
+        font-weight: 400;
       }
-      
-      &.next {
-        right: -60px;
-        
-        @media (max-width: 768px) {
-          right: 10px;
-        }
-      }
-      
-      ion-icon {
-        font-size: 24px;
+      .logo-gold {
+        color: $gold;
+        font-weight: 700;
       }
     }
     
-    .modal-counter {
-      position: absolute;
-      bottom: -40px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: rgba(255,255,255,0.5);
+    p {
+      color: rgba(255,255,255,0.7);
       font-size: 14px;
+      max-width: 320px;
+      line-height: 1.7;
+      font-weight: 300;
+      font-family: $font-primary !important;
+      
+      @media (max-width: 576px) {
+        font-size: 13px;
+        max-width: 100%;
+      }
+    }
+    
+    .socials {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+      
+      a {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255,255,255,0.08);
+        color: $gold;
+        border-radius: 50%;
+        font-size: 16px;
+        transition: all 0.3s;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.05);
+        
+        @media (max-width: 576px) {
+          width: 36px;
+          height: 36px;
+          font-size: 14px;
+        }
+        
+        &:hover {
+          background: $gold;
+          color: $black;
+          transform: translateY(-3px);
+          box-shadow: 0 8px 25px rgba($gold, 0.3);
+        }
+      }
+    }
+  }
+  
+  .footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    
+    h4 {
+      color: $gold;
+      margin-bottom: 6px;
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+      font-family: $font-primary !important;
+      
+      @media (max-width: 576px) {
+        font-size: 13px;
+        letter-spacing: 1.5px;
+      }
+    }
+    
+    a, p {
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+      cursor: pointer;
+      transition: color 0.3s;
+      font-weight: 300;
+      text-decoration: none;
+      font-family: $font-primary !important;
+      
+      @media (max-width: 576px) {
+        font-size: 13px;
+      }
+      
+      &:hover {
+        color: $gold;
+      }
+    }
+    
+    .footer-contact {
+      margin-top: 8px;
+      
+      p {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: rgba(255,255,255,0.5);
+        font-size: 13px;
+        font-family: $font-primary !important;
+        
+        @media (max-width: 576px) {
+          font-size: 12px;
+        }
+        
+        ion-icon {
+          color: $gold;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    color: rgba(255,255,255,0.4);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    font-weight: 300;
+    font-family: $font-primary !important;
+    
+    @media (max-width: 500px) {
+      flex-direction: column;
+      gap: 6px;
+      text-align: center;
+      font-size: 10px;
+      padding: 16px 0;
     }
   }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+// =========================
+// SCROLL FIX
+// =========================
+:host {
+  display: block !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  overflow-y: auto !important;
 }
 
-// =============================================
-// RESPONSIVE FIXES
-// =============================================
-@media (max-width: 768px) {
-  .details-sidebar .booking-card {
-    position: static;
-  }
-}
-
-// No scrollbar
-.no-scrollbar {
-  &::-webkit-scrollbar {
-    display: none !important;
-    width: 0 !important;
-    height: 0 !important;
-  }
+ion-content {
+  contain: none !important;
+  --overflow: auto !important;
+  overflow-y: auto !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  display: block !important;
+  position: relative !important;
   
+  &::part(scroll) {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    height: 100% !important;
+    min-height: 100vh !important;
+    display: block !important;
+  }
+}
+
+// =========================
+// REMOVE SCROLLBAR
+// =========================
+:host ::-webkit-scrollbar,
+ion-content ::-webkit-scrollbar,
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+:host ::-webkit-scrollbar-track,
+ion-content ::-webkit-scrollbar-track,
+::-webkit-scrollbar-track {
+  display: none !important;
+  background: transparent !important;
+}
+
+:host ::-webkit-scrollbar-thumb,
+ion-content ::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb {
+  display: none !important;
+  background: transparent !important;
+}
+
+:host,
+ion-content,
+* {
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;
+}
+
+// =========================
+// RESPONSIVE OVERRIDES
+// =========================
+@media (max-width: 768px) {
+  .room-details-section {
+    padding: 30px 0 60px;
+  }
+  
+  .detail-card {
+    padding: 20px;
+  }
+  
+  .booking-card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .room-title {
+    font-size: 28px !important;
+  }
+  
+  .amenities-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .booking-card .booking-dates {
+    grid-template-columns: 1fr;
+  }
+  
+  .room-types-grid .room-type-card {
+    padding: 14px 16px;
+  }
+  
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .gallery-item.featured {
+    grid-row: span 1;
+    min-height: 220px;
+  }
 }
