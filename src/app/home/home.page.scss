@@ -54,7 +54,10 @@ p, span, a, div, li, button,
 .footer-column a,
 .footer-column p,
 .mobile-brand-text,
-.mobile-brand-tagline {
+.mobile-brand-tagline,
+.location-title,
+.location-name,
+.location-card p {
   font-family: $font-primary !important;
 }
 
@@ -1106,8 +1109,7 @@ p, span, a, div, li, button,
   }
 }
 
-// =============================================
-// ABOUT
+// =============================================// ABOUT
 // =============================================
 .about-section {
   padding: 80px 0;
@@ -1185,6 +1187,87 @@ p, span, a, div, li, button,
     font-weight: 400;
     font-family: $font-primary !important;
     @media (max-width: 576px) { font-size: 14px; }
+  }
+}
+
+// =============================================
+// LOCATION OPTIONS (NEW)
+// =============================================
+.location-options {
+  margin: 24px 0 20px;
+  
+  .location-title {
+    font-family: $font-primary !important;
+    font-size: 16px;
+    font-weight: 600;
+    color: $black;
+    margin-bottom: 16px;
+  }
+  
+  .location-card {
+    display: flex;
+    gap: 14px;
+    padding: 16px 18px;
+    background: $off-white;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    border-left: 3px solid $gold;
+    transition: $transition-smooth;
+    
+    &:hover {
+      transform: translateX(4px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
+    
+    .location-icon {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      background: rgba(201, 168, 76, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      ion-icon {
+        font-size: 20px;
+        color: $gold;
+      }
+    }
+    
+    .location-content {
+      flex: 1;
+      
+      .location-name {
+        font-family: $font-primary !important;
+        font-size: 15px;
+        font-weight: 600;
+        color: $black;
+        margin: 0 0 4px 0;
+      }
+      
+      p {
+        font-size: 14px;
+        color: $black;
+        line-height: 1.5;
+        margin: 0;
+        font-weight: 400;
+        font-family: $font-primary !important;
+      }
+    }
+    
+    &.location-cta {
+      border-left-color: $gold;
+      background: rgba(201, 168, 76, 0.08);
+      justify-content: center;
+      
+      p {
+        font-size: 16px;
+        font-weight: 600;
+        color: $gold;
+        text-align: center;
+      }
+    }
   }
 }
 
@@ -1658,6 +1741,34 @@ p, span, a, div, li, button,
     height: 32px;
     justify-content: center;
     ion-icon { font-size: 16px; margin: 0; }
+  }
+  
+  // Mobile responsive for location cards
+  .location-options {
+    .location-card {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 14px 16px;
+      
+      .location-icon {
+        width: 36px;
+        height: 36px;
+        
+        ion-icon {
+          font-size: 18px;
+        }
+      }
+      
+      .location-content {
+        .location-name {
+          font-size: 14px;
+        }
+        
+        p {
+          font-size: 13px;
+        }
+      }
+    }
   }
 }
 

@@ -1,5 +1,5 @@
 <!-- ============================================= -->
-<!-- SPLASH SCREEN (fullscreen overlay)            -->
+<!-- SPLASH SCREEN                                 -->
 <!-- ============================================= -->
 <div id="splash" [class.hidden]="splashHidden">
   <div class="splash-content">
@@ -21,7 +21,7 @@
 <ion-header>
   <header class="site-header" [class.scrolled]="isScrolled">
     <div class="site-header__inner">
-      <a href="/" class="brand">
+      <a href="/" class="brand" (click)="goToHome()">
         <span class="brand__name">TIAH</span>
         <span class="brand__tagline">The Ideal Accommodation Haven</span>
       </a>
@@ -44,7 +44,7 @@
       </nav>
 
       <!-- Desktop WhatsApp Button -->
-      <a class="btn-whatsapp desktop-only" (click)="goToBooking()">
+      <a class="btn-whatsapp desktop-only" (click)="openWhatsApp()">
         <ion-icon name="logo-whatsapp"></ion-icon>
         <span class="btn-text">Book on WhatsApp</span>
       </a>
@@ -97,7 +97,7 @@
     
     <div class="mobile-divider"></div>
     
-    <a class="mobile-cta" (click)="goToBooking(); closeMobileNav()">
+    <a class="mobile-cta" (click)="openWhatsApp(); closeMobileNav()">
       <ion-icon name="logo-whatsapp"></ion-icon>
       Book on WhatsApp
     </a>
@@ -111,7 +111,7 @@
 <!-- ============================================= -->
 <!-- MAIN PAGE CONTENT                             -->
 <!-- ============================================= -->
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" (ionScroll)="onScroll($event)">
   
   <!-- ================= HERO SECTION ================= -->
   <section class="hero-section" id="home">
@@ -119,8 +119,8 @@
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <div class="hero-text animate-fade-up">
-        <span class="hero-badge">✦ Premium Accommodation</span>
-        <h1 class="hero-title">Your Comfortable<br>Home Away From Home</h1>
+        <span class="hero-badge">✦ Comfortable Stay</span>
+        <h1 class="hero-title">Your Ideal Haven</h1>
         <p class="hero-description">Experience luxurious, affordable short-stay accommodation in Durban's most desirable locations.</p>
         <div class="hero-buttons">
           <a routerLink="/booking" class="btn-primary">
@@ -158,8 +158,8 @@
     <div class="container">
       <div class="section-header center animate-fade-up">
         <span class="eyebrow">✦ About Us</span>
-        <h2 class="section-title">More Than Just<br>A Place To Stay</h2>
-        <p class="section-subtitle">stay@tiah offers clean, comfortable and affordable short-stay accommodation in Durban's most convenient locations.</p>
+        <h2 class="section-title">Your comfortable stay<br>in the heart of Durban</h2>
+        <p class="section-subtitle">Looking for peace, comfort and convenience?</p>
       </div>
       <div class="about-grid">
         <div class="about-image animate-slide-left">
@@ -170,11 +170,41 @@
         </div>
         <div class="about-content animate-slide-right">
           <p class="about-description">
-            Whether you are travelling for business, enjoying a holiday, planning a romantic getaway or visiting family, we provide a welcoming home away from home.
+            Come for convenience. Stay for comfort. Leave with peace of mind.
           </p>
           <p>
-            Our properties are carefully selected and maintained to ensure your comfort and convenience throughout your stay in Durban.
+            Whether you are travelling for business, professional attendance, block study release, sports, events or just to rest, we provide a welcoming home away from home. Perfect for solo guests, couples or groups.
           </p>
+          
+          <!-- Location Options -->
+          <div class="location-options">
+            <h3 class="location-title">Choose the location that suits you best:</h3>
+            
+            <div class="location-card">
+              <div class="location-icon">
+                <ion-icon name="home-outline"></ion-icon>
+              </div>
+              <div class="location-content">
+                <h4 class="location-name">Musgrave Guesthouse</h4>
+                <p>Your room is waiting in a quiet guesthouse, in close proximity to all amenities with easy access to Durban's top attractions.</p>
+              </div>
+            </div>
+            
+            <div class="location-card">
+              <div class="location-icon">
+                <ion-icon name="beach-outline"></ion-icon>
+              </div>
+              <div class="location-content">
+                <h4 class="location-name">North Beach – Durban Oceanic Apartments</h4>
+                <p>Stay just a 3-minute walk from the beach and a few minutes' walk to restaurants, shops and entertainment areas.</p>
+              </div>
+            </div>
+            
+            <div class="location-card location-cta">
+              <p>We can't wait to host you.</p>
+            </div>
+          </div>
+          
           <div class="about-features">
             <div class="feature">
               <ion-icon name="wifi-outline"></ion-icon>
@@ -183,10 +213,6 @@
             <div class="feature">
               <ion-icon name="car-outline"></ion-icon>
               <span>Free Parking</span>
-            </div>
-            <div class="feature">
-              <ion-icon name="restaurant-outline"></ion-icon>
-              <span>Breakfast Available</span>
             </div>
             <div class="feature">
               <ion-icon name="shield-checkmark-outline"></ion-icon>
@@ -207,7 +233,7 @@
     <div class="container">
       <div class="section-header center animate-fade-up">
         <span class="eyebrow">✦ Why Choose Us</span>
-        <h2 class="section-title">Experience The Difference</h2>
+        <h2 class="section-title">Your comfortable stay<br>in the heart of Durban</h2>
         <p class="section-subtitle">We go above and beyond to make your stay memorable and comfortable.</p>
       </div>
       <div class="why-grid">
