@@ -75,7 +75,7 @@
             </div>
           </div>
 
-          <!-- Room Types -->
+          <!-- Room Types - REMOVED WHATSAPP ENQUIRE BUTTON -->
           <div class="detail-card animate-fade-up" *ngIf="room.roomTypes">
             <h3>Room Types</h3>
             <div class="room-types-grid">
@@ -99,10 +99,7 @@
                     <ion-icon name="checkmark-circle"></ion-icon>
                     {{ type.cancellation || 'Free cancellation' }}
                   </div>
-                  <a (click)="openWhatsApp(); $event.stopPropagation()" class="type-enquire-btn">
-                    <ion-icon name="logo-whatsapp"></ion-icon>
-                    Enquire
-                  </a>
+                  <!-- REMOVED: WhatsApp Enquire Button -->
                 </div>
               </div>
             </div>
@@ -144,7 +141,7 @@
 
         <!-- Right Column -->
         <div class="details-right">
-          <!-- Booking Card - Date Selection Only -->
+          <!-- Booking Card - Date Selection Only (REMOVED WHATSAPP ICON) -->
           <div class="booking-card animate-fade-up">
             <div class="booking-header">
               <h3>Check Availability</h3>
@@ -194,9 +191,8 @@
               </div>
             </div>
 
-            <!-- WhatsApp Enquiry Button -->
+            <!-- REMOVED: WhatsApp Icon from Enquiry Button -->
             <a (click)="openWhatsApp()" class="btn-primary book-btn">
-              <ion-icon name="logo-whatsapp"></ion-icon>
               Enquire on WhatsApp
             </a>
             

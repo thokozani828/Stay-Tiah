@@ -422,6 +422,345 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // =========================
+// DATE SELECTION SECTION - NEW & IMPROVED
+// =========================
+.date-selection-section {
+  padding: 40px 0 20px;
+  background: $off-white;
+  
+  @media (max-width: 768px) {
+    padding: 30px 0 16px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 24px 0 12px;
+  }
+  
+  .date-section-header {
+    text-align: center;
+    margin-bottom: 24px;
+    
+    @media (max-width: 480px) {
+      margin-bottom: 18px;
+    }
+    
+    h2 {
+      font-size: 24px;
+      color: $black;
+      margin: 0 0 6px;
+      
+      @media (max-width: 768px) {
+        font-size: 22px;
+      }
+      
+      @media (max-width: 480px) {
+        font-size: 20px;
+      }
+    }
+    
+    p {
+      font-size: 14px;
+      color: $grey;
+      margin: 0;
+      
+      @media (max-width: 480px) {
+        font-size: 13px;
+      }
+    }
+  }
+  
+  .date-picker-card {
+    background: $white;
+    border-radius: $radius-lg;
+    padding: 28px 32px;
+    box-shadow: $shadow-md;
+    border: 1px solid rgba($gold, 0.08);
+    max-width: 700px;
+    margin: 0 auto;
+    
+    @media (max-width: 768px) {
+      padding: 24px 24px;
+      border-radius: $radius-md;
+    }
+    
+    @media (max-width: 480px) {
+      padding: 18px 16px;
+      border-radius: $radius-sm;
+    }
+  }
+  
+  .date-input-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+    
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+  }
+  
+  .date-field {
+    .date-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: $grey;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      
+      @media (max-width: 480px) {
+        font-size: 11px;
+      }
+      
+      ion-icon {
+        font-size: 16px;
+        color: $gold;
+        
+        @media (max-width: 480px) {
+          font-size: 14px;
+        }
+      }
+    }
+    
+    .date-input-wrapper {
+      position: relative;
+      
+      .date-input {
+        width: 100%;
+        padding: 12px 14px 12px 42px;
+        border: 2px solid #e8e8e8;
+        border-radius: $radius-sm;
+        background: $off-white;
+        font-size: 14px;
+        color: $black;
+        transition: all 0.3s ease;
+        font-family: $font-primary !important;
+        
+        @media (max-width: 768px) {
+          padding: 10px 12px 10px 38px;
+          font-size: 13px;
+        }
+        
+        @media (max-width: 480px) {
+          padding: 10px 10px 10px 36px;
+          font-size: 13px;
+        }
+        
+        &:focus {
+          border-color: $gold;
+          outline: none;
+          box-shadow: 0 0 0 4px rgba($gold, 0.1);
+          background: $white;
+        }
+        
+        &:hover {
+          border-color: $gold-light;
+        }
+        
+        &::placeholder {
+          color: #aaa;
+          font-size: 13px;
+          
+          @media (max-width: 480px) {
+            font-size: 12px;
+          }
+        }
+        
+        &.error {
+          border-color: #ef4444;
+          background: rgba(239, 68, 68, 0.05);
+          
+          &:focus {
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+          }
+        }
+        
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+      }
+      
+      .date-icon {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 18px;
+        color: $gold;
+        pointer-events: none;
+        
+        @media (max-width: 768px) {
+          font-size: 16px;
+          left: 10px;
+        }
+        
+        @media (max-width: 480px) {
+          font-size: 15px;
+          left: 10px;
+        }
+      }
+    }
+    
+    .date-error {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: #ef4444;
+      margin-top: 4px;
+      
+      @media (max-width: 480px) {
+        font-size: 11px;
+      }
+      
+      ion-icon {
+        font-size: 14px;
+        
+        @media (max-width: 480px) {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  
+  .date-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+    
+    .check-availability-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: $black;
+      color: $white;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      font-family: $font-primary !important;
+      
+      @media (max-width: 768px) {
+        padding: 12px 28px;
+        font-size: 14px;
+      }
+      
+      @media (max-width: 480px) {
+        padding: 12px 20px;
+        font-size: 14px;
+      }
+      
+      &:hover:not(:disabled) {
+        background: $gold;
+        color: $black;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba($gold, 0.3);
+      }
+      
+      &:active:not(:disabled) {
+        transform: scale(0.97);
+      }
+      
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      
+      ion-icon {
+        font-size: 20px;
+        
+        @media (max-width: 480px) {
+          font-size: 18px;
+        }
+      }
+    }
+    
+    .whatsapp-enquire-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #25D366;
+      color: white;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      font-family: $font-primary !important;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+      
+      @media (max-width: 768px) {
+        padding: 12px 28px;
+        font-size: 14px;
+      }
+      
+      @media (max-width: 480px) {
+        padding: 12px 20px;
+        font-size: 14px;
+      }
+      
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 35px rgba(37, 211, 102, 0.4);
+      }
+      
+      &:active {
+        transform: scale(0.97);
+      }
+      
+      ion-icon {
+        font-size: 20px;
+        
+        @media (max-width: 480px) {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+  
+  .date-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 14px;
+    font-size: 12px;
+    color: $grey;
+    
+    @media (max-width: 480px) {
+      font-size: 11px;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+    
+    ion-icon {
+      font-size: 14px;
+      color: $gold;
+      
+      @media (max-width: 480px) {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+// =========================
 // PROFESSIONAL GALLERY - RESPONSIVE
 // =========================
 .room-gallery {
@@ -931,7 +1270,7 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     padding: 16px 20px;
     border: 2px solid transparent;
     transition: all 0.3s ease;
-    cursor: default; // Changed from pointer to default
+    cursor: default;
     
     @media (max-width: 768px) {
       padding: 14px 18px;
@@ -944,7 +1283,6 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     
     &:hover {
       border-color: rgba($gold, 0.3);
-      // Removed transform: translateX(4px);
     }
     
     &.selected {
@@ -1079,8 +1417,6 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           font-size: 14px;
         }
       }
-      
-      // REMOVED: .type-enquire-btn - WhatsApp button removed from room types
     }
   }
 }
@@ -1430,8 +1766,6 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: not-allowed;
     }
   }
-  
-  // REMOVED: .book-btn - WhatsApp button removed from booking card
   
   .booking-features {
     display: flex;
@@ -2184,5 +2518,108 @@ a,
   
   .room-hero {
     min-height: 30vh !important;
+  }
+}
+
+// =========================
+// DATE SELECTION RESPONSIVE FIXES
+// =========================
+@media (max-width: 480px) {
+  .date-selection-section {
+    .date-picker-card {
+      padding: 16px;
+    }
+    
+    .date-input-group {
+      gap: 10px;
+    }
+    
+    .date-actions {
+      .check-availability-btn,
+      .whatsapp-enquire-btn {
+        font-size: 13px;
+        padding: 12px 16px;
+      }
+    }
+  }
+}
+
+// =========================
+// DARK MODE SUPPORT (Optional)
+// =========================
+@media (prefers-color-scheme: dark) {
+  .date-selection-section {
+    background: $dark;
+    
+    .date-section-header {
+      h2 {
+        color: $white;
+      }
+      
+      p {
+        color: $grey;
+      }
+    }
+    
+    .date-picker-card {
+      background: #1a1a1a;
+      border-color: rgba($gold, 0.15);
+    }
+    
+    .date-field {
+      .date-label {
+        color: $grey;
+        
+        ion-icon {
+          color: $gold;
+        }
+      }
+      
+      .date-input-wrapper {
+        .date-input {
+          background: #2a2a2a;
+          border-color: #3a3a3a;
+          color: $white;
+          
+          &:focus {
+            border-color: $gold;
+            box-shadow: 0 0 0 4px rgba($gold, 0.15);
+            background: #2a2a2a;
+          }
+          
+          &:hover {
+            border-color: $gold-light;
+          }
+          
+          &::placeholder {
+            color: #666;
+          }
+          
+          &.error {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+          }
+        }
+      }
+    }
+    
+    .date-actions {
+      .check-availability-btn {
+        background: $gold;
+        color: $black;
+        
+        &:hover:not(:disabled) {
+          background: $gold-light;
+        }
+      }
+    }
+    
+    .date-hint {
+      color: $grey;
+      
+      ion-icon {
+        color: $gold;
+      }
+    }
   }
 }
