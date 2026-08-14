@@ -75,7 +75,7 @@
             </div>
           </div>
 
-          <!-- Room Types - REMOVED WHATSAPP ENQUIRE BUTTON -->
+          <!-- Room Types - REMOVED Non-refundable AND Enquire button -->
           <div class="detail-card animate-fade-up" *ngIf="room.roomTypes">
             <h3>Room Types</h3>
             <div class="room-types-grid">
@@ -94,13 +94,8 @@
                   <span *ngFor="let amenity of type.amenities?.slice(0,3)">{{ amenity }}</span>
                   <span class="more" *ngIf="type.amenities?.length > 3">+{{ type.amenities.length - 3 }}</span>
                 </div>
-                <div class="type-footer">
-                  <div class="type-cancellation">
-                    <ion-icon name="checkmark-circle"></ion-icon>
-                    {{ type.cancellation || 'Free cancellation' }}
-                  </div>
-                  <!-- REMOVED: WhatsApp Enquire Button -->
-                </div>
+                <!-- REMOVED: Non-refundable and Enquire button completely -->
+                <!-- No footer section at all -->
               </div>
             </div>
           </div>
@@ -141,7 +136,7 @@
 
         <!-- Right Column -->
         <div class="details-right">
-          <!-- Booking Card - Date Selection Only (REMOVED WHATSAPP ICON) -->
+          <!-- Booking Card - Date Selection Only -->
           <div class="booking-card animate-fade-up">
             <div class="booking-header">
               <h3>Check Availability</h3>
@@ -191,10 +186,10 @@
               </div>
             </div>
 
-            <!-- REMOVED: WhatsApp Icon from Enquiry Button -->
-            <a (click)="openWhatsApp()" class="btn-primary book-btn">
+            <!-- Enquire Button -->
+            <button (click)="openWhatsApp()" class="btn-primary book-btn">
               Enquire on WhatsApp
-            </a>
+            </button>
             
             <p class="booking-note">Get pricing and availability instantly via WhatsApp</p>
             
