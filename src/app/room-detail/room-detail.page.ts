@@ -27,6 +27,15 @@ export class RoomDetailPage implements OnInit {
   currentImageIndex: number = 0;
   selectedRoomType: any = null;
 
+  // ==========================================
+  // AVAILABILITY CHECK PROPERTIES
+  // ==========================================
+  minDate: string = new Date().toISOString();
+  availabilityChecked: boolean = false;
+  isAvailable: boolean = false;
+  availabilityMessage: string = '';
+  nightsCount: number = 0;
+
   // WhatsApp number
   private readonly whatsappNumber: string = '27849009821';
 
@@ -998,19 +1007,80 @@ Convenient Location: Located 2.5 km from downtown Durban, the property is close 
     this.selectedRoomType = roomType;
   }
 
-  // =========================
-  // BOOKING
-  // =========================
-  bookNow() {
-    if (this.room && this.selectedRoomType) {
-      this.router.navigate(['/booking'], { 
-        queryParams: { 
-          roomId: this.room.id,
-          roomType: this.selectedRoomType.name,
-          price: this.selectedRoomType.price,
-          nights: this.selectedRoomType.nights || 1
-        } 
-      });
+  // ==========================================
+  // DATE SELECTION & AVAILABILITY CHECK
+  // ==========================================
+  
+  // Called when date changes
+  onDateChange(): void {
+    // Reset availability status when dates change
+    this.availabilityChecked = false;
+    this.isAvailable = false;
+    this.availabilityMessage = '';
+    this.nightsCount = 0;
+  }
+
+  // Check availability for selected dates
+  checkAvailability(): void {
+    // Validate dates
+    if (!this.checkIn || !this.checkOut) {
+      this.availabilityChecked = true;
+      this.isAvailable = false;
+      this.availabilityMessage = 'Please select both check-in and check-out dates.';
+      return;
+    }
+
+    // Convert to Date objects
+    const checkInDate = new Date(this.checkIn);
+    const checkOutDate = new Date(this.checkOut);
+
+    // Check if check-out is after check-in
+    if (checkOutDate <= checkInDate) {
+      this.availabilityChecked = true;
+      this.isAvailable = false;
+      this.availabilityMessage = 'Check-out date must be after check-in date.';
+      return;
+    }
+
+    // Calculate nights
+    const diffTime = Math.abs(checkOutDate.getTime() - checkInDate.getTime());
+    this.nightsCount = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    // Simulate availability check
+    this.simulateAvailabilityCheck(checkInDate, checkOutDate);
+  }
+
+  // Simulate availability check (replace with actual API call)
+  private simulateAvailabilityCheck(checkIn: Date, checkOut: Date): void {
+    this.availabilityChecked = true;
+    
+    // Simulate checking availability - for demo purposes
+    // In a real app, you would check against a database/API
+    
+    // For demo: assume available unless it's a weekend or specific dates
+    const isWeekend = checkIn.getDay() === 5 || checkIn.getDay() === 6 || 
+                      checkOut.getDay() === 5 || checkOut.getDay() === 6;
+    
+    // Some dates might be booked for demo
+    const bookedDates = [
+      new Date(2026, 7, 15), // August 15
+      new Date(2026, 7, 16), // August 16
+      new Date(2026, 7, 20), // August 20
+    ];
+    
+    const isBooked = bookedDates.some(booked => 
+      (checkIn <= booked && booked <= checkOut)
+    );
+
+    if (isBooked) {
+      this.isAvailable = false;
+      this.availabilityMessage = 'Sorry, this room is not available for the selected dates.';
+    } else if (this.nightsCount > 14) {
+      this.isAvailable = false;
+      this.availabilityMessage = 'Maximum stay is 14 nights. Please select different dates.';
+    } else {
+      this.isAvailable = true;
+      this.availabilityMessage = `Room is available for ${this.nightsCount} night${this.nightsCount > 1 ? 's' : ''}!`;
     }
   }
 

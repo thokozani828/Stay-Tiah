@@ -24,8 +24,6 @@
             <ion-icon name="location-outline"></ion-icon>
             <span>{{ room.address || room.location }}</span>
           </div>
-          <!-- REMOVED: rating and reviews -->
-          <!-- REMOVED: price display -->
           <a (click)="openWhatsApp()" class="btn-primary">
             <ion-icon name="logo-whatsapp"></ion-icon>
             Check Availability
@@ -76,7 +74,6 @@
                   <h4>{{ type.name }}</h4>
                   <p>{{ type.beds }} · Sleeps {{ type.sleeps }}</p>
                 </div>
-                <!-- REMOVED: price display -->
                 <div class="type-unavailable">
                   <ion-icon name="logo-whatsapp"></ion-icon>
                   <a (click)="openWhatsApp()" class="whatsapp-enquire">Enquire</a>
@@ -121,36 +118,61 @@
 
         <!-- Right Column -->
         <div class="details-right">
-          <!-- Booking Card - Updated to WhatsApp -->
+          <!-- Booking Card - Updated with Date Selection -->
           <div class="booking-card animate-fade-up">
             <div class="booking-header">
               <h3>Check Availability</h3>
-              <p>Enquire about this room via WhatsApp</p>
+              <p>Select your dates to check availability</p>
             </div>
+            
+            <!-- Date Selection -->
             <div class="booking-dates">
               <div class="date-group">
                 <label>Check-in</label>
                 <ion-datetime 
                   [(ngModel)]="checkIn" 
+                  (ionChange)="onDateChange()"
                   presentation="date"
                   placeholder="Select date"
-                  class="date-input">
+                  class="date-input"
+                  [min]="minDate">
                 </ion-datetime>
               </div>
               <div class="date-group">
                 <label>Check-out</label>
                 <ion-datetime 
                   [(ngModel)]="checkOut" 
+                  (ionChange)="onDateChange()"
                   presentation="date"
                   placeholder="Select date"
-                  class="date-input">
+                  class="date-input"
+                  [min]="minDate">
                 </ion-datetime>
               </div>
             </div>
-            <a (click)="openWhatsApp()" class="btn-primary book-btn">
-              <ion-icon name="logo-whatsapp"></ion-icon>
-              Check Availability on WhatsApp
+
+            <!-- Availability Status -->
+            <div class="availability-status" *ngIf="availabilityChecked">
+              <div class="status-message" [class.available]="isAvailable" [class.unavailable]="!isAvailable">
+                <ion-icon [name]="isAvailable ? 'checkmark-circle' : 'close-circle'"></ion-icon>
+                <span>{{ availabilityMessage }}</span>
+              </div>
+              <div class="nights-stay" *ngIf="isAvailable && nightsCount > 0">
+                <ion-icon name="moon-outline"></ion-icon>
+                <span>{{ nightsCount }} night{{ nightsCount > 1 ? 's' : '' }}</span>
+              </div>
+            </div>
+
+            <a (click)="checkAvailability()" class="btn-secondary check-btn">
+              <ion-icon name="search-outline"></ion-icon>
+              Check Availability
             </a>
+            
+            <a (click)="openWhatsApp()" class="btn-primary book-btn" [class.disabled]="!isAvailable && availabilityChecked">
+              <ion-icon name="logo-whatsapp"></ion-icon>
+              Enquire on WhatsApp
+            </a>
+            
             <p class="booking-note">Get pricing and availability instantly via WhatsApp</p>
           </div>
 

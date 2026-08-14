@@ -34,6 +34,11 @@ export class AboutPage implements OnInit, OnDestroy {
   private originalOverflow: string = '';
 
   // ==========================================
+  // WHATSAPP NUMBER
+  // ==========================================
+  private readonly whatsappNumber: string = '27849009821';
+
+  // ==========================================
   // IMAGE PATHS
   // ==========================================
   aboutImage: string = 'assets/images/ChatGPT Image Jul 29, 2026, 08_23_26 AM.png';
@@ -174,11 +179,54 @@ export class AboutPage implements OnInit, OnDestroy {
   }
 
   // ==========================================
-  // WHATSAPP METHOD
+  // WHATSAPP METHODS - Dynamic Messages Based on Context
   // ==========================================
+
+  // Core WhatsApp sender
+  private sendWhatsAppMessage(message: string): void {
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/${this.whatsappNumber}?text=${encodedMessage}`, '_blank');
+  }
+
+  // General WhatsApp - for header, footer, floating button
   openWhatsApp(): void {
-    const phone = '27849009821';
+    const message = 'Hello stay@tiah, I would like to enquire about your accommodation and availability.';
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for about page specific
+  openWhatsAppForAbout(): void {
+    const message = 'Hello stay@tiah, I would like to learn more about your accommodation options and locations.';
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for rooms enquiry
+  openWhatsAppForRooms(): void {
+    const message = 'Hello stay@tiah, I would like to enquire about your rooms and availability.';
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for attractions enquiry
+  openWhatsAppForAttractions(): void {
+    const message = 'Hello stay@tiah, I would like to enquire about attractions near your accommodation.';
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for contact
+  openWhatsAppForContact(): void {
+    const message = 'Hello stay@tiah, I would like to get in touch regarding your accommodation.';
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp for booking enquiry
+  openWhatsAppForBooking(): void {
     const message = 'Hello stay@tiah, I would like to make a booking enquiry.';
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+    this.sendWhatsAppMessage(message);
+  }
+
+  // WhatsApp with custom message for specific location
+  openWhatsAppForLocation(locationName: string): void {
+    const message = `Hello stay@tiah, I'm interested in staying at ${locationName}. Can you please provide more information about availability and rates?`;
+    this.sendWhatsAppMessage(message);
   }
 }

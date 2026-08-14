@@ -1240,6 +1240,81 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // =========================
+// AVAILABILITY STATUS - NEW
+// =========================
+.availability-status {
+  margin: 12px 0 16px;
+  
+  .status-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: $radius-sm;
+    font-weight: 500;
+    font-size: 14px;
+    
+    @media (max-width: 480px) {
+      font-size: 13px;
+      padding: 10px 14px;
+    }
+    
+    ion-icon {
+      font-size: 20px;
+      
+      @media (max-width: 480px) {
+        font-size: 18px;
+      }
+    }
+    
+    &.available {
+      background: rgba(52, 211, 153, 0.1);
+      color: #059669;
+      border: 1px solid rgba(52, 211, 153, 0.2);
+      
+      ion-icon {
+        color: #059669;
+      }
+    }
+    
+    &.unavailable {
+      background: rgba(239, 68, 68, 0.1);
+      color: #dc2626;
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      
+      ion-icon {
+        color: #dc2626;
+      }
+    }
+  }
+  
+  .nights-stay {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba($gold, 0.05);
+    border-radius: $radius-sm;
+    font-size: 13px;
+    color: $gold-dark;
+    margin-top: 8px;
+    
+    @media (max-width: 480px) {
+      font-size: 12px;
+      padding: 6px 12px;
+    }
+    
+    ion-icon {
+      font-size: 16px;
+      
+      @media (max-width: 480px) {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+// =========================
 // BOOKING CARD - RESPONSIVE
 // =========================
 .booking-card {
@@ -1337,6 +1412,7 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         font-size: 13px;
         color: $black;
         transition: border-color 0.3s ease;
+        font-family: $font-primary !important;
         
         @media (max-width: 480px) {
           padding: 8px 10px;
@@ -1347,7 +1423,51 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           border-color: $gold;
           outline: none;
         }
+        
+        &::placeholder {
+          color: #aaa;
+          font-size: 12px;
+          
+          @media (max-width: 480px) {
+            font-size: 11px;
+          }
+        }
       }
+    }
+  }
+  
+  .check-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+    font-size: 14px;
+    margin-bottom: 12px;
+    background: $black;
+    color: $white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    
+    @media (max-width: 768px) {
+      padding: 10px;
+      font-size: 13px;
+    }
+    
+    @media (max-width: 480px) {
+      padding: 12px;
+      font-size: 14px;
+    }
+    
+    &:hover {
+      background: $gold;
+      color: $black;
+    }
+    
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
   }
   
@@ -1366,6 +1486,12 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     @media (max-width: 480px) {
       padding: 12px;
       font-size: 14px;
+    }
+    
+    &.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
     }
   }
   
@@ -1688,6 +1814,7 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
   cursor: pointer;
   box-shadow: 0 4px 25px rgba($gold, 0.25);
+  font-family: $font-primary !important;
   
   @media (max-width: 768px) {
     padding: 12px 28px;
@@ -1738,6 +1865,7 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   border: none;
   width: fit-content;
+  font-family: $font-primary !important;
   
   @media (max-width: 768px) {
     padding: 10px 24px;
@@ -1887,6 +2015,7 @@ ion-fab-button.whatsapp-float {
       gap: 10px;
       margin-bottom: 12px;
       cursor: pointer;
+      font-family: $font-primary !important;
       
       @media (max-width: 600px) {
         font-size: 26px;
@@ -1908,6 +2037,7 @@ ion-fab-button.whatsapp-float {
       max-width: 320px;
       line-height: 1.7;
       font-weight: 300;
+      font-family: $font-primary !important;
       
       @media (max-width: 600px) {
         font-size: 13px;
@@ -1962,6 +2092,7 @@ ion-fab-button.whatsapp-float {
       letter-spacing: 2px;
       text-transform: uppercase;
       font-weight: 600;
+      font-family: $font-primary !important;
       
       @media (max-width: 600px) {
         font-size: 13px;
@@ -1976,6 +2107,7 @@ ion-fab-button.whatsapp-float {
       transition: color 0.3s;
       font-weight: 300;
       text-decoration: none;
+      font-family: $font-primary !important;
       
       @media (max-width: 600px) {
         font-size: 13px;
@@ -1995,6 +2127,7 @@ ion-fab-button.whatsapp-float {
         gap: 10px;
         color: rgba(255,255,255,0.5);
         font-size: 13px;
+        font-family: $font-primary !important;
         
         @media (max-width: 600px) {
           font-size: 12px;
@@ -2017,6 +2150,7 @@ ion-fab-button.whatsapp-float {
     font-size: 12px;
     letter-spacing: 0.5px;
     font-weight: 300;
+    font-family: $font-primary !important;
     
     @media (max-width: 600px) {
       flex-direction: column;
