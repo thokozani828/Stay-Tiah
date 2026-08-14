@@ -267,42 +267,6 @@ Make sure the following are installed:
 
 ---
 
-## 📥 Installation
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/yourusername/stay-tiah.git
-```
-
-### 2. Navigate into the project
-
-```bash
-cd stay-tiah
-```
-
-### 3. Install dependencies
-
-```bash
-npm install
-```
-
-### 4. Start the development server
-
-```bash
-npm run start
-```
-
-### 5. Open the application
-
-Visit:
-
-```text
-http://localhost:4200
-```
-
----
-
 # 🏗️ Production Build
 
 To create a production build:
