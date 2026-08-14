@@ -28,15 +28,9 @@ export class RoomDetailPage implements OnInit {
   selectedRoomType: any = null;
 
   // ==========================================
-  // AVAILABILITY CHECK PROPERTIES
+  // DATE SELECTION PROPERTIES
   // ==========================================
-  minDate: string = new Date().toISOString().split('T')[0];
-  availabilityChecked: boolean = false;
-  isAvailable: boolean = false;
-  availabilityMessage: string = '';
-  nightsCount: number = 0;
-
-  // Date error states
+  minDate: string = new Date().toISOString().split('T')[0]; // Today's date
   checkInError: boolean = false;
   checkOutError: boolean = false;
 
@@ -1000,7 +994,7 @@ Convenient Location: Located 2.5 km from downtown Durban, the property is close 
   }
 
   // ==========================================
-  // DATE SELECTION & AVAILABILITY CHECK
+  // DATE SELECTION METHODS
   // ==========================================
   
   // Called when date changes
@@ -1017,97 +1011,12 @@ Convenient Location: Located 2.5 km from downtown Durban, the property is close 
       this.checkOutError = true;
     }
     
-    // Reset availability status when dates change
-    this.availabilityChecked = false;
-    this.isAvailable = false;
-    this.availabilityMessage = '';
-    this.nightsCount = 0;
-    
-    // If both dates are selected, check availability
-    if (this.checkIn && this.checkOut) {
-      this.checkAvailability();
-    }
-  }
-
-  // Check availability for selected dates
-  checkAvailability(): void {
-    // Reset errors
-    this.checkInError = false;
-    this.checkOutError = false;
-    
-    // Validate dates
-    if (!this.checkIn) {
-      this.checkInError = true;
-      this.availabilityChecked = true;
-      this.isAvailable = false;
-      this.availabilityMessage = 'Please select your check-in date.';
-      return;
-    }
-    
-    if (!this.checkOut) {
-      this.checkOutError = true;
-      this.availabilityChecked = true;
-      this.isAvailable = false;
-      this.availabilityMessage = 'Please select your check-out date.';
-      return;
-    }
-
-    // Convert to Date objects
-    const checkInDate = new Date(this.checkIn);
-    const checkOutDate = new Date(this.checkOut);
-
-    // Check if check-out is after check-in
-    if (checkOutDate <= checkInDate) {
-      this.availabilityChecked = true;
-      this.isAvailable = false;
-      this.availabilityMessage = 'Check-out date must be after check-in date.';
-      return;
-    }
-
-    // Calculate nights
-    const diffTime = Math.abs(checkOutDate.getTime() - checkInDate.getTime());
-    this.nightsCount = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-    // Simulate availability check
-    this.simulateAvailabilityCheck(checkInDate, checkOutDate);
-  }
-
-  // Simulate availability check (replace with actual API call)
-  private simulateAvailabilityCheck(checkIn: Date, checkOut: Date): void {
-    this.availabilityChecked = true;
-    
-    // Simulate checking availability - for demo purposes
-    // In a real app, you would check against a database/API
-    
-    // For demo: assume available unless it's a weekend or specific dates
-    const isWeekend = checkIn.getDay() === 5 || checkIn.getDay() === 6 || 
-                      checkOut.getDay() === 5 || checkOut.getDay() === 6;
-    
-    // Some dates might be booked for demo
-    const bookedDates = [
-      new Date(2026, 7, 15), // August 15
-      new Date(2026, 7, 16), // August 16
-      new Date(2026, 7, 20), // August 20
-    ];
-    
-    const isBooked = bookedDates.some(booked => 
-      (checkIn <= booked && booked <= checkOut)
-    );
-
-    if (isBooked) {
-      this.isAvailable = false;
-      this.availabilityMessage = 'Sorry, this room is not available for the selected dates.';
-    } else if (this.nightsCount > 14) {
-      this.isAvailable = false;
-      this.availabilityMessage = 'Maximum stay is 14 nights. Please select different dates.';
-    } else {
-      this.isAvailable = true;
-      this.availabilityMessage = `Room is available for ${this.nightsCount} night${this.nightsCount > 1 ? 's' : ''}!`;
-    }
+    // No availability message shown to user
+    // Dates are automatically included in WhatsApp message when user clicks Enquire
   }
 
   // =========================
-  // WHATSAPP FUNCTIONS
+  // WHATSAPP FUNCTIONS - REMOVED FROM ROOM TYPES
   // =========================
   
   /**
@@ -1120,6 +1029,8 @@ Convenient Location: Located 2.5 km from downtown Durban, the property is close 
 
   /**
    * Default WhatsApp for the current room detail page
+   * Includes selected dates if available
+   * This is used in the header and floating button
    */
   openWhatsApp() {
     let message = 'Hello STAY@TIAH, I would like to make a booking enquiry.';
@@ -1128,10 +1039,35 @@ Convenient Location: Located 2.5 km from downtown Durban, the property is close 
       const roomName = this.room.name || 'this room';
       const location = this.room.location || 'Durban';
       const selectedType = this.selectedRoomType?.name || '';
-      const checkInText = this.checkIn ? ` on ${this.checkIn}` : '';
-      const checkOutText = this.checkOut ? ` and check-out on ${this.checkOut}` : '';
       
-      message = `Hello STAY@TIAH,%0A%0AI would like to enquire about the **${roomName}** at **${location}**.${selectedType ? `%0A%0ARoom Type: ${selectedType}` : ''}${checkInText}${checkOutText}%0A%0APlease let me know about availability and pricing. Thank you!`;
+      // Format dates for display
+      let checkInText = '';
+      let checkOutText = '';
+      let nightsText = '';
+      
+      if (this.checkIn) {
+        const checkInDate = new Date(this.checkIn);
+        checkInText = `Check-in: ${checkInDate.toLocaleDateString('en-ZA', { day: 'numeric', month: 'short', year: 'numeric' })}`;
+      }
+      
+      if (this.checkOut) {
+        const checkOutDate = new Date(this.checkOut);
+        checkOutText = `Check-out: ${checkOutDate.toLocaleDateString('en-ZA', { day: 'numeric', month: 'short', year: 'numeric' })}`;
+      }
+      
+      if (this.checkIn && this.checkOut) {
+        const diff = new Date(this.checkOut).getTime() - new Date(this.checkIn).getTime();
+        const nights = Math.ceil(diff / (1000 * 60 * 60 * 24));
+        nightsText = `Duration: ${nights} night${nights > 1 ? 's' : ''}`;
+      }
+      
+      message = `Hello STAY@TIAH,%0A%0A` +
+                `I would like to enquire about the **${roomName}** at **${location}**.%0A%0A` +
+                `${selectedType ? `Room Type: ${selectedType}%0A` : ''}` +
+                `${checkInText}%0A` +
+                `${checkOutText}%0A` +
+                `${nightsText}%0A%0A` +
+                `Please let me know about availability and pricing. Thank you!`;
     }
     
     this.openWhatsAppWithMessage(message);

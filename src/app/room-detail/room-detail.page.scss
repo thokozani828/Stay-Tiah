@@ -915,7 +915,7 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // =========================
-// ROOM TYPES - RESPONSIVE
+// ROOM TYPES - UPDATED (REMOVED WHATSAPP ENQUIRE)
 // =========================
 .room-types-grid {
   display: grid;
@@ -931,7 +931,7 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     padding: 16px 20px;
     border: 2px solid transparent;
     transition: all 0.3s ease;
-    cursor: pointer;
+    cursor: default; // Changed from pointer to default
     
     @media (max-width: 768px) {
       padding: 14px 18px;
@@ -944,11 +944,7 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     
     &:hover {
       border-color: rgba($gold, 0.3);
-      transform: translateX(4px);
-      
-      @media (max-width: 480px) {
-        transform: translateX(2px);
-      }
+      // Removed transform: translateX(4px);
     }
     
     &.selected {
@@ -1084,43 +1080,7 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
       }
       
-      .type-enquire-btn {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        background: #25D366;
-        color: white;
-        padding: 6px 16px;
-        border-radius: 50px;
-        font-size: 12px;
-        font-weight: 600;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        
-        @media (max-width: 480px) {
-          justify-content: center;
-          padding: 8px 16px;
-          font-size: 13px;
-        }
-        
-        &:hover {
-          transform: scale(1.05);
-          box-shadow: 0 4px 15px rgba(37,211,102,0.3);
-        }
-        
-        &:active {
-          transform: scale(0.95);
-        }
-        
-        ion-icon {
-          font-size: 16px;
-          
-          @media (max-width: 480px) {
-            font-size: 18px;
-          }
-        }
-      }
+      // REMOVED: .type-enquire-btn - WhatsApp button removed from room types
     }
   }
 }
@@ -1240,7 +1200,7 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // =========================
-// AVAILABILITY STATUS - NEW
+// AVAILABILITY STATUS - UPDATED
 // =========================
 .availability-status {
   margin: 12px 0 16px;
@@ -1471,29 +1431,7 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
   }
   
-  .book-btn {
-    width: 100%;
-    justify-content: center;
-    padding: 14px;
-    font-size: 15px;
-    margin-bottom: 12px;
-    
-    @media (max-width: 768px) {
-      padding: 12px;
-      font-size: 14px;
-    }
-    
-    @media (max-width: 480px) {
-      padding: 12px;
-      font-size: 14px;
-    }
-    
-    &.disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      pointer-events: none;
-    }
-  }
+  // REMOVED: .book-btn - WhatsApp button removed from booking card
   
   .booking-features {
     display: flex;

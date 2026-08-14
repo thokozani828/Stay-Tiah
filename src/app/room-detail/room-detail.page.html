@@ -144,14 +144,14 @@
 
         <!-- Right Column -->
         <div class="details-right">
-          <!-- Booking Card - Using Native Date Input -->
+          <!-- Booking Card - Date Selection Only -->
           <div class="booking-card animate-fade-up">
             <div class="booking-header">
               <h3>Check Availability</h3>
               <p>Select your dates to check availability</p>
             </div>
             
-            <!-- Date Selection with Native Date Input -->
+            <!-- Date Selection -->
             <div class="booking-dates">
               <div class="date-group">
                 <label>Check-in</label>
@@ -194,20 +194,8 @@
               </div>
             </div>
 
-            <!-- Availability Status -->
-            <div class="availability-status" *ngIf="availabilityChecked">
-              <div class="status-message" [class.available]="isAvailable" [class.unavailable]="!isAvailable">
-                <ion-icon [name]="isAvailable ? 'checkmark-circle' : 'close-circle'"></ion-icon>
-                <span>{{ availabilityMessage }}</span>
-              </div>
-              <div class="nights-stay" *ngIf="isAvailable && nightsCount > 0">
-                <ion-icon name="moon-outline"></ion-icon>
-                <span>{{ nightsCount }} night{{ nightsCount > 1 ? 's' : '' }}</span>
-              </div>
-            </div>
-
             <!-- WhatsApp Enquiry Button -->
-            <a (click)="openWhatsApp()" class="btn-primary book-btn" [class.disabled]="!isAvailable && availabilityChecked">
+            <a (click)="openWhatsApp()" class="btn-primary book-btn">
               <ion-icon name="logo-whatsapp"></ion-icon>
               Enquire on WhatsApp
             </a>

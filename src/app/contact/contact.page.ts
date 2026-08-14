@@ -44,6 +44,13 @@ export class ContactPage implements OnInit {
   };
 
   // ==========================================
+  // DATE VALIDATION PROPERTIES
+  // ==========================================
+  todayDate: string = '';
+  minCheckOutDate: string = '';
+  dateError: string = '';
+
+  // ==========================================
   // FORM VALIDATION STATES
   // ==========================================
   nameError: boolean = false;
@@ -72,7 +79,70 @@ export class ContactPage implements OnInit {
 
   constructor(private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // Set today's date for validation
+    const today = new Date();
+    this.todayDate = today.toISOString().split('T')[0];
+    this.minCheckOutDate = this.todayDate;
+  }
+
+  // ==========================================
+  // DATE VALIDATION METHODS
+  // ==========================================
+  
+  // Called when check-in date changes
+  onCheckInChange() {
+    if (this.contactData.checkIn) {
+      // Set min checkout date to check-in date + 1 day
+      const checkInDate = new Date(this.contactData.checkIn);
+      const nextDay = new Date(checkInDate);
+      nextDay.setDate(checkInDate.getDate() + 1);
+      this.minCheckOutDate = nextDay.toISOString().split('T')[0];
+      
+      // If checkout date is before the new minimum, clear it
+      if (this.contactData.checkOut && this.contactData.checkOut < this.minCheckOutDate) {
+        this.contactData.checkOut = '';
+        this.checkOutError = false;
+        this.dateError = '';
+      }
+      
+      // Validate the date
+      this.validateDates();
+    }
+  }
+
+  // Called when check-out date changes
+  onCheckOutChange() {
+    this.validateDates();
+  }
+
+  // Validate date logic
+  validateDates() {
+    this.dateError = '';
+    
+    if (this.contactData.checkIn && this.contactData.checkOut) {
+      const checkIn = new Date(this.contactData.checkIn);
+      const checkOut = new Date(this.contactData.checkOut);
+      
+      // Check if check-out is after check-in
+      if (checkOut <= checkIn) {
+        this.dateError = 'Check-out date must be after check-in date';
+        this.checkOutError = true;
+        this.contactData.checkOut = '';
+      } else {
+        this.checkOutError = false;
+      }
+    }
+  }
+
+  // Check if date is in the past
+  isPastDate(dateStr: string): boolean {
+    if (!dateStr) return false;
+    const selectedDate = new Date(dateStr);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return selectedDate < today;
+  }
 
   // ==========================================
   // WINDOW SCROLL LISTENER
@@ -225,10 +295,10 @@ export class ContactPage implements OnInit {
         this.emailError = !this.contactData.email || !this.isValidEmail(this.contactData.email);
         break;
       case 'checkIn':
-        this.checkInError = !this.contactData.checkIn;
+        this.checkInError = !this.contactData.checkIn || this.isPastDate(this.contactData.checkIn);
         break;
       case 'checkOut':
-        this.checkOutError = !this.contactData.checkOut;
+        this.checkOutError = !this.contactData.checkOut || this.isPastDate(this.contactData.checkOut);
         break;
       case 'guests':
         this.guestsError = !this.contactData.guests;
@@ -285,6 +355,7 @@ export class ContactPage implements OnInit {
     this.guestsError = false;
     this.subjectError = false;
     this.messageError = false;
+    this.dateError = '';
 
     // Validate all fields
     this.validateField('name');
@@ -294,10 +365,13 @@ export class ContactPage implements OnInit {
     this.validateField('guests');
     this.validateField('subject');
     this.validateField('message');
+    
+    // Validate date logic
+    this.validateDates();
 
     // Check if form is valid
     if (this.nameError || this.emailError || this.checkInError || this.checkOutError || 
-        this.guestsError || this.subjectError || this.messageError) {
+        this.guestsError || this.subjectError || this.messageError || this.dateError) {
       // Scroll to first error field
       const firstError = document.querySelector('.input-wrapper.error');
       if (firstError) {
@@ -436,6 +510,7 @@ export class ContactPage implements OnInit {
     this.guestsError = false;
     this.subjectError = false;
     this.messageError = false;
+    this.dateError = '';
     
     this.focusedField = '';
     this.contactForm?.resetForm();

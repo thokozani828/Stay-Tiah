@@ -223,7 +223,7 @@
               </div>
             </div>
 
-            <!-- Check-in Date -->
+            <!-- Check-in Date - UPDATED WITH VALIDATION -->
             <div class="form-group">
               <label>Check-in Date <span class="required">*</span></label>
               <div class="input-wrapper" [class.error]="shouldShowError('checkIn')">
@@ -233,33 +233,42 @@
                   type="date"
                   [(ngModel)]="contactData.checkIn"
                   name="checkIn"
+                  [min]="todayDate"
+                  (change)="onCheckInChange()"
                   required
                   (focus)="onFieldFocus('checkIn')"
                   (blur)="onFieldBlur('checkIn')">
               </div>
               <div class="error-message" *ngIf="shouldShowError('checkIn')">
                 <ion-icon name="alert-circle-outline"></ion-icon>
-                Please select your check-in date
+                <span *ngIf="isPastDate(contactData.checkIn)">Please select a date from today onwards</span>
+                <span *ngIf="!isPastDate(contactData.checkIn)">Please select your check-in date</span>
               </div>
             </div>
 
-            <!-- Check-out Date -->
+            <!-- Check-out Date - UPDATED WITH VALIDATION -->
             <div class="form-group">
               <label>Check-out Date <span class="required">*</span></label>
-              <div class="input-wrapper" [class.error]="shouldShowError('checkOut')">
+              <div class="input-wrapper" [class.error]="shouldShowError('checkOut') || dateError">
                 <ion-icon name="calendar-outline" class="input-icon"></ion-icon>
                 <input
                   class="form-input-native"
                   type="date"
                   [(ngModel)]="contactData.checkOut"
                   name="checkOut"
+                  [min]="minCheckOutDate"
+                  (change)="onCheckOutChange()"
                   required
                   (focus)="onFieldFocus('checkOut')"
                   (blur)="onFieldBlur('checkOut')">
               </div>
-              <div class="error-message" *ngIf="shouldShowError('checkOut')">
+              <div class="error-message" *ngIf="shouldShowError('checkOut') || dateError">
                 <ion-icon name="alert-circle-outline"></ion-icon>
-                Please select your check-out date
+                <span *ngIf="dateError">{{ dateError }}</span>
+                <span *ngIf="!dateError && shouldShowError('checkOut')">
+                  <span *ngIf="isPastDate(contactData.checkOut)">Please select a valid check-out date</span>
+                  <span *ngIf="!isPastDate(contactData.checkOut)">Please select your check-out date</span>
+                </span>
               </div>
             </div>
 
