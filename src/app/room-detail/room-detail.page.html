@@ -24,7 +24,7 @@
             <ion-icon name="location-outline"></ion-icon>
             <span>{{ room.address || room.location }}</span>
           </div>
-          <a (click)="openWhatsApp()" class="btn-primary">
+          <a (click)="openWhatsApp()" class="btn-primary hero-cta">
             <ion-icon name="logo-whatsapp"></ion-icon>
             Check Availability
           </a>
@@ -36,6 +36,13 @@
   <!-- ================= ROOM IMAGE GALLERY ================= -->
   <section class="room-gallery" *ngIf="room && room.galleryImages && room.galleryImages.length > 0">
     <div class="container">
+      <div class="gallery-header">
+        <h2>Photo Gallery</h2>
+        <div class="gallery-count-badge">
+          <ion-icon name="images-outline"></ion-icon>
+          <span>{{ room.galleryImages.length }} Photos</span>
+        </div>
+      </div>
       <div class="gallery-grid">
         <div class="gallery-item" *ngFor="let img of room.galleryImages; let i = index" 
              [class.featured]="i === 0"
@@ -43,6 +50,7 @@
           <img [src]="img" [alt]="room.name + ' - Image ' + (i+1)" loading="lazy">
           <div class="gallery-overlay" *ngIf="i > 0">
             <ion-icon name="search-outline"></ion-icon>
+            <span>View</span>
           </div>
           <div class="gallery-count" *ngIf="i === 0 && room.galleryImages.length > 1">
             <ion-icon name="images-outline"></ion-icon>
@@ -56,27 +64,45 @@
   <!-- ================= ROOM DETAILS ================= -->
   <section class="room-details-section" *ngIf="room">
     <div class="container">
-      <div class="details-grid">
+      <div class="details-layout">
         <!-- Left Column -->
         <div class="details-left">
           <!-- Overview -->
           <div class="detail-card animate-fade-up">
             <h3>About this property</h3>
-            <p>{{ room.longDescription || room.description }}</p>
+            <div class="description-content">
+              <p>{{ room.longDescription || room.description }}</p>
+            </div>
           </div>
 
           <!-- Room Types -->
           <div class="detail-card animate-fade-up" *ngIf="room.roomTypes">
             <h3>Room Types</h3>
             <div class="room-types-grid">
-              <div class="room-type-item" *ngFor="let type of room.roomTypes">
-                <div class="type-info">
+              <div class="room-type-card" *ngFor="let type of room.roomTypes" 
+                   [class.selected]="selectedRoomType === type"
+                   (click)="selectRoomType(type)">
+                <div class="type-header">
                   <h4>{{ type.name }}</h4>
-                  <p>{{ type.beds }} · Sleeps {{ type.sleeps }}</p>
+                  <span class="type-badge">Available</span>
                 </div>
-                <div class="type-unavailable">
-                  <ion-icon name="logo-whatsapp"></ion-icon>
-                  <a (click)="openWhatsApp()" class="whatsapp-enquire">Enquire</a>
+                <div class="type-details">
+                  <span><ion-icon name="bed-outline"></ion-icon> {{ type.beds }}</span>
+                  <span><ion-icon name="people-outline"></ion-icon> {{ type.sleeps }}</span>
+                </div>
+                <div class="type-amenities">
+                  <span *ngFor="let amenity of type.amenities?.slice(0,3)">{{ amenity }}</span>
+                  <span class="more" *ngIf="type.amenities?.length > 3">+{{ type.amenities.length - 3 }}</span>
+                </div>
+                <div class="type-footer">
+                  <div class="type-cancellation">
+                    <ion-icon name="checkmark-circle"></ion-icon>
+                    {{ type.cancellation || 'Free cancellation' }}
+                  </div>
+                  <a (click)="openWhatsApp(); $event.stopPropagation()" class="type-enquire-btn">
+                    <ion-icon name="logo-whatsapp"></ion-icon>
+                    Enquire
+                  </a>
                 </div>
               </div>
             </div>
@@ -107,7 +133,7 @@
           <!-- House Rules -->
           <div class="detail-card animate-fade-up" *ngIf="room.houseRules">
             <h3>House Rules</h3>
-            <div class="rules-list">
+            <div class="rules-grid">
               <div class="rule-item" *ngFor="let rule of room.houseRules">
                 <ion-icon name="time-outline"></ion-icon>
                 <span>{{ rule }}</span>
@@ -118,14 +144,14 @@
 
         <!-- Right Column -->
         <div class="details-right">
-          <!-- Booking Card - Updated with Date Selection -->
+          <!-- Booking Card - Updated with Calendar -->
           <div class="booking-card animate-fade-up">
             <div class="booking-header">
               <h3>Check Availability</h3>
               <p>Select your dates to check availability</p>
             </div>
             
-            <!-- Date Selection -->
+            <!-- Date Selection with Calendar -->
             <div class="booking-dates">
               <div class="date-group">
                 <label>Check-in</label>
@@ -163,17 +189,19 @@
               </div>
             </div>
 
-            <a (click)="checkAvailability()" class="btn-secondary check-btn">
-              <ion-icon name="search-outline"></ion-icon>
-              Check Availability
-            </a>
-            
+            <!-- WhatsApp Enquiry Button -->
             <a (click)="openWhatsApp()" class="btn-primary book-btn" [class.disabled]="!isAvailable && availabilityChecked">
               <ion-icon name="logo-whatsapp"></ion-icon>
               Enquire on WhatsApp
             </a>
             
             <p class="booking-note">Get pricing and availability instantly via WhatsApp</p>
+            
+            <div class="booking-features">
+              <span><ion-icon name="shield-checkmark-outline"></ion-icon> Secure</span>
+              <span><ion-icon name="time-outline"></ion-icon> 24/7 Support</span>
+              <span><ion-icon name="chatbubble-outline"></ion-icon> Quick Response</span>
+            </div>
           </div>
 
           <!-- Location -->
@@ -199,8 +227,8 @@
             <div class="attraction-list">
               <div class="attraction-item" *ngFor="let attraction of room.nearbyAttractions">
                 <ion-icon name="location-outline"></ion-icon>
-                <span>{{ attraction.name }}</span>
-                <span class="distance">{{ attraction.distance }}</span>
+                <span class="attraction-name">{{ attraction.name }}</span>
+                <span class="attraction-distance">{{ attraction.distance }}</span>
               </div>
             </div>
           </div>
