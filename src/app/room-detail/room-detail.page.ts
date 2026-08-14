@@ -30,11 +30,15 @@ export class RoomDetailPage implements OnInit {
   // ==========================================
   // AVAILABILITY CHECK PROPERTIES
   // ==========================================
-  minDate: string = new Date().toISOString();
+  minDate: string = new Date().toISOString().split('T')[0];
   availabilityChecked: boolean = false;
   isAvailable: boolean = false;
   availabilityMessage: string = '';
   nightsCount: number = 0;
+
+  // Date error states
+  checkInError: boolean = false;
+  checkOutError: boolean = false;
 
   // WhatsApp number
   private readonly whatsappNumber: string = '27849009821';
@@ -952,20 +956,8 @@ Convenient Location: Located 2.5 km from downtown Durban, the property is close 
     this.router.navigate(['/rooms']);
   }
 
-  goToGallery() {
-    this.router.navigate(['/gallery']);
-  }
-
-  goToRates() {
-    this.router.navigate(['/rates']);
-  }
-
   goToAttractions() {
     this.router.navigate(['/attractions']);
-  }
-
-  goToFaq() {
-    this.router.navigate(['/faq']);
   }
 
   goToContact() {
@@ -1013,20 +1005,50 @@ Convenient Location: Located 2.5 km from downtown Durban, the property is close 
   
   // Called when date changes
   onDateChange(): void {
+    // Reset errors
+    this.checkInError = false;
+    this.checkOutError = false;
+    
+    // Validate dates
+    if (!this.checkIn) {
+      this.checkInError = true;
+    }
+    if (!this.checkOut) {
+      this.checkOutError = true;
+    }
+    
     // Reset availability status when dates change
     this.availabilityChecked = false;
     this.isAvailable = false;
     this.availabilityMessage = '';
     this.nightsCount = 0;
+    
+    // If both dates are selected, check availability
+    if (this.checkIn && this.checkOut) {
+      this.checkAvailability();
+    }
   }
 
   // Check availability for selected dates
   checkAvailability(): void {
+    // Reset errors
+    this.checkInError = false;
+    this.checkOutError = false;
+    
     // Validate dates
-    if (!this.checkIn || !this.checkOut) {
+    if (!this.checkIn) {
+      this.checkInError = true;
       this.availabilityChecked = true;
       this.isAvailable = false;
-      this.availabilityMessage = 'Please select both check-in and check-out dates.';
+      this.availabilityMessage = 'Please select your check-in date.';
+      return;
+    }
+    
+    if (!this.checkOut) {
+      this.checkOutError = true;
+      this.availabilityChecked = true;
+      this.isAvailable = false;
+      this.availabilityMessage = 'Please select your check-out date.';
       return;
     }
 
@@ -1098,7 +1120,6 @@ Convenient Location: Located 2.5 km from downtown Durban, the property is close 
 
   /**
    * Default WhatsApp for the current room detail page
-   * Uses the room name and location in the message
    */
   openWhatsApp() {
     let message = 'Hello STAY@TIAH, I would like to make a booking enquiry.';
@@ -1113,28 +1134,6 @@ Convenient Location: Located 2.5 km from downtown Durban, the property is close 
       message = `Hello STAY@TIAH,%0A%0AI would like to enquire about the **${roomName}** at **${location}**.${selectedType ? `%0A%0ARoom Type: ${selectedType}` : ''}${checkInText}${checkOutText}%0A%0APlease let me know about availability and pricing. Thank you!`;
     }
     
-    this.openWhatsAppWithMessage(message);
-  }
-
-  /**
-   * WhatsApp for a specific room from the rooms list
-   */
-  openWhatsAppForRoom(room: any) {
-    if (!room) return;
-    
-    const roomName = room.name || 'this room';
-    const location = room.location || 'Durban';
-    
-    const message = `Hello STAY@TIAH,%0A%0AI would like to enquire about the **${roomName}** at **${location}**.%0A%0APlease let me know about availability and pricing. Thank you!`;
-    
-    this.openWhatsAppWithMessage(message);
-  }
-
-  /**
-   * WhatsApp for CTA section
-   */
-  openWhatsAppForCTA() {
-    const message = 'Hello STAY@TIAH,%0A%0AI would like to enquire about room availability and pricing. Please let me know what\'s available. Thank you!';
     this.openWhatsAppWithMessage(message);
   }
 

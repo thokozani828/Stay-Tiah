@@ -38,7 +38,9 @@ export class ContactPage implements OnInit {
     checkOut: '',
     guests: '',
     subject: '',
-    message: ''
+    message: '',
+    property: '', // Added property field
+    category: ''  // Added category field
   };
 
   // ==========================================
@@ -310,7 +312,7 @@ export class ContactPage implements OnInit {
 
     this.isSubmitting = true;
 
-    // Format message for WhatsApp
+    // Format message for WhatsApp with new style
     const message = this.formatWhatsAppMessage(this.contactData);
     
     // Use the whatsappNumber variable
@@ -324,14 +326,14 @@ export class ContactPage implements OnInit {
   }
 
   // =========================
-  // FORMAT WHATSAPP MESSAGE - Availability Check
+  // FORMAT WHATSAPP MESSAGE - New Professional Format
   // =========================
   private formatWhatsAppMessage(data: any): string {
     // Get current date and time
     const now = new Date();
     const dateStr = now.toLocaleDateString('en-ZA', {
       year: 'numeric',
-      month: 'long',
+      month: 'short',
       day: 'numeric'
     });
     const timeStr = now.toLocaleTimeString('en-ZA', {
@@ -339,6 +341,31 @@ export class ContactPage implements OnInit {
       minute: '2-digit'
     });
 
+    // Format check-in and check-out dates
+    const checkInDate = data.checkIn ? new Date(data.checkIn).toLocaleDateString('en-ZA', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric'
+    }) : 'Not specified';
+
+    const checkOutDate = data.checkOut ? new Date(data.checkOut).toLocaleDateString('en-ZA', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric'
+    }) : 'Not specified';
+
+    // Calculate number of nights
+    let nights = '';
+    let nightsCount = 0;
+    if (data.checkIn && data.checkOut) {
+      const diff = new Date(data.checkOut).getTime() - new Date(data.checkIn).getTime();
+      nightsCount = Math.ceil(diff / (1000 * 60 * 60 * 24));
+      nights = nightsCount > 0 ? `${nightsCount} Night${nightsCount > 1 ? 's' : ''}` : '1 Night';
+    }
+
+    const guestsLabel = data.guests ? `${data.guests}` : 'Not specified';
+
+    // Get subject label
     const subjectMap: { [key: string]: string } = {
       'availability': '📅 Availability Check',
       'booking': '🏨 Booking Enquiry',
@@ -346,64 +373,34 @@ export class ContactPage implements OnInit {
       'feedback': '⭐ Feedback',
       'other': '📝 Other'
     };
-
     const subjectLabel = subjectMap[data.subject] || data.subject || 'General Enquiry';
 
-    // Format check-in and check-out dates
-    const checkInDate = data.checkIn ? new Date(data.checkIn).toLocaleDateString('en-ZA', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    }) : 'Not specified';
+    // Build the professional message
+    const divider = '──────────────────────────────────';
+    const topDivider = '┌──────────────────────────────────┐';
+    const bottomDivider = '└──────────────────────────────────┘';
 
-    const checkOutDate = data.checkOut ? new Date(data.checkOut).toLocaleDateString('en-ZA', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    }) : 'Not specified';
-
-    // Calculate number of nights
-    let nights = '';
-    if (data.checkIn && data.checkOut) {
-      const diff = new Date(data.checkOut).getTime() - new Date(data.checkIn).getTime();
-      const nightsCount = Math.ceil(diff / (1000 * 60 * 60 * 24));
-      nights = nightsCount > 0 ? `${nightsCount} night${nightsCount > 1 ? 's' : ''}` : '1 night';
-    }
-
-    const guestsLabel = data.guests ? `${data.guests} guest${data.guests > 1 ? 's' : ''}` : 'Not specified';
-
-    // Format the message with clear sections for easy reading
     return (
-      `🔔 *NEW AVAILABILITY REQUEST*%0A` +
-      `═══════════════════════════════════%0A%0A` +
-      `📋 *CONTACT DETAILS*%0A` +
-      `─────────────────────────────────%0A` +
-      `👤 Name: ${data.name}%0A` +
-      `📧 Email: ${data.email}%0A` +
-      `📱 Phone: ${data.phone || 'Not provided'}%0A` +
-      `📋 Subject: ${subjectLabel}%0A%0A` +
-      `📅 *STAY DETAILS*%0A` +
-      `─────────────────────────────────%0A` +
-      `📆 Check-in: ${checkInDate}%0A` +
-      `📆 Check-out: ${checkOutDate}%0A` +
-      `🌙 Nights: ${nights}%0A` +
-      `👥 Guests: ${guestsLabel}%0A%0A` +
-      `💬 *MESSAGE*%0A` +
-      `─────────────────────────────────%0A` +
-      `${data.message}%0A%0A` +
-      `📅 *RECEIVED*%0A` +
-      `─────────────────────────────────%0A` +
-      `📆 Date: ${dateStr}%0A` +
-      `⏰ Time: ${timeStr}%0A` +
-      `📱 Source: Website Contact Form%0A%0A` +
-      `═══════════════════════════════════%0A` +
-      `💡 *ACTION REQUIRED*%0A` +
-      `─────────────────────────────────%0A` +
-      `📧 Reply to: ${data.email}%0A` +
-      `📞 Call: +27 84 900 9821%0A` +
-      `💬 WhatsApp: +27 84 900 9821%0A%0A` +
-      `🏨 *STAY@TIAH*%0A` +
-      `🌐 staytiah.com`
+      `${topDivider}%0A` +
+      `│       STAY@TIAH BOOKING FORM     │%0A` +
+      `${bottomDivider}%0A%0A` +
+      `[ GUEST DETAILS ]%0A` +
+      `• Name    : ${data.name || 'Not provided'}%0A` +
+      `• Phone   : ${data.phone || 'Not provided'}%0A` +
+      `• Email   : ${data.email || 'Not provided'}%0A%0A` +
+      `[ RESERVATION SUMMARY ]%0A` +
+      `• Property : ${data.property || 'Not specified'}%0A` +
+      `• Category : ${data.category || 'Not specified'}%0A` +
+      `• Check-In : ${checkInDate}%0A` +
+      `• Check-Out: ${checkOutDate}%0A` +
+      `• Duration : ${nights}%0A` +
+      `• Guests   : ${guestsLabel}%0A%0A` +
+      `[ ADDITIONAL NOTES ]%0A` +
+      `• ${data.message || 'None'}%0A%0A` +
+      `${divider}%0A` +
+      `Submitted : ${dateStr} at ${timeStr}%0A` +
+      `Channel   : Web Application%0A` +
+      `${divider}`
     );
   }
 
@@ -419,7 +416,9 @@ export class ContactPage implements OnInit {
       checkOut: '',
       guests: '',
       subject: '',
-      message: ''
+      message: '',
+      property: '',
+      category: ''
     };
     
     this.nameTouched = false;

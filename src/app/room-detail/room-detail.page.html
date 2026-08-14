@@ -144,36 +144,53 @@
 
         <!-- Right Column -->
         <div class="details-right">
-          <!-- Booking Card - Updated with Calendar -->
+          <!-- Booking Card - Using Native Date Input -->
           <div class="booking-card animate-fade-up">
             <div class="booking-header">
               <h3>Check Availability</h3>
               <p>Select your dates to check availability</p>
             </div>
             
-            <!-- Date Selection with Calendar -->
+            <!-- Date Selection with Native Date Input -->
             <div class="booking-dates">
               <div class="date-group">
                 <label>Check-in</label>
-                <ion-datetime 
-                  [(ngModel)]="checkIn" 
-                  (ionChange)="onDateChange()"
-                  presentation="date"
-                  placeholder="Select date"
-                  class="date-input"
-                  [min]="minDate">
-                </ion-datetime>
+                <div class="input-wrapper date-input-wrapper" [class.error]="checkInError">
+                  <ion-icon name="calendar-outline" class="input-icon"></ion-icon>
+                  <input
+                    class="form-input-native"
+                    type="date"
+                    [(ngModel)]="checkIn"
+                    (change)="onDateChange()"
+                    name="checkIn"
+                    [min]="minDate"
+                    required
+                    placeholder="Select date">
+                </div>
+                <div class="error-message" *ngIf="checkInError">
+                  <ion-icon name="alert-circle-outline"></ion-icon>
+                  Please select your check-in date
+                </div>
               </div>
+
               <div class="date-group">
                 <label>Check-out</label>
-                <ion-datetime 
-                  [(ngModel)]="checkOut" 
-                  (ionChange)="onDateChange()"
-                  presentation="date"
-                  placeholder="Select date"
-                  class="date-input"
-                  [min]="minDate">
-                </ion-datetime>
+                <div class="input-wrapper date-input-wrapper" [class.error]="checkOutError">
+                  <ion-icon name="calendar-outline" class="input-icon"></ion-icon>
+                  <input
+                    class="form-input-native"
+                    type="date"
+                    [(ngModel)]="checkOut"
+                    (change)="onDateChange()"
+                    name="checkOut"
+                    [min]="minDate"
+                    required
+                    placeholder="Select date">
+                </div>
+                <div class="error-message" *ngIf="checkOutError">
+                  <ion-icon name="alert-circle-outline"></ion-icon>
+                  Please select your check-out date
+                </div>
               </div>
             </div>
 
