@@ -1,21 +1,4 @@
 <!-- ============================================= -->
-<!-- SPLASH SCREEN - FIXED HORIZONTAL LAYOUT      -->
-<!-- ============================================= -->
-<div id="splash" [class.hidden]="splashHidden">
-  <div class="splash-content">
-    <div class="splash-logo-container">
-      <div class="splash-ring"></div>
-      <div class="splash-ring-2"></div>
-      <span class="splash-logo">La Tiah</span>
-    </div>
-    <div class="splash-tagline">The Ideal Accommodation Haven</div>
-    <div class="splash-loader">
-      <span></span><span></span><span></span><span></span>
-    </div>
-  </div>
-</div>
-
-<!-- ============================================= -->
 <!-- HEADER                                        -->
 <!-- ============================================= -->
 <ion-header>
@@ -40,7 +23,7 @@
         <a routerLink="/contact" routerLinkActive="is-active" class="nav__link">Contact</a>
       </nav>
 
-      <!-- Desktop Booking Button -->
+      <!-- UPDATED: Booking Button instead of WhatsApp -->
       <a routerLink="/booking" class="btn-booking desktop-only">
         <ion-icon name="calendar-outline"></ion-icon>
         <span class="btn-text">Check Availability</span>
@@ -62,7 +45,7 @@
   </div>
   
   <div class="mobile-nav-brand">
-    <span class="mobile-brand-text">La Tiah</span>
+    <span class="mobile-brand-text">La <span class="mobile-brand-gold">Tiah</span></span>
     <span class="mobile-brand-tagline">The Ideal Accommodation Haven</span>
   </div>
   
@@ -90,7 +73,7 @@
     
     <div class="mobile-divider"></div>
     
-    <!-- Mobile CTA links to booking page -->
+    <!-- UPDATED: Mobile CTA now links to booking page -->
     <a routerLink="/booking" class="mobile-cta" (click)="closeMobileNav()">
       <ion-icon name="calendar-outline"></ion-icon>
       Check Availability
@@ -103,179 +86,150 @@
 </div>
 
 <!-- ============================================= -->
-<!-- MAIN PAGE CONTENT                             -->
+<!-- MAIN CONTENT                                  -->
 <!-- ============================================= -->
-<ion-content [fullscreen]="true" (ionScroll)="onScroll($event)" class="no-scrollbar">
+<ion-content [fullscreen]="true" (ionScroll)="onScroll($event)" class="no-scrollbar" [scrollEvents]="true">
   
-  <!-- ================= HERO SECTION ================= -->
-  <section class="hero-section" id="home">
-    <div class="hero-background"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <div class="hero-text animate-fade-up">
-        <span class="hero-badge">✦ Comfortable Stay</span>
-        <h1 class="hero-title">Your Ideal Haven</h1>
-        <p class="hero-description">Your comfortable stay in the heart of Durban</p>
-        <div class="hero-buttons">
-          <!-- Hero CTA links to booking page -->
+  <!-- ================= HERO / PAGE HEADER ================= -->
+  <section class="page-header">
+    <div class="page-header-bg"></div>
+    <div class="page-header-overlay"></div>
+    <div class="page-header-content">
+      <div class="container">
+        <div class="page-header-text animate-fade-up">
+          <span class="hero-badge">✦ Comfortable Stay</span>
+          <h1 class="page-title">Your Ideal Haven</h1>
+          <p class="page-subtitle">Comfort & convenience in the heart of Durban</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ROOMS GRID ================= -->
+  <section class="rooms-section">
+    <div class="container">
+      <div class="section-header center animate-fade-up">
+        <span class="eyebrow">✦ Rooms</span>
+        <h2 class="section-title">Our Rooms</h2>
+        <p class="section-subtitle">Choose from a variety of comfortable rooms across our locations.</p>
+      </div>
+
+      <!-- Rooms Grid - Clicking the card opens room detail -->
+      <div class="rooms-grid animate-fade-up">
+        <div class="room-card" *ngFor="let room of filteredRooms; let i = index" [style.animation-delay]="i * 0.1 + 's'">
+          <!-- Click the entire card to view room details -->
+          <div class="room-image" (click)="viewRoomDetail(room.id)">
+            <img [src]="room.image" [alt]="room.name" (error)="onImageError($event)">
+            <span class="room-badge" *ngIf="room.popular">✦ Popular</span>
+            <span class="room-badge new" *ngIf="room.new">✦ New</span>
+            <span class="room-badge featured" *ngIf="room.featured">✦ Featured</span>
+            <!-- View Details overlay on image -->
+            <div class="room-overlay">
+              <span>View Details</span>
+              <ion-icon name="arrow-forward-outline"></ion-icon>
+            </div>
+          </div>
+          <div class="room-info">
+            <div class="room-location">
+              <ion-icon name="location-outline"></ion-icon>
+              {{ room.location }}
+            </div>
+            <h3 (click)="viewRoomDetail(room.id)" style="cursor:pointer;">{{ room.name }}</h3>
+            <div class="room-distance">
+              <ion-icon name="walk-outline"></ion-icon>
+              <span>{{ room.distance || '1.8 km from downtown' }}</span>
+            </div>
+            <div class="room-details">
+              <span><ion-icon name="person-outline"></ion-icon> {{ room.sleeps }}</span>
+              <span><ion-icon name="bed-outline"></ion-icon> {{ room.bed }}</span>
+              <span><ion-icon name="square-outline"></ion-icon> {{ room.size }}</span>
+            </div>
+            <p class="room-description">{{ room.description }}</p>
+            
+            <!-- Room Amenities -->
+            <div class="room-amenities">
+              <span *ngFor="let amenity of room.amenities.slice(0,4)">
+                <ion-icon name="checkmark-circle"></ion-icon> {{ amenity }}
+              </span>
+              <span *ngIf="room.amenities.length > 4" class="more-amenities">+{{ room.amenities.length - 4 }} more</span>
+            </div>
+
+            <div class="room-bottom">
+              <!-- View Details button -->
+              <a (click)="$event.stopPropagation(); viewRoomDetail(room.id)" class="room-btn view-details-btn">
+                <ion-icon name="eye-outline"></ion-icon>
+                View Details
+              </a>
+              <!-- WhatsApp Enquiry button -->
+              <a (click)="$event.stopPropagation(); openWhatsAppForRoom(room)" class="room-btn whatsapp-btn">
+                <ion-icon name="logo-whatsapp"></ion-icon>
+                Enquire on WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ROOM FEATURES ================= -->
+  <section class="features-section">
+    <div class="container">
+      <div class="section-header center animate-fade-up">
+        <span class="eyebrow">✦ Features</span>
+        <h2 class="section-title">Room Features &amp; Amenities</h2>
+        <p class="section-subtitle">All our rooms come with these standard features for your comfort.</p>
+      </div>
+      <div class="features-grid animate-fade-up">
+        <div class="feature-item">
+          <ion-icon name="wifi-outline"></ion-icon>
+          <span>Free High-Speed Wi-Fi</span>
+        </div>
+        <div class="feature-item">
+          <ion-icon name="tv-outline"></ion-icon>
+          <span>Flat-Screen TV</span>
+        </div>
+        <div class="feature-item">
+          <ion-icon name="snow-outline"></ion-icon>
+          <span>Air Conditioning</span>
+        </div>
+        <div class="feature-item">
+          <ion-icon name="cafe-outline"></ion-icon>
+          <span>Tea &amp; Coffee Maker</span>
+        </div>
+        <div class="feature-item">
+          <ion-icon name="bed-outline"></ion-icon>
+          <span>Premium Bedding</span>
+        </div>
+        <div class="feature-item">
+          <ion-icon name="water-outline"></ion-icon>
+          <span>En-suite Bathroom</span>
+        </div>
+        <div class="feature-item">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+          <span>Safe &amp; Secure</span>
+        </div>
+        <div class="feature-item">
+          <ion-icon name="car-outline"></ion-icon>
+          <span>Free Parking</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BOOK YOUR STAY CTA ================= -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content animate-fade-up">
+        <h2>Ready to Book Your Stay?</h2>
+        <p>Choose your perfect room and experience the comfort of La Tiah.</p>
+        <div class="cta-buttons">
+          <!-- UPDATED: CTA button now links to booking page -->
           <a routerLink="/booking" class="btn-primary">
             <ion-icon name="calendar-outline"></ion-icon>
             Check Availability
           </a>
-          <a (click)="scrollToSection('about')" class="btn-secondary">
-            Learn More
-          </a>
-        </div>
-        <div class="hero-stats">
-          <div class="hero-stat">
-            <span class="stat-number">2</span>
-            <span class="stat-label">Locations</span>
-          </div>
-          <div class="hero-stat">
-            <span class="stat-number">12+</span>
-            <span class="stat-label">Rooms</span>
-          </div>
-          <div class="hero-stat">
-            <span class="stat-number">200+</span>
-            <span class="stat-label">Happy Guests</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="hero-scroll">
-      <span>Scroll to explore</span>
-      <ion-icon name="chevron-down-outline"></ion-icon>
-    </div>
-  </section>
-
-  <!-- ================= ABOUT US ================= -->
-  <section class="about-section" id="about">
-    <div class="container">
-      <div class="section-header center animate-fade-up">
-        <span class="eyebrow">✦ About Us</span>
-        <h2 class="section-title">Your comfortable stay<br>in the heart of Durban</h2>
-        <p class="section-subtitle">Looking for peace, comfort and convenience?</p>
-      </div>
-      <div class="about-grid">
-        <div class="about-image animate-slide-left">
-          <img src="assets/images/logo2.png" (error)="onImageError($event)">
-          <div class="about-image-badge">
-            <ion-icon name="star"></ion-icon> 4.8 ★ (200+ Reviews)
-          </div>
-        </div>
-        <div class="about-content animate-slide-right">
-          <p class="about-description">
-            Come for convenience. Stay for comfort. Leave with peace of mind.
-          </p>
-          <p>
-            Whether you are travelling for business, professional attendance, block study release, sports, events or just to rest, we provide a welcoming home away from home. Perfect for solo guests, couples or groups.
-          </p>
-          
-          <!-- ================= LOCATION OPTIONS ================= -->
-          <div class="location-options">
-            <h3 class="location-title">Choose the location that suits you best:</h3>
-            
-            <!-- Musgrave Guesthouse -->
-            <div class="location-card">
-              <div class="location-icon">
-                <ion-icon name="home-outline"></ion-icon>
-              </div>
-              <div class="location-content">
-                <h4 class="location-name">Musgrave Guesthouse</h4>
-                <p>Your room is waiting in a quiet guesthouse, in close proximity to all amenities with easy access to Durban's top attractions.</p>
-              </div>
-            </div>
-            
-            <!-- North Beach – Durban Oceanic Apartments -->
-            <div class="location-card">
-              <div class="location-icon beach-icon">
-                <ion-icon name="sunny-outline"></ion-icon>
-                <ion-icon name="umbrella-outline"></ion-icon>
-              </div>
-              <div class="location-content">
-                <h4 class="location-name">North Beach – Durban Oceanic Apartments</h4>
-                <p>Stay just a 3-minute walk from the beach and a few minutes' walk to restaurants, shops and entertainment areas.</p>
-              </div>
-            </div>
-            
-            <!-- Call to Action -->
-            <div class="location-card location-cta">
-              <p>We can't wait to host you.</p>
-            </div>
-          </div>
-          <!-- ================= END LOCATION OPTIONS ================= -->
-          
-          <div class="about-features">
-            <div class="feature">
-              <ion-icon name="wifi-outline"></ion-icon>
-              <span>Free Wi-Fi</span>
-            </div>
-            <div class="feature">
-              <ion-icon name="car-outline"></ion-icon>
-              <span>Free Parking</span>
-            </div>
-            <div class="feature">
-              <ion-icon name="shield-checkmark-outline"></ion-icon>
-              <span>24/7 Security</span>
-            </div>
-          </div>
-          <div class="about-buttons">
-            <a routerLink="/about" class="btn-primary-small">Learn More About Us</a>
-            <a routerLink="/rooms" class="btn-outline-small">View Rooms</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= WHY CHOOSE US ================= -->
-  <section class="why-section">
-    <div class="container">
-      <div class="section-header center animate-fade-up">
-        <span class="eyebrow">✦ Why Choose Us</span>
-        <h2 class="section-title">Why Stay With Us</h2>
-        <p class="section-subtitle">Exceptional comfort, unbeatable value.</p>
-      </div>
-      <div class="why-grid">
-        <div class="why-card animate-scale">
-          <div class="why-icon"><ion-icon name="location-outline"></ion-icon></div>
-          <h3>Prime Locations</h3>
-          <p>Conveniently located in Musgrave and North Beach, close to all attractions.</p>
-        </div>
-        <div class="why-card animate-scale" style="animation-delay:0.1s">
-          <div class="why-icon"><ion-icon name="cash-outline"></ion-icon></div>
-          <h3>Affordable Rates</h3>
-          <p>Competitive pricing without compromising on quality or comfort.</p>
-        </div>
-        <div class="why-card animate-scale" style="animation-delay:0.2s">
-          <div class="why-icon"><ion-icon name="heart-outline"></ion-icon></div>
-          <h3>Personalized Service</h3>
-          <p>Our team is dedicated to making your stay unforgettable.</p>
-        </div>
-        <div class="why-card animate-scale" style="animation-delay:0.3s">
-          <div class="why-icon"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
-          <h3>Safe & Secure</h3>
-          <p>Your safety and security are our top priorities at all times.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= FAQ ================= -->
-  <section class="faq-section" id="faq">
-    <div class="container">
-      <div class="section-header center animate-fade-up">
-        <span class="eyebrow">✦ FAQ</span>
-        <h2 class="section-title">Frequently Asked Questions</h2>
-        <p class="section-subtitle">Find answers to the most common questions about your stay.</p>
-      </div>
-      <div class="faq-list animate-fade-up">
-        <div class="faq-item" *ngFor="let faq of faqs; let i = index" [class.active]="faq.active">
-          <div class="faq-question" (click)="toggleFaq(i)">
-            {{ faq.question }}
-            <ion-icon [name]="faq.active ? 'remove-outline' : 'add-outline'"></ion-icon>
-          </div>
-          <div class="faq-answer"><p>{{ faq.answer }}</p></div>
+          <a routerLink="/contact" class="btn-secondary-cta">Contact Us</a>
         </div>
       </div>
     </div>
@@ -308,14 +262,16 @@
           <a routerLink="/contact">Contact Us</a>
         </div>
         <div class="footer-column animate-fade-up">
-          <h4>Legal</h4>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms &amp; Conditions</a>
+          <h4>Our Locations</h4>
+          <a href="#">Durban Oceanic (82A, 82B, 117)</a>
+          <a href="#">La Tiah Musgrave</a>
+          <a href="#">Tiah Musgrave</a>
+          <a href="#">Halford Backpackers</a>
         </div>
         <div class="footer-column animate-fade-up">
           <h4>Book Your Stay</h4>
           <p>Ready for your Durban getaway?</p>
-          <!-- Footer CTA links to booking page -->
+          <!-- UPDATED: Footer button now links to booking page -->
           <a routerLink="/booking" class="btn-gold">
             <ion-icon name="calendar-outline"></ion-icon>
             Check Availability
@@ -331,5 +287,13 @@
       </div>
     </div>
   </footer>
+
+  <!-- WHATSAPP FLOAT -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openWhatsApp()" class="whatsapp-float">
+      <ion-icon name="logo-whatsapp"></ion-icon>
+      <div class="whatsapp-pulse"></div>
+    </ion-fab-button>
+  </ion-fab>
 
 </ion-content>

@@ -21,11 +21,6 @@ export class RoomsPage implements OnInit, OnDestroy {
   @ViewChild(IonContent, { static: false }) content!: IonContent;
 
   // ==========================================
-  // SPLASH SCREEN STATE
-  // ==========================================
-  splashHidden: boolean = false;
-
-  // ==========================================
   // NAVIGATION STATE
   // ==========================================
   mobileNavOpen: boolean = false;
@@ -39,47 +34,6 @@ export class RoomsPage implements OnInit, OnDestroy {
   private lastPage: string = '';
 
   // ==========================================
-  // FAQ DATA - ADDED
-  // ==========================================
-  faqs: any[] = [
-    {
-      question: 'What are the check-in and check-out times?',
-      answer: 'Check-in is from 2:00 PM and check-out is by 10:00 AM. Early check-in and late check-out may be available upon request.',
-      active: false
-    },
-    {
-      question: 'Is parking available?',
-      answer: 'Yes, secure parking is available at both our Musgrave and North Beach locations. Please inform us in advance if you require parking.',
-      active: false
-    },
-    {
-      question: 'Do you offer airport transfers?',
-      answer: 'Guests can travel from the airport using an e-hailing system.',
-      active: false
-    },
-    {
-      question: 'Are pets allowed?',
-      answer: 'We admire pets however kindly make an alternative arrangement stay for them.',
-      active: false
-    },
-    {
-      question: 'Is there Wi-Fi available?',
-      answer: 'Yes, complimentary high-speed Wi-Fi is available throughout all our properties.',
-      active: false
-    },
-    {
-      question: 'What payment methods do you accept?',
-      answer: 'We accept EFT Payments.',
-      active: false
-    },
-    {
-      question: 'Do you have a cancellation policy?',
-      answer: 'Yes, we have a flexible cancellation policy. Free cancellation is available up to 24 hours before check-in. Please refer to our terms and conditions for more details.',
-      active: false
-    }
-  ];
-
-  // ==========================================
   // FALLBACK IMAGE
   // ==========================================
   fallbackImage: string = 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80';
@@ -90,7 +44,8 @@ export class RoomsPage implements OnInit, OnDestroy {
   whatsappNumber: string = '27849009821';
 
   // ==========================================
-  // ROOMS DATA
+  // ROOMS DATA - Updated with better bedroom images
+  // Removed: rating, reviews, price
   // ==========================================
   allRooms: any[] = [
     // ==================== ROOM 1: DURBAN OCEANIC ROOM 82A ====================
@@ -313,11 +268,6 @@ export class RoomsPage implements OnInit, OnDestroy {
     // Check if mobile device
     this.isMobile = this.platform.is('mobile') || this.platform.is('mobileweb') || window.innerWidth < 992;
     
-    // Hide splash screen after 2.5 seconds
-    setTimeout(() => {
-      this.splashHidden = true;
-    }, 2500);
-
     // Prevent swipe to open nav on iOS
     this.preventSwipeToOpenNav();
   }
@@ -401,24 +351,6 @@ export class RoomsPage implements OnInit, OnDestroy {
   }
 
   // ==========================================
-  // SCROLL TO SECTION - ADDED
-  // ==========================================
-  scrollToSection(sectionId: string): void {
-    this.closeMobileNav();
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-
-  // ==========================================
-  // TOGGLE FAQ - ADDED
-  // ==========================================
-  toggleFaq(index: number): void {
-    this.faqs[index].active = !this.faqs[index].active;
-  }
-
-  // ==========================================
   // SCROLL EVENT FOR ION-CONTENT
   // ==========================================
   onScroll(event: any) {
@@ -446,24 +378,9 @@ export class RoomsPage implements OnInit, OnDestroy {
     this.router.navigate(['/home'], { replaceUrl: true });
   }
 
-  goToAbout() {
-    this.closeMobileNav();
-    this.router.navigate(['/about'], { replaceUrl: true });
-  }
-
-  goToAttractions() {
-    this.closeMobileNav();
-    this.router.navigate(['/attractions'], { replaceUrl: true });
-  }
-
-  goToContact() {
-    this.closeMobileNav();
-    this.router.navigate(['/contact'], { replaceUrl: true });
-  }
-
   goToBooking() {
     this.closeMobileNav();
-    this.router.navigate(['/booking'], { replaceUrl: true });
+    this.router.navigate(['/booking']);
   }
 
   // ==========================================
@@ -471,10 +388,7 @@ export class RoomsPage implements OnInit, OnDestroy {
   // ==========================================
   viewRoomDetail(roomId: number) {
     this.closeMobileNav();
-    this.router.navigate(['/room-detail'], { 
-      queryParams: { roomId: roomId },
-      replaceUrl: true 
-    });
+    this.router.navigate(['/room-detail'], { queryParams: { roomId: roomId } });
   }
 
   // ==========================================
@@ -538,7 +452,7 @@ export class RoomsPage implements OnInit, OnDestroy {
   }
 
   // ==========================================
-  // WHATSAPP METHODS
+  // WHATSAPP METHODS - Dynamic Messages Based on Context
   // ==========================================
 
   // Core WhatsApp sender
