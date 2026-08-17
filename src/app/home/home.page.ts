@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, ViewChild, OnInit, HostListener, Renderer2, ElementRef } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ViewChild, OnInit, OnDestroy, HostListener, Renderer2, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, IonContent, Platform } from '@ionic/angular';
@@ -18,7 +18,7 @@ import { filter } from 'rxjs/operators';
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
 
   // ==========================================
   // VIEW CHILD REFERENCE
@@ -40,6 +40,10 @@ export class HomePage implements OnInit {
   isScrolled: boolean = false;
   isMobile: boolean = false;
   private lastPage: string = '';
+  private originalOverflow: string = '';
+  private originalPosition: string = '';
+  private originalWidth: string = '';
+  private originalHeight: string = '';
 
   // ==========================================
   // WHATSAPP NUMBER
@@ -124,6 +128,11 @@ export class HomePage implements OnInit {
     this.preventSwipeToOpenNav();
   }
 
+  ngOnDestroy(): void {
+    this.restoreScroll();
+    this.restoreBodyStyles();
+  }
+
   // ==========================================
   // PREVENT SWIPE TO OPEN NAV
   // ==========================================
@@ -187,6 +196,12 @@ export class HomePage implements OnInit {
     setTimeout(() => {
       this.scrollToSection('home');
     }, 100);
+  }
+
+  // Navigate to booking page
+  goToBooking() {
+    this.closeMobileNav();
+    this.router.navigate(['/booking']);
   }
 
   // Navigate to rooms page
@@ -279,10 +294,17 @@ export class HomePage implements OnInit {
   toggleMobileNav() {
     this.mobileNavOpen = !this.mobileNavOpen;
     if (this.mobileNavOpen) {
+      // Store original styles
+      this.originalOverflow = document.body.style.overflow || '';
+      this.originalPosition = document.body.style.position || '';
+      this.originalWidth = document.body.style.width || '';
+      this.originalHeight = document.body.style.height || '';
+      
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.width = '100%';
       document.body.style.height = '100%';
+      document.documentElement.style.overflow = 'hidden';
       document.body.classList.add('nav-open');
       
       // Prevent swipe to close on iOS
@@ -297,15 +319,24 @@ export class HomePage implements OnInit {
   // Close mobile navigation
   closeMobileNav() {
     this.mobileNavOpen = false;
-    document.body.style.overflow = '';
-    document.body.style.position = '';
-    document.body.style.width = '';
-    document.body.style.height = '';
+    this.restoreBodyStyles();
+    this.restoreScroll();
     document.body.classList.remove('nav-open');
     
     if (this.platform.is('ios')) {
       document.body.style.touchAction = '';
     }
+  }
+
+  private restoreScroll(): void {
+    document.body.style.overflow = this.originalOverflow || '';
+    document.documentElement.style.overflow = this.originalOverflow || '';
+  }
+
+  private restoreBodyStyles(): void {
+    document.body.style.position = this.originalPosition || '';
+    document.body.style.width = this.originalWidth || '';
+    document.body.style.height = this.originalHeight || '';
   }
 
   // ==========================================
@@ -347,7 +378,7 @@ export class HomePage implements OnInit {
   // ==========================================
   openWhatsApp() {
     const phone = this.whatsappNumber; // +27 84 900 9821
-    const message = 'Hello la tiah, I would like to enquire about room availability and pricing.';
+    const message = 'Hello La Tiah, I would like to enquire about room availability and pricing.';
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
   }
 }

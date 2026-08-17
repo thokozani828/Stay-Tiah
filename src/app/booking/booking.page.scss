@@ -1,0 +1,458 @@
+// =========================
+// VARIABLES
+// =========================
+$gold: #c9a84c;
+$gold-light: #dbb95c;
+$gold-dark: #b8943a;
+$black: #0a0a0a;
+$dark: #121212;
+$dark-card: #1a1a1a;
+$dark-input: #2a2a2a;
+$grey: #888888;
+$white: #ffffff;
+$red: #ef4444;
+
+// =========================
+// BOOKING SECTION
+// =========================
+.booking-section {
+  padding: 60px 0 80px;
+  background: $dark;
+  min-height: 60vh;
+  
+  @media (max-width: 768px) {
+    padding: 40px 0 60px;
+  }
+}
+
+.booking-card {
+  background: $dark-card;
+  border-radius: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 36px;
+  border: 1px solid rgba($gold, 0.1);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+  
+  @media (max-width: 480px) {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+}
+
+// =========================
+// FORM STYLES
+// =========================
+.booking-form {
+  .form-group {
+    margin-bottom: 20px;
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: $grey;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 6px;
+
+      ion-icon {
+        font-size: 16px;
+        color: $gold;
+      }
+    }
+
+    &.half {
+      flex: 1;
+    }
+  }
+
+  .dates-row {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 0;
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+      gap: 0;
+    }
+  }
+}
+
+// Select Wrapper
+.select-wrapper {
+  position: relative;
+
+  select {
+    width: 100%;
+    padding: 14px 16px;
+    background: $dark-input;
+    border: 2px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    color: $white;
+    font-size: 15px;
+    font-family: Verdana, Geneva, sans-serif !important;
+    appearance: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:focus {
+      border-color: $gold;
+      outline: none;
+      box-shadow: 0 0 0 4px rgba($gold, 0.1);
+    }
+
+    &:hover {
+      border-color: rgba($gold, 0.3);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    option {
+      background: $dark;
+      color: $white;
+    }
+  }
+
+  .select-icon {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: $grey;
+    pointer-events: none;
+  }
+
+  &.error select {
+    border-color: $red;
+    background: rgba($red, 0.08);
+
+    &:focus {
+      box-shadow: 0 0 0 4px rgba($red, 0.1);
+    }
+  }
+}
+
+// Date Wrapper
+.date-wrapper {
+  position: relative;
+
+  input[type="date"] {
+    width: 100%;
+    padding: 14px 16px 14px 44px;
+    background: $dark-input;
+    border: 2px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    color: $white;
+    font-size: 15px;
+    font-family: Verdana, Geneva, sans-serif !important;
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    &::-webkit-calendar-picker-indicator {
+      filter: invert(1);
+      cursor: pointer;
+    }
+
+    &:focus {
+      border-color: $gold;
+      outline: none;
+      box-shadow: 0 0 0 4px rgba($gold, 0.1);
+    }
+
+    &:hover {
+      border-color: rgba($gold, 0.3);
+    }
+
+    &::placeholder {
+      color: $grey;
+      font-size: 14px;
+    }
+  }
+
+  .date-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: $gold;
+    pointer-events: none;
+  }
+
+  &.error input {
+    border-color: $red;
+    background: rgba($red, 0.08);
+
+    &:focus {
+      box-shadow: 0 0 0 4px rgba($red, 0.1);
+    }
+  }
+}
+
+// Guest Selector
+.guest-selector {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: $dark-input;
+  border: 2px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+
+  &:focus-within {
+    border-color: $gold;
+    box-shadow: 0 0 0 4px rgba($gold, 0.1);
+  }
+
+  .guest-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    color: $white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 18px;
+
+    &:hover:not(:disabled) {
+      background: rgba($gold, 0.15);
+      color: $gold;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    ion-icon {
+      font-size: 20px;
+    }
+  }
+
+  .guest-count {
+    font-size: 20px;
+    font-weight: 600;
+    color: $white;
+    min-width: 30px;
+    text-align: center;
+  }
+
+  .guest-label {
+    font-size: 14px;
+    color: $grey;
+    margin-left: 4px;
+  }
+}
+
+// Error Message
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: $red;
+  margin-top: 6px;
+
+  ion-icon {
+    font-size: 14px;
+  }
+}
+
+// Check Button
+.check-btn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, $gold, $gold-dark);
+  color: $black;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: Verdana, Geneva, sans-serif !important;
+  margin-top: 8px;
+
+  ion-icon {
+    font-size: 22px;
+  }
+
+  &:hover {
+    background: linear-gradient(135deg, $gold-light, $gold);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba($gold, 0.3);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+// =========================
+// SUMMARY STYLES
+// =========================
+.booking-summary {
+  .summary-icon {
+    width: 72px;
+    height: 72px;
+    background: rgba(52, 211, 153, 0.12);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    border: 1px solid rgba(52, 211, 153, 0.2);
+
+    ion-icon {
+      font-size: 36px;
+      color: #34d399;
+    }
+  }
+
+  h3 {
+    text-align: center;
+    font-size: 22px;
+    color: $white;
+    margin: 0 0 4px;
+  }
+
+  .summary-subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: $grey;
+    margin: 0 0 28px;
+  }
+
+  .summary-details {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .summary-label {
+        font-size: 14px;
+        color: $grey;
+      }
+
+      .summary-value {
+        font-size: 14px;
+        color: $white;
+        font-weight: 500;
+        text-align: right;
+      }
+    }
+  }
+
+  .summary-actions {
+    display: flex;
+    gap: 12px;
+    flex-direction: column;
+
+    .edit-btn {
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      color: $white;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: Verdana, Geneva, sans-serif !important;
+
+      ion-icon {
+        font-size: 18px;
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+    }
+
+    .send-btn {
+      padding: 16px;
+      background: linear-gradient(135deg, #25D366, #1da851);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: Verdana, Geneva, sans-serif !important;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.25);
+
+      ion-icon {
+        font-size: 22px;
+      }
+
+      &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(37, 211, 102, 0.35);
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+// =========================
+// RESPONSIVE
+// =========================
+@media (max-width: 480px) {
+  .booking-section {
+    padding: 20px 0 40px;
+  }
+  
+  .booking-card {
+    padding: 20px 16px;
+  }
+  
+  .check-btn {
+    font-size: 15px;
+    padding: 14px;
+  }
+  
+  .send-btn {
+    font-size: 15px;
+    padding: 14px;
+  }
+}

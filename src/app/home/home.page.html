@@ -7,7 +7,7 @@
       <div class="splash-ring"></div>
       <div class="splash-ring-2"></div>
       <div class="splash-logo-wrapper">
-        <span class="splash-logo">la <span class="splash-logo-gold">Tiah</span></span>
+        <span class="splash-logo">La <span class="splash-logo-gold">Tiah</span></span>
       </div>
     </div>
     <div class="splash-tagline">The Ideal Accommodation Haven</div>
@@ -24,7 +24,7 @@
   <header class="site-header" [class.scrolled]="isScrolled">
     <div class="site-header__inner">
       <a href="/" class="brand" (click)="goToHome()">
-        <span class="brand__name">la <span class="brand__gold">Tiah</span></span>
+        <span class="brand__name">La <span class="brand__gold">Tiah</span></span>
         <span class="brand__tagline">Your ideal accommodation haven</span>
       </a>
 
@@ -64,7 +64,7 @@
   </div>
   
   <div class="mobile-nav-brand">
-    <span class="mobile-brand-text">la <span class="mobile-brand-gold">tiah</span></span>
+    <span class="mobile-brand-text">La <span class="mobile-brand-gold">Tiah</span></span>
     <span class="mobile-brand-tagline">The Ideal Accommodation Haven</span>
   </div>
   
@@ -92,14 +92,15 @@
     
     <div class="mobile-divider"></div>
     
-    <a class="mobile-cta" (click)="openWhatsApp(); closeMobileNav()">
-      <ion-icon name="logo-whatsapp"></ion-icon>
+    <!-- UPDATED: Mobile CTA now links to booking page -->
+    <a routerLink="/booking" class="mobile-cta" (click)="closeMobileNav()">
+      <ion-icon name="calendar-outline"></ion-icon>
       Check Availability
     </a>
   </div>
   
   <div class="mobile-nav-footer">
-    <p>&copy; 2026 la tiah</p>
+    <p>&copy; 2026 La Tiah</p>
   </div>
 </div>
 
@@ -118,8 +119,9 @@
         <h1 class="hero-title">Your Ideal Haven</h1>
         <p class="hero-description">Your comfortable stay in the heart of Durban</p>
         <div class="hero-buttons">
-          <a (click)="openWhatsApp()" class="btn-primary">
-            <ion-icon name="logo-whatsapp"></ion-icon>
+          <!-- UPDATED: Hero CTA now links to booking page -->
+          <a routerLink="/booking" class="btn-primary">
+            <ion-icon name="calendar-outline"></ion-icon>
             Check Availability
           </a>
           <a (click)="scrollToSection('about')" class="btn-secondary">
@@ -229,37 +231,37 @@
   </section>
 
   <!-- ================= WHY CHOOSE US ================= -->
-<section class="why-section">
-  <div class="container">
-    <div class="section-header center animate-fade-up">
-      <span class="eyebrow">✦ Why Choose Us</span>
-      <h2 class="section-title">Why Stay With Us</h2>
-      <p class="section-subtitle">Exceptional comfort, unbeatable value.</p>
+  <section class="why-section">
+    <div class="container">
+      <div class="section-header center animate-fade-up">
+        <span class="eyebrow">✦ Why Choose Us</span>
+        <h2 class="section-title">Why Stay With Us</h2>
+        <p class="section-subtitle">Exceptional comfort, unbeatable value.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card animate-scale">
+          <div class="why-icon"><ion-icon name="location-outline"></ion-icon></div>
+          <h3>Prime Locations</h3>
+          <p>Conveniently located in Musgrave and North Beach, close to all attractions.</p>
+        </div>
+        <div class="why-card animate-scale" style="animation-delay:0.1s">
+          <div class="why-icon"><ion-icon name="cash-outline"></ion-icon></div>
+          <h3>Affordable Rates</h3>
+          <p>Competitive pricing without compromising on quality or comfort.</p>
+        </div>
+        <div class="why-card animate-scale" style="animation-delay:0.2s">
+          <div class="why-icon"><ion-icon name="heart-outline"></ion-icon></div>
+          <h3>Personalized Service</h3>
+          <p>Our team is dedicated to making your stay unforgettable.</p>
+        </div>
+        <div class="why-card animate-scale" style="animation-delay:0.3s">
+          <div class="why-icon"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
+          <h3>Safe & Secure</h3>
+          <p>Your safety and security are our top priorities at all times.</p>
+        </div>
+      </div>
     </div>
-    <div class="why-grid">
-      <div class="why-card animate-scale">
-        <div class="why-icon"><ion-icon name="location-outline"></ion-icon></div>
-        <h3>Prime Locations</h3>
-        <p>Conveniently located in Musgrave and North Beach, close to all attractions.</p>
-      </div>
-      <div class="why-card animate-scale" style="animation-delay:0.1s">
-        <div class="why-icon"><ion-icon name="cash-outline"></ion-icon></div>
-        <h3>Affordable Rates</h3>
-        <p>Competitive pricing without compromising on quality or comfort.</p>
-      </div>
-      <div class="why-card animate-scale" style="animation-delay:0.2s">
-        <div class="why-icon"><ion-icon name="heart-outline"></ion-icon></div>
-        <h3>Personalized Service</h3>
-        <p>Our team is dedicated to making your stay unforgettable.</p>
-      </div>
-      <div class="why-card animate-scale" style="animation-delay:0.3s">
-        <div class="why-icon"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
-        <h3>Safe & Secure</h3>
-        <p>Your safety and security are our top priorities at all times.</p>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
   <!-- ================= FAQ ================= -->
   <section class="faq-section" id="faq">
@@ -315,8 +317,9 @@
         <div class="footer-column animate-fade-up">
           <h4>Book Your Stay</h4>
           <p>Ready for your Durban getaway?</p>
-          <a (click)="openWhatsApp()" class="btn-gold">
-            <ion-icon name="logo-whatsapp"></ion-icon>
+          <!-- UPDATED: Footer CTA now links to booking page -->
+          <a routerLink="/booking" class="btn-gold">
+            <ion-icon name="calendar-outline"></ion-icon>
             Check Availability
           </a>
           <div class="footer-contact">
@@ -325,7 +328,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2026 la tiah. All Rights Reserved.</p>
+        <p>&copy; 2026 La Tiah. All Rights Reserved.</p>
         <p>The Ideal Accommodation Haven</p>
       </div>
     </div>

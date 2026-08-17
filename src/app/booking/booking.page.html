@@ -1,0 +1,329 @@
+<!-- ============================================= -->
+<!-- ✅ HEADER OUTSIDE ION-CONTENT                -->
+<!-- ============================================= -->
+<ion-header>
+  <header class="site-header" [class.scrolled]="isScrolled">
+    <div class="site-header__inner">
+      <a href="/" class="brand" (click)="goToHome()">
+        <span class="brand__name">La Tiah</span>
+        <span class="brand__tagline">Your ideal accommodation haven</span>
+      </a>
+
+      <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
+
+      <nav class="nav" aria-label="Main">
+        <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="nav__link">Home</a>
+        <a routerLink="/about" routerLinkActive="is-active" class="nav__link">About</a>
+        <a routerLink="/rooms" routerLinkActive="is-active" class="nav__link">Rooms</a>
+        <a routerLink="/attractions" routerLinkActive="is-active" class="nav__link">Attractions</a>
+        <a routerLink="/contact" routerLinkActive="is-active" class="nav__link">Contact</a>
+      </nav>
+
+      <a class="btn-whatsapp desktop-only" (click)="openWhatsApp()">
+        <ion-icon name="logo-whatsapp"></ion-icon>
+        <span class="btn-text">Check Availability</span>
+      </a>
+    </div>
+  </header>
+</ion-header>
+
+<!-- ============================================= -->
+<!-- ✅ MOBILE NAV OUTSIDE ION-CONTENT            -->
+<!-- ============================================= -->
+<div class="nav-overlay" [class.active]="mobileNavOpen" (click)="closeMobileNav()"></div>
+
+<div class="mobile-nav" [class.active]="mobileNavOpen">
+  <div class="mobile-nav-header">
+    <button class="mobile-nav-close" (click)="closeMobileNav()">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+  </div>
+  
+  <div class="mobile-nav-brand">
+    <span class="mobile-brand-text">TIAH</span>
+    <span class="mobile-brand-tagline">The Ideal Accommodation Haven</span>
+  </div>
+  
+  <div class="mobile-nav-links">
+    <a routerLink="/home" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <ion-icon name="home-outline" class="link-icon"></ion-icon>
+      Home
+    </a>
+    <a routerLink="/about" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <ion-icon name="information-circle-outline" class="link-icon"></ion-icon>
+      About
+    </a>
+    <a routerLink="/rooms" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <ion-icon name="bed-outline" class="link-icon"></ion-icon>
+      Rooms
+    </a>
+    <a routerLink="/attractions" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <ion-icon name="location-outline" class="link-icon"></ion-icon>
+      Attractions
+    </a>
+    <a routerLink="/contact" routerLinkActive="is-active" (click)="closeMobileNav()">
+      <ion-icon name="mail-outline" class="link-icon"></ion-icon>
+      Contact
+    </a>
+    
+    <div class="mobile-divider"></div>
+    
+    <a class="mobile-cta" (click)="openWhatsApp(); closeMobileNav()">
+      <ion-icon name="logo-whatsapp"></ion-icon>
+      Check Availability
+    </a>
+  </div>
+  
+  <div class="mobile-nav-footer">
+    <p>&copy; 2026 stay@tiah</p>
+  </div>
+</div>
+
+<!-- ============================================= -->
+<!-- ✅ ION-CONTENT WITH BOOKING FORM             -->
+<!-- ============================================= -->
+<ion-content [fullscreen]="true" (ionScroll)="onScroll($event)" class="no-scrollbar" [scrollEvents]="true">
+  
+  <!-- ================= PAGE HEADER ================= -->
+  <section class="page-header">
+    <div class="page-header-bg"></div>
+    <div class="page-header-overlay"></div>
+    <div class="page-header-content">
+      <div class="container">
+        <div class="page-header-text animate-fade-up">
+          <span class="hero-badge">✦ Book Your Stay</span>
+          <h1 class="page-title">Check Availability</h1>
+          <p class="page-subtitle">Find your perfect stay at La Tiah</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BOOKING FORM ================= -->
+  <section class="booking-section">
+    <div class="container">
+      <div class="booking-card animate-fade-up">
+        
+        <!-- Step 1: Booking Form -->
+        <div class="booking-form" *ngIf="!showSummary">
+          
+          <!-- Location -->
+          <div class="form-group">
+            <label>
+              <ion-icon name="location-outline"></ion-icon>
+              Location
+            </label>
+            <div class="select-wrapper" [class.error]="errors['location']">
+              <select [(ngModel)]="bookingData.location" (change)="onLocationChange()">
+                <option value="">Select location</option>
+                <option *ngFor="let location of locations" [value]="location.id">
+                  {{ location.name }}
+                </option>
+              </select>
+              <ion-icon name="chevron-down-outline" class="select-icon"></ion-icon>
+            </div>
+            <div class="error-message" *ngIf="errors['location']">
+              <ion-icon name="alert-circle-outline"></ion-icon>
+              {{ errors['location'] }}
+            </div>
+          </div>
+
+          <!-- Room -->
+          <div class="form-group">
+            <label>
+              <ion-icon name="bed-outline"></ion-icon>
+              Room
+            </label>
+            <div class="select-wrapper" [class.error]="errors['room']">
+              <select [(ngModel)]="bookingData.room" [disabled]="!bookingData.location">
+                <option value="">Select a room</option>
+                <option *ngFor="let room of availableRooms" [value]="room.id">
+                  {{ room.name }} (Sleeps {{ room.sleeps }})
+                </option>
+              </select>
+              <ion-icon name="chevron-down-outline" class="select-icon"></ion-icon>
+            </div>
+            <div class="error-message" *ngIf="errors['room']">
+              <ion-icon name="alert-circle-outline"></ion-icon>
+              {{ errors['room'] }}
+            </div>
+          </div>
+
+          <!-- Dates Row -->
+          <div class="dates-row">
+            <!-- Check-in -->
+            <div class="form-group half">
+              <label>
+                <ion-icon name="calendar-outline"></ion-icon>
+                Check-in
+              </label>
+              <div class="date-wrapper" [class.error]="errors['checkIn']">
+                <ion-icon name="calendar-outline" class="date-icon"></ion-icon>
+                <input 
+                  type="date" 
+                  [(ngModel)]="bookingData.checkIn" 
+                  [min]="minDate"
+                  (change)="onCheckInChange()"
+                  placeholder="Select date">
+              </div>
+              <div class="error-message" *ngIf="errors['checkIn']">
+                <ion-icon name="alert-circle-outline"></ion-icon>
+                {{ errors['checkIn'] }}
+              </div>
+            </div>
+
+            <!-- Check-out -->
+            <div class="form-group half">
+              <label>
+                <ion-icon name="calendar-outline"></ion-icon>
+                Check-out
+              </label>
+              <div class="date-wrapper" [class.error]="errors['checkOut']">
+                <ion-icon name="calendar-outline" class="date-icon"></ion-icon>
+                <input 
+                  type="date" 
+                  [(ngModel)]="bookingData.checkOut" 
+                  [min]="minCheckOutDate"
+                  (change)="onCheckOutChange()"
+                  placeholder="Select date">
+              </div>
+              <div class="error-message" *ngIf="errors['checkOut']">
+                <ion-icon name="alert-circle-outline"></ion-icon>
+                {{ errors['checkOut'] }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Guests -->
+          <div class="form-group">
+            <label>
+              <ion-icon name="people-outline"></ion-icon>
+              Guests
+            </label>
+            <div class="guest-selector">
+              <button class="guest-btn" (click)="decrementGuests()" [disabled]="bookingData.guests <= 1">
+                <ion-icon name="remove-outline"></ion-icon>
+              </button>
+              <span class="guest-count">{{ bookingData.guests }}</span>
+              <button class="guest-btn" (click)="incrementGuests()" [disabled]="bookingData.guests >= 10">
+                <ion-icon name="add-outline"></ion-icon>
+              </button>
+              <span class="guest-label">{{ bookingData.guests === 1 ? 'Guest' : 'Guests' }}</span>
+            </div>
+          </div>
+
+          <!-- Check Availability Button -->
+          <button class="check-btn" (click)="checkAvailability()">
+            <ion-icon name="search-outline"></ion-icon>
+            Check Availability
+          </button>
+
+        </div>
+
+        <!-- Step 2: Summary -->
+        <div class="booking-summary" *ngIf="showSummary">
+          
+          <div class="summary-icon">
+            <ion-icon name="checkmark-circle"></ion-icon>
+          </div>
+          
+          <h3>Booking Enquiry Ready</h3>
+          <p class="summary-subtitle">Your selected dates and room are ready to send to La Tiah.</p>
+
+          <div class="summary-details">
+            <div class="summary-item">
+              <span class="summary-label">📍 Location</span>
+              <span class="summary-value">{{ getLocationName() }}</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">🛏️ Room</span>
+              <span class="summary-value">{{ getRoomName() }}</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">📅 Check-in</span>
+              <span class="summary-value">{{ formatDate(bookingData.checkIn) }}</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">📅 Check-out</span>
+              <span class="summary-value">{{ formatDate(bookingData.checkOut) }}</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">👥 Guests</span>
+              <span class="summary-value">{{ bookingData.guests }} {{ bookingData.guests === 1 ? 'Guest' : 'Guests' }}</span>
+            </div>
+            <div class="summary-item" *ngIf="getNights() > 0">
+              <span class="summary-label">📆 Nights</span>
+              <span class="summary-value">{{ getNights() }} {{ getNights() === 1 ? 'Night' : 'Nights' }}</span>
+            </div>
+          </div>
+
+          <div class="summary-actions">
+            <button class="edit-btn" (click)="goBackToEdit()">
+              <ion-icon name="create-outline"></ion-icon>
+              Edit Details
+            </button>
+            <button class="send-btn" (click)="sendWhatsAppEnquiry()" [disabled]="isSubmitting">
+              <ion-icon name="logo-whatsapp"></ion-icon>
+              {{ isSubmitting ? 'Sending...' : 'Send Enquiry via WhatsApp' }}
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="footer-overlay"></div>
+    <div class="footer-background"></div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand animate-fade-up">
+          <div class="logo" (click)="goToHome()" style="cursor:pointer;">
+            <span class="logo-text">La</span><span class="logo-gold">Tiah</span>
+          </div>
+          <p>Your ideal accommodation haven in the heart of Durban.</p>
+          <div class="socials">
+            <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-tiktok"></ion-icon></a>
+          </div>
+        </div>
+        <div class="footer-column animate-fade-up">
+          <h4>Quick Links</h4>
+          <a routerLink="/home">Home</a>
+          <a routerLink="/about">About Us</a>
+          <a routerLink="/rooms">Rooms</a>
+          <a routerLink="/attractions">Attractions</a>
+          <a routerLink="/contact">Contact Us</a>
+        </div>
+        <div class="footer-column animate-fade-up">
+          <h4>Our Locations</h4>
+          <a href="#">Durban Oceanic (82A, 82B, 117)</a>
+          <a href="#">La Tiah Musgrave</a>
+          <a href="#">Tiah Musgrave</a>
+          <a href="#">Halford Backpackers</a>
+        </div>
+        <div class="footer-column animate-fade-up">
+          <h4>Book Your Stay</h4>
+          <p>Ready for your Durban getaway?</p>
+          <a routerLink="/booking" class="btn-gold">Book Now</a>
+          <div class="footer-contact">
+            <p><ion-icon name="call-outline"></ion-icon> +27 84 900 9821</p>
+            <p><ion-icon name="mail-outline"></ion-icon> info@staytiah.com</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 stay@tiah. All Rights Reserved.</p>
+        <p>The Ideal Accommodation Haven</p>
+      </div>
+    </div>
+  </footer>
+
+</ion-content>
