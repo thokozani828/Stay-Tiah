@@ -169,6 +169,21 @@ export class BookingPage implements OnInit, OnDestroy {
   }
 
   // ==========================================
+  // GO BACK - Navigate to previous page
+  // ==========================================
+  goBack(): void {
+    this.closeMobileNav();
+    // Try to go back in history
+    const historyLength = window.history.length;
+    if (historyLength > 1) {
+      window.history.back();
+    } else {
+      // If no history, go to home
+      this.router.navigate(['/home']);
+    }
+  }
+
+  // ==========================================
   // SCROLL EVENT FOR ION-CONTENT
   // ==========================================
   onScroll(event: any) {

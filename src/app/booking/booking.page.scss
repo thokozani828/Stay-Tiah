@@ -4,13 +4,243 @@
 $gold: #c9a84c;
 $gold-light: #dbb95c;
 $gold-dark: #b8943a;
+$gold-pale: #f5e6c8;
+$gold-soft: #e8d5a8;
 $black: #0a0a0a;
 $dark: #121212;
 $dark-card: #1a1a1a;
 $dark-input: #2a2a2a;
 $grey: #888888;
+$light-grey: #e8e8e8;
 $white: #ffffff;
 $red: #ef4444;
+$green: #34d399;
+
+// FIXED FONT - Verdana only
+$font-primary: Verdana, Geneva, sans-serif;
+$transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// =========================
+// GLOBAL FONT RESET
+// =========================
+* {
+  font-family: $font-primary !important;
+  box-sizing: border-box;
+}
+
+// =========================
+// CONTAINER
+// =========================
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 20px;
+  
+  @media (max-width: 576px) {
+    padding: 0 16px;
+  }
+}
+
+// =========================
+// ANIMATIONS
+// =========================
+.animate-fade-up {
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes kenBurns {
+  0% { transform: scale(1) translate(0,0); }
+  50% { transform: scale(1.08) translate(-2%,-1%); }
+  100% { transform: scale(1.05) translate(1%,2%); }
+}
+
+// =========================
+// BACK BUTTON
+// =========================
+.back-button-container {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 100;
+  
+  @media (max-width: 768px) {
+    top: 16px;
+    left: 16px;
+  }
+  
+  @media (max-width: 480px) {
+    top: 12px;
+    left: 12px;
+  }
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: $font-primary !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  
+  @media (max-width: 768px) {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 6px 12px;
+    font-size: 12px;
+    gap: 4px;
+    
+    span {
+      display: none;
+    }
+  }
+  
+  ion-icon {
+    font-size: 20px;
+    
+    @media (max-width: 768px) {
+      font-size: 18px;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 16px;
+    }
+  }
+  
+  &:hover {
+    background: rgba($gold, 0.3);
+    border-color: $gold;
+    transform: translateX(-4px);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+// =========================
+// PAGE HEADER
+// =========================
+.page-header {
+  min-height: 40vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  overflow: hidden;
+  padding: 40px 0;
+  background: #1a1a2e;
+  
+  @media (max-width: 768px) {
+    min-height: 35vh;
+    padding: 30px 0;
+  }
+  
+  @media (max-width: 480px) {
+    min-height: 30vh;
+    padding: 20px 0;
+  }
+  
+  .page-header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1600&q=90') center/cover no-repeat;
+    z-index: 0;
+    animation: kenBurns 25s ease-in-out infinite alternate;
+  }
+  
+  .page-header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(0,0,0,0.4));
+    z-index: 1;
+  }
+  
+  .page-header-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    
+    .page-header-text {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+      
+      .hero-badge {
+        display: inline-block;
+        background: rgba($gold, 0.2);
+        color: $gold;
+        padding: 8px 24px;
+        border-radius: 50px;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        border: 1px solid rgba($gold, 0.3);
+        backdrop-filter: blur(5px);
+        font-family: $font-primary !important;
+        
+        @media (max-width: 576px) {
+          font-size: 11px;
+          padding: 6px 16px;
+        }
+      }
+      
+      .page-title {
+        font-family: $font-primary !important;
+        font-size: clamp(36px, 6vw, 72px);
+        line-height: 1.1;
+        margin: 15px 0 20px;
+        color: $white;
+        text-shadow: 0 2px 30px rgba(0,0,0,0.3);
+        
+        @media (max-width: 576px) {
+          font-size: 32px;
+        }
+      }
+      
+      .page-subtitle {
+        color: rgba(255,255,255,0.85);
+        font-size: 1.15rem;
+        line-height: 1.8;
+        font-weight: 300;
+        max-width: 600px;
+        margin: 0 auto;
+        font-family: $font-primary !important;
+        
+        @media (max-width: 576px) {
+          font-size: 0.95rem;
+        }
+      }
+    }
+  }
+}
 
 // =========================
 // BOOKING SECTION
@@ -23,6 +253,10 @@ $red: #ef4444;
   @media (max-width: 768px) {
     padding: 40px 0 60px;
   }
+  
+  @media (max-width: 480px) {
+    padding: 20px 0 40px;
+  }
 }
 
 .booking-card {
@@ -33,6 +267,10 @@ $red: #ef4444;
   padding: 40px 36px;
   border: 1px solid rgba($gold, 0.1);
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+  
+  @media (max-width: 768px) {
+    padding: 32px 28px;
+  }
   
   @media (max-width: 480px) {
     padding: 24px 16px;
@@ -57,6 +295,7 @@ $red: #ef4444;
       text-transform: uppercase;
       letter-spacing: 0.8px;
       margin-bottom: 6px;
+      font-family: $font-primary !important;
 
       ion-icon {
         font-size: 16px;
@@ -93,7 +332,7 @@ $red: #ef4444;
     border-radius: 12px;
     color: $white;
     font-size: 15px;
-    font-family: Verdana, Geneva, sans-serif !important;
+    font-family: $font-primary !important;
     appearance: none;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -151,7 +390,7 @@ $red: #ef4444;
     border-radius: 12px;
     color: $white;
     font-size: 15px;
-    font-family: Verdana, Geneva, sans-serif !important;
+    font-family: $font-primary !important;
     transition: all 0.3s ease;
     cursor: pointer;
 
@@ -286,8 +525,9 @@ $red: #ef4444;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  font-family: Verdana, Geneva, sans-serif !important;
+  font-family: $font-primary !important;
   margin-top: 8px;
+  box-shadow: 0 4px 25px rgba($gold, 0.25);
 
   ion-icon {
     font-size: 22px;
@@ -295,8 +535,8 @@ $red: #ef4444;
 
   &:hover {
     background: linear-gradient(135deg, $gold-light, $gold);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba($gold, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 35px rgba($gold, 0.35);
   }
 
   &:active {
@@ -311,17 +551,18 @@ $red: #ef4444;
   .summary-icon {
     width: 72px;
     height: 72px;
-    background: rgba(52, 211, 153, 0.12);
+    background: rgba($green, 0.12);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 16px;
-    border: 1px solid rgba(52, 211, 153, 0.2);
+    border: 1px solid rgba($green, 0.2);
+    animation: scaleIn 0.5s ease;
 
     ion-icon {
       font-size: 36px;
-      color: #34d399;
+      color: $green;
     }
   }
 
@@ -389,7 +630,7 @@ $red: #ef4444;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      font-family: Verdana, Geneva, sans-serif !important;
+      font-family: $font-primary !important;
 
       ion-icon {
         font-size: 18px;
@@ -397,6 +638,11 @@ $red: #ef4444;
 
       &:hover {
         background: rgba(255, 255, 255, 0.08);
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: scale(0.97);
       }
     }
 
@@ -414,7 +660,7 @@ $red: #ef4444;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      font-family: Verdana, Geneva, sans-serif !important;
+      font-family: $font-primary !important;
       box-shadow: 0 4px 20px rgba(37, 211, 102, 0.25);
 
       ion-icon {
@@ -422,8 +668,12 @@ $red: #ef4444;
       }
 
       &:hover:not(:disabled) {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 30px rgba(37, 211, 102, 0.35);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 35px rgba(37, 211, 102, 0.35);
+      }
+
+      &:active:not(:disabled) {
+        transform: scale(0.97);
       }
 
       &:disabled {
@@ -431,6 +681,20 @@ $red: #ef4444;
         cursor: not-allowed;
       }
     }
+  }
+}
+
+// =========================
+// KEYFRAMES
+// =========================
+@keyframes scaleIn {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 
@@ -449,10 +713,97 @@ $red: #ef4444;
   .check-btn {
     font-size: 15px;
     padding: 14px;
+    
+    ion-icon {
+      font-size: 20px;
+    }
   }
   
   .send-btn {
     font-size: 15px;
     padding: 14px;
+    
+    ion-icon {
+      font-size: 20px;
+    }
   }
+  
+  .edit-btn {
+    font-size: 13px;
+    padding: 10px;
+  }
+  
+  .summary-details {
+    padding: 12px 14px;
+    
+    .summary-item {
+      padding: 8px 0;
+      
+      .summary-label,
+      .summary-value {
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+// =========================
+// SCROLL FIX
+// =========================
+:host {
+  display: block !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  overflow-y: auto !important;
+}
+
+ion-content {
+  contain: none !important;
+  --overflow: auto !important;
+  overflow-y: auto !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  display: block !important;
+  position: relative !important;
+  
+  &::part(scroll) {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    height: 100% !important;
+    min-height: 100vh !important;
+    display: block !important;
+  }
+}
+
+// =========================
+// REMOVE SCROLLBAR
+// =========================
+:host ::-webkit-scrollbar,
+ion-content ::-webkit-scrollbar,
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+:host ::-webkit-scrollbar-track,
+ion-content ::-webkit-scrollbar-track,
+::-webkit-scrollbar-track {
+  display: none !important;
+  background: transparent !important;
+}
+
+:host ::-webkit-scrollbar-thumb,
+ion-content ::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb {
+  display: none !important;
+  background: transparent !important;
+}
+
+:host,
+ion-content,
+* {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
 }

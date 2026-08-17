@@ -21,8 +21,9 @@
         <a routerLink="/contact" routerLinkActive="is-active" class="nav__link">Contact</a>
       </nav>
 
-      <a class="btn-whatsapp desktop-only" (click)="openWhatsApp()">
-        <ion-icon name="logo-whatsapp"></ion-icon>
+      <!-- UPDATED: Booking Button instead of WhatsApp -->
+      <a routerLink="/booking" class="btn-booking desktop-only">
+        <ion-icon name="calendar-outline"></ion-icon>
         <span class="btn-text">Check Availability</span>
       </a>
     </div>
@@ -42,7 +43,7 @@
   </div>
   
   <div class="mobile-nav-brand">
-    <span class="mobile-brand-text">TIAH</span>
+    <span class="mobile-brand-text">La <span class="mobile-brand-gold">Tiah</span></span>
     <span class="mobile-brand-tagline">The Ideal Accommodation Haven</span>
   </div>
   
@@ -70,21 +71,22 @@
     
     <div class="mobile-divider"></div>
     
-    <a class="mobile-cta" (click)="openWhatsApp(); closeMobileNav()">
-      <ion-icon name="logo-whatsapp"></ion-icon>
+    <!-- UPDATED: Mobile CTA now links to booking page -->
+    <a routerLink="/booking" class="mobile-cta" (click)="closeMobileNav()">
+      <ion-icon name="calendar-outline"></ion-icon>
       Check Availability
     </a>
   </div>
   
   <div class="mobile-nav-footer">
-    <p>&copy; 2026 stay@tiah</p>
+    <p>&copy; 2026 La Tiah</p>
   </div>
 </div>
 
 <!-- ============================================= -->
 <!-- ✅ ION-CONTENT WITH FULL SCROLLING -->
 <!-- ============================================= -->
-<ion-content [fullscreen]="true" (ionScroll)="onScroll($event)">
+<ion-content [fullscreen]="true" (ionScroll)="onScroll($event)" class="no-scrollbar" [scrollEvents]="true">
   
   <!-- ================= PAGE HEADER ================= -->
   <section class="page-header">
@@ -348,10 +350,11 @@
             </div>
             
             <div class="form-actions">
-              <button type="submit" class="btn-primary" [disabled]="isSubmitting">
-                <ion-icon name="logo-whatsapp"></ion-icon>
-                {{ isSubmitting ? 'Sending...' : 'Check Availability on WhatsApp' }}
-              </button>
+              <!-- UPDATED: Form submit button now links to booking page -->
+              <a routerLink="/booking" class="btn-primary">
+                <ion-icon name="calendar-outline"></ion-icon>
+                Check Availability
+              </a>
               <span class="required-note"><span class="required">*</span> Required fields</span>
             </div>
           </form>
@@ -431,8 +434,9 @@
         <div class="footer-column animate-fade-up">
           <h4>Book Your Stay</h4>
           <p>Ready for your Durban getaway?</p>
-          <a (click)="openWhatsApp()" class="btn-gold">
-            <ion-icon name="logo-whatsapp"></ion-icon>
+          <!-- UPDATED: Footer button now links to booking page -->
+          <a routerLink="/booking" class="btn-gold">
+            <ion-icon name="calendar-outline"></ion-icon>
             Check Availability
           </a>
           <div class="footer-contact">
@@ -441,7 +445,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2026 La tiah. All Rights Reserved.</p>
+        <p>&copy; 2026 La Tiah. All Rights Reserved.</p>
         <p>The Ideal Accommodation Haven</p>
       </div>
     </div>
