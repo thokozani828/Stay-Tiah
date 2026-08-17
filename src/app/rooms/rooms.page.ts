@@ -1,8 +1,7 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, ViewChild, OnInit, OnDestroy, Renderer2, ElementRef } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, ViewChild, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule, IonContent, Platform } from '@ionic/angular';
-import { RouterModule, Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { IonicModule, IonContent } from '@ionic/angular';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-rooms',
@@ -16,7 +15,7 @@ import { filter } from 'rxjs/operators';
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class RoomsPage implements OnInit, OnDestroy {
+export class RoomsPage implements OnInit {
 
   @ViewChild(IonContent, { static: false }) content!: IonContent;
 
@@ -25,12 +24,7 @@ export class RoomsPage implements OnInit, OnDestroy {
   // ==========================================
   mobileNavOpen: boolean = false;
   isScrolled: boolean = false;
-  isMobile: boolean = false;
   activeLocation: string = 'all';
-  private originalOverflow: string = '';
-  private originalPosition: string = '';
-  private originalWidth: string = '';
-  private originalHeight: string = '';
 
   // ==========================================
   // FALLBACK IMAGE
@@ -246,65 +240,12 @@ export class RoomsPage implements OnInit, OnDestroy {
     return this.allRooms.filter(room => room.locationType === this.activeLocation);
   }
 
-  constructor(
-    private router: Router,
-    private platform: Platform,
-    private renderer: Renderer2,
-    private el: ElementRef
-  ) {
-    // Track navigation to know where the user came from
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
-      // Store the previous URL for back navigation
-      const url = event.urlAfterRedirects || event.url;
-    });
-  }
+  constructor(private router: Router) {}
 
   // ==========================================
   // LIFECYCLE HOOKS
   // ==========================================
-  ngOnInit() {
-    // Check if mobile device
-    this.isMobile = this.platform.is('mobile') || this.platform.is('mobileweb') || window.innerWidth < 992;
-    
-    // Prevent swipe to open nav on iOS
-    this.preventSwipeToOpenNav();
-  }
-
-  ngOnDestroy(): void {
-    this.restoreScroll();
-    this.restoreBodyStyles();
-  }
-
-  // ==========================================
-  // PREVENT SWIPE TO OPEN NAV
-  // ==========================================
-  private preventSwipeToOpenNav(): void {
-    // Disable iOS Safari swipe back gesture that can trigger nav
-    if (this.platform.is('ios')) {
-      const ionContent = this.el.nativeElement.querySelector('ion-content');
-      if (ionContent) {
-        ionContent.addEventListener('touchstart', (e: TouchEvent) => {
-          const touch = e.touches[0];
-          if (touch.clientX < 30) {
-            e.preventDefault();
-          }
-        }, { passive: false });
-      }
-    }
-
-    // Prevent overscroll behavior that can trigger nav
-    document.addEventListener('touchmove', (e: TouchEvent) => {
-      const target = e.target as HTMLElement;
-      if (target.closest('ion-content') || target.closest('ion-app')) {
-        const touch = e.touches[0];
-        if (touch.clientX < 20) {
-          e.preventDefault();
-        }
-      }
-    }, { passive: false });
-  }
+  ngOnInit() {}
 
   // ==========================================
   // WINDOW SCROLL LISTENER
@@ -312,27 +253,6 @@ export class RoomsPage implements OnInit, OnDestroy {
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.isScrolled = window.scrollY > 50;
-  }
-
-  // ==========================================
-  // WINDOW RESIZE LISTENER
-  // ==========================================
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    this.isMobile = window.innerWidth < 992;
-  }
-
-  // ==========================================
-  // BACK BUTTON HANDLING
-  // ==========================================
-  @HostListener('window:popstate', ['$event'])
-  onPopState(event: PopStateEvent) {
-    const historyLength = window.history.length;
-    if (historyLength > 1) {
-      window.history.back();
-    } else {
-      this.router.navigate(['/home']);
-    }
   }
 
   // ==========================================
@@ -359,69 +279,27 @@ export class RoomsPage implements OnInit, OnDestroy {
   // NAVIGATION METHODS
   // ==========================================
   goToHome() {
-    this.closeMobileNav();
-    this.router.navigate(['/home'], { replaceUrl: true });
+    this.router.navigate(['/home']);
   }
 
   // ==========================================
   // VIEW ROOM DETAIL
   // ==========================================
   viewRoomDetail(roomId: number) {
-    this.closeMobileNav();
     this.router.navigate(['/room-detail'], { queryParams: { roomId: roomId } });
   }
 
   // ==========================================
-  // MOBILE NAVIGATION - IMPROVED
+  // MOBILE NAVIGATION
   // ==========================================
   toggleMobileNav(): void {
     this.mobileNavOpen = !this.mobileNavOpen;
-    
-    if (this.mobileNavOpen) {
-      // Store original styles
-      this.originalOverflow = document.body.style.overflow || '';
-      this.originalPosition = document.body.style.position || '';
-      this.originalWidth = document.body.style.width || '';
-      this.originalHeight = document.body.style.height || '';
-      
-      // Lock body scroll
-      document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.width = '100%';
-      document.body.style.height = '100%';
-      document.documentElement.style.overflow = 'hidden';
-      
-      // Prevent iOS swipe
-      if (this.platform.is('ios')) {
-        document.body.style.touchAction = 'none';
-      }
-      
-      document.body.classList.add('nav-open');
-    } else {
-      this.closeMobileNav();
-    }
+    document.body.style.overflow = this.mobileNavOpen ? 'hidden' : '';
   }
 
   closeMobileNav(): void {
     this.mobileNavOpen = false;
-    this.restoreBodyStyles();
-    this.restoreScroll();
-    document.body.classList.remove('nav-open');
-    
-    if (this.platform.is('ios')) {
-      document.body.style.touchAction = '';
-    }
-  }
-
-  private restoreScroll(): void {
-    document.body.style.overflow = this.originalOverflow || '';
-    document.documentElement.style.overflow = this.originalOverflow || '';
-  }
-
-  private restoreBodyStyles(): void {
-    document.body.style.position = this.originalPosition || '';
-    document.body.style.width = this.originalWidth || '';
-    document.body.style.height = this.originalHeight || '';
+    document.body.style.overflow = '';
   }
 
   // ==========================================
@@ -443,13 +321,13 @@ export class RoomsPage implements OnInit, OnDestroy {
 
   // General WhatsApp - for header, footer, floating button
   openWhatsApp() {
-    const message = 'Hello la tiah, I would like to enquire about room availability and pricing.';
+    const message = 'Hello STAY@TIAH, I would like to enquire about room availability and pricing.';
     this.sendWhatsAppMessage(message);
   }
 
   // WhatsApp for a specific room enquiry
   openWhatsAppForRoom(room: any) {
-    const message = `Hello la tiah, I'm interested in the "${room.name}" located at ${room.location}. Can you please provide more information about availability, pricing, and booking options?`;
+    const message = `Hello STAY@TIAH, I'm interested in the "${room.name}" located at ${room.location}. Can you please provide more information about availability, pricing, and booking options?`;
     this.sendWhatsAppMessage(message);
   }
 
@@ -457,7 +335,7 @@ export class RoomsPage implements OnInit, OnDestroy {
   openWhatsAppForRoomDetail(roomId: number) {
     const room = this.allRooms.find(r => r.id === roomId);
     if (room) {
-      const message = `Hello la tiah, I'm interested in the "${room.name}" located at ${room.location}. I would like to enquire about availability and rates.`;
+      const message = `Hello STAY@TIAH, I'm interested in the "${room.name}" located at ${room.location}. I would like to enquire about availability and rates.`;
       this.sendWhatsAppMessage(message);
     } else {
       this.openWhatsApp();
@@ -466,31 +344,31 @@ export class RoomsPage implements OnInit, OnDestroy {
 
   // WhatsApp for location enquiry
   openWhatsAppForLocation(location: string) {
-    const message = `Hello la tiah, I'm interested in staying at your ${location} location. Can you please provide more information about availability and rates?`;
+    const message = `Hello STAY@TIAH, I'm interested in staying at your ${location} location. Can you please provide more information about availability and rates?`;
     this.sendWhatsAppMessage(message);
   }
 
   // WhatsApp for CTA section
   openWhatsAppForCTA() {
-    const message = 'Hello la tiah, I would like to book my stay. Can you please check availability and provide pricing?';
+    const message = 'Hello STAY@TIAH, I would like to book my stay. Can you please check availability and provide pricing?';
     this.sendWhatsAppMessage(message);
   }
 
   // WhatsApp for contact page
   openWhatsAppForContact() {
-    const message = 'Hello la tiah, I would like to get in touch regarding your accommodation.';
+    const message = 'Hello STAY@TIAH, I would like to get in touch regarding your accommodation.';
     this.sendWhatsAppMessage(message);
   }
 
   // WhatsApp for attractions
   openWhatsAppForAttractions() {
-    const message = 'Hello la tiah, I would like to enquire about attractions near your accommodation.';
+    const message = 'Hello STAY@TIAH, I would like to enquire about attractions near your accommodation.';
     this.sendWhatsAppMessage(message);
   }
 
   // WhatsApp for about page
   openWhatsAppForAbout() {
-    const message = 'Hello la tiah, I would like to learn more about your accommodation options.';
+    const message = 'Hello STAY@TIAH, I would like to learn more about your accommodation options.';
     this.sendWhatsAppMessage(message);
   }
 }
