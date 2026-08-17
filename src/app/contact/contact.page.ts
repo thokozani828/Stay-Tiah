@@ -1,8 +1,10 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, ViewChild, HostListener, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ViewChild, HostListener, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
+import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-contact',
@@ -17,15 +19,35 @@ import { FormsModule, NgForm } from '@angular/forms';
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ContactPage implements OnInit {
+export class ContactPage implements OnInit, OnDestroy {
 
   @ViewChild('contactForm') contactForm!: NgForm;
+
+  // ==========================================
+  // SPLASH SCREEN STATE
+  // ==========================================
+  splashHidden: boolean = false;
 
   // ==========================================
   // NAVIGATION STATE
   // ==========================================
   mobileNavOpen: boolean = false;
   isScrolled: boolean = false;
+  private originalOverflow: string = '';
+
+  // ==========================================
+  // PAGE TRANSITION STATE
+  // ==========================================
+  isTransitioning: boolean = false;
+  private transitionTimeout: any;
+  private routerSubscription: Subscription | null = null;
+
+  // ==========================================
+  // ROUTE HISTORY FOR BACK NAVIGATION
+  // ==========================================
+  currentRoute: string = '/contact';
+  private routeHistory: string[] = ['/home', '/contact'];
+  private isNavigatingBack: boolean = false;
 
   // ==========================================
   // FORM DATA - Updated with availability fields
@@ -39,8 +61,8 @@ export class ContactPage implements OnInit {
     guests: '',
     subject: '',
     message: '',
-    property: '', // Added property field
-    category: ''  // Added category field
+    property: '',
+    category: ''
   };
 
   // ==========================================
@@ -80,43 +102,68 @@ export class ContactPage implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
+    // Hide splash screen after 2.5 seconds
+    setTimeout(() => {
+      this.splashHidden = true;
+    }, 2500);
+
     // Set today's date for validation
     const today = new Date();
     this.todayDate = today.toISOString().split('T')[0];
     this.minCheckOutDate = this.todayDate;
+
+    // Track route changes for back navigation
+    this.routerSubscription = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      const url = event.urlAfterRedirects;
+      this.currentRoute = url;
+      
+      if (!this.isNavigatingBack) {
+        if (this.routeHistory.length === 0 || this.routeHistory[this.routeHistory.length - 1] !== url) {
+          this.routeHistory.push(url);
+        }
+      }
+      
+      this.isNavigatingBack = false;
+    });
+  }
+
+  ngOnDestroy() {
+    this.restoreScroll();
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
+    if (this.transitionTimeout) {
+      clearTimeout(this.transitionTimeout);
+    }
   }
 
   // ==========================================
   // DATE VALIDATION METHODS
   // ==========================================
   
-  // Called when check-in date changes
   onCheckInChange() {
     if (this.contactData.checkIn) {
-      // Set min checkout date to check-in date + 1 day
       const checkInDate = new Date(this.contactData.checkIn);
       const nextDay = new Date(checkInDate);
       nextDay.setDate(checkInDate.getDate() + 1);
       this.minCheckOutDate = nextDay.toISOString().split('T')[0];
       
-      // If checkout date is before the new minimum, clear it
       if (this.contactData.checkOut && this.contactData.checkOut < this.minCheckOutDate) {
         this.contactData.checkOut = '';
         this.checkOutError = false;
         this.dateError = '';
       }
       
-      // Validate the date
       this.validateDates();
     }
   }
 
-  // Called when check-out date changes
   onCheckOutChange() {
     this.validateDates();
   }
 
-  // Validate date logic
   validateDates() {
     this.dateError = '';
     
@@ -124,7 +171,6 @@ export class ContactPage implements OnInit {
       const checkIn = new Date(this.contactData.checkIn);
       const checkOut = new Date(this.contactData.checkOut);
       
-      // Check if check-out is after check-in
       if (checkOut <= checkIn) {
         this.dateError = 'Check-out date must be after check-in date';
         this.checkOutError = true;
@@ -135,7 +181,6 @@ export class ContactPage implements OnInit {
     }
   }
 
-  // Check if date is in the past
   isPastDate(dateStr: string): boolean {
     if (!dateStr) return false;
     const selectedDate = new Date(dateStr);
@@ -150,6 +195,82 @@ export class ContactPage implements OnInit {
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.isScrolled = window.scrollY > 50;
+  }
+
+  // ==========================================
+  // NAVIGATION METHODS WITH TRANSITIONS
+  // ==========================================
+
+  /**
+   * Handle navigation with page transition animation
+   */
+  onNavClick(route: string) {
+    if (this.currentRoute === route || this.isTransitioning) return;
+    
+    this.closeMobileNav();
+    this.startTransition();
+    
+    setTimeout(() => {
+      this.router.navigate([route]);
+      setTimeout(() => {
+        this.endTransition();
+      }, 300);
+    }, 400);
+  }
+
+  /**
+   * Navigate to booking page
+   */
+  navigateToBooking() {
+    this.onNavClick('/booking');
+  }
+
+  /**
+   * Smart back navigation - goes back to previous page
+   */
+  goBack() {
+    if (this.isNavigatingBack || this.isTransitioning) return;
+    
+    if (this.currentRoute === '/home') {
+      return;
+    }
+    
+    if (this.routeHistory.length > 1) {
+      this.isNavigatingBack = true;
+      this.routeHistory.pop();
+      const previousPage = this.routeHistory[this.routeHistory.length - 1];
+      
+      if (previousPage && previousPage !== this.currentRoute) {
+        this.startTransition();
+        setTimeout(() => {
+          this.router.navigate([previousPage]);
+          setTimeout(() => {
+            this.endTransition();
+          }, 300);
+        }, 400);
+      } else {
+        window.history.back();
+        this.isNavigatingBack = false;
+      }
+    } else {
+      window.history.back();
+    }
+  }
+
+  /**
+   * Start page transition animation
+   */
+  private startTransition() {
+    this.isTransitioning = true;
+    document.body.classList.add('page-transitioning');
+  }
+
+  /**
+   * End page transition animation
+   */
+  private endTransition() {
+    this.isTransitioning = false;
+    document.body.classList.remove('page-transitioning');
   }
 
   // ==========================================
@@ -170,85 +291,102 @@ export class ContactPage implements OnInit {
   // =========================
   toggleMobileNav() {
     this.mobileNavOpen = !this.mobileNavOpen;
+    
     if (this.mobileNavOpen) {
+      this.originalOverflow = document.body.style.overflow || '';
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = '';
+      this.restoreScroll();
     }
   }
 
   closeMobileNav() {
     this.mobileNavOpen = false;
-    document.body.style.overflow = '';
+    this.restoreScroll();
+  }
+
+  private restoreScroll() {
+    document.body.style.overflow = this.originalOverflow || '';
+    document.documentElement.style.overflow = this.originalOverflow || '';
   }
 
   // =========================
   // NAVIGATION FUNCTIONS
   // =========================
   goToHome() {
-    this.router.navigate(['/home']);
+    if (this.currentRoute === '/home') return;
+    this.onNavClick('/home');
   }
 
   goToAbout() {
-    this.router.navigate(['/about']);
+    this.onNavClick('/about');
   }
 
   goToRooms() {
-    this.router.navigate(['/rooms']);
+    this.onNavClick('/rooms');
   }
 
   goToAttractions() {
-    this.router.navigate(['/attractions']);
+    this.onNavClick('/attractions');
   }
 
   goToContact() {
-    this.router.navigate(['/contact']);
+    this.onNavClick('/contact');
   }
 
   // =========================
-  // WHATSAPP - Dynamic Messages Based on Context
+  // WHATSAPP - Now redirects to Booking
   // =========================
 
-  // Core WhatsApp sender
+  /**
+   * Core WhatsApp sender - Now navigates to booking
+   */
   private sendWhatsAppMessage(message: string) {
-    const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/${this.whatsappNumber}?text=${encodedMessage}`, '_blank');
+    // Redirect to booking page instead of WhatsApp
+    this.navigateToBooking();
   }
 
-  // General WhatsApp - for header, footer, floating button
+  /**
+   * General WhatsApp - redirects to booking
+   */
   openWhatsApp() {
-    const message = 'Hello STAY@TIAH, I would like to make a booking enquiry.';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
-  // WhatsApp for contact page
+  /**
+   * WhatsApp for contact page
+   */
   openWhatsAppForContact() {
-    const message = 'Hello STAY@TIAH, I would like to get in touch regarding your accommodation.';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
-  // WhatsApp for rooms enquiry
+  /**
+   * WhatsApp for rooms enquiry
+   */
   openWhatsAppForRooms() {
-    const message = 'Hello STAY@TIAH, I would like to enquire about your rooms and availability.';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
-  // WhatsApp for rates enquiry
+  /**
+   * WhatsApp for rates enquiry
+   */
   openWhatsAppForRates() {
-    const message = 'Hello STAY@TIAH, I would like to enquire about your rates and pricing.';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
-  // WhatsApp for attractions enquiry
+  /**
+   * WhatsApp for attractions enquiry
+   */
   openWhatsAppForAttractions() {
-    const message = 'Hello STAY@TIAH, I would like to enquire about attractions near your accommodation.';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
-  // WhatsApp for about page
+  /**
+   * WhatsApp for about page
+   */
   openWhatsAppForAbout() {
-    const message = 'Hello STAY@TIAH, I would like to learn more about your accommodation options.';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
   // =========================
@@ -259,7 +397,6 @@ export class ContactPage implements OnInit {
     return emailRegex.test(email);
   }
 
-  // Field focus handlers
   onFieldFocus(fieldName: string) {
     this.focusedField = fieldName;
     setTimeout(() => {
@@ -273,7 +410,6 @@ export class ContactPage implements OnInit {
   onFieldBlur(fieldName: string) {
     this.focusedField = '';
     
-    // Mark as touched when blurred
     if (fieldName === 'name') this.nameTouched = true;
     if (fieldName === 'email') this.emailTouched = true;
     if (fieldName === 'checkIn') this.checkInTouched = true;
@@ -282,7 +418,6 @@ export class ContactPage implements OnInit {
     if (fieldName === 'subject') this.subjectTouched = true;
     if (fieldName === 'message') this.messageTouched = true;
     
-    // Validate on blur
     this.validateField(fieldName);
   }
 
@@ -312,7 +447,6 @@ export class ContactPage implements OnInit {
     }
   }
 
-  // Check if field should show error
   shouldShowError(fieldName: string): boolean {
     switch(fieldName) {
       case 'name':
@@ -335,7 +469,7 @@ export class ContactPage implements OnInit {
   }
 
   // =========================
-  // SUBMIT FORM - SEND TO WHATSAPP
+  // SUBMIT FORM - Send to WhatsApp
   // =========================
   submitContactForm() {
     // Mark all fields as touched
@@ -366,13 +500,11 @@ export class ContactPage implements OnInit {
     this.validateField('subject');
     this.validateField('message');
     
-    // Validate date logic
     this.validateDates();
 
     // Check if form is valid
     if (this.nameError || this.emailError || this.checkInError || this.checkOutError || 
         this.guestsError || this.subjectError || this.messageError || this.dateError) {
-      // Scroll to first error field
       const firstError = document.querySelector('.input-wrapper.error');
       if (firstError) {
         firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -386,10 +518,10 @@ export class ContactPage implements OnInit {
 
     this.isSubmitting = true;
 
-    // Format message for WhatsApp with new style
+    // Format message for WhatsApp
     const message = this.formatWhatsAppMessage(this.contactData);
     
-    // Use the whatsappNumber variable
+    // Send to WhatsApp
     window.open(`https://wa.me/${this.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
     
     // Reset form after submission
@@ -400,10 +532,9 @@ export class ContactPage implements OnInit {
   }
 
   // =========================
-  // FORMAT WHATSAPP MESSAGE - New Professional Format
+  // FORMAT WHATSAPP MESSAGE
   // =========================
   private formatWhatsAppMessage(data: any): string {
-    // Get current date and time
     const now = new Date();
     const dateStr = now.toLocaleDateString('en-ZA', {
       year: 'numeric',
@@ -415,7 +546,6 @@ export class ContactPage implements OnInit {
       minute: '2-digit'
     });
 
-    // Format check-in and check-out dates
     const checkInDate = data.checkIn ? new Date(data.checkIn).toLocaleDateString('en-ZA', {
       day: 'numeric',
       month: 'short',
@@ -428,18 +558,15 @@ export class ContactPage implements OnInit {
       year: 'numeric'
     }) : 'Not specified';
 
-    // Calculate number of nights
     let nights = '';
-    let nightsCount = 0;
     if (data.checkIn && data.checkOut) {
       const diff = new Date(data.checkOut).getTime() - new Date(data.checkIn).getTime();
-      nightsCount = Math.ceil(diff / (1000 * 60 * 60 * 24));
+      const nightsCount = Math.ceil(diff / (1000 * 60 * 60 * 24));
       nights = nightsCount > 0 ? `${nightsCount} Night${nightsCount > 1 ? 's' : ''}` : '1 Night';
     }
 
     const guestsLabel = data.guests ? `${data.guests}` : 'Not specified';
 
-    // Get subject label
     const subjectMap: { [key: string]: string } = {
       'availability': '📅 Availability Check',
       'booking': '🏨 Booking Enquiry',
@@ -449,7 +576,6 @@ export class ContactPage implements OnInit {
     };
     const subjectLabel = subjectMap[data.subject] || data.subject || 'General Enquiry';
 
-    // Build the professional message
     const divider = '──────────────────────────────────';
     const topDivider = '┌──────────────────────────────────┐';
     const bottomDivider = '└──────────────────────────────────┘';

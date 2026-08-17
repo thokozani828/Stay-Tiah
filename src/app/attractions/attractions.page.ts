@@ -1,7 +1,9 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, ViewChild } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule, IonContent } from '@ionic/angular';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-attractions',
@@ -15,16 +17,44 @@ import { RouterModule, Router } from '@angular/router';
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AttractionsPage {
+export class AttractionsPage implements OnInit, OnDestroy {
 
   @ViewChild(IonContent, { static: false }) content!: IonContent;
 
-  // Mobile navigation state
+  // ==========================================
+  // SPLASH SCREEN STATE
+  // ==========================================
+  splashHidden: boolean = false;
+
+  // ==========================================
+  // NAVIGATION STATE
+  // ==========================================
   mobileNavOpen: boolean = false;
   isScrolled: boolean = false;
+  private originalOverflow: string = '';
+
+  // ==========================================
+  // PAGE TRANSITION STATE
+  // ==========================================
+  isTransitioning: boolean = false;
+  private transitionTimeout: any;
+  private routerSubscription: Subscription | null = null;
+
+  // ==========================================
+  // ROUTE HISTORY FOR BACK NAVIGATION
+  // ==========================================
+  currentRoute: string = '/attractions';
+  private routeHistory: string[] = ['/home', '/attractions'];
+  private isNavigatingBack: boolean = false;
+
+  // ==========================================
+  // FILTER STATE
+  // ==========================================
   activeFilter: string = 'all';
 
-  // WhatsApp number
+  // ==========================================
+  // WHATSAPP NUMBER
+  // ==========================================
   private readonly whatsappNumber: string = '27849009821';
 
   // Locations data
@@ -297,11 +327,10 @@ export class AttractionsPage {
       lat: -29.7200,
       lng: 31.0750
     },
-    // ===================== NEW: PHEZULU & VALLEY OF A THOUSAND HILLS =====================
     {
       id: 23,
       name: 'Phezulu Safari Park',
-      description: 'Experience authentic African wildlife at Phezulu Safari Park. Home to lions, crocodiles, and a variety of antelope species. Enjoy traditional Zulu dancing and cultural performances.',
+      description: 'Experience authentic African wildlife at Phezulu Safari Park. Home to lions, crocodiles, and a variety of antelope species.',
       image: 'https://imgs.search.brave.com/4ymukdWPXf6ASXNRBX9fydcW4-JJ678stuh3XYgpZmw/rs:fit:0:180:1:0/g:ce/aHR0cHM6Ly93d3cu/c2EtdmVudWVzLmNv/bS92aXNpdC9waGV6/dWx1c2FmYXJpcGFy/ay8wMW0uanBn',
       category: 'nature',
       distance: '35 km',
@@ -316,7 +345,7 @@ export class AttractionsPage {
     {
       id: 24,
       name: 'Valley of a Thousand Hills',
-      description: 'A breathtaking scenic valley offering panoramic views of the rolling hills and lush green landscapes. Perfect for hiking, photography, and experiencing the beauty of KwaZulu-Natal.',
+      description: 'A breathtaking scenic valley offering panoramic views of the rolling hills and lush green landscapes.',
       image: 'https://imgs.search.brave.com/JSt9gqP-vGjrMUuJlrMg_xoQWzCLRQk2Ghp1y_cWpQI/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9zY2Vu/aWMtdmFsbGV5cy10/aG91c2FuZC1oaWxs/cy16dWx1LWhvbWVz/LW1pc3QtcnVnZ2Vk/LWJ1c2gtdGVycmFp/bi1tb3JuaW5nLWNs/b3VkLXJpc2luZy1v/dmVyLWxhbmRzY2Fw/ZS0xNDA0NzE4Mjcu/anBn',
       category: 'nature',
       distance: '40 km',
@@ -328,8 +357,6 @@ export class AttractionsPage {
       lat: -29.7350,
       lng: 30.7900
     },
-
-    // ===================== MORE ATTRACTIONS =====================
     {
       id: 19,
       name: 'Durban Harbour',
@@ -403,11 +430,124 @@ export class AttractionsPage {
   constructor(private router: Router) {}
 
   // ==========================================
+  // LIFECYCLE HOOKS
+  // ==========================================
+
+  ngOnInit() {
+    // Hide splash screen after 2.5 seconds
+    setTimeout(() => {
+      this.splashHidden = true;
+    }, 2500);
+
+    // Track route changes for back navigation
+    this.routerSubscription = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      const url = event.urlAfterRedirects;
+      this.currentRoute = url;
+      
+      if (!this.isNavigatingBack) {
+        if (this.routeHistory.length === 0 || this.routeHistory[this.routeHistory.length - 1] !== url) {
+          this.routeHistory.push(url);
+        }
+      }
+      
+      this.isNavigatingBack = false;
+    });
+  }
+
+  ngOnDestroy() {
+    this.restoreScroll();
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
+    if (this.transitionTimeout) {
+      clearTimeout(this.transitionTimeout);
+    }
+  }
+
+  // ==========================================
   // WINDOW SCROLL LISTENER
   // ==========================================
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.isScrolled = window.scrollY > 50;
+  }
+
+  // ==========================================
+  // NAVIGATION METHODS WITH TRANSITIONS
+  // ==========================================
+
+  /**
+   * Handle navigation with page transition animation
+   */
+  onNavClick(route: string) {
+    if (this.currentRoute === route || this.isTransitioning) return;
+    
+    this.closeMobileNav();
+    this.startTransition();
+    
+    setTimeout(() => {
+      this.router.navigate([route]);
+      setTimeout(() => {
+        this.endTransition();
+      }, 300);
+    }, 400);
+  }
+
+  /**
+   * Navigate to booking page
+   */
+  navigateToBooking() {
+    this.onNavClick('/booking');
+  }
+
+  /**
+   * Smart back navigation - goes back to previous page
+   */
+  goBack() {
+    if (this.isNavigatingBack || this.isTransitioning) return;
+    
+    if (this.currentRoute === '/home') {
+      return;
+    }
+    
+    if (this.routeHistory.length > 1) {
+      this.isNavigatingBack = true;
+      this.routeHistory.pop();
+      const previousPage = this.routeHistory[this.routeHistory.length - 1];
+      
+      if (previousPage && previousPage !== this.currentRoute) {
+        this.startTransition();
+        setTimeout(() => {
+          this.router.navigate([previousPage]);
+          setTimeout(() => {
+            this.endTransition();
+          }, 300);
+        }, 400);
+      } else {
+        window.history.back();
+        this.isNavigatingBack = false;
+      }
+    } else {
+      window.history.back();
+    }
+  }
+
+  /**
+   * Start page transition animation
+   */
+  private startTransition() {
+    this.isTransitioning = true;
+    document.body.classList.add('page-transitioning');
+  }
+
+  /**
+   * End page transition animation
+   */
+  private endTransition() {
+    this.isTransitioning = false;
+    document.body.classList.remove('page-transitioning');
   }
 
   // ==========================================
@@ -428,103 +568,123 @@ export class AttractionsPage {
   // =========================
   toggleMobileNav() {
     this.mobileNavOpen = !this.mobileNavOpen;
+    
     if (this.mobileNavOpen) {
+      this.originalOverflow = document.body.style.overflow || '';
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = '';
+      this.restoreScroll();
     }
   }
 
   closeMobileNav() {
     this.mobileNavOpen = false;
-    document.body.style.overflow = '';
+    this.restoreScroll();
+  }
+
+  private restoreScroll() {
+    document.body.style.overflow = this.originalOverflow || '';
+    document.documentElement.style.overflow = this.originalOverflow || '';
   }
 
   // =========================
   // NAVIGATION FUNCTIONS
   // =========================
   goToHome() {
-    this.router.navigate(['/home']);
+    if (this.currentRoute === '/home') return;
+    this.onNavClick('/home');
   }
 
   goToAbout() {
-    this.router.navigate(['/about']);
+    this.onNavClick('/about');
   }
 
   goToRooms() {
-    this.router.navigate(['/rooms']);
+    this.onNavClick('/rooms');
   }
 
   goToAttractions() {
-    this.router.navigate(['/attractions']);
+    this.onNavClick('/attractions');
   }
 
   goToContact() {
-    this.router.navigate(['/contact']);
+    this.onNavClick('/contact');
   }
 
   // =========================
-  // WHATSAPP - Dynamic Messages Based on Context
+  // WHATSAPP - Now redirects to Booking
   // =========================
 
-  // Core WhatsApp sender
+  /**
+   * Core WhatsApp sender - Now navigates to booking
+   */
   private sendWhatsAppMessage(message: string) {
-    const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/${this.whatsappNumber}?text=${encodedMessage}`, '_blank');
+    // Redirect to booking page instead of WhatsApp
+    this.navigateToBooking();
   }
 
-  // General WhatsApp - for header, footer, floating button
+  /**
+   * General WhatsApp - redirects to booking
+   */
   openWhatsApp() {
-    const message = 'Hello STAY@TIAH, I would like to enquire about your accommodation and attractions in Durban.';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
-  // WhatsApp for attraction enquiry
+  /**
+   * WhatsApp for attraction enquiry
+   */
   openWhatsAppForAttraction(attraction: any) {
-    const message = `Hello STAY@TIAH, I'm interested in visiting ${attraction.name}. Can you please provide more information about this attraction and nearby accommodation?`;
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
-  // WhatsApp for location enquiry
+  /**
+   * WhatsApp for location enquiry
+   */
   openWhatsAppForLocation(location: any) {
-    const message = `Hello STAY@TIAH, I'm interested in staying at ${location.name}. Can you please provide more information about availability and rates?`;
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
-  // WhatsApp for rooms
+  /**
+   * WhatsApp for rooms
+   */
   openWhatsAppForRooms() {
-    const message = 'Hello STAY@TIAH, I would like to enquire about your rooms and availability.';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
-  // WhatsApp for rates
+  /**
+   * WhatsApp for rates
+   */
   openWhatsAppForRates() {
-    const message = 'Hello STAY@TIAH, I would like to enquire about your rates and pricing.';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
-  // WhatsApp for contact
+  /**
+   * WhatsApp for contact
+   */
   openWhatsAppForContact() {
-    const message = 'Hello STAY@TIAH, I would like to get in touch regarding your accommodation.';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
-  // WhatsApp for about
+  /**
+   * WhatsApp for about
+   */
   openWhatsAppForAbout() {
-    const message = 'Hello STAY@TIAH, I would like to learn more about your accommodation options.';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
-  // WhatsApp for booking
+  /**
+   * WhatsApp for booking
+   */
   openWhatsAppForBooking() {
-    const message = 'Hello STAY@TIAH, I would like to make a booking enquiry.';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
-  // WhatsApp for FAQ
+  /**
+   * WhatsApp for FAQ
+   */
   openWhatsAppForFaq() {
-    const message = 'Hello STAY@TIAH, I have a question about your accommodation.';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
   // =========================

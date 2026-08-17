@@ -1,36 +1,65 @@
 <!-- ============================================= -->
-<!-- ✅ HEADER OUTSIDE ION-CONTENT (LIKE ABOUT)    -->
+<!-- SPLASH SCREEN                                 -->
+<!-- ============================================= -->
+<div id="splash" [class.hidden]="splashHidden">
+  <div class="splash-content">
+    <div class="splash-logo-container">
+      <div class="splash-ring"></div>
+      <div class="splash-ring-2"></div>
+      <div class="splash-logo-wrapper">
+        <span class="splash-logo"><span class="splash-logo-gold">Tiah</span></span>
+      </div>
+    </div>
+    <div class="splash-tagline">The Ideal Accommodation Haven</div>
+    <div class="splash-loader">
+      <span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================= -->
+<!-- ✅ HEADER OUTSIDE ION-CONTENT                 -->
 <!-- ============================================= -->
 <ion-header>
   <header class="site-header" [class.scrolled]="isScrolled">
     <div class="site-header__inner">
       <a href="/" class="brand" (click)="goToHome()">
-        <span class="brand__name">La Tiah</span>
-        <span class="brand__tagline">Your ideal accommodation haven</span>
+        <span class="brand__name">La <span class="brand__gold">Tiah</span></span>
+        <!-- REMOVED: brand__tagline -->
       </a>
 
+      <!-- Back Button -->
+      <button class="back-btn" (click)="goBack()" aria-label="Go back">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        <span class="back-label">Back</span>
+      </button>
+
+      <!-- Hamburger Button -->
       <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
         <ion-icon name="menu-outline"></ion-icon>
       </button>
 
+      <!-- Desktop Navigation (No Icons) -->
       <nav class="nav" aria-label="Main">
-        <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="nav__link">Home</a>
-        <a routerLink="/about" routerLinkActive="is-active" class="nav__link">About</a>
-        <a routerLink="/rooms" routerLinkActive="is-active" class="nav__link">Rooms</a>
-        <a routerLink="/attractions" routerLinkActive="is-active" class="nav__link">Attractions</a>
-        <a routerLink="/contact" routerLinkActive="is-active" class="nav__link">Contact</a>
+        <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="nav__link" (click)="onNavClick('/home')">Home</a>
+        <a routerLink="/about" routerLinkActive="is-active" class="nav__link" (click)="onNavClick('/about')">About</a>
+        <a routerLink="/rooms" routerLinkActive="is-active" class="nav__link" (click)="onNavClick('/rooms')">Rooms</a>
+        <a routerLink="/attractions" routerLinkActive="is-active" class="nav__link" (click)="onNavClick('/attractions')">Attractions</a>
+        <a routerLink="/contact" routerLinkActive="is-active" class="nav__link" (click)="onNavClick('/contact')">Contact</a>
       </nav>
 
-      <a class="btn-whatsapp desktop-only" (click)="openWhatsApp()">
-        <ion-icon name="logo-whatsapp"></ion-icon>
+      <!-- Desktop Booking Button -->
+      <a class="btn-whatsapp desktop-only" (click)="navigateToBooking()">
+        <ion-icon name="calendar-outline"></ion-icon>
         <span class="btn-text">Check Availability</span>
+        <span class="btn-badge">✦</span>
       </a>
     </div>
   </header>
 </ion-header>
 
 <!-- ============================================= -->
-<!-- ✅ MOBILE NAV OUTSIDE ION-CONTENT (LIKE ABOUT) -->
+<!-- ✅ MOBILE NAV OUTSIDE ION-CONTENT             -->
 <!-- ============================================= -->
 <div class="nav-overlay" [class.active]="mobileNavOpen" (click)="closeMobileNav()"></div>
 
@@ -42,47 +71,64 @@
   </div>
   
   <div class="mobile-nav-brand">
-    <span class="mobile-brand-text">TIAH</span>
-    <span class="mobile-brand-tagline">The Ideal Accommodation Haven</span>
+    <span class="mobile-brand-text">La <span class="mobile-brand-gold">Tiah</span></span>
+    <!-- REMOVED: mobile-brand-tagline -->
   </div>
   
   <div class="mobile-nav-links">
-    <a routerLink="/home" routerLinkActive="is-active" (click)="closeMobileNav()">
+    <a routerLink="/home" routerLinkActive="is-active" (click)="closeMobileNav(); onNavClick('/home')">
       <ion-icon name="home-outline" class="link-icon"></ion-icon>
-      Home
+      <span>Home</span>
+      <span class="link-indicator"></span>
     </a>
-    <a routerLink="/about" routerLinkActive="is-active" (click)="closeMobileNav()">
+    <a routerLink="/about" routerLinkActive="is-active" (click)="closeMobileNav(); onNavClick('/about')">
       <ion-icon name="information-circle-outline" class="link-icon"></ion-icon>
-      About
+      <span>About</span>
+      <span class="link-indicator"></span>
     </a>
-    <a routerLink="/rooms" routerLinkActive="is-active" (click)="closeMobileNav()">
+    <a routerLink="/rooms" routerLinkActive="is-active" (click)="closeMobileNav(); onNavClick('/rooms')">
       <ion-icon name="bed-outline" class="link-icon"></ion-icon>
-      Rooms
+      <span>Rooms</span>
+      <span class="link-indicator"></span>
     </a>
-    <a routerLink="/attractions" routerLinkActive="is-active" (click)="closeMobileNav()">
+    <a routerLink="/attractions" routerLinkActive="is-active" (click)="closeMobileNav(); onNavClick('/attractions')">
       <ion-icon name="location-outline" class="link-icon"></ion-icon>
-      Attractions
+      <span>Attractions</span>
+      <span class="link-indicator"></span>
     </a>
-    <a routerLink="/contact" routerLinkActive="is-active" (click)="closeMobileNav()">
+    <a routerLink="/contact" routerLinkActive="is-active" (click)="closeMobileNav(); onNavClick('/contact')">
       <ion-icon name="mail-outline" class="link-icon"></ion-icon>
-      Contact
+      <span>Contact</span>
+      <span class="link-indicator"></span>
     </a>
     
     <div class="mobile-divider"></div>
     
-    <a class="mobile-cta" (click)="openWhatsApp(); closeMobileNav()">
-      <ion-icon name="logo-whatsapp"></ion-icon>
-      Check Availability
+    <!-- Mobile CTA - Navigates to Booking -->
+    <a class="mobile-cta" (click)="navigateToBooking(); closeMobileNav()">
+      <ion-icon name="calendar-outline"></ion-icon>
+      <span>Check Availability</span>
+      <ion-icon name="arrow-forward-outline" class="cta-arrow"></ion-icon>
     </a>
   </div>
   
   <div class="mobile-nav-footer">
-    <p>&copy; 2026 stay@tiah</p>
+    <p>&copy; 2026 La Tiah</p>
+    <div class="mobile-socials">
+      <a href="https://www.instagram.com/stay.tiah?igsh=MXR0czJhcW5lanJ5OA=="><ion-icon name="logo-instagram"></ion-icon></a>
+      <a href="https://www.facebook.com/profile.php?id=61573594146514"><ion-icon name="logo-facebook"></ion-icon></a>
+      <a href="https://www.tiktok.com/@stay_at_tiah?_r=1&_t=ZS-98msEEY1WVw"><ion-icon name="logo-tiktok"></ion-icon></a>
+    </div>
   </div>
 </div>
 
 <!-- ============================================= -->
-<!-- ✅ ION-CONTENT WITH FULL SCROLLING -->
+<!-- PAGE TRANSITION OVERLAY                       -->
+<!-- ============================================= -->
+<div class="page-transition" [class.active]="isTransitioning"></div>
+
+<!-- ============================================= -->
+<!-- ✅ ION-CONTENT WITH FULL SCROLLING            -->
 <!-- ============================================= -->
 <ion-content [fullscreen]="true" (ionScroll)="onScroll($event)">
   
@@ -111,15 +157,15 @@
           <p>Have questions about your stay, bookings, or anything else? We're here to help.</p>
           
           <div class="contact-info-cards">
-            <!-- WhatsApp Only - Phone Number Hidden -->
+            <!-- WhatsApp Only - Navigates to Booking -->
             <div class="info-card">
               <div class="info-icon">
-                <ion-icon name="logo-whatsapp"></ion-icon>
+                <ion-icon name="calendar-outline"></ion-icon>
               </div>
               <div class="info-content">
-                <h4>WhatsApp Only</h4>
-                <a (click)="openWhatsApp()">Chat with us on WhatsApp</a>
-                <span>Quick response • 08:00 am - 20:00 pm</span>
+                <h4>Check Availability</h4>
+                <a (click)="navigateToBooking()">Book Your Stay Now</a>
+                <span>Easy booking • Instant confirmation</span>
               </div>
             </div>
             
@@ -223,7 +269,7 @@
               </div>
             </div>
 
-            <!-- Check-in Date - UPDATED WITH VALIDATION -->
+            <!-- Check-in Date -->
             <div class="form-group">
               <label>Check-in Date <span class="required">*</span></label>
               <div class="input-wrapper" [class.error]="shouldShowError('checkIn')">
@@ -246,7 +292,7 @@
               </div>
             </div>
 
-            <!-- Check-out Date - UPDATED WITH VALIDATION -->
+            <!-- Check-out Date -->
             <div class="form-group">
               <label>Check-out Date <span class="required">*</span></label>
               <div class="input-wrapper" [class.error]="shouldShowError('checkOut') || dateError">
@@ -349,8 +395,8 @@
             
             <div class="form-actions">
               <button type="submit" class="btn-primary" [disabled]="isSubmitting">
-                <ion-icon name="logo-whatsapp"></ion-icon>
-                {{ isSubmitting ? 'Sending...' : 'Check Availability on WhatsApp' }}
+                <ion-icon name="calendar-outline"></ion-icon>
+                {{ isSubmitting ? 'Sending...' : 'Check Availability' }}
               </button>
               <span class="required-note"><span class="required">*</span> Required fields</span>
             </div>
@@ -417,11 +463,11 @@
         </div>
         <div class="footer-column animate-fade-up">
           <h4>Quick Links</h4>
-          <a routerLink="/home">Home</a>
-          <a routerLink="/about">About Us</a>
-          <a routerLink="/rooms">Rooms</a>
-          <a routerLink="/attractions">Attractions</a>
-          <a routerLink="/contact">Contact Us</a>
+          <a (click)="onNavClick('/home')">Home</a>
+          <a (click)="onNavClick('/about')">About Us</a>
+          <a (click)="onNavClick('/rooms')">Rooms</a>
+          <a (click)="onNavClick('/attractions')">Attractions</a>
+          <a (click)="onNavClick('/contact')">Contact Us</a>
         </div>
         <div class="footer-column animate-fade-up">
           <h4>Legal</h4>
@@ -431,8 +477,8 @@
         <div class="footer-column animate-fade-up">
           <h4>Book Your Stay</h4>
           <p>Ready for your Durban getaway?</p>
-          <a (click)="openWhatsApp()" class="btn-gold">
-            <ion-icon name="logo-whatsapp"></ion-icon>
+          <a class="btn-gold" (click)="navigateToBooking()">
+            <ion-icon name="calendar-outline"></ion-icon>
             Check Availability
           </a>
           <div class="footer-contact">
@@ -441,16 +487,16 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2026 La tiah. All Rights Reserved.</p>
+        <p>&copy; 2026 La Tiah. All Rights Reserved.</p>
         <p>The Ideal Accommodation Haven</p>
       </div>
     </div>
   </footer>
 
-  <!-- WHATSAPP FLOAT -->
+  <!-- WHATSAPP FLOAT - Navigates to Booking -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="openWhatsApp()" class="whatsapp-float">
-      <ion-icon name="logo-whatsapp"></ion-icon>
+    <ion-fab-button (click)="navigateToBooking()" class="whatsapp-float">
+      <ion-icon name="calendar-outline"></ion-icon>
       <div class="whatsapp-pulse"></div>
     </ion-fab-button>
   </ion-fab>

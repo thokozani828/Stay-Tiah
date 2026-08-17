@@ -69,8 +69,111 @@ p, span, a, div, li, button,
 .btn-whatsapp,
 .footer-contact p,
 .map-label span,
-.error-message {
+.error-message,
+.back-btn,
+.back-btn .back-label,
+.mobile-socials a,
+.link-indicator,
+.cta-arrow,
+.btn-badge {
   font-family: $font-primary !important;
+}
+
+// =============================================
+// PAGE TRANSITION OVERLAY
+// =============================================
+.page-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  background: #0a0a0a;
+  transition: opacity 0.4s ease;
+  
+  &.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+// =============================================
+// GLOBAL TRANSITION STATE
+// =============================================
+body.page-transitioning {
+  overflow: hidden;
+  
+  .site-header {
+    opacity: 0.5;
+    transform: translateY(-10px);
+  }
+}
+
+// =============================================
+// BACK BUTTON
+// =============================================
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  padding: 6px 14px;
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: auto;
+  margin-right: 8px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-family: $font-primary !important;
+  flex-shrink: 0;
+  
+  ion-icon {
+    font-size: 18px;
+  }
+  
+  .back-label {
+    font-weight: 500;
+    font-size: 12px;
+    font-family: $font-primary !important;
+    
+    @media (max-width: 480px) {
+      display: none;
+    }
+  }
+  
+  &:hover {
+    background: rgba(255, 215, 0, 0.15);
+    border-color: rgba(255, 215, 0, 0.3);
+    transform: translateX(-2px);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+  
+  @media (max-width: 992px) {
+    padding: 4px 10px;
+    margin-right: 4px;
+    
+    ion-icon {
+      font-size: 16px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    padding: 4px 8px;
+    
+    ion-icon {
+      font-size: 14px;
+    }
+  }
 }
 
 // =========================
@@ -143,6 +246,34 @@ p, span, a, div, li, button,
 @keyframes pulse {
   0% { transform: scale(1); opacity: 1; }
   100% { transform: scale(1.5); opacity: 0; }
+}
+
+// =========================
+// SMOOTH SCROLL BEHAVIOR
+// =========================
+html {
+  scroll-behavior: smooth;
+}
+
+// =========================
+// BUTTON RIPPLE EFFECT
+// =========================
+.btn-primary, .btn-gold, .btn-whatsapp {
+  position: relative;
+  overflow: hidden;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+  }
+  
+  &:hover::after {
+    transform: translateX(100%);
+  }
 }
 
 // =========================
@@ -316,7 +447,7 @@ p, span, a, div, li, button,
 }
 
 // =========================
-// WHATSAPP BUTTON
+// BOOKING BUTTON
 // =========================
 .btn-whatsapp {
   background: linear-gradient(135deg, #25D366, #1da851);
@@ -380,6 +511,17 @@ p, span, a, div, li, button,
   }
   
   .btn-text {
+    display: inline;
+  }
+  
+  .btn-badge {
+    display: none;
+    font-size: 10px;
+    color: #fff;
+    animation: pulse 2s infinite;
+  }
+  
+  &:hover .btn-badge {
     display: inline;
   }
 }
@@ -555,6 +697,7 @@ p, span, a, div, li, button,
       gap: 14px;
       cursor: pointer;
       border: 1px solid transparent;
+      position: relative;
       
       @media (max-width: 576px) {
         font-size: 15px;
@@ -571,6 +714,22 @@ p, span, a, div, li, button,
         color: $gold;
       }
       
+      .link-indicator {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%) scale(0);
+        width: 6px;
+        height: 6px;
+        background: #c9a84c;
+        border-radius: 50%;
+        transition: transform 0.3s ease;
+      }
+      
+      .cta-arrow {
+        transition: transform 0.3s ease;
+      }
+      
       &:hover {
         color: #ffffff;
         background: rgba(255, 255, 255, 0.05);
@@ -579,6 +738,10 @@ p, span, a, div, li, button,
         .link-icon {
           opacity: 1;
           transform: scale(1.1);
+        }
+        
+        .cta-arrow {
+          transform: translateX(4px);
         }
       }
       
@@ -589,6 +752,10 @@ p, span, a, div, li, button,
         
         .link-icon {
           opacity: 1;
+        }
+        
+        .link-indicator {
+          transform: translateY(-50%) scale(1);
         }
       }
     }
@@ -650,6 +817,24 @@ p, span, a, div, li, button,
       margin: 0;
       font-family: $font-primary !important;
     }
+    
+    .mobile-socials {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 10px;
+      
+      a {
+        color: rgba(255, 255, 255, 0.3);
+        font-size: 18px;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          color: #c9a84c;
+          transform: translateY(-2px);
+        }
+      }
+    }
   }
 }
 
@@ -681,6 +866,24 @@ p, span, a, div, li, button,
   .btn-whatsapp.desktop-only {
     display: flex !important;
   }
+  
+  .site-header__inner {
+    .back-btn {
+      order: 2;
+    }
+    
+    .brand {
+      order: 1;
+    }
+    
+    .hamburger-btn {
+      order: 3;
+    }
+    
+    .btn-whatsapp.desktop-only {
+      order: 4;
+    }
+  }
 }
 
 @media (max-width: 576px) {
@@ -694,6 +897,33 @@ p, span, a, div, li, button,
     ion-icon {
       font-size: 16px;
       margin: 0;
+    }
+  }
+  
+  .site-header__inner {
+    .back-btn {
+      padding: 4px 8px;
+      min-width: 32px;
+      min-height: 32px;
+      border-radius: 50%;
+      
+      ion-icon {
+        font-size: 16px;
+        margin: 0;
+      }
+    }
+    
+    .btn-whatsapp.desktop-only {
+      padding: 0.3rem 0.5rem;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      justify-content: center;
+      
+      ion-icon {
+        font-size: 16px;
+        margin: 0;
+      }
     }
   }
 }
@@ -813,6 +1043,70 @@ p, span, a, div, li, button,
         }
       }
     }
+  }
+}
+
+// =========================
+// SECTION HEADERS
+// =========================
+.section-header {
+  max-width: 700px;
+  margin: 0 auto 50px;
+  padding: 0 20px;
+  text-align: center;
+  
+  @media (max-width: 576px) {
+    margin: 0 auto 30px;
+  }
+  
+  &.center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+}
+
+.eyebrow {
+  color: $gold;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: block;
+  font-family: $font-primary !important;
+  
+  @media (max-width: 576px) {
+    font-size: 10px;
+    letter-spacing: 3px;
+  }
+}
+
+.section-title {
+  font-family: $font-primary !important;
+  font-size: clamp(28px, 4.5vw, 52px);
+  line-height: 1.1;
+  margin: 10px 0 12px;
+  color: $black;
+  
+  @media (max-width: 576px) {
+    font-size: 26px;
+  }
+}
+
+.section-subtitle {
+  color: $black;
+  font-size: 16px;
+  line-height: 1.8;
+  margin-top: 8px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 400;
+  font-family: $font-primary !important;
+  
+  @media (max-width: 576px) {
+    font-size: 14px;
   }
 }
 
@@ -1208,6 +1502,8 @@ p, span, a, div, li, button,
     cursor: pointer;
     box-shadow: 0 4px 25px rgba(201, 168, 76, 0.25);
     font-family: $font-primary !important;
+    position: relative;
+    overflow: hidden;
     
     ion-icon {
       font-size: 18px;
@@ -1223,6 +1519,19 @@ p, span, a, div, li, button,
       opacity: 0.5;
       cursor: not-allowed;
       transform: none;
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(-100%);
+      transition: transform 0.4s ease;
+    }
+    
+    &:hover::after {
+      transform: translateX(100%);
     }
   }
   
@@ -1297,70 +1606,6 @@ p, span, a, div, li, button,
 }
 
 // =========================
-// SECTION HEADERS
-// =========================
-.section-header {
-  max-width: 700px;
-  margin: 0 auto 50px;
-  padding: 0 20px;
-  text-align: center;
-  
-  @media (max-width: 576px) {
-    margin: 0 auto 30px;
-  }
-  
-  &.center {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-  }
-}
-
-.eyebrow {
-  color: $gold;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  display: block;
-  font-family: $font-primary !important;
-  
-  @media (max-width: 576px) {
-    font-size: 10px;
-    letter-spacing: 3px;
-  }
-}
-
-.section-title {
-  font-family: $font-primary !important;
-  font-size: clamp(28px, 4.5vw, 52px);
-  line-height: 1.1;
-  margin: 10px 0 12px;
-  color: $black;
-  
-  @media (max-width: 576px) {
-    font-size: 26px;
-  }
-}
-
-.section-subtitle {
-  color: $black;
-  font-size: 16px;
-  line-height: 1.8;
-  margin-top: 8px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  font-weight: 400;
-  font-family: $font-primary !important;
-  
-  @media (max-width: 576px) {
-    font-size: 14px;
-  }
-}
-
-// =========================
 // BUTTONS
 // =========================
 .btn-primary {
@@ -1427,6 +1672,14 @@ p, span, a, div, li, button,
     justify-content: center;
   }
   
+  ion-icon {
+    font-size: 18px;
+    
+    @media (max-width: 576px) {
+      font-size: 16px;
+    }
+  }
+  
   &:hover {
     border-color: $white;
     background: rgba(255, 255, 255, 0.05);
@@ -1452,6 +1705,8 @@ p, span, a, div, li, button,
   cursor: pointer;
   border: none;
   font-family: $font-primary !important;
+  position: relative;
+  overflow: hidden;
   
   @media (max-width: 576px) {
     width: 100%;
@@ -1462,6 +1717,19 @@ p, span, a, div, li, button,
     background: linear-gradient(135deg, $gold-light, $gold);
     transform: translateY(-2px);
     box-shadow: 0 8px 35px rgba(201, 168, 76, 0.4);
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+  }
+  
+  &:hover::after {
+    transform: translateX(100%);
   }
 }
 
@@ -1690,7 +1958,7 @@ ion-fab {
 }
 
 ion-fab-button.whatsapp-float {
-  --background: #25D366;
+  --background: linear-gradient(135deg, #25D366, #1da851);
   --box-shadow: 0 4px 25px rgba(37, 211, 102, 0.4);
   --border-radius: 50%;
   width: 60px;
@@ -1710,6 +1978,14 @@ ion-fab-button.whatsapp-float {
     border-radius: 50%;
     border: 2px solid #25D366;
     animation: pulse 2s infinite;
+  }
+  
+  ion-icon {
+    font-size: 28px;
+    
+    @media (max-width: 576px) {
+      font-size: 22px;
+    }
   }
 }
 
