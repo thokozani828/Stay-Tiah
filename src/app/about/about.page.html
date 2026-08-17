@@ -23,9 +23,9 @@
         <a routerLink="/contact" routerLinkActive="is-active" class="nav__link">Contact</a>
       </nav>
 
-      <!-- Desktop Booking Button -->
-      <a routerLink="/booking" class="btn-booking desktop-only">
-        <ion-icon name="calendar-outline"></ion-icon>
+      <!-- Desktop WhatsApp Button -->
+      <a class="btn-whatsapp desktop-only" (click)="openWhatsApp()">
+        <ion-icon name="logo-whatsapp"></ion-icon>
         <span class="btn-text">Check Availability</span>
       </a>
     </div>
@@ -45,7 +45,7 @@
   </div>
   
   <div class="mobile-nav-brand">
-    <span class="mobile-brand-text">La Tiah</span>
+    <span class="mobile-brand-text">TIAH</span>
     <span class="mobile-brand-tagline">The Ideal Accommodation Haven</span>
   </div>
   
@@ -73,15 +73,14 @@
     
     <div class="mobile-divider"></div>
     
-    <!-- UPDATED: Mobile CTA now links to booking page -->
-    <a routerLink="/booking" class="mobile-cta" (click)="closeMobileNav()">
-      <ion-icon name="calendar-outline"></ion-icon>
+    <a class="mobile-cta" (click)="openWhatsApp(); closeMobileNav()">
+      <ion-icon name="logo-whatsapp"></ion-icon>
       Check Availability
     </a>
   </div>
   
   <div class="mobile-nav-footer">
-    <p>&copy; 2026 La Tiah</p>
+    <p>&copy; 2026 stay@tiah</p>
   </div>
 </div>
 
@@ -175,8 +174,7 @@
           
           <div class="about-buttons">
             <a routerLink="/rooms" class="btn-primary-small">View Rooms</a>
-            <!-- UPDATED: Enquire button now links to booking page -->
-            <a routerLink="/booking" class="btn-outline-small">Check Availability</a>
+            <a (click)="openWhatsApp()" class="btn-outline-small">Enquire on WhatsApp</a>
           </div>
         </div>
       </div>
@@ -345,11 +343,10 @@
     <div class="container">
       <div class="cta-content animate-fade-up">
         <h2>Ready to Book Your Stay?</h2>
-        <p>Choose your perfect room and experience the comfort of La Tiah.</p>
+        <p>Choose your perfect room and experience the comfort of STAY@TIAH.</p>
         <div class="cta-buttons">
-          <!-- UPDATED: CTA button now links to booking page -->
-          <a routerLink="/booking" class="btn-primary">
-            <ion-icon name="calendar-outline"></ion-icon>
+          <a (click)="openWhatsApp()" class="btn-primary">
+            <ion-icon name="logo-whatsapp"></ion-icon>
             Check Availability
           </a>
           <a routerLink="/rooms" class="btn-secondary-cta">
@@ -395,9 +392,8 @@
         <div class="footer-column animate-fade-up">
           <h4>Book Your Stay</h4>
           <p>Ready for your Durban getaway?</p>
-          <!-- UPDATED: Footer button now links to booking page -->
-          <a routerLink="/booking" class="btn-gold">
-            <ion-icon name="calendar-outline"></ion-icon>
+          <a (click)="openWhatsApp()" class="btn-gold">
+            <ion-icon name="logo-whatsapp"></ion-icon>
             Check Availability
           </a>
           <div class="footer-contact">

@@ -70,7 +70,7 @@ p, span, a, div, li, button,
 }
 
 // =========================
-// SPLASH SCREEN - FIXED
+// SPLASH SCREEN - FIXED HORIZONTAL LAYOUT
 // =========================
 #splash {
   position: fixed;
@@ -102,26 +102,32 @@ p, span, a, div, li, button,
 
   .splash-logo-container {
     position: relative;
-    width: 140px;
-    height: 140px;
+    width: 200px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
 
     .splash-ring {
       position: absolute;
-      inset: 0;
+      inset: -20px;
       border: 2px solid rgba($gold, 0.15);
       border-radius: 50%;
       animation: spin 8s linear infinite;
+      width: 140px;
+      height: 140px;
+      margin: 0 auto;
     }
 
     .splash-ring-2 {
       position: absolute;
-      inset: 10px;
+      inset: -10px;
       border: 2px solid rgba($gold, 0.08);
       border-radius: 50%;
       animation: spin 6s linear infinite reverse;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto;
     }
 
     .splash-logo {
@@ -134,11 +140,12 @@ p, span, a, div, li, button,
       -webkit-text-fill-color: transparent;
       background-clip: text;
       animation: splashPulse 1.8s ease-in-out infinite alternate;
-      line-height: 1;
+      line-height: 1.2;
       position: relative;
       z-index: 2;
       display: inline-block;
       white-space: nowrap;
+      text-align: center;
     }
   }
 

@@ -1,8 +1,7 @@
-import { Component, OnInit, OnDestroy, CUSTOM_ELEMENTS_SCHEMA, HostListener, ViewChild, Renderer2, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, CUSTOM_ELEMENTS_SCHEMA, HostListener, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule, IonContent, Platform } from '@ionic/angular';
-import { RouterModule, Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { IonicModule, IonContent } from '@ionic/angular';
+import { RouterModule, Router } from '@angular/router';
 
 interface LocationImages {
   oceanic: string;
@@ -32,12 +31,7 @@ export class AboutPage implements OnInit, OnDestroy {
   // ==========================================
   mobileNavOpen: boolean = false;
   isScrolled: boolean = false;
-  isMobile: boolean = false;
   private originalOverflow: string = '';
-  private originalPosition: string = '';
-  private originalWidth: string = '';
-  private originalHeight: string = '';
-  private lastPage: string = '';
 
   // ==========================================
   // WHATSAPP NUMBER
@@ -63,63 +57,15 @@ export class AboutPage implements OnInit, OnDestroy {
   // ==========================================
   locationFallback: string = 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80';
 
-  constructor(
-    private router: Router,
-    private platform: Platform,
-    private renderer: Renderer2,
-    private el: ElementRef
-  ) {
-    // Track navigation to know where the user came from
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
-      this.lastPage = event.urlAfterRedirects || event.url;
-    });
-  }
+  constructor(private router: Router) {}
 
   // ==========================================
   // LIFECYCLE HOOKS
   // ==========================================
-  ngOnInit() {
-    // Check if mobile device
-    this.isMobile = this.platform.is('mobile') || this.platform.is('mobileweb') || window.innerWidth < 992;
-    
-    // Prevent swipe to open nav on iOS
-    this.preventSwipeToOpenNav();
-  }
+  ngOnInit() {}
 
   ngOnDestroy(): void {
     this.restoreScroll();
-    this.restoreBodyStyles();
-  }
-
-  // ==========================================
-  // PREVENT SWIPE TO OPEN NAV
-  // ==========================================
-  private preventSwipeToOpenNav(): void {
-    // Disable iOS Safari swipe back gesture that can trigger nav
-    if (this.platform.is('ios')) {
-      const ionContent = this.el.nativeElement.querySelector('ion-content');
-      if (ionContent) {
-        ionContent.addEventListener('touchstart', (e: TouchEvent) => {
-          const touch = e.touches[0];
-          if (touch.clientX < 30) {
-            e.preventDefault();
-          }
-        }, { passive: false });
-      }
-    }
-
-    // Prevent overscroll behavior that can trigger nav
-    document.addEventListener('touchmove', (e: TouchEvent) => {
-      const target = e.target as HTMLElement;
-      if (target.closest('ion-content') || target.closest('ion-app')) {
-        const touch = e.touches[0];
-        if (touch.clientX < 20) {
-          e.preventDefault();
-        }
-      }
-    }, { passive: false });
   }
 
   // ==========================================
@@ -128,27 +74,6 @@ export class AboutPage implements OnInit, OnDestroy {
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.isScrolled = window.scrollY > 50;
-  }
-
-  // ==========================================
-  // WINDOW RESIZE LISTENER
-  // ==========================================
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    this.isMobile = window.innerWidth < 992;
-  }
-
-  // ==========================================
-  // BACK BUTTON HANDLING
-  // ==========================================
-  @HostListener('window:popstate', ['$event'])
-  onPopState(event: PopStateEvent) {
-    const historyLength = window.history.length;
-    if (historyLength > 1) {
-      window.history.back();
-    } else {
-      this.router.navigate(['/home']);
-    }
   }
 
   // ==========================================
@@ -175,7 +100,7 @@ export class AboutPage implements OnInit, OnDestroy {
     if (targetElement && this.content) {
       try {
         const scrollEl = await this.content.getScrollElement();
-        const headerOffset = this.isMobile ? 56 : 72;
+        const headerOffset = 72;
         const elementPosition = targetElement.getBoundingClientRect().top;
         const offsetPosition = elementPosition + scrollEl.scrollTop - headerOffset;
         this.content.scrollToPoint(0, offsetPosition, 800);
@@ -183,21 +108,6 @@ export class AboutPage implements OnInit, OnDestroy {
         console.error('Scroll error:', error);
         targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-    }
-  }
-
-  // ==========================================
-  // GO BACK - Navigate to previous page
-  // ==========================================
-  goBack(): void {
-    this.closeMobileNav();
-    // Try to go back in history
-    const historyLength = window.history.length;
-    if (historyLength > 1) {
-      window.history.back();
-    } else {
-      // If no history, go to home
-      this.router.navigate(['/home']);
     }
   }
 
@@ -216,45 +126,23 @@ export class AboutPage implements OnInit, OnDestroy {
   }
 
   // ==========================================
-  // MOBILE NAVIGATION - IMPROVED
+  // MOBILE NAVIGATION
   // ==========================================
   toggleMobileNav(): void {
     this.mobileNavOpen = !this.mobileNavOpen;
     
     if (this.mobileNavOpen) {
-      // Store original styles
       this.originalOverflow = document.body.style.overflow || '';
-      this.originalPosition = document.body.style.position || '';
-      this.originalWidth = document.body.style.width || '';
-      this.originalHeight = document.body.style.height || '';
-      
-      // Lock body scroll
       document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.width = '100%';
-      document.body.style.height = '100%';
       document.documentElement.style.overflow = 'hidden';
-      
-      // Prevent iOS swipe
-      if (this.platform.is('ios')) {
-        document.body.style.touchAction = 'none';
-      }
-      
-      document.body.classList.add('nav-open');
     } else {
-      this.closeMobileNav();
+      this.restoreScroll();
     }
   }
 
   closeMobileNav(): void {
     this.mobileNavOpen = false;
-    this.restoreBodyStyles();
     this.restoreScroll();
-    document.body.classList.remove('nav-open');
-    
-    if (this.platform.is('ios')) {
-      document.body.style.touchAction = '';
-    }
   }
 
   private restoreScroll(): void {
@@ -262,39 +150,32 @@ export class AboutPage implements OnInit, OnDestroy {
     document.documentElement.style.overflow = this.originalOverflow || '';
   }
 
-  private restoreBodyStyles(): void {
-    document.body.style.position = this.originalPosition || '';
-    document.body.style.width = this.originalWidth || '';
-    document.body.style.height = this.originalHeight || '';
-  }
-
   // ==========================================
-  // NAVIGATION METHODS - ALL WITH replaceUrl: true
+  // NAVIGATION METHODS
   // ==========================================
-  
   goToHome(): void {
+    this.router.navigate(['/home']);
     this.closeMobileNav();
-    this.router.navigate(['/home'], { replaceUrl: true });
   }
 
   goToBooking(): void {
+    this.router.navigate(['/booking']);
     this.closeMobileNav();
-    this.router.navigate(['/booking'], { replaceUrl: true });
   }
 
   goToRooms(): void {
+    this.router.navigate(['/rooms']);
     this.closeMobileNav();
-    this.router.navigate(['/rooms'], { replaceUrl: true });
   }
 
   goToAttractions(): void {
+    this.router.navigate(['/attractions']);
     this.closeMobileNav();
-    this.router.navigate(['/attractions'], { replaceUrl: true });
   }
 
   goToContact(): void {
+    this.router.navigate(['/contact']);
     this.closeMobileNav();
-    this.router.navigate(['/contact'], { replaceUrl: true });
   }
 
   // ==========================================
@@ -309,43 +190,43 @@ export class AboutPage implements OnInit, OnDestroy {
 
   // General WhatsApp - for header, footer, floating button
   openWhatsApp(): void {
-    const message = 'Hello La Tiah, I would like to enquire about your accommodation and availability.';
+    const message = 'Hello stay@tiah, I would like to enquire about your accommodation and availability.';
     this.sendWhatsAppMessage(message);
   }
 
   // WhatsApp for about page specific
   openWhatsAppForAbout(): void {
-    const message = 'Hello La Tiah, I would like to learn more about your accommodation options and locations.';
+    const message = 'Hello stay@tiah, I would like to learn more about your accommodation options and locations.';
     this.sendWhatsAppMessage(message);
   }
 
   // WhatsApp for rooms enquiry
   openWhatsAppForRooms(): void {
-    const message = 'Hello La Tiah, I would like to enquire about your rooms and availability.';
+    const message = 'Hello stay@tiah, I would like to enquire about your rooms and availability.';
     this.sendWhatsAppMessage(message);
   }
 
   // WhatsApp for attractions enquiry
   openWhatsAppForAttractions(): void {
-    const message = 'Hello La Tiah, I would like to enquire about attractions near your accommodation.';
+    const message = 'Hello stay@tiah, I would like to enquire about attractions near your accommodation.';
     this.sendWhatsAppMessage(message);
   }
 
   // WhatsApp for contact
   openWhatsAppForContact(): void {
-    const message = 'Hello La Tiah, I would like to get in touch regarding your accommodation.';
+    const message = 'Hello stay@tiah, I would like to get in touch regarding your accommodation.';
     this.sendWhatsAppMessage(message);
   }
 
   // WhatsApp for booking enquiry
   openWhatsAppForBooking(): void {
-    const message = 'Hello La Tiah, I would like to make a booking enquiry.';
+    const message = 'Hello stay@tiah, I would like to make a booking enquiry.';
     this.sendWhatsAppMessage(message);
   }
 
   // WhatsApp with custom message for specific location
   openWhatsAppForLocation(locationName: string): void {
-    const message = `Hello La Tiah, I'm interested in staying at ${locationName}. Can you please provide more information about availability and rates?`;
+    const message = `Hello stay@tiah, I'm interested in staying at ${locationName}. Can you please provide more information about availability and rates?`;
     this.sendWhatsAppMessage(message);
   }
 }
