@@ -269,8 +269,9 @@ export class AboutPage implements OnInit, OnDestroy {
   }
 
   // ==========================================
-  // NAVIGATION METHODS
+  // NAVIGATION METHODS - ALL WITH replaceUrl: true
   // ==========================================
+  
   goToHome(): void {
     this.closeMobileNav();
     this.router.navigate(['/home'], { replaceUrl: true });
@@ -278,22 +279,22 @@ export class AboutPage implements OnInit, OnDestroy {
 
   goToBooking(): void {
     this.closeMobileNav();
-    this.router.navigate(['/booking']);
+    this.router.navigate(['/booking'], { replaceUrl: true });
   }
 
   goToRooms(): void {
     this.closeMobileNav();
-    this.router.navigate(['/rooms']);
+    this.router.navigate(['/rooms'], { replaceUrl: true });
   }
 
   goToAttractions(): void {
     this.closeMobileNav();
-    this.router.navigate(['/attractions']);
+    this.router.navigate(['/attractions'], { replaceUrl: true });
   }
 
   goToContact(): void {
     this.closeMobileNav();
-    this.router.navigate(['/contact']);
+    this.router.navigate(['/contact'], { replaceUrl: true });
   }
 
   // ==========================================

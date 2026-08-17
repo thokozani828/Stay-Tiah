@@ -577,7 +577,7 @@ export class AttractionsPage implements OnInit, OnDestroy {
   }
 
   // =========================
-  // NAVIGATION FUNCTIONS
+  // NAVIGATION FUNCTIONS - ALL WITH replaceUrl: true
   // =========================
   goToHome() {
     this.closeMobileNav();
@@ -586,27 +586,27 @@ export class AttractionsPage implements OnInit, OnDestroy {
 
   goToAbout() {
     this.closeMobileNav();
-    this.router.navigate(['/about']);
+    this.router.navigate(['/about'], { replaceUrl: true });
   }
 
   goToRooms() {
     this.closeMobileNav();
-    this.router.navigate(['/rooms']);
+    this.router.navigate(['/rooms'], { replaceUrl: true });
   }
 
   goToAttractions() {
     this.closeMobileNav();
-    this.router.navigate(['/attractions']);
+    this.router.navigate(['/attractions'], { replaceUrl: true });
   }
 
   goToContact() {
     this.closeMobileNav();
-    this.router.navigate(['/contact']);
+    this.router.navigate(['/contact'], { replaceUrl: true });
   }
 
   goToBooking() {
     this.closeMobileNav();
-    this.router.navigate(['/booking']);
+    this.router.navigate(['/booking'], { replaceUrl: true });
   }
 
   // =========================

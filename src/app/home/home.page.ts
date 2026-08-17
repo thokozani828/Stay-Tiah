@@ -184,48 +184,47 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   // ==========================================
-  // NAVIGATION METHODS - WITH BACK BUTTON HANDLING
+  // NAVIGATION METHODS - ALL WITH replaceUrl: true
   // ==========================================
 
-  // Navigate to home - clear history and go to home
+  // Navigate to home - REPLACE current history
   goToHome() {
     this.currentSection = 'home';
     this.closeMobileNav();
-    // Navigate to home and replace the current history entry
     this.router.navigate(['/home'], { replaceUrl: true });
     setTimeout(() => {
       this.scrollToSection('home');
     }, 100);
   }
 
-  // Navigate to booking page
+  // Navigate to booking page - REPLACE current history
   goToBooking() {
     this.closeMobileNav();
-    this.router.navigate(['/booking']);
+    this.router.navigate(['/booking'], { replaceUrl: true });
   }
 
-  // Navigate to rooms page
+  // Navigate to rooms page - REPLACE current history
   goToRooms() {
     this.closeMobileNav();
-    this.router.navigate(['/rooms']);
+    this.router.navigate(['/rooms'], { replaceUrl: true });
   }
 
-  // Navigate to about page
+  // Navigate to about page - REPLACE current history
   goToAbout() {
     this.closeMobileNav();
-    this.router.navigate(['/about']);
+    this.router.navigate(['/about'], { replaceUrl: true });
   }
 
-  // Navigate to attractions page
+  // Navigate to attractions page - REPLACE current history
   goToAttractions() {
     this.closeMobileNav();
-    this.router.navigate(['/attractions']);
+    this.router.navigate(['/attractions'], { replaceUrl: true });
   }
 
-  // Navigate to contact page
+  // Navigate to contact page - REPLACE current history
   goToContact() {
     this.closeMobileNav();
-    this.router.navigate(['/contact']);
+    this.router.navigate(['/contact'], { replaceUrl: true });
   }
 
   // ==========================================
