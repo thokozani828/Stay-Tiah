@@ -1778,3 +1778,316 @@ p, span, a, div, li, button,
   .nav-overlay { display: none !important; }
   .mobile-nav { display: none !important; }
 }
+
+// =============================================
+// PAGE TRANSITION OVERLAY
+// =============================================
+.page-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  background: #0a0a0a;
+  transition: opacity 0.4s ease;
+  
+  &.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+// =============================================
+// BACK BUTTON
+// =============================================
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  padding: 6px 14px;
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: auto;
+  margin-right: 8px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-family: $font-primary !important;
+  flex-shrink: 0;
+  
+  ion-icon {
+    font-size: 18px;
+  }
+  
+  .back-label {
+    font-weight: 500;
+    font-size: 12px;
+    
+    @media (max-width: 480px) {
+      display: none;
+    }
+  }
+  
+  &:hover {
+    background: rgba(255, 215, 0, 0.15);
+    border-color: rgba(255, 215, 0, 0.3);
+    transform: translateX(-2px);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+  
+  @media (max-width: 992px) {
+    padding: 4px 10px;
+    margin-right: 4px;
+    
+    ion-icon {
+      font-size: 16px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    padding: 4px 8px;
+    
+    ion-icon {
+      font-size: 14px;
+    }
+  }
+}
+
+// =============================================
+// NAV LINKS WITH ICONS (Desktop)
+// =============================================
+.nav {
+  .nav__link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.6rem 1rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    position: relative;
+    
+    .nav-icon {
+      display: inline-flex;
+      font-size: 16px;
+      transition: transform 0.3s ease;
+    }
+    
+    span:last-child {
+      font-weight: 500;
+      font-size: 13px;
+    }
+    
+    &:hover {
+      background: rgba(255, 215, 0, 0.08);
+      
+      .nav-icon {
+        transform: translateY(-2px);
+      }
+    }
+    
+    &.is-active {
+      background: rgba(255, 215, 0, 0.12);
+      color: #c9a84c;
+      
+      .nav-icon {
+        color: #c9a84c;
+      }
+    }
+    
+    @media (max-width: 1200px) {
+      padding: 0.5rem 0.8rem;
+      
+      .nav-icon {
+        font-size: 14px;
+      }
+      
+      span:last-child {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+// =============================================
+// MOBILE NAV LINK INDICATOR
+// =============================================
+.mobile-nav-links a {
+  position: relative;
+  
+  .link-indicator {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%) scale(0);
+    width: 6px;
+    height: 6px;
+    background: #c9a84c;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+  }
+  
+  &.is-active .link-indicator {
+    transform: translateY(-50%) scale(1);
+  }
+  
+  .cta-arrow {
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover .cta-arrow {
+    transform: translateX(4px);
+  }
+}
+
+// =============================================
+// MOBILE SOCIALS
+// =============================================
+.mobile-nav-footer {
+  .mobile-socials {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 10px;
+    
+    a {
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 18px;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        color: #c9a84c;
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+// =============================================
+// WHATSAPP BUTTON BADGE
+// =============================================
+.btn-whatsapp {
+  .btn-badge {
+    display: none;
+    font-size: 10px;
+    color: #fff;
+    animation: pulse 2s infinite;
+  }
+  
+  &:hover .btn-badge {
+    display: inline;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+// =============================================
+// GLOBAL TRANSITION STATE
+// =============================================
+body.page-transitioning {
+  overflow: hidden;
+  
+  .site-header {
+    opacity: 0.5;
+    transform: translateY(-10px);
+  }
+}
+
+// =============================================
+// HERO BADGE IMPROVEMENT
+// =============================================
+.hero-badge {
+  animation: fadeInUp 0.8s ease 0.3s both;
+}
+
+// =============================================
+// RESPONSIVE IMPROVEMENTS FOR BACK BUTTON
+// =============================================
+@media (max-width: 992px) {
+  .site-header__inner {
+    .back-btn {
+      order: 2;
+    }
+    
+    .brand {
+      order: 1;
+    }
+    
+    .hamburger-btn {
+      order: 3;
+    }
+    
+    .btn-whatsapp.desktop-only {
+      order: 4;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .site-header__inner {
+    .back-btn {
+      padding: 4px 8px;
+      min-width: 32px;
+      min-height: 32px;
+      border-radius: 50%;
+      
+      ion-icon {
+        font-size: 16px;
+        margin: 0;
+      }
+    }
+    
+    .btn-whatsapp.desktop-only {
+      padding: 0.3rem 0.5rem;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      justify-content: center;
+      
+      ion-icon {
+        font-size: 16px;
+        margin: 0;
+      }
+    }
+  }
+}
+
+// =============================================
+// SMOOTH SCROLL BEHAVIOR
+// =============================================
+html {
+  scroll-behavior: smooth;
+}
+
+// =============================================
+// BUTTON RIPPLE EFFECT
+// =============================================
+.btn-primary, .btn-gold, .btn-whatsapp {
+  position: relative;
+  overflow: hidden;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+  }
+  
+  &:hover::after {
+    transform: translateX(100%);
+  }
+}

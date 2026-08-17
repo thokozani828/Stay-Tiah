@@ -1,8 +1,10 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, ViewChild, OnInit, HostListener } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ViewChild, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, IonContent } from '@ionic/angular';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +19,7 @@ import { RouterModule, Router } from '@angular/router';
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
 
   // ==========================================
   // VIEW CHILD REFERENCE
@@ -37,9 +39,23 @@ export class HomePage implements OnInit {
   showHero: boolean = true;
   mobileNavOpen: boolean = false;
   isScrolled: boolean = false;
+  
+  // ==========================================
+  // PAGE TRANSITION STATE
+  // ==========================================
+  isTransitioning: boolean = false;
+  private transitionTimeout: any;
+  private routerSubscription: Subscription | null = null;
 
   // ==========================================
-  // WHATSAPP NUMBER
+  // ROUTE HISTORY FOR BACK NAVIGATION
+  // ==========================================
+  currentRoute: string = '/home';
+  private routeHistory: string[] = ['/home'];
+  private isNavigatingBack: boolean = false;
+
+  // ==========================================
+  // WHATSAPP NUMBER - Now used for booking link
   // ==========================================
   whatsappNumber: string = '27849009821';
 
@@ -65,12 +81,12 @@ export class HomePage implements OnInit {
     },
     {
       question: 'Do you offer airport transfers?',
-      answer: 'Guests can travel from the airport using an e-hailing system..',
+      answer: 'Guests can travel from the airport using an e-hailing system.',
       active: false
     },
     {
       question: 'Are pets allowed?',
-      answer: 'We admire pets however kindly make an alternative arrangement stay for them..',
+      answer: 'We admire pets however kindly make an alternative arrangement stay for them.',
       active: false
     },
     {
@@ -101,6 +117,35 @@ export class HomePage implements OnInit {
     setTimeout(() => {
       this.splashHidden = true;
     }, 2500);
+
+    // Track route changes for back navigation
+    this.routerSubscription = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      const url = event.urlAfterRedirects;
+      this.currentRoute = url;
+      
+      // Only push to history if not navigating back
+      if (!this.isNavigatingBack) {
+        // Avoid duplicates
+        if (this.routeHistory.length === 0 || this.routeHistory[this.routeHistory.length - 1] !== url) {
+          this.routeHistory.push(url);
+        }
+      }
+      
+      // Reset back navigation flag after navigation completes
+      this.isNavigatingBack = false;
+    });
+  }
+
+  ngOnDestroy() {
+    // Clean up subscriptions and timeouts
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
+    if (this.transitionTimeout) {
+      clearTimeout(this.transitionTimeout);
+    }
   }
 
   // ==========================================
@@ -112,66 +157,154 @@ export class HomePage implements OnInit {
   }
 
   // ==========================================
-  // NAVIGATION METHODS
+  // NAVIGATION METHODS WITH TRANSITIONS
+  // ==========================================
+
+  /**
+   * Handle navigation with page transition animation
+   * Sets the current route and triggers smooth transitions
+   */
+  onNavClick(route: string) {
+    // Prevent duplicate navigation
+    if (this.currentRoute === route || this.isTransitioning) return;
+    
+    // Close mobile nav if open
+    this.closeMobileNav();
+    
+    // Start transition animation
+    this.startTransition();
+    
+    // Navigate after animation starts
+    setTimeout(() => {
+      this.router.navigate([route]);
+      // End transition after navigation completes
+      setTimeout(() => {
+        this.endTransition();
+      }, 300);
+    }, 400);
+  }
+
+  /**
+   * Navigate to booking page (replaces WhatsApp functionality)
+   */
+  navigateToBooking() {
+    this.onNavClick('/booking');
+  }
+
+  /**
+   * Smart back navigation - goes back to previous page
+   * Uses route history stack for proper back behavior
+   */
+  goBack() {
+    // Prevent multiple back actions
+    if (this.isNavigatingBack || this.isTransitioning) return;
+    
+    // Don't go back if we're on home page
+    if (this.currentRoute === '/home') {
+      return;
+    }
+    
+    // Check if we have a history to go back to
+    if (this.routeHistory.length > 1) {
+      this.isNavigatingBack = true;
+      
+      // Remove current page from history (pop)
+      this.routeHistory.pop();
+      
+      // Get the previous page
+      const previousPage = this.routeHistory[this.routeHistory.length - 1];
+      
+      if (previousPage && previousPage !== this.currentRoute) {
+        this.startTransition();
+        
+        setTimeout(() => {
+          this.router.navigate([previousPage]);
+          setTimeout(() => {
+            this.endTransition();
+          }, 300);
+        }, 400);
+      } else {
+        // Fallback to browser back if history is empty
+        window.history.back();
+        this.isNavigatingBack = false;
+      }
+    } else {
+      // Fallback to browser back
+      window.history.back();
+    }
+  }
+
+  /**
+   * Start page transition animation
+   */
+  private startTransition() {
+    this.isTransitioning = true;
+    // Add transition class to body for global styling
+    document.body.classList.add('page-transitioning');
+  }
+
+  /**
+   * End page transition animation
+   */
+  private endTransition() {
+    this.isTransitioning = false;
+    document.body.classList.remove('page-transitioning');
+  }
+
+  // ==========================================
+  // ORIGINAL NAVIGATION METHODS
   // ==========================================
 
   // Navigate to home
   goToHome() {
+    if (this.currentRoute === '/home') return;
     this.currentSection = 'home';
     this.closeMobileNav();
-    this.scrollToSection('home');
+    this.onNavClick('/home');
   }
 
   // Navigate to rooms page
   goToRooms() {
-    this.router.navigate(['/rooms']);
-    this.closeMobileNav();
+    this.onNavClick('/rooms');
   }
 
   // Navigate to about page
   goToAbout() {
-    this.router.navigate(['/about']);
-    this.closeMobileNav();
+    this.onNavClick('/about');
   }
 
   // Navigate to attractions page
   goToAttractions() {
-    this.router.navigate(['/attractions']);
-    this.closeMobileNav();
+    this.onNavClick('/attractions');
   }
 
   // Navigate to contact page
   goToContact() {
-    this.router.navigate(['/contact']);
-    this.closeMobileNav();
+    this.onNavClick('/contact');
   }
 
   // ==========================================
-  // SCROLL METHODS (Fixed)
+  // SCROLL METHODS
   // ==========================================
 
-  // Scroll to specific section using Ionic's internal engine
+  /**
+   * Scroll to specific section using Ionic's internal engine
+   */
   async scrollToSection(sectionId: string) {
-    // Close mobile nav if it's open
     this.closeMobileNav();
 
     const targetElement = document.getElementById(sectionId);
     
     if (targetElement && this.content) {
       try {
-        // Get Ionic's internal scroll element (Shadow DOM)
         const scrollEl = await this.content.getScrollElement();
-
-        // Calculate the top position of the target element
-        const headerOffset = 72; // Account for fixed header
+        const headerOffset = 72;
         const elementPosition = targetElement.getBoundingClientRect().top;
         const offsetPosition = elementPosition + scrollEl.scrollTop - headerOffset;
 
-        // Use Ionic's native scrollToPoint method
         this.content.scrollToPoint(0, offsetPosition, 800);
       } catch (error) {
         console.error('Scroll error:', error);
-        // Fallback: use native scrollIntoView
         targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
@@ -181,13 +314,11 @@ export class HomePage implements OnInit {
   // MOBILE NAVIGATION
   // ==========================================
 
-  // Toggle mobile navigation
   toggleMobileNav() {
     this.mobileNavOpen = !this.mobileNavOpen;
     document.body.style.overflow = this.mobileNavOpen ? 'hidden' : '';
   }
 
-  // Close mobile navigation
   closeMobileNav() {
     this.mobileNavOpen = false;
     document.body.style.overflow = '';
@@ -197,14 +328,12 @@ export class HomePage implements OnInit {
   // EVENT HANDLERS
   // ==========================================
 
-  // Scroll event for ion-content
   onScroll(event: any) {
     const scrollTop = event.detail.scrollTop;
     const heroHeight = window.innerHeight;
     
     this.showHero = scrollTop < heroHeight - 100;
     
-    // Also update scrolled state from ion-scroll
     const header = document.querySelector('.site-header');
     if (scrollTop > 50) {
       header?.classList.add('scrolled');
@@ -213,7 +342,6 @@ export class HomePage implements OnInit {
     }
   }
 
-  // Handle image error
   onImageError(event: any) {
     event.target.src = this.aboutImageFallback;
   }
@@ -222,17 +350,15 @@ export class HomePage implements OnInit {
   // FAQ METHODS
   // ==========================================
 
-  // Toggle FAQ item
   toggleFaq(index: number) {
     this.faqs[index].active = !this.faqs[index].active;
   }
 
   // ==========================================
-  // WHATSAPP METHOD - Direct WhatsApp only
+  // LEGACY WHATSAPP METHOD (kept for compatibility)
   // ==========================================
   openWhatsApp() {
-    const phone = this.whatsappNumber; // +27 84 900 9821
-    const message = 'Hello STAY@TIAH, I would like to enquire about room availability and pricing.';
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+    // Redirect to booking page instead of WhatsApp
+    this.navigateToBooking();
   }
 }
