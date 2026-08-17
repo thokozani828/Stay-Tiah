@@ -62,7 +62,7 @@ p, span, a, div, li, button,
 }
 
 // =============================================
-// SPLASH SCREEN
+// SPLASH SCREEN - IMPROVED STRUCTURE
 // =============================================
 #splash {
   position: fixed;
@@ -89,13 +89,14 @@ p, span, a, div, li, button,
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 24px;
+    padding: 20px;
   }
 
   .splash-logo-container {
     position: relative;
-    width: 140px;
-    height: 140px;
+    width: 150px;
+    height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -116,19 +117,46 @@ p, span, a, div, li, button,
       animation: spin 6s linear infinite reverse;
     }
 
-    .splash-logo {
-      font-family: $font-primary !important;
-      font-size: 3.8rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      background: linear-gradient(135deg, #ffffff 0%, $gold 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: splashPulse 1.8s ease-in-out infinite alternate;
-      line-height: 1;
+    .splash-ring-3 {
+      position: absolute;
+      inset: 20px;
+      border: 2px solid rgba($gold, 0.05);
+      border-radius: 50%;
+      animation: spin 10s linear infinite;
+    }
+
+    .splash-logo-wrapper {
       position: relative;
       z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .splash-logo {
+      font-family: $font-primary !important;
+      font-size: 3.2rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #ffffff;
+      line-height: 1;
+      animation: splashPulse 1.8s ease-in-out infinite alternate;
+      position: relative;
+      z-index: 2;
+      
+      .splash-logo-gold {
+        color: $gold;
+      }
+    }
+    
+    .splash-logo-sub {
+      font-family: $font-primary !important;
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: rgba($gold, 0.4);
+      font-weight: 300;
     }
   }
 
@@ -144,8 +172,8 @@ p, span, a, div, li, button,
 
   .splash-loader {
     display: flex;
-    gap: 8px;
-    margin-top: 10px;
+    gap: 10px;
+    margin-top: 6px;
 
     span {
       width: 10px;
@@ -272,7 +300,7 @@ p, span, a, div, li, button,
 }
 
 // =============================================
-// HEADER / NAVBAR
+// HEADER / NAVBAR - UPDATED WITH "la tiah"
 // =============================================
 .site-header {
   background: rgba(10, 10, 10, 0.95);
@@ -336,10 +364,11 @@ p, span, a, div, li, button,
   font-size: 1.8rem;
   font-weight: 700;
   letter-spacing: 0.04em;
-  background: linear-gradient(135deg, #ffffff 0%, $gold 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ffffff;
+  
+  .brand__gold {
+    color: $gold;
+  }
   
   @media (max-width: 992px) { font-size: 1.4rem; }
   @media (max-width: 576px) { font-size: 1.2rem; }
@@ -541,6 +570,7 @@ p, span, a, div, li, button,
   box-shadow: -8px 0 40px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
+  -webkit-overflow-scrolling: touch;
   
   @media (max-width: 576px) { width: 280px; }
   
@@ -585,11 +615,12 @@ p, span, a, div, li, button,
       font-family: $font-primary !important;
       font-size: 1.6rem;
       font-weight: 700;
-      background: linear-gradient(135deg, #ffffff 0%, $gold 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: #ffffff;
       letter-spacing: 0.04em;
+      
+      .mobile-brand-gold {
+        color: $gold;
+      }
     }
     
     .mobile-brand-tagline {
@@ -714,6 +745,16 @@ p, span, a, div, li, button,
       font-family: $font-primary !important;
     }
   }
+}
+
+// =============================================
+// PREVENT BODY SCROLL WHEN MOBILE NAV OPEN
+// =============================================
+body.nav-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
 }
 
 // =============================================
@@ -1542,7 +1583,7 @@ p, span, a, div, li, button,
 }
 
 // =============================================
-// FOOTER
+// FOOTER - UPDATED WITH "la tiah"
 // =============================================
 .footer {
   position: relative;
@@ -1599,13 +1640,19 @@ p, span, a, div, li, button,
       font-size: 30px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 4px;
       margin-bottom: 12px;
       cursor: pointer;
       @media (max-width: 576px) { font-size: 26px; }
       
-      .logo-text { color: $white; font-weight: 400; }
-      .logo-gold { color: $gold; font-weight: 700; }
+      .logo-text { 
+        color: $white; 
+        font-weight: 400;
+      }
+      .logo-gold { 
+        color: $gold; 
+        font-weight: 700;
+      }
     }
     
     p {

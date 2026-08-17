@@ -1,8 +1,9 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, ViewChild, OnInit, HostListener } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ViewChild, OnInit, HostListener, Renderer2, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, IonContent } from '@ionic/angular';
-import { RouterModule, Router } from '@angular/router';
+import { IonicModule, IonContent, Platform } from '@ionic/angular';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -37,6 +38,8 @@ export class HomePage implements OnInit {
   showHero: boolean = true;
   mobileNavOpen: boolean = false;
   isScrolled: boolean = false;
+  isMobile: boolean = false;
+  private lastPage: string = '';
 
   // ==========================================
   // WHATSAPP NUMBER
@@ -65,12 +68,12 @@ export class HomePage implements OnInit {
     },
     {
       question: 'Do you offer airport transfers?',
-      answer: 'Guests can travel from the airport using an e-hailing system..',
+      answer: 'Guests can travel from the airport using an e-hailing system.',
       active: false
     },
     {
       question: 'Are pets allowed?',
-      answer: 'We admire pets however kindly make an alternative arrangement stay for them..',
+      answer: 'We admire pets however kindly make an alternative arrangement stay for them.',
       active: false
     },
     {
@@ -90,17 +93,69 @@ export class HomePage implements OnInit {
     }
   ];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private platform: Platform,
+    private renderer: Renderer2,
+    private el: ElementRef
+  ) {
+    // Track navigation to know where the user came from
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      this.lastPage = event.urlAfterRedirects || event.url;
+    });
+  }
 
   // ==========================================
   // LIFECYCLE HOOKS
   // ==========================================
 
   ngOnInit() {
+    // Check if mobile device
+    this.isMobile = this.platform.is('mobile') || this.platform.is('mobileweb') || window.innerWidth < 992;
+    
     // Hide splash screen after 2.5 seconds
     setTimeout(() => {
       this.splashHidden = true;
     }, 2500);
+
+    // Prevent swipe to open nav on iOS
+    this.preventSwipeToOpenNav();
+  }
+
+  // ==========================================
+  // PREVENT SWIPE TO OPEN NAV
+  // ==========================================
+  private preventSwipeToOpenNav() {
+    // Disable iOS Safari swipe back gesture that can trigger nav
+    if (this.platform.is('ios')) {
+      // Add touch event listeners to prevent swipe gestures
+      const ionContent = this.el.nativeElement.querySelector('ion-content');
+      if (ionContent) {
+        ionContent.addEventListener('touchstart', (e: TouchEvent) => {
+          const touch = e.touches[0];
+          // If touch starts near the left edge, prevent default to stop swipe
+          if (touch.clientX < 30) {
+            // Only prevent if not in a scrollable area
+            e.preventDefault();
+          }
+        }, { passive: false });
+      }
+    }
+
+    // Prevent overscroll behavior that can trigger nav
+    document.addEventListener('touchmove', (e: TouchEvent) => {
+      const target = e.target as HTMLElement;
+      // Check if the touch is on the body or ion-content
+      if (target.closest('ion-content') || target.closest('ion-app')) {
+        // Allow scroll but prevent swipe to open nav
+        const touch = e.touches[0];
+        if (touch.clientX < 20) {
+          e.preventDefault();
+        }
+      }
+    }, { passive: false });
   }
 
   // ==========================================
@@ -112,42 +167,81 @@ export class HomePage implements OnInit {
   }
 
   // ==========================================
-  // NAVIGATION METHODS
+  // WINDOW RESIZE LISTENER
+  // ==========================================
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.isMobile = window.innerWidth < 992;
+  }
+
+  // ==========================================
+  // NAVIGATION METHODS - WITH BACK BUTTON HANDLING
   // ==========================================
 
-  // Navigate to home
+  // Navigate to home - clear history and go to home
   goToHome() {
     this.currentSection = 'home';
     this.closeMobileNav();
-    this.scrollToSection('home');
+    // Navigate to home and replace the current history entry
+    this.router.navigate(['/home'], { replaceUrl: true });
+    setTimeout(() => {
+      this.scrollToSection('home');
+    }, 100);
   }
 
   // Navigate to rooms page
   goToRooms() {
-    this.router.navigate(['/rooms']);
     this.closeMobileNav();
+    this.router.navigate(['/rooms']);
   }
 
   // Navigate to about page
   goToAbout() {
-    this.router.navigate(['/about']);
     this.closeMobileNav();
+    this.router.navigate(['/about']);
   }
 
   // Navigate to attractions page
   goToAttractions() {
-    this.router.navigate(['/attractions']);
     this.closeMobileNav();
+    this.router.navigate(['/attractions']);
   }
 
   // Navigate to contact page
   goToContact() {
-    this.router.navigate(['/contact']);
     this.closeMobileNav();
+    this.router.navigate(['/contact']);
   }
 
   // ==========================================
-  // SCROLL METHODS (Fixed)
+  // BACK BUTTON HANDLING
+  // ==========================================
+  
+  /**
+   * Handle the back button - navigates to the previous page or home
+   * This is called when the user presses the browser back button
+   */
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event: PopStateEvent) {
+    // If we're on the home page and the user presses back, 
+    // we want to stay on home or go to the previous page
+    const currentUrl = this.router.url;
+    
+    // If the user is on the home page and presses back,
+    // we want to either stay or navigate to the previous page
+    if (currentUrl === '/home') {
+      // Check if there's a previous page in history
+      const historyLength = window.history.length;
+      if (historyLength > 1) {
+        // Go back in history
+        window.history.back();
+      }
+      // Otherwise, stay on home
+    }
+  }
+
+  // ==========================================
+  // SCROLL METHODS
   // ==========================================
 
   // Scroll to specific section using Ionic's internal engine
@@ -163,7 +257,7 @@ export class HomePage implements OnInit {
         const scrollEl = await this.content.getScrollElement();
 
         // Calculate the top position of the target element
-        const headerOffset = 72; // Account for fixed header
+        const headerOffset = this.isMobile ? 56 : 72; // Account for fixed header
         const elementPosition = targetElement.getBoundingClientRect().top;
         const offsetPosition = elementPosition + scrollEl.scrollTop - headerOffset;
 
@@ -178,19 +272,40 @@ export class HomePage implements OnInit {
   }
 
   // ==========================================
-  // MOBILE NAVIGATION
+  // MOBILE NAVIGATION - FIXED
   // ==========================================
 
   // Toggle mobile navigation
   toggleMobileNav() {
     this.mobileNavOpen = !this.mobileNavOpen;
-    document.body.style.overflow = this.mobileNavOpen ? 'hidden' : '';
+    if (this.mobileNavOpen) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.height = '100%';
+      document.body.classList.add('nav-open');
+      
+      // Prevent swipe to close on iOS
+      if (this.platform.is('ios')) {
+        document.body.style.touchAction = 'none';
+      }
+    } else {
+      this.closeMobileNav();
+    }
   }
 
   // Close mobile navigation
   closeMobileNav() {
     this.mobileNavOpen = false;
     document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.width = '';
+    document.body.style.height = '';
+    document.body.classList.remove('nav-open');
+    
+    if (this.platform.is('ios')) {
+      document.body.style.touchAction = '';
+    }
   }
 
   // ==========================================
@@ -232,7 +347,7 @@ export class HomePage implements OnInit {
   // ==========================================
   openWhatsApp() {
     const phone = this.whatsappNumber; // +27 84 900 9821
-    const message = 'Hello STAY@TIAH, I would like to enquire about room availability and pricing.';
+    const message = 'Hello la tiah, I would like to enquire about room availability and pricing.';
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
   }
 }
