@@ -65,12 +65,12 @@ export class HomePage implements OnInit {
     },
     {
       question: 'Do you offer airport transfers?',
-      answer: 'We can arrange airport transfers upon request for an additional fee. Please contact us at least 24 hours in advance.',
+      answer: 'Guests can travel from the airport using an e-hailing system..',
       active: false
     },
     {
       question: 'Are pets allowed?',
-      answer: 'We welcome well-behaved pets at our Musgrave location. Please inform us when booking so we can prepare accordingly.',
+      answer: 'We admire pets however kindly make an alternative arrangement stay for them..',
       active: false
     },
     {
@@ -80,17 +80,12 @@ export class HomePage implements OnInit {
     },
     {
       question: 'What payment methods do you accept?',
-      answer: 'We accept all major credit cards, debit cards, and cash payments. Online payments can also be made via our secure booking system.',
+      answer: 'We accept EFT Payments.',
       active: false
     },
     {
       question: 'Do you have a cancellation policy?',
       answer: 'Yes, we have a flexible cancellation policy. Free cancellation is available up to 24 hours before check-in. Please refer to our terms and conditions for more details.',
-      active: false
-    },
-    {
-      question: 'Is breakfast included?',
-      answer: 'No, breakfast is not included in the room rate. However, we offer a variety of breakfast options at nearby restaurants.',
       active: false
     }
   ];

@@ -297,22 +297,6 @@ export class AttractionsPage {
       lat: -29.7200,
       lng: 31.0750
     },
-    {
-      id: 16,
-      name: 'Durban Ice Rink',
-      description: 'A fun indoor ice skating rink perfect for families and groups, located in the city centre.',
-      image: 'https://imgs.search.brave.com/_3AsZDq9gK1sopMYOMr4O8asMM9trbhM58-cspu8iyM/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/bmV0cGFnZXMuY28u/emEvbWVkaWEvemEv/bnBpbWcvMzYzODAx/XzM2MzkwMC9EdXJi/YW4rSWNlK1Jpbmst/MzYzODAxX2JfY3Jh/d2xmODlhY2RjMDhh/MWFiMzVmOGRjNDQ5/YTMyMGUzZmRmZS5q/cGc',
-      category: 'entertainment',
-      distance: '4.2 km',
-      location: 'Berea',
-      hours: '10:00 - 20:00',
-      rating: 4.2,
-      reviews: 78,
-      near: ['La Tiah Musgrave', 'Tiah Musgrave'],
-      lat: -29.8550,
-      lng: 30.9900
-    },
-
     // ===================== NEW: PHEZULU & VALLEY OF A THOUSAND HILLS =====================
     {
       id: 23,
