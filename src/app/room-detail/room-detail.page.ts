@@ -1,8 +1,11 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, HostListener } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-import { RouterModule, Router, ActivatedRoute } from '@angular/router';
+import { IonicModule, Platform } from '@ionic/angular';
+import { RouterModule, Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-room-detail',
@@ -17,7 +20,7 @@ import { RouterModule, Router, ActivatedRoute } from '@angular/router';
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class RoomDetailPage implements OnInit {
+export class RoomDetailPage implements OnInit, OnDestroy {
 
   room: any = null;
   roomId: string | null = null;
@@ -26,6 +29,21 @@ export class RoomDetailPage implements OnInit {
   showModal: boolean = false;
   currentImageIndex: number = 0;
   selectedRoomType: any = null;
+
+  // ==========================================
+  // NAVIGATION STATE
+  // ==========================================
+  isTransitioning: boolean = false;
+  private transitionTimeout: any;
+
+  // ==========================================
+  // ROUTE HISTORY FOR BACK NAVIGATION
+  // ==========================================
+  currentRoute: string = '/room-detail';
+  private routeHistory: string[] = ['/home', '/rooms', '/room-detail'];
+  private isNavigatingBack: boolean = false;
+  private routerSubscription: Subscription | null = null;
+  private backButtonSubscription: any;
 
   // ==========================================
   // DATE SELECTION PROPERTIES
@@ -939,7 +957,8 @@ Convenient Location: Located 2.5 km from downtown Durban, the property is close 
   // NAVIGATION METHODS
   // =========================
   goBack() {
-    this.router.navigate(['/rooms']);
+    // Use the smart back navigation
+    this.goBackSmart();
   }
 
   goToHome() {
@@ -963,16 +982,54 @@ Convenient Location: Located 2.5 km from downtown Durban, the property is close 
   // =========================
   constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location,
+    private platform: Platform
   ) {}
 
   ngOnInit() {
+    // Set initial route history
+    this.routeHistory = ['/home', '/rooms', '/room-detail'];
+
+    // Track route changes for back navigation
+    this.routerSubscription = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      const url = event.urlAfterRedirects;
+      this.currentRoute = url;
+      
+      if (!this.isNavigatingBack) {
+        if (this.routeHistory.length === 0 || this.routeHistory[this.routeHistory.length - 1] !== url) {
+          this.routeHistory.push(url);
+        }
+      }
+      
+      this.isNavigatingBack = false;
+    });
+
+    // Handle hardware back button on mobile devices
+    this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(10, () => {
+      this.goBackSmart();
+    });
+
     this.route.queryParams.subscribe(params => {
       this.roomId = params['roomId'] || null;
       if (this.roomId) {
         this.loadRoomData(this.roomId);
       }
     });
+  }
+
+  ngOnDestroy() {
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
+    if (this.backButtonSubscription) {
+      this.backButtonSubscription.unsubscribe();
+    }
+    if (this.transitionTimeout) {
+      clearTimeout(this.transitionTimeout);
+    }
   }
 
   loadRoomData(roomId: string) {
@@ -991,6 +1048,70 @@ Convenient Location: Located 2.5 km from downtown Durban, the property is close 
 
   selectRoomType(roomType: any) {
     this.selectedRoomType = roomType;
+  }
+
+  // ==========================================
+  // SMART BACK NAVIGATION
+  // ==========================================
+  goBackSmart(): void {
+    // Prevent multiple back navigations
+    if (this.isNavigatingBack || this.isTransitioning) {
+      return;
+    }
+
+    // Get current URL without query params
+    const currentPath = this.router.url.split('?')[0];
+
+    // If we're on home page, do nothing
+    if (currentPath === '/home') {
+      return;
+    }
+
+    // Check if we have previous page in our history
+    if (this.routeHistory.length > 1) {
+      this.isNavigatingBack = true;
+      
+      // Remove current page from history
+      this.routeHistory.pop();
+      
+      // Get the previous page
+      const previousPage = this.routeHistory[this.routeHistory.length - 1];
+      
+      // If previous page exists and is different from current
+      if (previousPage && previousPage !== currentPath) {
+        this.startTransition();
+        setTimeout(() => {
+          this.router.navigate([previousPage]);
+          setTimeout(() => {
+            this.endTransition();
+            this.isNavigatingBack = false;
+          }, 300);
+        }, 400);
+      } else {
+        // Fallback to browser's back
+        this.location.back();
+        this.isNavigatingBack = false;
+      }
+    } else {
+      // If no history, use browser's back
+      this.location.back();
+    }
+  }
+
+  /**
+   * Start page transition animation
+   */
+  private startTransition() {
+    this.isTransitioning = true;
+    document.body.classList.add('page-transitioning');
+  }
+
+  /**
+   * End page transition animation
+   */
+  private endTransition() {
+    this.isTransitioning = false;
+    document.body.classList.remove('page-transitioning');
   }
 
   // ==========================================

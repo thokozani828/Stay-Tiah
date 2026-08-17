@@ -1,10 +1,11 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, ViewChild, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, IonContent } from '@ionic/angular';
+import { IonicModule, IonContent, Platform } from '@ionic/angular';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -53,6 +54,11 @@ export class HomePage implements OnInit, OnDestroy {
   currentRoute: string = '/home';
   private routeHistory: string[] = ['/home'];
   private isNavigatingBack: boolean = false;
+
+  // ==========================================
+  // BACK BUTTON SUBSCRIPTION
+  // ==========================================
+  private backButtonSubscription: any;
 
   // ==========================================
   // WHATSAPP NUMBER - Now used for booking link
@@ -106,7 +112,11 @@ export class HomePage implements OnInit, OnDestroy {
     }
   ];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private location: Location,
+    private platform: Platform
+  ) {}
 
   // ==========================================
   // LIFECYCLE HOOKS
@@ -136,12 +146,20 @@ export class HomePage implements OnInit, OnDestroy {
       // Reset back navigation flag after navigation completes
       this.isNavigatingBack = false;
     });
+
+    // Handle hardware back button on mobile devices
+    this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(10, () => {
+      this.goBack();
+    });
   }
 
   ngOnDestroy() {
     // Clean up subscriptions and timeouts
     if (this.routerSubscription) {
       this.routerSubscription.unsubscribe();
+    }
+    if (this.backButtonSubscription) {
+      this.backButtonSubscription.unsubscribe();
     }
     if (this.transitionTimeout) {
       clearTimeout(this.transitionTimeout);
@@ -199,8 +217,11 @@ export class HomePage implements OnInit, OnDestroy {
     // Prevent multiple back actions
     if (this.isNavigatingBack || this.isTransitioning) return;
     
+    // Get current URL without query params
+    const currentPath = this.router.url.split('?')[0];
+    
     // Don't go back if we're on home page
-    if (this.currentRoute === '/home') {
+    if (currentPath === '/home') {
       return;
     }
     
@@ -214,23 +235,24 @@ export class HomePage implements OnInit, OnDestroy {
       // Get the previous page
       const previousPage = this.routeHistory[this.routeHistory.length - 1];
       
-      if (previousPage && previousPage !== this.currentRoute) {
+      if (previousPage && previousPage !== currentPath) {
         this.startTransition();
         
         setTimeout(() => {
           this.router.navigate([previousPage]);
           setTimeout(() => {
             this.endTransition();
+            this.isNavigatingBack = false;
           }, 300);
         }, 400);
       } else {
-        // Fallback to browser back if history is empty
-        window.history.back();
+        // Fallback to location back if history is empty
+        this.location.back();
         this.isNavigatingBack = false;
       }
     } else {
-      // Fallback to browser back
-      window.history.back();
+      // Fallback to location back
+      this.location.back();
     }
   }
 

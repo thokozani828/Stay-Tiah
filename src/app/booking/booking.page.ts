@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule, IonContent, Platform } from '@ionic/angular';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-booking',
@@ -32,6 +34,21 @@ export class BookingPage implements OnInit, OnDestroy {
   private originalPosition: string = '';
   private originalWidth: string = '';
   private originalHeight: string = '';
+
+  // ==========================================
+  // ROUTE HISTORY FOR BACK NAVIGATION
+  // ==========================================
+  currentRoute: string = '/booking';
+  private routeHistory: string[] = ['/home', '/booking'];
+  private isNavigatingBack: boolean = false;
+  private routerSubscription: Subscription | null = null;
+  private backButtonSubscription: any;
+
+  // ==========================================
+  // PAGE TRANSITION STATE
+  // ==========================================
+  isTransitioning: boolean = false;
+  private transitionTimeout: any;
 
   // ==========================================
   // BOOKING DATA
@@ -89,14 +106,9 @@ export class BookingPage implements OnInit, OnDestroy {
     private router: Router,
     private platform: Platform,
     private renderer: Renderer2,
-    private el: ElementRef
-  ) {
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
-      const url = event.urlAfterRedirects || event.url;
-    });
-  }
+    private el: ElementRef,
+    private location: Location
+  ) {}
 
   // ==========================================
   // LIFECYCLE HOOKS
@@ -108,11 +120,41 @@ export class BookingPage implements OnInit, OnDestroy {
     
     this.isMobile = this.platform.is('mobile') || this.platform.is('mobileweb') || window.innerWidth < 992;
     this.preventSwipeToOpenNav();
+
+    // Track route changes for back navigation
+    this.routerSubscription = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      const url = event.urlAfterRedirects;
+      this.currentRoute = url;
+      
+      if (!this.isNavigatingBack) {
+        if (this.routeHistory.length === 0 || this.routeHistory[this.routeHistory.length - 1] !== url) {
+          this.routeHistory.push(url);
+        }
+      }
+      
+      this.isNavigatingBack = false;
+    });
+
+    // Handle hardware back button on mobile devices
+    this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(10, () => {
+      this.goBack();
+    });
   }
 
   ngOnDestroy(): void {
     this.restoreScroll();
     this.restoreBodyStyles();
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
+    if (this.backButtonSubscription) {
+      this.backButtonSubscription.unsubscribe();
+    }
+    if (this.transitionTimeout) {
+      clearTimeout(this.transitionTimeout);
+    }
   }
 
   // ==========================================
@@ -156,31 +198,69 @@ export class BookingPage implements OnInit, OnDestroy {
   }
 
   // ==========================================
-  // BACK BUTTON HANDLING
+  // GO BACK - Proper navigation with history
   // ==========================================
-  @HostListener('window:popstate', ['$event'])
-  onPopState(event: PopStateEvent) {
-    const historyLength = window.history.length;
-    if (historyLength > 1) {
-      window.history.back();
+  goBack(): void {
+    // Prevent multiple back navigations
+    if (this.isNavigatingBack || this.isTransitioning) {
+      return;
+    }
+
+    this.closeMobileNav();
+
+    // Get current URL without query params
+    const currentPath = this.router.url.split('?')[0];
+
+    // If we're on home page, do nothing
+    if (currentPath === '/home') {
+      return;
+    }
+
+    // Check if we have previous page in our history
+    if (this.routeHistory.length > 1) {
+      this.isNavigatingBack = true;
+      
+      // Remove current page from history
+      this.routeHistory.pop();
+      
+      // Get the previous page
+      const previousPage = this.routeHistory[this.routeHistory.length - 1];
+      
+      // If previous page exists and is different from current
+      if (previousPage && previousPage !== currentPath) {
+        this.startTransition();
+        setTimeout(() => {
+          this.router.navigate([previousPage]);
+          setTimeout(() => {
+            this.endTransition();
+            this.isNavigatingBack = false;
+          }, 300);
+        }, 400);
+      } else {
+        // Fallback to browser's back
+        this.location.back();
+        this.isNavigatingBack = false;
+      }
     } else {
-      this.router.navigate(['/home']);
+      // If no history, use browser's back
+      this.location.back();
     }
   }
 
-  // ==========================================
-  // GO BACK - Navigate to previous page
-  // ==========================================
-  goBack(): void {
-    this.closeMobileNav();
-    // Try to go back in history
-    const historyLength = window.history.length;
-    if (historyLength > 1) {
-      window.history.back();
-    } else {
-      // If no history, go to home
-      this.router.navigate(['/home']);
-    }
+  /**
+   * Start page transition animation
+   */
+  private startTransition() {
+    this.isTransitioning = true;
+    document.body.classList.add('page-transitioning');
+  }
+
+  /**
+   * End page transition animation
+   */
+  private endTransition() {
+    this.isTransitioning = false;
+    document.body.classList.remove('page-transitioning');
   }
 
   // ==========================================
@@ -252,6 +332,26 @@ export class BookingPage implements OnInit, OnDestroy {
   goToHome() {
     this.closeMobileNav();
     this.router.navigate(['/home'], { replaceUrl: true });
+  }
+
+  goToAbout() {
+    this.closeMobileNav();
+    this.router.navigate(['/about']);
+  }
+
+  goToRooms() {
+    this.closeMobileNav();
+    this.router.navigate(['/rooms']);
+  }
+
+  goToAttractions() {
+    this.closeMobileNav();
+    this.router.navigate(['/attractions']);
+  }
+
+  goToContact() {
+    this.closeMobileNav();
+    this.router.navigate(['/contact']);
   }
 
   // ==========================================

@@ -1,9 +1,10 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule, IonContent } from '@ionic/angular';
+import { IonicModule, IonContent, Platform } from '@ionic/angular';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-attractions',
@@ -46,6 +47,11 @@ export class AttractionsPage implements OnInit, OnDestroy {
   currentRoute: string = '/attractions';
   private routeHistory: string[] = ['/home', '/attractions'];
   private isNavigatingBack: boolean = false;
+
+  // ==========================================
+  // BACK BUTTON SUBSCRIPTION
+  // ==========================================
+  private backButtonSubscription: any;
 
   // ==========================================
   // FILTER STATE
@@ -427,7 +433,11 @@ export class AttractionsPage implements OnInit, OnDestroy {
     return this.attractions.filter(a => a.category === this.activeFilter);
   }
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private location: Location,
+    private platform: Platform
+  ) {}
 
   // ==========================================
   // LIFECYCLE HOOKS
@@ -454,6 +464,11 @@ export class AttractionsPage implements OnInit, OnDestroy {
       
       this.isNavigatingBack = false;
     });
+
+    // Handle hardware back button on mobile devices
+    this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(10, () => {
+      this.goBack();
+    });
   }
 
   ngOnDestroy() {
@@ -463,6 +478,9 @@ export class AttractionsPage implements OnInit, OnDestroy {
     }
     if (this.transitionTimeout) {
       clearTimeout(this.transitionTimeout);
+    }
+    if (this.backButtonSubscription) {
+      this.backButtonSubscription.unsubscribe();
     }
   }
 
@@ -503,34 +521,50 @@ export class AttractionsPage implements OnInit, OnDestroy {
   }
 
   /**
-   * Smart back navigation - goes back to previous page
+   * Smart back navigation using Location service for proper browser history
    */
   goBack() {
-    if (this.isNavigatingBack || this.isTransitioning) return;
-    
-    if (this.currentRoute === '/home') {
+    // Prevent multiple back navigations
+    if (this.isNavigatingBack || this.isTransitioning) {
       return;
     }
-    
+
+    // Get current URL without query params
+    const currentPath = this.router.url.split('?')[0];
+
+    // If we're on home page, do nothing (or exit app)
+    if (currentPath === '/home') {
+      return;
+    }
+
+    // Check if we have previous page in our history
     if (this.routeHistory.length > 1) {
       this.isNavigatingBack = true;
+      
+      // Remove current page from history
       this.routeHistory.pop();
+      
+      // Get the previous page
       const previousPage = this.routeHistory[this.routeHistory.length - 1];
       
-      if (previousPage && previousPage !== this.currentRoute) {
+      // If previous page exists and is different from current
+      if (previousPage && previousPage !== currentPath) {
         this.startTransition();
         setTimeout(() => {
           this.router.navigate([previousPage]);
           setTimeout(() => {
             this.endTransition();
+            this.isNavigatingBack = false;
           }, 300);
         }, 400);
       } else {
-        window.history.back();
+        // Fallback to browser's back
+        this.location.back();
         this.isNavigatingBack = false;
       }
     } else {
-      window.history.back();
+      // If no history, use browser's back
+      this.location.back();
     }
   }
 
