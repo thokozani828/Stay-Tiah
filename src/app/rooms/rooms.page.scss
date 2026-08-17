@@ -65,6 +65,127 @@ p, span, a, div, li, button,
 }
 
 // =========================
+// SPLASH SCREEN - FIXED
+// =========================
+#splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #0a0a0a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1.2s ease, visibility 1.2s ease;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .splash-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .splash-logo-container {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .splash-ring {
+      position: absolute;
+      inset: 0;
+      border: 2px solid rgba($gold, 0.15);
+      border-radius: 50%;
+      animation: spin 8s linear infinite;
+    }
+
+    .splash-ring-2 {
+      position: absolute;
+      inset: 10px;
+      border: 2px solid rgba($gold, 0.08);
+      border-radius: 50%;
+      animation: spin 6s linear infinite reverse;
+    }
+
+    .splash-logo {
+      font-family: $font-primary !important;
+      font-size: 3.8rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      background: linear-gradient(135deg, #ffffff 0%, $gold 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: splashPulse 1.8s ease-in-out infinite alternate;
+      line-height: 1;
+      position: relative;
+      z-index: 2;
+      display: inline-block;
+      white-space: nowrap;
+    }
+  }
+
+  .splash-tagline {
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba($gold, 0.5);
+    font-weight: 300;
+    font-family: $font-primary !important;
+    animation: fadeInUp 1s ease 0.5s both;
+  }
+
+  .splash-loader {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+
+    span {
+      width: 10px;
+      height: 10px;
+      background: $gold;
+      border-radius: 50%;
+      animation: loaderBounce 1.2s ease-in-out infinite;
+
+      &:nth-child(2) { animation-delay: 0.2s; }
+      &:nth-child(3) { animation-delay: 0.4s; }
+      &:nth-child(4) { animation-delay: 0.6s; }
+    }
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes splashPulse {
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(1.05); opacity: 1; }
+}
+
+@keyframes loaderBounce {
+  0%, 80%, 100% { transform: scale(0.4); opacity: 0.3; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// =========================
 // CONTAINER
 // =========================
 .container {

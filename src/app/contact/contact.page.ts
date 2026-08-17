@@ -1,8 +1,9 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, ViewChild, HostListener, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ViewChild, HostListener, OnInit, OnDestroy, Renderer2, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
-import { RouterModule, Router } from '@angular/router';
+import { IonicModule, IonContent, Platform } from '@ionic/angular';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-contact',
@@ -17,15 +18,21 @@ import { FormsModule, NgForm } from '@angular/forms';
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ContactPage implements OnInit {
+export class ContactPage implements OnInit, OnDestroy {
 
   @ViewChild('contactForm') contactForm!: NgForm;
+  @ViewChild(IonContent, { static: false }) content!: IonContent;
 
   // ==========================================
   // NAVIGATION STATE
   // ==========================================
   mobileNavOpen: boolean = false;
   isScrolled: boolean = false;
+  isMobile: boolean = false;
+  private originalOverflow: string = '';
+  private originalPosition: string = '';
+  private originalWidth: string = '';
+  private originalHeight: string = '';
 
   // ==========================================
   // FORM DATA - Updated with availability fields
@@ -77,13 +84,66 @@ export class ContactPage implements OnInit {
   // WhatsApp number
   private readonly whatsappNumber: string = '27849009821';
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private platform: Platform,
+    private renderer: Renderer2,
+    private el: ElementRef
+  ) {
+    // Track navigation to know where the user came from
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      // Store the previous URL for back navigation
+      const url = event.urlAfterRedirects || event.url;
+    });
+  }
 
   ngOnInit() {
     // Set today's date for validation
     const today = new Date();
     this.todayDate = today.toISOString().split('T')[0];
     this.minCheckOutDate = this.todayDate;
+    
+    // Check if mobile device
+    this.isMobile = this.platform.is('mobile') || this.platform.is('mobileweb') || window.innerWidth < 992;
+    
+    // Prevent swipe to open nav on iOS
+    this.preventSwipeToOpenNav();
+  }
+
+  ngOnDestroy(): void {
+    this.restoreScroll();
+    this.restoreBodyStyles();
+  }
+
+  // ==========================================
+  // PREVENT SWIPE TO OPEN NAV
+  // ==========================================
+  private preventSwipeToOpenNav(): void {
+    // Disable iOS Safari swipe back gesture that can trigger nav
+    if (this.platform.is('ios')) {
+      const ionContent = this.el.nativeElement.querySelector('ion-content');
+      if (ionContent) {
+        ionContent.addEventListener('touchstart', (e: TouchEvent) => {
+          const touch = e.touches[0];
+          if (touch.clientX < 30) {
+            e.preventDefault();
+          }
+        }, { passive: false });
+      }
+    }
+
+    // Prevent overscroll behavior that can trigger nav
+    document.addEventListener('touchmove', (e: TouchEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest('ion-content') || target.closest('ion-app')) {
+        const touch = e.touches[0];
+        if (touch.clientX < 20) {
+          e.preventDefault();
+        }
+      }
+    }, { passive: false });
   }
 
   // ==========================================
@@ -153,6 +213,27 @@ export class ContactPage implements OnInit {
   }
 
   // ==========================================
+  // WINDOW RESIZE LISTENER
+  // ==========================================
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.isMobile = window.innerWidth < 992;
+  }
+
+  // ==========================================
+  // BACK BUTTON HANDLING
+  // ==========================================
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event: PopStateEvent) {
+    const historyLength = window.history.length;
+    if (historyLength > 1) {
+      window.history.back();
+    } else {
+      this.router.navigate(['/home']);
+    }
+  }
+
+  // ==========================================
   // SCROLL EVENT FOR ION-CONTENT
   // ==========================================
   onScroll(event: any) {
@@ -166,42 +247,83 @@ export class ContactPage implements OnInit {
   }
 
   // =========================
-  // MOBILE NAVIGATION
+  // MOBILE NAVIGATION - IMPROVED
   // =========================
   toggleMobileNav() {
     this.mobileNavOpen = !this.mobileNavOpen;
+    
     if (this.mobileNavOpen) {
+      // Store original styles
+      this.originalOverflow = document.body.style.overflow || '';
+      this.originalPosition = document.body.style.position || '';
+      this.originalWidth = document.body.style.width || '';
+      this.originalHeight = document.body.style.height || '';
+      
+      // Lock body scroll
       document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.height = '100%';
+      document.documentElement.style.overflow = 'hidden';
+      
+      // Prevent iOS swipe
+      if (this.platform.is('ios')) {
+        document.body.style.touchAction = 'none';
+      }
+      
+      document.body.classList.add('nav-open');
     } else {
-      document.body.style.overflow = '';
+      this.closeMobileNav();
     }
   }
 
   closeMobileNav() {
     this.mobileNavOpen = false;
-    document.body.style.overflow = '';
+    this.restoreBodyStyles();
+    this.restoreScroll();
+    document.body.classList.remove('nav-open');
+    
+    if (this.platform.is('ios')) {
+      document.body.style.touchAction = '';
+    }
+  }
+
+  private restoreScroll(): void {
+    document.body.style.overflow = this.originalOverflow || '';
+    document.documentElement.style.overflow = this.originalOverflow || '';
+  }
+
+  private restoreBodyStyles(): void {
+    document.body.style.position = this.originalPosition || '';
+    document.body.style.width = this.originalWidth || '';
+    document.body.style.height = this.originalHeight || '';
   }
 
   // =========================
   // NAVIGATION FUNCTIONS
   // =========================
   goToHome() {
-    this.router.navigate(['/home']);
+    this.closeMobileNav();
+    this.router.navigate(['/home'], { replaceUrl: true });
   }
 
   goToAbout() {
+    this.closeMobileNav();
     this.router.navigate(['/about']);
   }
 
   goToRooms() {
+    this.closeMobileNav();
     this.router.navigate(['/rooms']);
   }
 
   goToAttractions() {
+    this.closeMobileNav();
     this.router.navigate(['/attractions']);
   }
 
   goToContact() {
+    this.closeMobileNav();
     this.router.navigate(['/contact']);
   }
 
@@ -217,37 +339,37 @@ export class ContactPage implements OnInit {
 
   // General WhatsApp - for header, footer, floating button
   openWhatsApp() {
-    const message = 'Hello STAY@TIAH, I would like to make a booking enquiry.';
+    const message = 'Hello la tiah, I would like to make a booking enquiry.';
     this.sendWhatsAppMessage(message);
   }
 
   // WhatsApp for contact page
   openWhatsAppForContact() {
-    const message = 'Hello STAY@TIAH, I would like to get in touch regarding your accommodation.';
+    const message = 'Hello la tiah, I would like to get in touch regarding your accommodation.';
     this.sendWhatsAppMessage(message);
   }
 
   // WhatsApp for rooms enquiry
   openWhatsAppForRooms() {
-    const message = 'Hello STAY@TIAH, I would like to enquire about your rooms and availability.';
+    const message = 'Hello la tiah, I would like to enquire about your rooms and availability.';
     this.sendWhatsAppMessage(message);
   }
 
   // WhatsApp for rates enquiry
   openWhatsAppForRates() {
-    const message = 'Hello STAY@TIAH, I would like to enquire about your rates and pricing.';
+    const message = 'Hello la tiah, I would like to enquire about your rates and pricing.';
     this.sendWhatsAppMessage(message);
   }
 
   // WhatsApp for attractions enquiry
   openWhatsAppForAttractions() {
-    const message = 'Hello STAY@TIAH, I would like to enquire about attractions near your accommodation.';
+    const message = 'Hello la tiah, I would like to enquire about attractions near your accommodation.';
     this.sendWhatsAppMessage(message);
   }
 
   // WhatsApp for about page
   openWhatsAppForAbout() {
-    const message = 'Hello STAY@TIAH, I would like to learn more about your accommodation options.';
+    const message = 'Hello la tiah, I would like to learn more about your accommodation options.';
     this.sendWhatsAppMessage(message);
   }
 
@@ -456,7 +578,7 @@ export class ContactPage implements OnInit {
 
     return (
       `${topDivider}%0A` +
-      `│       STAY@TIAH BOOKING FORM     │%0A` +
+      `│       LA TIAH BOOKING FORM      │%0A` +
       `${bottomDivider}%0A%0A` +
       `[ GUEST DETAILS ]%0A` +
       `• Name    : ${data.name || 'Not provided'}%0A` +
