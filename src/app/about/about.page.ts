@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy, CUSTOM_ELEMENTS_SCHEMA, HostListener, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule, IonContent } from '@ionic/angular';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 interface LocationImages {
   oceanic: string;
@@ -27,11 +29,30 @@ export class AboutPage implements OnInit, OnDestroy {
   @ViewChild(IonContent, { static: false }) content!: IonContent;
 
   // ==========================================
+  // SPLASH SCREEN STATE
+  // ==========================================
+  splashHidden: boolean = false;
+
+  // ==========================================
   // NAVIGATION STATE
   // ==========================================
   mobileNavOpen: boolean = false;
   isScrolled: boolean = false;
   private originalOverflow: string = '';
+
+  // ==========================================
+  // PAGE TRANSITION STATE
+  // ==========================================
+  isTransitioning: boolean = false;
+  private transitionTimeout: any;
+  private routerSubscription: Subscription | null = null;
+
+  // ==========================================
+  // ROUTE HISTORY FOR BACK NAVIGATION
+  // ==========================================
+  currentRoute: string = '/about';
+  private routeHistory: string[] = ['/home', '/about'];
+  private isNavigatingBack: boolean = false;
 
   // ==========================================
   // WHATSAPP NUMBER
@@ -62,10 +83,39 @@ export class AboutPage implements OnInit, OnDestroy {
   // ==========================================
   // LIFECYCLE HOOKS
   // ==========================================
-  ngOnInit() {}
+  
+  ngOnInit() {
+    // Hide splash screen after 2.5 seconds
+    setTimeout(() => {
+      this.splashHidden = true;
+    }, 2500);
 
-  ngOnDestroy(): void {
+    // Track route changes for back navigation
+    this.routerSubscription = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      const url = event.urlAfterRedirects;
+      this.currentRoute = url;
+      
+      // Only push to history if not navigating back
+      if (!this.isNavigatingBack) {
+        if (this.routeHistory.length === 0 || this.routeHistory[this.routeHistory.length - 1] !== url) {
+          this.routeHistory.push(url);
+        }
+      }
+      
+      this.isNavigatingBack = false;
+    });
+  }
+
+  ngOnDestroy() {
     this.restoreScroll();
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
+    if (this.transitionTimeout) {
+      clearTimeout(this.transitionTimeout);
+    }
   }
 
   // ==========================================
@@ -74,6 +124,82 @@ export class AboutPage implements OnInit, OnDestroy {
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.isScrolled = window.scrollY > 50;
+  }
+
+  // ==========================================
+  // NAVIGATION METHODS WITH TRANSITIONS
+  // ==========================================
+
+  /**
+   * Handle navigation with page transition animation
+   */
+  onNavClick(route: string) {
+    if (this.currentRoute === route || this.isTransitioning) return;
+    
+    this.closeMobileNav();
+    this.startTransition();
+    
+    setTimeout(() => {
+      this.router.navigate([route]);
+      setTimeout(() => {
+        this.endTransition();
+      }, 300);
+    }, 400);
+  }
+
+  /**
+   * Navigate to booking page
+   */
+  navigateToBooking() {
+    this.onNavClick('/booking');
+  }
+
+  /**
+   * Smart back navigation - goes back to previous page
+   */
+  goBack() {
+    if (this.isNavigatingBack || this.isTransitioning) return;
+    
+    if (this.currentRoute === '/home') {
+      return;
+    }
+    
+    if (this.routeHistory.length > 1) {
+      this.isNavigatingBack = true;
+      this.routeHistory.pop();
+      const previousPage = this.routeHistory[this.routeHistory.length - 1];
+      
+      if (previousPage && previousPage !== this.currentRoute) {
+        this.startTransition();
+        setTimeout(() => {
+          this.router.navigate([previousPage]);
+          setTimeout(() => {
+            this.endTransition();
+          }, 300);
+        }, 400);
+      } else {
+        window.history.back();
+        this.isNavigatingBack = false;
+      }
+    } else {
+      window.history.back();
+    }
+  }
+
+  /**
+   * Start page transition animation
+   */
+  private startTransition() {
+    this.isTransitioning = true;
+    document.body.classList.add('page-transitioning');
+  }
+
+  /**
+   * End page transition animation
+   */
+  private endTransition() {
+    this.isTransitioning = false;
+    document.body.classList.remove('page-transitioning');
   }
 
   // ==========================================
@@ -151,82 +277,88 @@ export class AboutPage implements OnInit, OnDestroy {
   }
 
   // ==========================================
-  // NAVIGATION METHODS
+  // NAVIGATION METHODS (Legacy - kept for compatibility)
   // ==========================================
   goToHome(): void {
-    this.router.navigate(['/home']);
+    if (this.currentRoute === '/home') return;
     this.closeMobileNav();
+    this.onNavClick('/home');
   }
 
   goToBooking(): void {
-    this.router.navigate(['/booking']);
-    this.closeMobileNav();
+    this.onNavClick('/booking');
   }
 
   goToRooms(): void {
-    this.router.navigate(['/rooms']);
-    this.closeMobileNav();
+    this.onNavClick('/rooms');
   }
 
   goToAttractions(): void {
-    this.router.navigate(['/attractions']);
-    this.closeMobileNav();
+    this.onNavClick('/attractions');
   }
 
   goToContact(): void {
-    this.router.navigate(['/contact']);
-    this.closeMobileNav();
+    this.onNavClick('/contact');
   }
 
   // ==========================================
-  // WHATSAPP METHODS - Dynamic Messages Based on Context
+  // WHATSAPP METHODS - Now redirects to booking
   // ==========================================
 
-  // Core WhatsApp sender
+  /**
+   * Core WhatsApp sender - Now navigates to booking
+   */
   private sendWhatsAppMessage(message: string): void {
-    const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/${this.whatsappNumber}?text=${encodedMessage}`, '_blank');
+    // Redirect to booking page instead of WhatsApp
+    this.navigateToBooking();
   }
 
-  // General WhatsApp - for header, footer, floating button
+  /**
+   * General WhatsApp - redirects to booking
+   */
   openWhatsApp(): void {
-    const message = 'Hello stay@tiah, I would like to enquire about your accommodation and availability.';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
-  // WhatsApp for about page specific
+  /**
+   * WhatsApp for about page specific
+   */
   openWhatsAppForAbout(): void {
-    const message = 'Hello stay@tiah, I would like to learn more about your accommodation options and locations.';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
-  // WhatsApp for rooms enquiry
+  /**
+   * WhatsApp for rooms enquiry
+   */
   openWhatsAppForRooms(): void {
-    const message = 'Hello stay@tiah, I would like to enquire about your rooms and availability.';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
-  // WhatsApp for attractions enquiry
+  /**
+   * WhatsApp for attractions enquiry
+   */
   openWhatsAppForAttractions(): void {
-    const message = 'Hello stay@tiah, I would like to enquire about attractions near your accommodation.';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
-  // WhatsApp for contact
+  /**
+   * WhatsApp for contact
+   */
   openWhatsAppForContact(): void {
-    const message = 'Hello stay@tiah, I would like to get in touch regarding your accommodation.';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
-  // WhatsApp for booking enquiry
+  /**
+   * WhatsApp for booking enquiry
+   */
   openWhatsAppForBooking(): void {
-    const message = 'Hello stay@tiah, I would like to make a booking enquiry.';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
-  // WhatsApp with custom message for specific location
+  /**
+   * WhatsApp with custom message for specific location
+   */
   openWhatsAppForLocation(locationName: string): void {
-    const message = `Hello stay@tiah, I'm interested in staying at ${locationName}. Can you please provide more information about availability and rates?`;
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 }
