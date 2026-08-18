@@ -245,7 +245,7 @@ export class RoomsPage implements OnInit, OnDestroy {
       size: '20 m²',
       distance: '800 m from beach',
       description: 'Affordable shared accommodation perfect for backpackers and groups.',
-      image: 'assets/images/Halford Backpackers, Durban/6.jpg',
+      image: 'assets/images/Halford Backpackers, Durban/2.3.jpeg',
       amenities: ['Free Wifi', 'Pet Friendly', 'Shower', 'Shared Kitchen', 'Work Desk', 'Microwave', 'Electric Kettle'],
       popular: true,
       new: false,

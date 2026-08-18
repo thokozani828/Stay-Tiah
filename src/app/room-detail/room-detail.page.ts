@@ -889,14 +889,13 @@ Convenient Location: Located 2.5 km from downtown Durban, the property is close 
       price: '450',
       rating: null,
       reviews: 0,
-      heroImage: 'assets/images/Halford Backpackers, Durban/1.jpg',
+      heroImage: 'assets/images/Halford Backpackers, Durban/2.3.jpeg',
       image: 'assets/images/Halford Backpackers, Durban/1.jpg',
       galleryImages: [
-        'assets/images/Halford Backpackers, Durban/1.jpg',
-        'assets/images/Halford Backpackers, Durban/2.jpg',
-        'assets/images/Halford Backpackers, Durban/6.jpg',
-        'assets/images/Halford Backpackers, Durban/4.jpg',
-        'assets/images/Halford Backpackers, Durban/5.jpg'
+        'assets/images/Halford Backpackers, Durban/2.1.jpeg',
+        'assets/images/Halford Backpackers, Durban/2.2.jpeg',
+        'assets/images/Halford Backpackers, Durban/2.3.jpeg',
+
       ],
       description: 'Comfortable Accommodations: Halford Backpackers offers a hostel experience with free WiFi and a shared kitchen.',
       longDescription: `Comfortable Accommodations: Halford Backpackers offers a hostel experience with free WiFi and a shared kitchen. Each room includes a work desk, microwave, electric kettle, and wardrobe.`,

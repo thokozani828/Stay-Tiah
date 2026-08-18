@@ -1013,10 +1013,10 @@ p, span, a, div, li, button,
   
   .hero-title {
     font-family: $font-primary !important;
-    font-size: clamp(36px, 5.5vw, 80px);
+    font-size: clamp(28px, 3.8vw, 54px);
     line-height: 1.05;
     margin: 15px 0;
-    @media (max-width: 576px) { font-size: 32px; }
+    @media (max-width: 576px) { font-size: 26px; }
   }
   
   .hero-description {
