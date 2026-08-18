@@ -1,5 +1,5 @@
 <!-- ============================================= -->
-<!-- ✅ HEADER OUTSIDE ION-CONTENT                 -->
+<!-- ✅ HEADER OUTSIDE ION-CONTENT (LIKE ABOUT)    -->
 <!-- ============================================= -->
 <ion-header>
   <header class="site-header" [class.scrolled]="isScrolled">
@@ -9,18 +9,10 @@
         <span class="brand__tagline">Your ideal accommodation haven</span>
       </a>
 
-      <!-- Back Button -->
-      <button class="back-btn" (click)="goBack()" aria-label="Go back">
-        <ion-icon name="arrow-back-outline"></ion-icon>
-        <span class="back-label">Back</span>
-      </button>
-
-      <!-- Hamburger Button -->
       <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
         <ion-icon name="menu-outline"></ion-icon>
       </button>
 
-      <!-- Desktop Navigation -->
       <nav class="nav" aria-label="Main">
         <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="nav__link" (click)="onNavClick('/home')">Home</a>
         <a routerLink="/about" routerLinkActive="is-active" class="nav__link" (click)="onNavClick('/about')">About</a>
@@ -29,7 +21,7 @@
         <a routerLink="/contact" routerLinkActive="is-active" class="nav__link" (click)="onNavClick('/contact')">Contact</a>
       </nav>
 
-      <!-- Desktop Check Availability Button -->
+      <!-- Desktop Check Availability Button - Navigates to Booking -->
       <a class="btn-whatsapp desktop-only" (click)="navigateToBooking()">
         <ion-icon name="calendar-outline"></ion-icon>
         <span class="btn-text">Check Availability</span>
@@ -39,7 +31,7 @@
 </ion-header>
 
 <!-- ============================================= -->
-<!-- ✅ MOBILE NAV OUTSIDE ION-CONTENT             -->
+<!-- ✅ MOBILE NAV OUTSIDE ION-CONTENT (LIKE ABOUT) -->
 <!-- ============================================= -->
 <div class="nav-overlay" [class.active]="mobileNavOpen" (click)="closeMobileNav()"></div>
 
@@ -84,7 +76,7 @@
     
     <div class="mobile-divider"></div>
     
-    <!-- Mobile Check Availability -->
+    <!-- Mobile CTA - Navigates to Booking -->
     <a class="mobile-cta" (click)="navigateToBooking(); closeMobileNav()">
       <ion-icon name="calendar-outline"></ion-icon>
       <span>Check Availability</span>
@@ -108,7 +100,7 @@
 <div class="page-transition" [class.active]="isTransitioning"></div>
 
 <!-- ============================================= -->
-<!-- ✅ ION-CONTENT WITH FULL SCROLLING            -->
+<!-- ✅ ION-CONTENT WITH FULL SCROLLING -->
 <!-- ============================================= -->
 <ion-content [fullscreen]="true" (ionScroll)="onScroll($event)" class="no-scrollbar">
   
@@ -261,9 +253,9 @@
             <ion-icon name="calendar-outline"></ion-icon>
             Check Availability
           </a>
-          <a routerLink="/rooms" class="btn-secondary-cta" (click)="onNavClick('/rooms')">
-            <ion-icon name="bed-outline"></ion-icon>
-            View Rooms
+          <a (click)="openWhatsApp()" class="btn-secondary-cta">
+            <ion-icon name="logo-whatsapp"></ion-icon>
+            Enquire on WhatsApp
           </a>
         </div>
       </div>
@@ -304,6 +296,7 @@
         <div class="footer-column animate-fade-up">
           <h4>Book Your Stay</h4>
           <p>Ready for your Durban getaway?</p>
+          <!-- Footer CTA - Navigates to Booking -->
           <a (click)="navigateToBooking()" class="btn-gold">
             <ion-icon name="calendar-outline"></ion-icon>
             Check Availability

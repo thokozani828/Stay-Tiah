@@ -9,12 +9,6 @@
         <span class="brand__tagline">Your ideal accommodation haven</span>
       </a>
 
-      <!-- Back Button -->
-      <button class="back-btn" *ngIf="currentRoute !== '/home'" (click)="goBack()" aria-label="Go back">
-        <ion-icon name="arrow-back-outline"></ion-icon>
-        <span class="back-label">Back</span>
-      </button>
-
       <!-- Hamburger Button -->
       <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
         <ion-icon name="menu-outline"></ion-icon>
@@ -474,9 +468,9 @@
     </div>
   </footer>
 
-  <!-- WHATSAPP FLOAT -->
+  <!-- WHATSAPP FLOAT - Navigates to Booking -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="openWhatsApp()" class="whatsapp-float">
+    <ion-fab-button (click)="navigateToBooking()" class="whatsapp-float">
       <ion-icon name="logo-whatsapp"></ion-icon>
       <div class="whatsapp-pulse"></div>
     </ion-fab-button>

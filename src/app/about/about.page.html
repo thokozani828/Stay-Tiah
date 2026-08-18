@@ -9,12 +9,6 @@
         <span class="brand__tagline">Your ideal accommodation haven</span>
       </a>
 
-      <!-- Back Button -->
-      <button class="back-btn" (click)="goBack()" aria-label="Go back">
-        <ion-icon name="arrow-back-outline"></ion-icon>
-        <span class="back-label">Back</span>
-      </button>
-
       <!-- Hamburger Button -->
       <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
         <ion-icon name="menu-outline"></ion-icon>
@@ -29,9 +23,9 @@
         <a routerLink="/contact" routerLinkActive="is-active" class="nav__link" (click)="onNavClick('/contact')">Contact</a>
       </nav>
 
-      <!-- Desktop WhatsApp Button -->
-      <a class="btn-whatsapp desktop-only" (click)="openWhatsApp()">
-        <ion-icon name="logo-whatsapp"></ion-icon>
+      <!-- Desktop Check Availability Button - Navigates to Booking -->
+      <a class="btn-whatsapp desktop-only" (click)="navigateToBooking()">
+        <ion-icon name="calendar-outline"></ion-icon>
         <span class="btn-text">Check Availability</span>
       </a>
     </div>
@@ -84,8 +78,9 @@
     
     <div class="mobile-divider"></div>
     
-    <a class="mobile-cta" (click)="openWhatsApp(); closeMobileNav()">
-      <ion-icon name="logo-whatsapp"></ion-icon>
+    <!-- Mobile CTA - Navigates to Booking -->
+    <a class="mobile-cta" (click)="navigateToBooking(); closeMobileNav()">
+      <ion-icon name="calendar-outline"></ion-icon>
       <span>Check Availability</span>
       <ion-icon name="arrow-forward-outline" class="cta-arrow"></ion-icon>
     </a>
@@ -196,7 +191,7 @@
           
           <div class="about-buttons">
             <a routerLink="/rooms" class="btn-primary-small" (click)="onNavClick('/rooms')">View Rooms</a>
-            <a (click)="openWhatsApp()" class="btn-outline-small">Enquire on WhatsApp</a>
+            <a (click)="navigateToBooking()" class="btn-outline-small">Check Availability</a>
           </div>
         </div>
       </div>
@@ -367,8 +362,8 @@
         <h2>Ready to Book Your Stay?</h2>
         <p>Choose your perfect room and experience the comfort of La Tiah.</p>
         <div class="cta-buttons">
-          <a (click)="openWhatsApp()" class="btn-primary">
-            <ion-icon name="logo-whatsapp"></ion-icon>
+          <a (click)="navigateToBooking()" class="btn-primary">
+            <ion-icon name="calendar-outline"></ion-icon>
             Check Availability
           </a>
           <a routerLink="/rooms" class="btn-secondary-cta" (click)="onNavClick('/rooms')">
@@ -414,8 +409,8 @@
         <div class="footer-column animate-fade-up">
           <h4>Book Your Stay</h4>
           <p>Ready for your Durban getaway?</p>
-          <a (click)="openWhatsApp()" class="btn-gold">
-            <ion-icon name="logo-whatsapp"></ion-icon>
+          <a (click)="navigateToBooking()" class="btn-gold">
+            <ion-icon name="calendar-outline"></ion-icon>
             Check Availability
           </a>
           <div class="footer-contact">
@@ -430,9 +425,9 @@
     </div>
   </footer>
 
-  <!-- WHATSAPP FLOAT -->
+  <!-- WHATSAPP FLOAT - Navigates to Booking -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="openWhatsApp()" class="whatsapp-float">
+    <ion-fab-button (click)="navigateToBooking()" class="whatsapp-float">
       <ion-icon name="logo-whatsapp"></ion-icon>
       <div class="whatsapp-pulse"></div>
     </ion-fab-button>

@@ -9,12 +9,6 @@
         <span class="brand__tagline">Your ideal accommodation haven</span>
       </a>
 
-      <!-- Back Button -->
-      <button class="back-btn" *ngIf="currentRoute !== '/home'" (click)="goBack()" aria-label="Go back">
-        <ion-icon name="arrow-back-outline"></ion-icon>
-        <span class="back-label">Back</span>
-      </button>
-
       <!-- Hamburger Button -->
       <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
         <ion-icon name="menu-outline"></ion-icon>
@@ -120,7 +114,7 @@
       <div class="container">
         <div class="page-header-text animate-fade-up">
           <span class="hero-badge">✦ Comfortable Stay</span>
-          <h1 class="page-title">Our Rooms</h1>
+          <h1 class="page-title">Your Ideal Haven</h1>
           <p class="page-subtitle">Comfort & convenience in the heart of Durban</p>
         </div>
       </div>
@@ -309,7 +303,7 @@
     </div>
   </footer>
 
-  <!-- WHATSAPP FLOAT -->
+  <!-- WHATSAPP FLOAT - Navigates to Booking -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="navigateToBooking()" class="whatsapp-float">
       <ion-icon name="logo-whatsapp"></ion-icon>
