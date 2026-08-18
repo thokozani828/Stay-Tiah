@@ -35,6 +35,9 @@ export class ContactPage implements OnInit, OnDestroy {
   mobileNavOpen: boolean = false;
   isScrolled: boolean = false;
   private originalOverflow: string = '';
+  private originalPosition: string = '';
+  private originalWidth: string = '';
+  private originalHeight: string = '';
 
   // ==========================================
   // PAGE TRANSITION STATE
@@ -146,6 +149,7 @@ export class ContactPage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.restoreScroll();
+    this.restoreBodyStyles();
     if (this.routerSubscription) {
       this.routerSubscription.unsubscribe();
     }
@@ -215,6 +219,11 @@ export class ContactPage implements OnInit, OnDestroy {
     this.isScrolled = window.scrollY > 50;
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    // Handle resize if needed
+  }
+
   // ==========================================
   // NAVIGATION METHODS WITH TRANSITIONS
   // ==========================================
@@ -240,7 +249,52 @@ export class ContactPage implements OnInit, OnDestroy {
    * Navigate to booking page
    */
   navigateToBooking() {
-    this.onNavClick('/booking');
+    this.closeMobileNav();
+    if (this.currentRoute === '/booking' || this.isTransitioning) return;
+    
+    this.startTransition();
+    setTimeout(() => {
+      this.router.navigate(['/booking']);
+      setTimeout(() => {
+        this.endTransition();
+      }, 300);
+    }, 400);
+  }
+
+  /**
+   * Navigate to home page
+   */
+  goToHome() {
+    if (this.currentRoute === '/home') return;
+    this.onNavClick('/home');
+  }
+
+  /**
+   * Navigate to about page
+   */
+  goToAbout() {
+    this.onNavClick('/about');
+  }
+
+  /**
+   * Navigate to rooms page
+   */
+  goToRooms() {
+    this.onNavClick('/rooms');
+  }
+
+  /**
+   * Navigate to attractions page
+   */
+  goToAttractions() {
+    this.onNavClick('/attractions');
+  }
+
+  /**
+   * Navigate to contact page
+   */
+  goToContact() {
+    this.onNavClick('/contact');
   }
 
   /**
@@ -251,6 +305,8 @@ export class ContactPage implements OnInit, OnDestroy {
     if (this.isNavigatingBack || this.isTransitioning) {
       return;
     }
+
+    this.closeMobileNav();
 
     // Get current URL without query params
     const currentPath = this.router.url.split('?')[0];
@@ -328,16 +384,35 @@ export class ContactPage implements OnInit, OnDestroy {
     
     if (this.mobileNavOpen) {
       this.originalOverflow = document.body.style.overflow || '';
+      this.originalPosition = document.body.style.position || '';
+      this.originalWidth = document.body.style.width || '';
+      this.originalHeight = document.body.style.height || '';
+      
       document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.height = '100%';
       document.documentElement.style.overflow = 'hidden';
+      
+      if (this.platform.is('ios')) {
+        document.body.style.touchAction = 'none';
+      }
+      
+      document.body.classList.add('nav-open');
     } else {
-      this.restoreScroll();
+      this.closeMobileNav();
     }
   }
 
   closeMobileNav() {
     this.mobileNavOpen = false;
+    this.restoreBodyStyles();
     this.restoreScroll();
+    document.body.classList.remove('nav-open');
+    
+    if (this.platform.is('ios')) {
+      document.body.style.touchAction = '';
+    }
   }
 
   private restoreScroll() {
@@ -345,28 +420,10 @@ export class ContactPage implements OnInit, OnDestroy {
     document.documentElement.style.overflow = this.originalOverflow || '';
   }
 
-  // =========================
-  // NAVIGATION FUNCTIONS
-  // =========================
-  goToHome() {
-    if (this.currentRoute === '/home') return;
-    this.onNavClick('/home');
-  }
-
-  goToAbout() {
-    this.onNavClick('/about');
-  }
-
-  goToRooms() {
-    this.onNavClick('/rooms');
-  }
-
-  goToAttractions() {
-    this.onNavClick('/attractions');
-  }
-
-  goToContact() {
-    this.onNavClick('/contact');
+  private restoreBodyStyles() {
+    document.body.style.position = this.originalPosition || '';
+    document.body.style.width = this.originalWidth || '';
+    document.body.style.height = this.originalHeight || '';
   }
 
   // =========================
@@ -674,5 +731,12 @@ export class ContactPage implements OnInit, OnDestroy {
     
     this.focusedField = '';
     this.contactForm?.resetForm();
+  }
+
+  // =========================
+  // IMAGE ERROR HANDLER
+  // =========================
+  onImageError(event: any) {
+    event.target.src = 'assets/images/logo2.png';
   }
 }

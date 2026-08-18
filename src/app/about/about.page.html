@@ -9,18 +9,24 @@
         <span class="brand__tagline">Your ideal accommodation haven</span>
       </a>
 
-      <!-- Hamburger Button - 3 lines -->
+      <!-- Back Button -->
+      <button class="back-btn" (click)="goBack()" aria-label="Go back">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        <span class="back-label">Back</span>
+      </button>
+
+      <!-- Hamburger Button -->
       <button class="hamburger-btn" (click)="toggleMobileNav()" aria-label="Toggle menu">
         <ion-icon name="menu-outline"></ion-icon>
       </button>
 
       <!-- Desktop Navigation -->
       <nav class="nav" aria-label="Main">
-        <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="nav__link">Home</a>
-        <a routerLink="/about" routerLinkActive="is-active" class="nav__link">About</a>
-        <a routerLink="/rooms" routerLinkActive="is-active" class="nav__link">Rooms</a>
-        <a routerLink="/attractions" routerLinkActive="is-active" class="nav__link">Attractions</a>
-        <a routerLink="/contact" routerLinkActive="is-active" class="nav__link">Contact</a>
+        <a routerLink="/home" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="nav__link" (click)="onNavClick('/home')">Home</a>
+        <a routerLink="/about" routerLinkActive="is-active" class="nav__link" (click)="onNavClick('/about')">About</a>
+        <a routerLink="/rooms" routerLinkActive="is-active" class="nav__link" (click)="onNavClick('/rooms')">Rooms</a>
+        <a routerLink="/attractions" routerLinkActive="is-active" class="nav__link" (click)="onNavClick('/attractions')">Attractions</a>
+        <a routerLink="/contact" routerLinkActive="is-active" class="nav__link" (click)="onNavClick('/contact')">Contact</a>
       </nav>
 
       <!-- Desktop WhatsApp Button -->
@@ -33,7 +39,7 @@
 </ion-header>
 
 <!-- ============================================= -->
-<!-- ✅ MOBILE NAV OUTSIDE ION-CONTENT (LIKE HOME) -->
+<!-- ✅ MOBILE NAV OUTSIDE ION-CONTENT            -->
 <!-- ============================================= -->
 <div class="nav-overlay" [class.active]="mobileNavOpen" (click)="closeMobileNav()"></div>
 
@@ -45,49 +51,65 @@
   </div>
   
   <div class="mobile-nav-brand">
-    <span class="mobile-brand-text">TIAH</span>
-    <span class="mobile-brand-tagline">The Ideal Accommodation Haven</span>
+    <span class="mobile-brand-text">La <span class="mobile-brand-gold">Tiah</span></span>
+    <span class="mobile-brand-tagline">Your ideal accommodation haven</span>
   </div>
   
   <div class="mobile-nav-links">
-    <a routerLink="/home" routerLinkActive="is-active" (click)="closeMobileNav()">
+    <a routerLink="/home" routerLinkActive="is-active" (click)="closeMobileNav(); onNavClick('/home')">
       <ion-icon name="home-outline" class="link-icon"></ion-icon>
-      Home
+      <span>Home</span>
+      <span class="link-indicator"></span>
     </a>
-    <a routerLink="/about" routerLinkActive="is-active" (click)="closeMobileNav()">
+    <a routerLink="/about" routerLinkActive="is-active" (click)="closeMobileNav(); onNavClick('/about')">
       <ion-icon name="information-circle-outline" class="link-icon"></ion-icon>
-      About
+      <span>About</span>
+      <span class="link-indicator"></span>
     </a>
-    <a routerLink="/rooms" routerLinkActive="is-active" (click)="closeMobileNav()">
+    <a routerLink="/rooms" routerLinkActive="is-active" (click)="closeMobileNav(); onNavClick('/rooms')">
       <ion-icon name="bed-outline" class="link-icon"></ion-icon>
-      Rooms
+      <span>Rooms</span>
+      <span class="link-indicator"></span>
     </a>
-    <a routerLink="/attractions" routerLinkActive="is-active" (click)="closeMobileNav()">
+    <a routerLink="/attractions" routerLinkActive="is-active" (click)="closeMobileNav(); onNavClick('/attractions')">
       <ion-icon name="location-outline" class="link-icon"></ion-icon>
-      Attractions
+      <span>Attractions</span>
+      <span class="link-indicator"></span>
     </a>
-    <a routerLink="/contact" routerLinkActive="is-active" (click)="closeMobileNav()">
+    <a routerLink="/contact" routerLinkActive="is-active" (click)="closeMobileNav(); onNavClick('/contact')">
       <ion-icon name="mail-outline" class="link-icon"></ion-icon>
-      Contact
+      <span>Contact</span>
+      <span class="link-indicator"></span>
     </a>
     
     <div class="mobile-divider"></div>
     
     <a class="mobile-cta" (click)="openWhatsApp(); closeMobileNav()">
       <ion-icon name="logo-whatsapp"></ion-icon>
-      Check Availability
+      <span>Check Availability</span>
+      <ion-icon name="arrow-forward-outline" class="cta-arrow"></ion-icon>
     </a>
   </div>
   
   <div class="mobile-nav-footer">
-    <p>&copy; 2026 stay@tiah</p>
+    <p>&copy; 2026 La Tiah</p>
+    <div class="mobile-socials">
+      <a href="https://www.instagram.com/stay.tiah?igsh=MXR0czJhcW5lanJ5OA=="><ion-icon name="logo-instagram"></ion-icon></a>
+      <a href="https://www.facebook.com/profile.php?id=61573594146514"><ion-icon name="logo-facebook"></ion-icon></a>
+      <a href="https://www.tiktok.com/@stay_at_tiah?_r=1&_t=ZS-98msEEY1WVw"><ion-icon name="logo-tiktok"></ion-icon></a>
+    </div>
   </div>
 </div>
 
 <!-- ============================================= -->
+<!-- ✅ PAGE TRANSITION OVERLAY                    -->
+<!-- ============================================= -->
+<div class="page-transition" [class.active]="isTransitioning"></div>
+
+<!-- ============================================= -->
 <!-- ✅ ION-CONTENT WITH FULL SCROLLING            -->
 <!-- ============================================= -->
-<ion-content [fullscreen]="true" (ionScroll)="onScroll($event)">
+<ion-content [fullscreen]="true" (ionScroll)="onScroll($event)" class="no-scrollbar">
   
   <!-- ================= PAGE HEADER ================= -->
   <section class="page-header">
@@ -97,8 +119,8 @@
       <div class="container">
         <div class="page-header-text animate-fade-up">
           <span class="hero-badge">✦ About Us</span>
-          <h1 class="page-title">Welcome to<br>Your Haven</h1>
-          <p class="page-subtitle">Peace, comfort, and convenience.</p>
+          <h1 class="page-title">Your comfortable<br>stay in the heart of Durban</h1>
+          <p class="page-subtitle">Looking for peace, comfort and convenience?</p>
         </div>
       </div>
     </div>
@@ -109,10 +131,10 @@
     <div class="container">
       <div class="about-intro-grid">
         <div class="about-intro-image animate-fade-up">
-          <img src="assets/images/logo2.png" (error)="onImageError($event)">
+          <img src="assets/images/logo2.png" (error)="onImageError($event)" alt="La Tiah Accommodation">
           <div class="image-badge">
             <ion-icon name="star"></ion-icon>
-            <span>4.8 ★ Rating</span>
+            <span>4.8 ★ (200+ Reviews)</span>
           </div>
         </div>
         <div class="about-intro-content animate-fade-up" style="animation-delay:0.2s">
@@ -120,7 +142,7 @@
             Come for convenience. Stay for comfort. Leave with peace of mind.
           </p>
           <p>
-            Stay for business travel, professional attendance, block study release, sports, events or just to rest, whether you are a solo guest, couple or otherwise.
+            Whether you are travelling for business, professional attendance, block study release, sports, events or just to rest, we provide a welcoming home away from home. Perfect for solo guests, couples or groups.
           </p>
           
           <!-- ================= LOCATION OPTIONS ================= -->
@@ -173,7 +195,7 @@
           </div>
           
           <div class="about-buttons">
-            <a routerLink="/rooms" class="btn-primary-small">View Rooms</a>
+            <a routerLink="/rooms" class="btn-primary-small" (click)="onNavClick('/rooms')">View Rooms</a>
             <a (click)="openWhatsApp()" class="btn-outline-small">Enquire on WhatsApp</a>
           </div>
         </div>
@@ -191,7 +213,7 @@
           <p>Musgrave &amp; North Beach</p>
         </div>
         <div class="stat-card">
-          <div class="stat-number">11</div>
+          <div class="stat-number">12+</div>
           <div class="stat-label">Rooms Available</div>
           <p>Comfortable &amp; Stylish</p>
         </div>
@@ -222,7 +244,7 @@
         <!-- Durban Oceanic Apartments -->
         <div class="accommodation-card animate-fade-up">
           <div class="accommodation-image">
-            <img src="assets/images/Durban Oceanic Apartment 82B/1.jpg" alt="Durban Oceanic Apartments">
+            <img src="assets/images/Durban Oceanic Apartment 82B/1.jpg" alt="Durban Oceanic Apartments" (error)="onImageError($event)">
             <span class="accommodation-badge">3 Rooms</span>
           </div>
           <div class="accommodation-info">
@@ -236,14 +258,14 @@
               <span><ion-icon name="people-outline"></ion-icon> Sleeps 2-4</span>
               <span><ion-icon name="wifi-outline"></ion-icon> Free Wi-Fi</span>
             </div>
-            <a routerLink="/rooms" class="accommodation-btn">View Rooms →</a>
+            <a routerLink="/rooms" class="accommodation-btn" (click)="onNavClick('/rooms')">View Rooms →</a>
           </div>
         </div>
         
         <!-- Tiah Musgrave -->
         <div class="accommodation-card animate-fade-up" style="animation-delay:0.2s">
           <div class="accommodation-image">
-            <img src="assets/images/Tiah Whyte, Durban/1.jpg" alt="Tiah Musgrave">
+            <img src="assets/images/Tiah Whyte, Durban/1.jpg" alt="Tiah Musgrave" (error)="onImageError($event)">
             <span class="accommodation-badge">3 Rooms</span>
           </div>
           <div class="accommodation-info">
@@ -257,14 +279,14 @@
               <span><ion-icon name="people-outline"></ion-icon> Sleeps 2</span>
               <span><ion-icon name="car-outline"></ion-icon> Free Parking</span>
             </div>
-            <a routerLink="/rooms" class="accommodation-btn">View Rooms →</a>
+            <a routerLink="/rooms" class="accommodation-btn" (click)="onNavClick('/rooms')">View Rooms →</a>
           </div>
         </div>
         
         <!-- La Tiah Musgrave -->
         <div class="accommodation-card animate-fade-up" style="animation-delay:0.4s">
           <div class="accommodation-image">
-            <img src="assets/images/La Tiah One, Durban/1.jpg" alt="La Tiah Musgrave">
+            <img src="assets/images/La Tiah One, Durban/1.jpg" alt="La Tiah Musgrave" (error)="onImageError($event)">
             <span class="accommodation-badge">4 Rooms</span>
           </div>
           <div class="accommodation-info">
@@ -278,14 +300,14 @@
               <span><ion-icon name="people-outline"></ion-icon> Sleeps 2</span>
               <span><ion-icon name="wifi-outline"></ion-icon> Free Wi-Fi</span>
             </div>
-            <a routerLink="/rooms" class="accommodation-btn">View Rooms →</a>
+            <a routerLink="/rooms" class="accommodation-btn" (click)="onNavClick('/rooms')">View Rooms →</a>
           </div>
         </div>
         
         <!-- Halford Backpackers -->
         <div class="accommodation-card animate-fade-up" style="animation-delay:0.6s">
           <div class="accommodation-image">
-            <img src="assets/images/Halford Backpackers, Durban/1.jpg" alt="Halford Backpackers">
+            <img src="assets/images/Halford Backpackers, Durban/1.jpg" alt="Halford Backpackers" (error)="onImageError($event)">
             <span class="accommodation-badge">1 Room</span>
           </div>
           <div class="accommodation-info">
@@ -299,7 +321,7 @@
               <span><ion-icon name="people-outline"></ion-icon> Sleeps 4</span>
               <span><ion-icon name="wifi-outline"></ion-icon> Free Wi-Fi</span>
             </div>
-            <a routerLink="/rooms" class="accommodation-btn">View Rooms →</a>
+            <a routerLink="/rooms" class="accommodation-btn" (click)="onNavClick('/rooms')">View Rooms →</a>
           </div>
         </div>
       </div>
@@ -343,13 +365,13 @@
     <div class="container">
       <div class="cta-content animate-fade-up">
         <h2>Ready to Book Your Stay?</h2>
-        <p>Choose your perfect room and experience the comfort of STAY@TIAH.</p>
+        <p>Choose your perfect room and experience the comfort of La Tiah.</p>
         <div class="cta-buttons">
           <a (click)="openWhatsApp()" class="btn-primary">
             <ion-icon name="logo-whatsapp"></ion-icon>
             Check Availability
           </a>
-          <a routerLink="/rooms" class="btn-secondary-cta">
+          <a routerLink="/rooms" class="btn-secondary-cta" (click)="onNavClick('/rooms')">
             <ion-icon name="bed-outline"></ion-icon>
             View All Rooms
           </a>
@@ -378,11 +400,11 @@
         </div>
         <div class="footer-column animate-fade-up">
           <h4>Quick Links</h4>
-          <a routerLink="/home">Home</a>
-          <a routerLink="/about">About Us</a>
-          <a routerLink="/rooms">Rooms</a>
-          <a routerLink="/attractions">Attractions</a>
-          <a routerLink="/contact">Contact Us</a>
+          <a (click)="onNavClick('/home')">Home</a>
+          <a (click)="onNavClick('/about')">About Us</a>
+          <a (click)="onNavClick('/rooms')">Rooms</a>
+          <a (click)="onNavClick('/attractions')">Attractions</a>
+          <a (click)="onNavClick('/contact')">Contact Us</a>
         </div>
         <div class="footer-column animate-fade-up">
           <h4>Legal</h4>
@@ -402,7 +424,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2026 stay@tiah. All Rights Reserved.</p>
+        <p>&copy; 2026 La Tiah. All Rights Reserved.</p>
         <p>The Ideal Accommodation Haven</p>
       </div>
     </div>

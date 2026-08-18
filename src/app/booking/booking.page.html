@@ -1,5 +1,5 @@
 <!-- ============================================= -->
-<!-- ✅ NO HEADER - CLEAN BOOKING PAGE            -->
+<!-- ✅ CLEAN BOOKING PAGE - NO NAVBAR             -->
 <!-- ============================================= -->
 
 <!-- ============================================= -->
@@ -217,31 +217,31 @@
           </div>
           <p>Your ideal accommodation haven in the heart of Durban.</p>
           <div class="socials">
-            <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
-            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+            <a href="https://www.instagram.com/stay.tiah?igsh=MXR0czJhcW5lanJ5OA=="><ion-icon name="logo-instagram"></ion-icon></a>
+            <a href="https://www.facebook.com/profile.php?id=61573594146514"><ion-icon name="logo-facebook"></ion-icon></a>
             <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
-            <a href="#"><ion-icon name="logo-tiktok"></ion-icon></a>
+            <a href="https://www.tiktok.com/@stay_at_tiah?_r=1&_t=ZS-98msEEY1WVw"><ion-icon name="logo-tiktok"></ion-icon></a>
           </div>
         </div>
         <div class="footer-column animate-fade-up">
           <h4>Quick Links</h4>
-          <a routerLink="/home">Home</a>
-          <a routerLink="/about">About Us</a>
-          <a routerLink="/rooms">Rooms</a>
-          <a routerLink="/attractions">Attractions</a>
-          <a routerLink="/contact">Contact Us</a>
+          <a (click)="onNavClick('/home')">Home</a>
+          <a (click)="onNavClick('/about')">About Us</a>
+          <a (click)="onNavClick('/rooms')">Rooms</a>
+          <a (click)="onNavClick('/attractions')">Attractions</a>
+          <a (click)="onNavClick('/contact')">Contact Us</a>
         </div>
         <div class="footer-column animate-fade-up">
           <h4>Our Locations</h4>
-          <a href="#">Durban Oceanic (82A, 82B, 117)</a>
-          <a href="#">La Tiah Musgrave</a>
-          <a href="#">Tiah Musgrave</a>
-          <a href="#">Halford Backpackers</a>
+          <a (click)="onNavClick('/rooms')">Durban Oceanic (82A, 82B, 117)</a>
+          <a (click)="onNavClick('/rooms')">La Tiah Musgrave</a>
+          <a (click)="onNavClick('/rooms')">Tiah Musgrave</a>
+          <a (click)="onNavClick('/rooms')">Halford Backpackers</a>
         </div>
         <div class="footer-column animate-fade-up">
           <h4>Book Your Stay</h4>
           <p>Ready for your Durban getaway?</p>
-          <a routerLink="/booking" class="btn-gold">Book Now</a>
+          <a (click)="navigateToBooking()" class="btn-gold">Book Now</a>
           <div class="footer-contact">
             <p><ion-icon name="call-outline"></ion-icon> +27 84 900 9821</p>
             <p><ion-icon name="mail-outline"></ion-icon> info@staytiah.com</p>
@@ -249,7 +249,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2026 stay@tiah. All Rights Reserved.</p>
+        <p>&copy; 2026 La Tiah. All Rights Reserved.</p>
         <p>The Ideal Accommodation Haven</p>
       </div>
     </div>

@@ -31,62 +31,38 @@ $header-height-mobile: 56px;
   box-sizing: border-box;
 }
 
-// All headings and text use Verdana
-h1, h2, h3, h4, h5, h6,
-p, span, a, div, li, button,
-.page-title, 
-.section-title, 
-.brand__name, 
-.logo, 
-.stat-number, 
-.feature-card h3,
-.option-card h3,
-.location-card h3,
-.testimonial-card .author-info h4,
-.footer .logo,
-.footer .logo-text,
-.footer .logo-gold,
-.nav__link,
-.mobile-nav a,
-.hero-description,
-.section-subtitle,
-.about-description,
-.about-content p,
-.why-card p,
-.eyebrow,
-.hero-badge,
-.footer-column a,
-.footer-column p,
-.mobile-brand-text,
-.mobile-brand-tagline,
-.location-title,
-.location-name,
-.location-card p,
-.about-features .feature span,
-.location-features li,
-.amenity-item span,
-.testimonial-text,
-.author-info span,
-.btn-primary,
-.btn-secondary-cta,
-.btn-gold,
-.btn-whatsapp,
-.stat-label,
-.stat-card p,
-.accommodation-info h3,
-.accommodation-location,
-.accommodation-features span,
-.accommodation-btn,
-.room-type-card h4,
-.room-type-card p,
-.room-type-card .room-count,
-.back-btn,
-.back-btn .back-label,
-.mobile-socials a,
-.link-indicator,
-.cta-arrow,
-.btn-badge {
-  font-family: $font-primary !important;
+// =============================================
+// CUSTOM SCROLLBAR HIDE
+// =============================================
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+::-webkit-scrollbar-track {
+  display: none !important;
+  background: transparent !important;
+}
+
+::-webkit-scrollbar-thumb {
+  display: none !important;
+  background: transparent !important;
+}
+
+* {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.no-scrollbar {
+  --scrollbar-width: 0px !important;
+  
+  &::part(scroll) {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
 }
 
 // =========================
@@ -147,6 +123,10 @@ p, span, a, div, li, button,
   0% { transform: scale(1); opacity: 1; }
   100% { transform: scale(1.5); opacity: 0; }
 }
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
 
 // =============================================
 // PAGE TRANSITION OVERLAY
@@ -169,84 +149,8 @@ p, span, a, div, li, button,
   }
 }
 
-// =============================================
-// GLOBAL TRANSITION STATE
-// =============================================
-body.page-transitioning {
-  overflow: hidden;
-  
-  .site-header {
-    opacity: 0.5;
-    transform: translateY(-10px);
-  }
-}
-
-// =============================================
-// BACK BUTTON
-// =============================================
-.back-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 50px;
-  padding: 6px 14px;
-  color: #fff;
-  font-size: 13px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-left: auto;
-  margin-right: 8px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  font-family: $font-primary !important;
-  flex-shrink: 0;
-  
-  ion-icon {
-    font-size: 18px;
-  }
-  
-  .back-label {
-    font-weight: 500;
-    font-size: 12px;
-    font-family: $font-primary !important;
-    
-    @media (max-width: 480px) {
-      display: none;
-    }
-  }
-  
-  &:hover {
-    background: rgba(255, 215, 0, 0.15);
-    border-color: rgba(255, 215, 0, 0.3);
-    transform: translateX(-2px);
-  }
-  
-  &:active {
-    transform: scale(0.95);
-  }
-  
-  @media (max-width: 992px) {
-    padding: 4px 10px;
-    margin-right: 4px;
-    
-    ion-icon {
-      font-size: 16px;
-    }
-  }
-  
-  @media (max-width: 576px) {
-    padding: 4px 8px;
-    
-    ion-icon {
-      font-size: 14px;
-    }
-  }
-}
-
 // =========================
-// HEADER / NAVBAR - EXACTLY LIKE HOME PAGE
+// HEADER / NAVBAR
 // =========================
 .site-header {
   background: rgba(10, 10, 10, 0.95);
@@ -347,7 +251,71 @@ body.page-transitioning {
 }
 
 // =========================
-// DESKTOP NAVIGATION (No Icons)
+// BACK BUTTON
+// =========================
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  padding: 6px 14px;
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: auto;
+  margin-right: 8px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-family: $font-primary !important;
+  flex-shrink: 0;
+  
+  ion-icon {
+    font-size: 18px;
+  }
+  
+  .back-label {
+    font-weight: 500;
+    font-size: 12px;
+    font-family: $font-primary !important;
+    
+    @media (max-width: 480px) {
+      display: none;
+    }
+  }
+  
+  &:hover {
+    background: rgba(255, 215, 0, 0.15);
+    border-color: rgba(255, 215, 0, 0.3);
+    transform: translateX(-2px);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+  
+  @media (max-width: 992px) {
+    padding: 4px 10px;
+    margin-right: 4px;
+    
+    ion-icon {
+      font-size: 16px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    padding: 4px 8px;
+    
+    ion-icon {
+      font-size: 14px;
+    }
+  }
+}
+
+// =========================
+// DESKTOP NAVIGATION
 // =========================
 .nav {
   display: flex;
@@ -415,7 +383,7 @@ body.page-transitioning {
 }
 
 // =========================
-// BOOKING BUTTON (Replaces WhatsApp)
+// WHATSAPP BUTTON
 // =========================
 .btn-whatsapp {
   background: linear-gradient(135deg, #25D366, #1da851);
@@ -481,21 +449,10 @@ body.page-transitioning {
   .btn-text {
     display: inline;
   }
-  
-  .btn-badge {
-    display: none;
-    font-size: 10px;
-    color: #fff;
-    animation: pulse 2s infinite;
-  }
-  
-  &:hover .btn-badge {
-    display: inline;
-  }
 }
 
 // =========================
-// MOBILE NAVIGATION
+// HAMBURGER BUTTON
 // =========================
 .hamburger-btn {
   display: none;
@@ -538,6 +495,9 @@ body.page-transitioning {
   }
 }
 
+// =========================
+// MOBILE NAV OVERLAY & DRAWER
+// =========================
 .nav-overlay {
   display: none;
   position: fixed;
@@ -624,11 +584,12 @@ body.page-transitioning {
       font-family: $font-primary !important;
       font-size: 1.6rem;
       font-weight: 700;
-      background: linear-gradient(135deg, #ffffff 0%, $gold 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: #fff;
       letter-spacing: 0.04em;
+      
+      .mobile-brand-gold {
+        color: $gold;
+      }
     }
     
     .mobile-brand-tagline {
@@ -673,13 +634,12 @@ body.page-transitioning {
       }
       
       .link-icon {
-        font-size: 20px;
-        opacity: 0.6;
+        font-size: 18px;
+        opacity: 0.5;
         transition: $transition-smooth;
         flex-shrink: 0;
-        width: 28px;
+        width: 24px;
         text-align: center;
-        color: $gold;
       }
       
       .link-indicator {
@@ -689,7 +649,7 @@ body.page-transitioning {
         transform: translateY(-50%) scale(0);
         width: 6px;
         height: 6px;
-        background: #c9a84c;
+        background: $gold;
         border-radius: 50%;
         transition: transform 0.3s ease;
       }
@@ -705,7 +665,6 @@ body.page-transitioning {
         
         .link-icon {
           opacity: 1;
-          transform: scale(1.1);
         }
         
         .cta-arrow {
@@ -798,7 +757,7 @@ body.page-transitioning {
         transition: all 0.3s ease;
         
         &:hover {
-          color: #c9a84c;
+          color: $gold;
           transform: translateY(-2px);
         }
       }
@@ -1016,7 +975,7 @@ html {
       
       .page-title {
         font-family: $font-primary !important;
-        font-size: clamp(36px, 6vw, 72px);
+        font-size: clamp(36px, 5vw, 56px);
         line-height: 1.1;
         margin: 15px 0 20px;
         color: $white;
@@ -1145,9 +1104,9 @@ html {
   }
 }
 
-// =============================================
-// LOCATION OPTIONS - UPDATED WITH BEACH ICON
-// =============================================
+// =========================
+// LOCATION OPTIONS
+// =========================
 .location-options {
   margin: 24px 0 20px;
   
@@ -1189,7 +1148,6 @@ html {
         color: $gold;
       }
       
-      // BEACH ICON WITH DUAL ICONS (sunny + umbrella)
       &.beach-icon {
         background: linear-gradient(135deg, rgba(201, 168, 76, 0.15), rgba(255, 200, 50, 0.15));
         position: relative;
@@ -1367,9 +1325,9 @@ html {
   }
 }
 
-// =============================================
-// STATS SECTION - NEW
-// =============================================
+// =========================
+// STATS SECTION
+// =========================
 .stats-section {
   padding: 60px 0;
   background: $off-white;
@@ -1437,9 +1395,9 @@ html {
   }
 }
 
-// =============================================
-// ACCOMMODATION TYPES - NEW
-// =============================================
+// =========================
+// ACCOMMODATION TYPES
+// =========================
 .accommodation-types {
   padding: 80px 0;
   background: $white;
@@ -1640,9 +1598,9 @@ html {
   }
 }
 
-// =============================================
-// ROOM OVERVIEW - NEW
-// =============================================
+// =========================
+// ROOM OVERVIEW
+// =========================
 .room-overview {
   padding: 80px 0;
   background: $off-white;
@@ -2125,7 +2083,7 @@ html {
 }
 
 // =========================
-// WHATSAPP FLOAT - Navigates to Booking
+// WHATSAPP FLOAT
 // =========================
 ion-fab {
   position: fixed !important;
@@ -2191,73 +2149,5 @@ ion-content {
     height: 100% !important;
     min-height: 100vh !important;
     display: block !important;
-  }
-}
-
-// =========================
-// REMOVE SCROLLBAR
-// =========================
-:host ::-webkit-scrollbar,
-ion-content ::-webkit-scrollbar,
-::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
-  background: transparent !important;
-}
-
-:host ::-webkit-scrollbar-track,
-ion-content ::-webkit-scrollbar-track,
-::-webkit-scrollbar-track {
-  display: none !important;
-  background: transparent !important;
-}
-
-:host ::-webkit-scrollbar-thumb,
-ion-content ::-webkit-scrollbar-thumb,
-::-webkit-scrollbar-thumb {
-  display: none !important;
-  background: transparent !important;
-}
-
-:host,
-ion-content,
-* {
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
-}
-
-// =============================================
-// RESPONSIVE OVERRIDES FOR NEW SECTIONS
-// =============================================
-@media (max-width: 768px) {
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .accommodation-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .room-overview-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .room-overview-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .stat-card .stat-number {
-    font-size: 36px;
-  }
-  
-  .accommodation-card .accommodation-image {
-    height: 180px;
   }
 }

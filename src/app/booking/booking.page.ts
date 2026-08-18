@@ -331,27 +331,35 @@ export class BookingPage implements OnInit, OnDestroy {
   // ==========================================
   goToHome() {
     this.closeMobileNav();
-    this.router.navigate(['/home'], { replaceUrl: true });
+    this.startTransition();
+    setTimeout(() => {
+      this.router.navigate(['/home']);
+      setTimeout(() => {
+        this.endTransition();
+      }, 300);
+    }, 400);
   }
 
-  goToAbout() {
+  navigateToBooking() {
     this.closeMobileNav();
-    this.router.navigate(['/about']);
+    this.startTransition();
+    setTimeout(() => {
+      this.router.navigate(['/booking']);
+      setTimeout(() => {
+        this.endTransition();
+      }, 300);
+    }, 400);
   }
 
-  goToRooms() {
+  onNavClick(page: string) {
     this.closeMobileNav();
-    this.router.navigate(['/rooms']);
-  }
-
-  goToAttractions() {
-    this.closeMobileNav();
-    this.router.navigate(['/attractions']);
-  }
-
-  goToContact() {
-    this.closeMobileNav();
-    this.router.navigate(['/contact']);
+    this.startTransition();
+    setTimeout(() => {
+      this.router.navigate([page]);
+      setTimeout(() => {
+        this.endTransition();
+      }, 300);
+    }, 400);
   }
 
   // ==========================================
@@ -550,5 +558,12 @@ Thank you.`;
     const message = 'Hello La Tiah, I would like to enquire about room availability and pricing.';
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${this.whatsappNumber}?text=${encodedMessage}`, '_blank');
+  }
+
+  // ==========================================
+  // IMAGE ERROR HANDLER
+  // ==========================================
+  onImageError(event: any) {
+    event.target.src = 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800&q=80';
   }
 }

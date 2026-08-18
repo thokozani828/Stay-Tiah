@@ -61,7 +61,6 @@ export class RoomsPage implements OnInit, OnDestroy {
 
   // ==========================================
   // ROOMS DATA - Updated with better bedroom images
-  // Removed: rating, reviews, price
   // ==========================================
   allRooms: any[] = [
     // ==================== ROOM 1: DURBAN OCEANIC ROOM 82A ====================
@@ -449,31 +448,76 @@ export class RoomsPage implements OnInit, OnDestroy {
   }
 
   // ==========================================
-  // NAVIGATION METHODS
+  // NAVIGATION METHODS WITH TRANSITIONS
   // ==========================================
+
+  /**
+   * Navigate to any page with transition
+   */
+  onNavClick(route: string) {
+    if (this.currentRoute === route || this.isTransitioning) return;
+    
+    this.closeMobileNav();
+    this.startTransition();
+    
+    setTimeout(() => {
+      this.router.navigate([route]);
+      setTimeout(() => {
+        this.endTransition();
+      }, 300);
+    }, 400);
+  }
+
+  /**
+   * Navigate to booking page
+   */
+  navigateToBooking() {
+    this.closeMobileNav();
+    if (this.currentRoute === '/booking' || this.isTransitioning) return;
+    
+    this.startTransition();
+    setTimeout(() => {
+      this.router.navigate(['/booking']);
+      setTimeout(() => {
+        this.endTransition();
+      }, 300);
+    }, 400);
+  }
+
+  /**
+   * Navigate to home page
+   */
   goToHome() {
-    this.closeMobileNav();
-    this.router.navigate(['/home'], { replaceUrl: true });
+    if (this.currentRoute === '/home') return;
+    this.onNavClick('/home');
   }
 
-  goToBooking() {
-    this.closeMobileNav();
-    this.router.navigate(['/booking']);
-  }
-
+  /**
+   * Navigate to about page
+   */
   goToAbout() {
-    this.closeMobileNav();
-    this.router.navigate(['/about']);
+    this.onNavClick('/about');
   }
 
+  /**
+   * Navigate to attractions page
+   */
   goToAttractions() {
-    this.closeMobileNav();
-    this.router.navigate(['/attractions']);
+    this.onNavClick('/attractions');
   }
 
+  /**
+   * Navigate to contact page
+   */
   goToContact() {
-    this.closeMobileNav();
-    this.router.navigate(['/contact']);
+    this.onNavClick('/contact');
+  }
+
+  /**
+   * Navigate to rooms page
+   */
+  goToRooms() {
+    this.onNavClick('/rooms');
   }
 
   // ==========================================
@@ -481,7 +525,13 @@ export class RoomsPage implements OnInit, OnDestroy {
   // ==========================================
   viewRoomDetail(roomId: number) {
     this.closeMobileNav();
-    this.router.navigate(['/room-detail'], { queryParams: { roomId: roomId } });
+    this.startTransition();
+    setTimeout(() => {
+      this.router.navigate(['/room-detail'], { queryParams: { roomId: roomId } });
+      setTimeout(() => {
+        this.endTransition();
+      }, 300);
+    }, 400);
   }
 
   // ==========================================
@@ -585,25 +635,21 @@ export class RoomsPage implements OnInit, OnDestroy {
 
   // WhatsApp for CTA section
   openWhatsAppForCTA() {
-    const message = 'Hello La Tiah, I would like to book my stay. Can you please check availability and provide pricing?';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
   // WhatsApp for contact page
   openWhatsAppForContact() {
-    const message = 'Hello La Tiah, I would like to get in touch regarding your accommodation.';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
   // WhatsApp for attractions
   openWhatsAppForAttractions() {
-    const message = 'Hello La Tiah, I would like to enquire about attractions near your accommodation.';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 
   // WhatsApp for about page
   openWhatsAppForAbout() {
-    const message = 'Hello La Tiah, I would like to learn more about your accommodation options.';
-    this.sendWhatsAppMessage(message);
+    this.navigateToBooking();
   }
 }

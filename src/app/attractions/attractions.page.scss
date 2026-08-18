@@ -1,3 +1,7 @@
+// =============================================
+// ATTRACTIONS PAGE - MATCHING HOME PAGE STYLES
+// =============================================
+
 // =========================
 // VARIABLES
 // =========================
@@ -13,7 +17,7 @@ $light-grey: #e8e8e8;
 $off-white: #f8f7f4;
 $white: #ffffff;
 
-// FIXED FONT - Verdana only (consistent across entire site)
+// FIXED FONT - Verdana only
 $font-primary: Verdana, Geneva, sans-serif;
 $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 $header-height-desktop: 72px;
@@ -27,63 +31,75 @@ $header-height-mobile: 56px;
   box-sizing: border-box;
 }
 
-// All headings and text use Verdana
-h1, h2, h3, h4, h5, h6,
-p, span, a, div, li, button,
-.page-title, 
-.section-title, 
-.brand__name, 
-.logo, 
-.stat-number, 
-.feature-card h3,
-.option-card h3,
-.location-card h3,
-.testimonial-card .author-info h4,
-.contact-info h2,
-.form-header h3,
-.cta-content h2,
-.gallery-item .gallery-info h4,
-.lightbox-info h3,
-.no-results h3,
-.rates-table .price-cell,
-.empty-state h3,
-.attraction-card h3,
-.location-item h4,
-.nav__link,
-.mobile-nav a,
-.hero-description,
-.section-subtitle,
-.about-description,
-.about-content p,
-.why-card p,
-.eyebrow,
-.hero-badge,
-.footer-column a,
-.footer-column p,
-.mobile-brand-text,
-.mobile-brand-tagline,
-.filter-tab,
-.attraction-details span,
-.attraction-rating small,
-.location-info p,
-.location-tag,
-.cta-content p,
-.attraction-btn,
-.footer .logo,
-.footer .logo-text,
-.footer .logo-gold,
-.btn-primary,
-.btn-secondary-cta,
-.btn-gold,
-.btn-whatsapp,
-.footer-contact p,
-.back-btn,
-.back-btn .back-label,
-.mobile-socials a,
-.link-indicator,
-.cta-arrow,
-.btn-badge {
-  font-family: $font-primary !important;
+// =============================================
+// CUSTOM SCROLLBAR HIDE
+// =============================================
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+::-webkit-scrollbar-track {
+  display: none !important;
+  background: transparent !important;
+}
+
+::-webkit-scrollbar-thumb {
+  display: none !important;
+  background: transparent !important;
+}
+
+* {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.no-scrollbar {
+  --scrollbar-width: 0px !important;
+  
+  &::part(scroll) {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+}
+
+// =========================
+// CONTAINER
+// =========================
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 20px;
+  
+  @media (max-width: 576px) {
+    padding: 0 16px;
+  }
+}
+
+// =========================
+// ANIMATIONS
+// =========================
+.animate-fade-up {
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes kenBurns {
+  0% { transform: scale(1) translate(0,0); }
+  50% { transform: scale(1.08) translate(-2%,-1%); }
+  100% { transform: scale(1.05) translate(1%,2%); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
 }
 
 // =============================================
@@ -107,21 +123,110 @@ p, span, a, div, li, button,
   }
 }
 
-// =============================================
-// GLOBAL TRANSITION STATE
-// =============================================
-body.page-transitioning {
-  overflow: hidden;
+// =========================
+// HEADER / NAVBAR
+// =========================
+.site-header {
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  transition: $transition-smooth;
+  height: $header-height-desktop;
   
-  .site-header {
-    opacity: 0.5;
-    transform: translateY(-10px);
+  @media (max-width: 992px) {
+    height: $header-height-mobile;
+  }
+  
+  &.scrolled {
+    background: rgba(10, 10, 10, 0.98);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
   }
 }
 
-// =============================================
+.site-header__inner {
+  max-width: 82rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: nowrap;
+  
+  @media (max-width: 992px) {
+    padding: 0 1rem;
+    gap: 0.5rem;
+  }
+  
+  @media (max-width: 576px) {
+    padding: 0 0.75rem;
+    gap: 0.3rem;
+  }
+}
+
+.brand {
+  text-decoration: none;
+  color: #fff;
+  line-height: 1;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  transition: $transition-smooth;
+  cursor: pointer;
+  
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.brand__name {
+  display: block;
+  font-family: $font-primary !important;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  background: linear-gradient(135deg, #ffffff 0%, $gold 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  
+  @media (max-width: 992px) {
+    font-size: 1.4rem;
+  }
+  
+  @media (max-width: 576px) {
+    font-size: 1.2rem;
+  }
+}
+
+.brand__tagline {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 7px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 300;
+  
+  @media (max-width: 992px) {
+    font-size: 6px;
+  }
+  
+  @media (max-width: 576px) {
+    font-size: 5px;
+    margin-top: 0.1rem;
+  }
+}
+
+// =========================
 // BACK BUTTON
-// =============================================
+// =========================
 .back-btn {
   display: flex;
   align-items: center;
@@ -180,204 +285,6 @@ body.page-transitioning {
     ion-icon {
       font-size: 14px;
     }
-  }
-}
-
-// =========================
-// CONTAINER
-// =========================
-.container {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 0 20px;
-  
-  @media (max-width: 576px) {
-    padding: 0 16px;
-  }
-}
-
-// =========================
-// ANIMATIONS
-// =========================
-.animate-fade-up {
-  opacity: 0;
-  animation: fadeUp 0.8s ease forwards;
-}
-.animate-slide-left {
-  opacity: 0;
-  animation: slideLeft 0.8s ease forwards;
-}
-.animate-slide-right {
-  opacity: 0;
-  animation: slideRight 0.8s ease forwards;
-}
-.animate-scale {
-  opacity: 0;
-  animation: scaleIn 0.6s ease forwards;
-}
-.animate-pop {
-  opacity: 0;
-  animation: popIn 0.6s ease forwards;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes slideLeft {
-  from { opacity: 0; transform: translateX(-50px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-@keyframes slideRight {
-  from { opacity: 0; transform: translateX(50px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-@keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
-@keyframes popIn {
-  0% { opacity: 0; transform: scale(0.5); }
-  70% { transform: scale(1.1); }
-  100% { opacity: 1; transform: scale(1); }
-}
-@keyframes kenBurns {
-  0% { transform: scale(1) translate(0,0); }
-  50% { transform: scale(1.08) translate(-2%,-1%); }
-  100% { transform: scale(1.05) translate(1%,2%); }
-}
-@keyframes bounce { 
-  0%,100% { transform: translateY(0); } 
-  50% { transform: translateY(8px); } 
-}
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 1; }
-  100% { transform: scale(1.5); opacity: 0; }
-}
-
-// =========================
-// HIDE SCROLLBAR
-// =========================
-.no-scrollbar {
-  --scrollbar-width: 0px;
-  
-  &::-webkit-scrollbar {
-    display: none;
-    width: 0;
-    background: transparent;
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    display: none;
-  }
-  
-  &::-webkit-scrollbar-track {
-    display: none;
-  }
-  
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-// =========================
-// HEADER / NAVBAR
-// =========================
-.site-header {
-  background: rgba(10, 10, 10, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  width: 100%;
-  transition: $transition-smooth;
-  height: $header-height-desktop;
-  
-  @media (max-width: 992px) {
-    height: $header-height-mobile;
-  }
-  
-  &.scrolled {
-    background: rgba(10, 10, 10, 0.98);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-  }
-}
-
-.site-header__inner {
-  max-width: 82rem;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: nowrap;
-  
-  @media (max-width: 992px) {
-    padding: 0 1rem;
-    gap: 0.5rem;
-  }
-  
-  @media (max-width: 576px) {
-    padding: 0 0.75rem;
-    gap: 0.3rem;
-  }
-}
-
-// Brand
-.brand {
-  text-decoration: none;
-  color: #fff;
-  line-height: 1;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  transition: $transition-smooth;
-  cursor: pointer;
-  
-  &:hover {
-    transform: scale(1.02);
-  }
-}
-
-.brand__name {
-  display: block;
-  font-family: $font-primary !important;
-  font-size: 1.8rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  background: linear-gradient(135deg, #ffffff 0%, $gold 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  
-  @media (max-width: 992px) {
-    font-size: 1.4rem;
-  }
-  
-  @media (max-width: 576px) {
-    font-size: 1.2rem;
-  }
-}
-
-.brand__tagline {
-  display: block;
-  margin-top: 0.15rem;
-  font-size: 7px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: rgba(255, 255, 255, 0.4);
-  font-weight: 300;
-  
-  @media (max-width: 992px) {
-    font-size: 6px;
-  }
-  
-  @media (max-width: 576px) {
-    font-size: 5px;
-    margin-top: 0.1rem;
   }
 }
 
@@ -450,7 +357,7 @@ body.page-transitioning {
 }
 
 // =========================
-// BOOKING BUTTON
+// CHECK AVAILABILITY BUTTON (Navbar)
 // =========================
 .btn-whatsapp {
   background: linear-gradient(135deg, #25D366, #1da851);
@@ -516,21 +423,10 @@ body.page-transitioning {
   .btn-text {
     display: inline;
   }
-  
-  .btn-badge {
-    display: none;
-    font-size: 10px;
-    color: #fff;
-    animation: pulse 2s infinite;
-  }
-  
-  &:hover .btn-badge {
-    display: inline;
-  }
 }
 
 // =========================
-// MOBILE NAVIGATION
+// HAMBURGER BUTTON
 // =========================
 .hamburger-btn {
   display: none;
@@ -573,6 +469,9 @@ body.page-transitioning {
   }
 }
 
+// =========================
+// MOBILE NAV OVERLAY & DRAWER
+// =========================
 .nav-overlay {
   display: none;
   position: fixed;
@@ -659,11 +558,12 @@ body.page-transitioning {
       font-family: $font-primary !important;
       font-size: 1.6rem;
       font-weight: 700;
-      background: linear-gradient(135deg, #ffffff 0%, $gold 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: #fff;
       letter-spacing: 0.04em;
+      
+      .mobile-brand-gold {
+        color: $gold;
+      }
     }
     
     .mobile-brand-tagline {
@@ -708,13 +608,12 @@ body.page-transitioning {
       }
       
       .link-icon {
-        font-size: 20px;
-        opacity: 0.6;
+        font-size: 18px;
+        opacity: 0.5;
         transition: $transition-smooth;
         flex-shrink: 0;
-        width: 28px;
+        width: 24px;
         text-align: center;
-        color: $gold;
       }
       
       .link-indicator {
@@ -724,7 +623,7 @@ body.page-transitioning {
         transform: translateY(-50%) scale(0);
         width: 6px;
         height: 6px;
-        background: #c9a84c;
+        background: $gold;
         border-radius: 50%;
         transition: transform 0.3s ease;
       }
@@ -740,7 +639,6 @@ body.page-transitioning {
         
         .link-icon {
           opacity: 1;
-          transform: scale(1.1);
         }
         
         .cta-arrow {
@@ -833,7 +731,7 @@ body.page-transitioning {
         transition: all 0.3s ease;
         
         &:hover {
-          color: #c9a84c;
+          color: $gold;
           transform: translateY(-2px);
         }
       }
@@ -946,52 +844,27 @@ body.page-transitioning {
 }
 
 // =========================
-// SMOOTH SCROLL BEHAVIOR
-// =========================
-html {
-  scroll-behavior: smooth;
-}
-
-// =========================
-// BUTTON RIPPLE EFFECT
-// =========================
-.btn-primary, .btn-gold, .btn-whatsapp {
-  position: relative;
-  overflow: hidden;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateX(-100%);
-    transition: transform 0.4s ease;
-  }
-  
-  &:hover::after {
-    transform: translateX(100%);
-  }
-}
-
-// =========================
 // PAGE HEADER
 // =========================
 .page-header {
-  min-height: 50vh;
-  height: 50vh;
+  min-height: 40vh;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   overflow: hidden;
-  margin-top: 0;
-  width: 100%;
+  padding: 40px 0;
   background: #1a1a2e;
   
   @media (max-width: 768px) {
-    min-height: 40vh;
-    height: 40vh;
+    min-height: 35vh;
+    padding: 30px 0;
+  }
+  
+  @media (max-width: 480px) {
+    min-height: 30vh;
+    padding: 20px 0;
   }
   
   .page-header-bg {
@@ -1019,7 +892,6 @@ html {
     position: relative;
     z-index: 2;
     width: 100%;
-    padding: 40px 20px;
     
     .page-header-text {
       max-width: 700px;
@@ -1049,7 +921,7 @@ html {
       
       .page-title {
         font-family: $font-primary !important;
-        font-size: clamp(36px, 6vw, 72px);
+        font-size: clamp(36px, 5vw, 56px);
         line-height: 1.1;
         margin: 15px 0 20px;
         color: $white;
@@ -1081,39 +953,44 @@ html {
 // FILTER SECTION
 // =========================
 .filter-section {
-  padding: 30px 0 20px;
-  background: $white;
+  padding: 30px 0;
+  background: $off-white;
   border-bottom: 1px solid rgba(0,0,0,0.05);
+  position: sticky;
+  top: $header-height-desktop;
+  z-index: 100;
   
-  @media (max-width: 768px) {
+  @media (max-width: 992px) {
+    top: $header-height-mobile;
     padding: 16px 0;
   }
 }
 
 .filter-tabs {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
   justify-content: center;
   
   .filter-tab {
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 8px 20px;
+    gap: 8px;
+    padding: 10px 20px;
     border-radius: 50px;
+    background: $white;
+    color: $grey;
     font-size: 13px;
     font-weight: 500;
-    color: $black;
-    background: $off-white;
     cursor: pointer;
-    transition: all 0.3s ease;
-    border: 1px solid transparent;
+    transition: $transition-smooth;
+    border: 1px solid rgba(0,0,0,0.06);
     font-family: $font-primary !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
     
     @media (max-width: 576px) {
+      padding: 8px 14px;
       font-size: 11px;
-      padding: 6px 14px;
     }
     
     ion-icon {
@@ -1125,14 +1002,13 @@ html {
     }
     
     &:hover {
-      color: $black;
-      background: $light-grey;
       transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     }
     
     &.active {
-      color: $black;
       background: $gold;
+      color: $black;
       border-color: $gold;
       box-shadow: 0 4px 20px rgba(201, 168, 76, 0.25);
     }
@@ -1143,498 +1019,14 @@ html {
 // ATTRACTIONS SECTION
 // =========================
 .attractions-section {
-  padding: 20px 0 60px;
-  background: $white;
-  
-  @media (max-width: 768px) {
-    padding: 10px 0 40px;
-  }
-}
-
-.attractions-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  @media (max-width: 600px) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.attraction-card {
-  background: $white;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.06);
-  transition: all 0.3s ease;
-  border: 1px solid rgba(0,0,0,0.04);
-  opacity: 0;
-  animation: fadeUp 0.6s ease forwards;
-  
-  &:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 40px rgba(0,0,0,0.1);
-  }
-  
-  .attraction-image {
-    position: relative;
-    height: 200px;
-    overflow: hidden;
-    cursor: pointer;
-    
-    @media (max-width: 576px) {
-      height: 180px;
-    }
-    
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-    
-    &:hover img {
-      transform: scale(1.08);
-    }
-    
-    .attraction-badge {
-      position: absolute;
-      bottom: 12px;
-      left: 12px;
-      background: rgba(0,0,0,0.75);
-      color: white;
-      padding: 4px 14px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      backdrop-filter: blur(10px);
-      font-family: $font-primary !important;
-      z-index: 1;
-      
-      ion-icon {
-        font-size: 14px;
-        color: $gold;
-      }
-    }
-    
-    .attraction-map-hover {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: all 0.3s ease;
-      color: white;
-      border-radius: 12px 12px 0 0;
-      backdrop-filter: blur(4px);
-      z-index: 2;
-      
-      ion-icon {
-        font-size: 36px;
-        margin-bottom: 8px;
-        color: $gold;
-      }
-      
-      span {
-        font-size: 14px;
-        font-weight: 500;
-        font-family: $font-primary !important;
-        letter-spacing: 0.5px;
-      }
-    }
-    
-    &:hover .attraction-map-hover {
-      opacity: 1;
-    }
-  }
-  
-  .attraction-info {
-    padding: 20px;
-    
-    .attraction-category {
-      margin-bottom: 8px;
-      
-      span {
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-        font-size: 11px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        padding: 3px 12px;
-        border-radius: 20px;
-        font-family: $font-primary !important;
-        
-        ion-icon {
-          font-size: 13px;
-        }
-        
-        &.beach {
-          background: rgba(33, 150, 243, 0.12);
-          color: #1976D2;
-        }
-        
-        &.culture {
-          background: rgba(156, 39, 176, 0.12);
-          color: #7B1FA2;
-        }
-        
-        &.nature {
-          background: rgba(76, 175, 80, 0.12);
-          color: #388E3C;
-        }
-        
-        &.entertainment {
-          background: rgba(255, 152, 0, 0.12);
-          color: #E65100;
-        }
-      }
-    }
-    
-    h3 {
-      font-family: $font-primary !important;
-      font-size: 20px;
-      margin: 0 0 8px;
-      color: $black;
-      
-      @media (max-width: 576px) {
-        font-size: 18px;
-      }
-    }
-    
-    p {
-      color: $black;
-      font-size: 14px;
-      line-height: 1.6;
-      font-weight: 400;
-      margin: 0 0 12px;
-      font-family: $font-primary !important;
-      
-      @media (max-width: 576px) {
-        font-size: 13px;
-      }
-    }
-  }
-  
-  .attraction-details {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    margin-bottom: 12px;
-    
-    span {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 12px;
-      color: $black;
-      font-weight: 400;
-      font-family: $font-primary !important;
-      
-      ion-icon {
-        font-size: 14px;
-        color: $gold;
-      }
-    }
-  }
-  
-  .attraction-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 12px;
-    border-top: 1px solid rgba(0,0,0,0.05);
-    
-    .attraction-rating {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      
-      ion-icon {
-        color: $gold;
-        font-size: 16px;
-      }
-      
-      span {
-        font-weight: 600;
-        color: $black;
-        font-size: 14px;
-        font-family: $font-primary !important;
-      }
-      
-      small {
-        color: $grey;
-        font-size: 12px;
-        font-weight: 300;
-        font-family: $font-primary !important;
-      }
-    }
-    
-    .attraction-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 18px;
-      border-radius: 50px;
-      font-size: 13px;
-      font-weight: 600;
-      color: $gold;
-      background: rgba(201, 168, 76, 0.1);
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-family: $font-primary !important;
-      
-      ion-icon {
-        font-size: 16px;
-      }
-      
-      &:hover {
-        background: $gold;
-        color: $black;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 20px rgba(201, 168, 76, 0.3);
-      }
-    }
-  }
-}
-
-// =========================
-// NO RESULTS
-// =========================
-.no-results {
-  text-align: center;
-  padding: 60px 20px;
-  
-  ion-icon {
-    font-size: 48px;
-    color: $gold;
-    opacity: 0.3;
-  }
-  
-  h3 {
-    font-family: $font-primary !important;
-    font-size: 24px;
-    margin: 12px 0 6px;
-    color: $black;
-  }
-  
-  p {
-    color: $black;
-    font-size: 14px;
-    font-family: $font-primary !important;
-    font-weight: 400;
-    margin-bottom: 16px;
-  }
-  
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: linear-gradient(135deg, $gold, $gold-dark);
-    color: $black;
-    font-weight: 600;
-    padding: 12px 28px;
-    border-radius: 50px;
-    font-size: 14px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    font-family: $font-primary !important;
-    
-    &:hover {
-      background: linear-gradient(135deg, $gold-light, $gold);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 20px rgba(201, 168, 76, 0.3);
-    }
-  }
-}
-
-// =========================
-// MAP SECTION
-// =========================
-.map-section {
   padding: 60px 0 80px;
-  background: $off-white;
+  background: $white;
   
   @media (max-width: 768px) {
-    padding: 40px 0;
+    padding: 40px 0 60px;
   }
 }
 
-.locations-map {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 30px;
-  background: $white;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 30px rgba(0,0,0,0.06);
-  
-  @media (max-width: 900px) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.map-container {
-  position: relative;
-  height: 400px;
-  
-  iframe {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-  
-  @media (max-width: 900px) {
-    height: 300px;
-  }
-}
-
-.location-list {
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  
-  @media (max-width: 480px) {
-    padding: 16px;
-  }
-  
-  .location-item {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 12px 16px;
-    background: $off-white;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    
-    @media (max-width: 480px) {
-      padding: 10px 14px;
-    }
-    
-    &:hover {
-      transform: translateX(6px);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      border-color: $gold;
-      background: $white;
-    }
-    
-    .location-icon {
-      width: 44px;
-      height: 44px;
-      background: rgba(201, 168, 76, 0.1);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      
-      ion-icon {
-        font-size: 20px;
-        color: $gold;
-      }
-    }
-    
-    .location-info {
-      flex: 1;
-      
-      h4 {
-        font-family: $font-primary !important;
-        font-size: 15px;
-        font-weight: 600;
-        margin: 0 0 2px;
-        color: $black;
-      }
-      
-      p {
-        font-size: 13px;
-        color: $black;
-        margin: 0 0 4px;
-        font-weight: 400;
-        font-family: $font-primary !important;
-      }
-      
-      .location-tag {
-        display: inline-block;
-        font-size: 10px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-weight: 600;
-        padding: 2px 10px;
-        border-radius: 12px;
-        font-family: $font-primary !important;
-        
-        &.beach {
-          background: rgba(33, 150, 243, 0.1);
-          color: #2196F3;
-        }
-        
-        &.upscale {
-          background: rgba(201, 168, 76, 0.1);
-          color: $gold;
-        }
-        
-        &.comfort {
-          background: rgba(76, 175, 80, 0.1);
-          color: #4caf50;
-        }
-        
-        &.budget {
-          background: rgba(233, 30, 99, 0.1);
-          color: #e91e63;
-        }
-      }
-    }
-    
-    .location-map-btn {
-      width: 36px;
-      height: 36px;
-      background: rgba(201, 168, 76, 0.1);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      flex-shrink: 0;
-      
-      ion-icon {
-        font-size: 18px;
-        color: $gold;
-        transition: all 0.3s ease;
-      }
-      
-      &:hover {
-        background: $gold;
-        
-        ion-icon {
-          color: $black;
-        }
-      }
-    }
-  }
-}
-
-// =========================
-// SECTION HEADERS
-// =========================
 .section-header {
   max-width: 700px;
   margin: 0 auto 50px;
@@ -1696,9 +1088,463 @@ html {
   }
 }
 
+.attractions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.attraction-card {
+  background: $white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: $transition-smooth;
+  animation: fadeUp 0.8s ease forwards;
+  opacity: 0;
+  
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+  }
+  
+  .attraction-image {
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    
+    &:hover img {
+      transform: scale(1.05);
+    }
+    
+    .attraction-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(0,0,0,0.8);
+      color: $white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      backdrop-filter: blur(5px);
+      font-family: $font-primary !important;
+      
+      ion-icon {
+        font-size: 12px;
+        color: $gold;
+      }
+    }
+    
+    .attraction-map-hover {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      opacity: 0;
+      transition: $transition-smooth;
+      
+      ion-icon {
+        font-size: 32px;
+        color: $white;
+      }
+      
+      span {
+        color: $white;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: $font-primary !important;
+      }
+    }
+    
+    &:hover .attraction-map-hover {
+      opacity: 1;
+    }
+  }
+  
+  .attraction-info {
+    padding: 20px 24px 24px;
+    
+    .attraction-category {
+      margin-bottom: 8px;
+      
+      span {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-family: $font-primary !important;
+        
+        &.beach {
+          background: rgba(52, 152, 219, 0.15);
+          color: #2980b9;
+        }
+        
+        &.culture {
+          background: rgba(155, 89, 182, 0.15);
+          color: #8e44ad;
+        }
+        
+        &.nature {
+          background: rgba(46, 204, 113, 0.15);
+          color: #27ae60;
+        }
+        
+        &.entertainment {
+          background: rgba(231, 76, 60, 0.15);
+          color: #c0392b;
+        }
+        
+        ion-icon {
+          font-size: 12px;
+        }
+      }
+    }
+    
+    h3 {
+      font-family: $font-primary !important;
+      font-size: 20px;
+      margin: 0 0 6px;
+      color: $black;
+    }
+    
+    p {
+      color: $grey;
+      font-size: 14px;
+      line-height: 1.6;
+      font-weight: 300;
+      margin: 0 0 12px;
+      font-family: $font-primary !important;
+    }
+    
+    .attraction-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 14px;
+      
+      span {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 12px;
+        color: $grey;
+        font-weight: 400;
+        font-family: $font-primary !important;
+        
+        ion-icon {
+          color: $gold;
+          font-size: 14px;
+        }
+      }
+    }
+    
+    .attraction-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 14px;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      
+      .attraction-rating {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 14px;
+        color: $black;
+        font-weight: 500;
+        font-family: $font-primary !important;
+        
+        ion-icon {
+          color: #f39c12;
+          font-size: 16px;
+        }
+        
+        small {
+          color: $grey;
+          font-weight: 300;
+          font-size: 12px;
+        }
+      }
+      
+      .attraction-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(201, 168, 76, 0.1);
+        color: $gold;
+        border: none;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: $transition-smooth;
+        font-family: $font-primary !important;
+        
+        ion-icon {
+          font-size: 14px;
+        }
+        
+        &:hover {
+          background: $gold;
+          color: $black;
+          transform: translateX(2px);
+        }
+      }
+    }
+  }
+}
+
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  
+  ion-icon {
+    font-size: 64px;
+    color: $gold;
+    opacity: 0.3;
+    margin-bottom: 16px;
+  }
+  
+  h3 {
+    font-family: $font-primary !important;
+    font-size: 24px;
+    color: $black;
+    margin: 0 0 8px;
+  }
+  
+  p {
+    color: $grey;
+    font-size: 16px;
+    margin: 0 0 24px;
+    font-family: $font-primary !important;
+  }
+}
+
 // =========================
-// BUTTONS
+// MAP SECTION
 // =========================
+.map-section {
+  padding: 60px 0 80px;
+  background: $off-white;
+  
+  @media (max-width: 768px) {
+    padding: 40px 0 60px;
+  }
+}
+
+.locations-map {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  align-items: start;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.map-container {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+  height: 400px;
+  
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  
+  @media (max-width: 576px) {
+    height: 280px;
+  }
+}
+
+.location-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  
+  .location-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: $white;
+    border-radius: 12px;
+    transition: $transition-smooth;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    cursor: pointer;
+    
+    &:hover {
+      transform: translateX(4px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    
+    .location-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(201, 168, 76, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      
+      ion-icon {
+        font-size: 20px;
+        color: $gold;
+      }
+    }
+    
+    .location-info {
+      flex: 1;
+      
+      h4 {
+        font-family: $font-primary !important;
+        font-size: 16px;
+        font-weight: 600;
+        color: $black;
+        margin: 0 0 2px;
+      }
+      
+      p {
+        font-family: $font-primary !important;
+        font-size: 13px;
+        color: $grey;
+        margin: 0 0 4px;
+      }
+      
+      .location-tag {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 2px 10px;
+        border-radius: 12px;
+        font-family: $font-primary !important;
+        
+        &.tag-gold {
+          background: rgba(201, 168, 76, 0.15);
+          color: $gold;
+        }
+        
+        &.tag-blue {
+          background: rgba(52, 152, 219, 0.15);
+          color: #2980b9;
+        }
+        
+        &.tag-green {
+          background: rgba(46, 204, 113, 0.15);
+          color: #27ae60;
+        }
+      }
+    }
+    
+    .location-map-btn {
+      width: 36px;
+      height: 36px;
+      background: rgba(201, 168, 76, 0.08);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: $transition-smooth;
+      
+      ion-icon {
+        font-size: 16px;
+        color: $gold;
+      }
+    }
+    
+    &:hover .location-map-btn {
+      background: $gold;
+      
+      ion-icon {
+        color: $black;
+      }
+    }
+  }
+}
+
+// =========================
+// CTA SECTION
+// =========================
+.cta-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+  
+  @media (max-width: 768px) {
+    padding: 40px 0;
+  }
+}
+
+.cta-content {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  
+  h2 {
+    font-family: $font-primary !important;
+    font-size: clamp(28px, 4vw, 48px);
+    color: $white;
+    margin: 0 0 12px;
+  }
+  
+  p {
+    color: rgba(255,255,255,0.6);
+    font-size: 16px;
+    line-height: 1.8;
+    font-weight: 300;
+    margin: 0 0 30px;
+    font-family: $font-primary !important;
+  }
+  
+  .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    
+    @media (max-width: 480px) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
+
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -1837,52 +1683,6 @@ html {
   
   &:hover::after {
     transform: translateX(100%);
-  }
-}
-
-// =========================
-// CTA SECTION
-// =========================
-.cta-section {
-  padding: 80px 0;
-  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-  
-  @media (max-width: 768px) {
-    padding: 40px 0;
-  }
-}
-
-.cta-content {
-  text-align: center;
-  max-width: 700px;
-  margin: 0 auto;
-  
-  h2 {
-    font-family: $font-primary !important;
-    font-size: clamp(28px, 4vw, 48px);
-    color: $white;
-    margin: 0 0 12px;
-  }
-  
-  p {
-    color: rgba(255,255,255,0.6);
-    font-size: 16px;
-    line-height: 1.8;
-    font-weight: 300;
-    margin: 0 0 30px;
-    font-family: $font-primary !important;
-  }
-  
-  .cta-buttons {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
-    
-    @media (max-width: 480px) {
-      flex-direction: column;
-      align-items: center;
-    }
   }
 }
 
@@ -2065,7 +1865,6 @@ html {
         gap: 10px;
         color: rgba(255,255,255,0.5);
         font-size: 13px;
-        font-family: $font-primary !important;
         
         @media (max-width: 576px) {
           font-size: 12px;
@@ -2074,6 +1873,7 @@ html {
         ion-icon {
           color: $gold;
           font-size: 16px;
+          flex-shrink: 0;
         }
       }
     }
@@ -2143,119 +1943,8 @@ ion-fab-button.whatsapp-float {
 }
 
 // =========================
-// ENSURE NO WHITE SPACE AFTER FOOTER
+// SCROLL FIX
 // =========================
-ion-content {
-  --padding-bottom: 0 !important;
-  --padding-end: 0 !important;
-  --padding-start: 0 !important;
-  --padding-top: 0 !important;
-}
-
-.footer {
-  margin-bottom: 0 !important;
-}
-
-// =========================
-// RESPONSIVE OVERRIDES
-// =========================
-@media (max-width: 768px) {
-  .page-header {
-    min-height: 40vh;
-    height: 40vh;
-    
-    .page-header-text {
-      .page-title {
-        font-size: 36px;
-      }
-      .page-subtitle {
-        font-size: 14px;
-      }
-    }
-  }
-  
-  .filter-section {
-    padding: 16px 0;
-  }
-  
-  .filter-tabs {
-    gap: 6px;
-    
-    .filter-tab {
-      padding: 6px 14px;
-      font-size: 11px;
-      
-      ion-icon {
-        font-size: 13px;
-      }
-    }
-  }
-  
-  .attractions-section {
-    padding: 10px 0 40px;
-  }
-  
-  .attractions-grid {
-    gap: 16px;
-  }
-  
-  .attraction-card .attraction-image {
-    height: 180px;
-  }
-  
-  .map-section {
-    padding: 40px 0;
-  }
-  
-  .cta-section {
-    padding: 40px 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .filter-tabs {
-    .filter-tab {
-      padding: 5px 10px;
-      font-size: 10px;
-      
-      ion-icon {
-        font-size: 12px;
-      }
-    }
-  }
-  
-  .attraction-card .attraction-info {
-    padding: 16px;
-    
-    h3 {
-      font-size: 18px;
-    }
-  }
-  
-  .location-list {
-    padding: 16px;
-    
-    .location-item {
-      padding: 10px 14px;
-    }
-  }
-  
-  .cta-content .cta-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .btn-primary, .btn-secondary-cta {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-// ============================================================
-// ✅ PRODUCTION SCROLL FIX - ATTRACTIONS PAGE
-// ============================================================
-
-// Force the page to scroll in production
 :host {
   display: block !important;
   height: 100% !important;
@@ -2263,7 +1952,6 @@ ion-content {
   overflow-y: auto !important;
 }
 
-// Override Ionic's production contain property
 ion-content {
   contain: none !important;
   --overflow: auto !important;
@@ -2279,103 +1967,5 @@ ion-content {
     height: 100% !important;
     min-height: 100vh !important;
     display: block !important;
-  }
-}
-
-// Force all sections to be visible
-.page-header,
-.filter-section,
-.attractions-section,
-.map-section,
-.cta-section {
-  height: auto !important;
-  min-height: auto !important;
-  overflow: visible !important;
-}
-
-// Ensure grid containers don't block scrolling
-.attractions-grid,
-.locations-map {
-  height: auto !important;
-  min-height: auto !important;
-  overflow: visible !important;
-}
-
-// Force all content to be visible
-.container {
-  height: auto !important;
-  min-height: auto !important;
-  overflow: visible !important;
-}
-
-// Ensure images don't overflow
-img {
-  max-width: 100% !important;
-  height: auto !important;
-}
-
-// ============================================================
-// ✅ SCROLLBAR COMPLETELY REMOVED - Attractions Page
-// ============================================================
-
-// Remove scrollbar completely - Chrome, Safari, Edge
-:host ::-webkit-scrollbar,
-ion-content ::-webkit-scrollbar,
-::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
-  background: transparent !important;
-}
-
-:host ::-webkit-scrollbar-track,
-ion-content ::-webkit-scrollbar-track,
-::-webkit-scrollbar-track {
-  display: none !important;
-  background: transparent !important;
-}
-
-:host ::-webkit-scrollbar-thumb,
-ion-content ::-webkit-scrollbar-thumb,
-::-webkit-scrollbar-thumb {
-  display: none !important;
-  background: transparent !important;
-}
-
-:host ::-webkit-scrollbar-corner,
-ion-content ::-webkit-scrollbar-corner,
-::-webkit-scrollbar-corner {
-  display: none !important;
-  background: transparent !important;
-}
-
-// Firefox - remove scrollbar
-:host,
-ion-content,
-* {
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
-}
-
-// Keep scrolling functional
-:host {
-  display: block !important;
-  height: 100% !important;
-  min-height: 100vh !important;
-  overflow-y: auto !important;
-}
-
-ion-content {
-  contain: none !important;
-  --overflow: auto !important;
-  overflow-y: auto !important;
-  height: 100% !important;
-  min-height: 100vh !important;
-  
-  &::part(scroll) {
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    height: 100% !important;
-    min-height: 100vh !important;
   }
 }
