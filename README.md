@@ -21,17 +21,67 @@
 
 ---
 
-## ✨ About STAY@TIAH
+## 📑 Table of Contents
 
-**STAY@TIAH – The Ideal Accommodation Haven** is a modern, responsive accommodation booking web application designed for short-stay accommodation in **Durban, South Africa**.
+* [✨ About STAY@TIAH](#-about-staytiah)
+* [🖤 The STAY@TIAH Experience](#-the-staytiah-experience)
+* [🌟 Key Features](#-key-features)
 
-The platform provides guests with a seamless way to discover accommodation, explore rooms, view property information, check availability and send booking enquiries directly through **WhatsApp**.
+  * [🏨 Accommodation](#-accommodation)
+  * [📅 Availability](#-availability)
+  * [💬 WhatsApp Booking](#-whatsapp-booking)
+* [📱 Pages & Navigation](#-pages--navigation)
+* [🎨 Design System](#-design-system)
 
-The system is designed with a strong focus on **professional presentation, responsive design, accessibility and an effortless booking experience** across mobile, tablet and desktop devices.
+  * [Typography](#typography)
+  * [UI Style](#ui-style)
+* [💫 Animations & Interactions](#-animations--interactions)
+* [🛠️ Technology Stack](#️-technology-stack)
+* [📂 Project Structure](#-project-structure)
+* [🚀 Getting Started](#-getting-started)
+
+  * [📋 Prerequisites](#-prerequisites)
+  * [📥 Installation](#-installation)
+  * [▶️ Running the Application](#️-running-the-application)
+  * [🏗️ Production Build](#️-production-build)
+* [📱 Progressive Web App](#-progressive-web-app)
+* [💬 WhatsApp Integration](#-whatsapp-integration)
+* [🖼️ Image Assets](#️-image-assets)
+* [🎯 Main User Journey](#-main-user-journey)
+* [🔐 Project Security & Privacy](#-project-security--privacy)
+* [🌍 Browser Support](#-browser-support)
+* [👨‍💻 Development](#-development)
+* [📞 Contact & Social Media](#-contact--social-media)
+* [🙏 Acknowledgements](#-acknowledgements)
+* [📄 License](#-license)
 
 ---
 
-## 🖤 The STAY@TIAH Experience
+# ✨ About STAY@TIAH
+
+**STAY@TIAH – The Ideal Accommodation Haven** is a modern, responsive short-stay accommodation booking platform designed for guests visiting **Durban, South Africa**.
+
+The platform provides guests with a convenient way to:
+
+* 🏨 Discover accommodation
+* 🛏️ Explore available rooms
+* 📸 View property and room galleries
+* 💰 View accommodation rates
+* 📅 Select check-in and check-out dates
+* 👥 Specify the number of guests
+* 📍 Explore nearby attractions
+* 📱 Check availability
+* 💬 Send booking enquiries directly through WhatsApp
+
+STAY@TIAH focuses on creating a **professional, modern and effortless accommodation experience** across desktop, tablet and mobile devices.
+
+The platform is designed to help accommodation businesses establish a strong digital presence while making it easier for guests to discover and enquire about available accommodation.
+
+---
+
+# 🖤 The STAY@TIAH Experience
+
+STAY@TIAH is designed around four simple steps:
 
 <table>
 <tr>
@@ -41,7 +91,7 @@ The system is designed with a strong focus on **professional presentation, respo
 
 **Explore**
 
-Browse beautiful accommodation options and discover available properties.
+Discover accommodation properties and explore available options.
 
 </td>
 
@@ -51,7 +101,7 @@ Browse beautiful accommodation options and discover available properties.
 
 **Choose**
 
-Explore detailed room information, amenities, pricing and galleries.
+View rooms, amenities, prices, photographs and property information.
 
 </td>
 
@@ -81,120 +131,192 @@ Send your booking enquiry directly through WhatsApp.
 
 # 🌟 Key Features
 
-### 🏨 Accommodation
+## 🏨 Accommodation
+
+STAY@TIAH provides detailed accommodation information including:
 
 * Multiple accommodation properties
-* Detailed room information
-* Room categories and amenities
+* Room categories
+* Room descriptions
+* Guest capacity
+* Bed information
+* Bathroom information
+* Amenities
+* Accommodation rates
+* Property information
 * High-quality image galleries
-* Property location information
-* Pricing information
-* Guest capacity information
+* Property locations
+* Nearby attractions
 
-### 📅 Availability
+### 🛎️ Accommodation Amenities
 
-* Check-in date selection
-* Check-out date selection
-* Calendar-based date selection
-* Availability status
-* Booking duration calculation
-* Guest selection
+Depending on the selected property or room, guests can view amenities such as:
 
-### 💬 WhatsApp Booking
+* 📶 Free Wi-Fi
+* 📺 Smart TV
+* 🚗 Secure parking
+* ❄️ Air conditioning
+* 🛏️ Comfortable beds
+* 🚿 Private bathrooms
 
-Guests can submit their booking enquiries directly through WhatsApp.
+---
 
-Booking information is automatically formatted into a structured message containing:
+## 📅 Availability
+
+Guests can select their preferred reservation dates.
+
+The booking process supports:
+
+* Check-in date
+* Check-out date
+* Number of guests
+* Room selection
+* Property selection
+* Number of nights
+* Availability checking
+* Special requests
+
+The system calculates the duration of the stay based on the selected dates.
 
 ```text
-┌──────────────────────────────────┐
-│       STAY@TIAH BOOKING FORM     │
-└──────────────────────────────────┘
-
-[ GUEST DETAILS ]
-
-• Name    : John Doe
-• Phone   : +27 123 456 789
-• Email   : john@example.com
-
-[ RESERVATION SUMMARY ]
-
-• Property : Durban Oceanic (82A)
-• Category : Family Room
-• Check-In : 15 Aug 2026
-• Check-Out: 20 Aug 2026
-• Duration : 5 Night(s)
-• Guests   : 2
+Check-In
+    │
+    ▼
+Select Date
+    │
+    ▼
+Check-Out
+    │
+    ▼
+Select Date
+    │
+    ▼
+Calculate Nights
+    │
+    ▼
+Check Availability
+    │
+    ▼
+Booking Enquiry
 ```
 
-This allows the accommodation owner to receive complete booking information directly through WhatsApp.
+---
+
+## 💬 WhatsApp Booking
+
+STAY@TIAH uses WhatsApp as a direct booking enquiry channel.
+
+Instead of forcing customers to create an account or navigate through a complicated checkout process, guests can submit their booking details and send the enquiry directly to the accommodation owner.
+
+The generated WhatsApp message contains relevant reservation information.
+
+### Example
+
+```text
+┌────────────────────────────────────┐
+│        STAY@TIAH BOOKING ENQUIRY   │
+└────────────────────────────────────┘
+
+GUEST DETAILS
+
+Name       : John Doe
+Phone      : +27 84 000 0000
+Email      : john@example.com
+
+RESERVATION
+
+Property   : Durban Oceanic
+Room       : Family Room
+Check-In   : 15 August 2026
+Check-Out  : 20 August 2026
+Duration   : 5 Nights
+Guests     : 2
+
+SPECIAL REQUEST
+
+Late check-in requested.
+```
+
+This gives the accommodation owner the information needed to respond to the customer directly.
 
 ---
 
 # 📱 Pages & Navigation
 
-| Page                | Description                                                 |
-| ------------------- | ----------------------------------------------------------- |
-| 🏠 **Home**         | Hero section, accommodation highlights, statistics and FAQ  |
-| ℹ️ **About**        | Company information, locations and accommodation statistics |
-| 🛏️ **Rooms**       | Browse and filter available rooms                           |
-| 🏨 **Room Details** | Detailed room information, gallery and availability         |
-| 📍 **Attractions**  | Nearby attractions with categories and maps                 |
-| 💬 **Contact**      | Booking and availability enquiry form                       |
+| Page                | Description                                                          |
+| ------------------- | -------------------------------------------------------------------- |
+| 🏠 **Home**         | Hero section, accommodation highlights, features, statistics and FAQ |
+| ℹ️ **About**        | Information about STAY@TIAH and its accommodation offerings          |
+| 🛏️ **Rooms**       | Browse available accommodation and room categories                   |
+| 🏨 **Room Details** | Detailed room information, amenities, gallery and booking            |
+| 📍 **Attractions**  | Discover nearby attractions and places of interest                   |
+| 💬 **Contact**      | Contact information and booking enquiry functionality                |
 
 ---
 
 # 🎨 Design System
 
-STAY@TIAH follows a **luxury accommodation aesthetic** based around a minimal black, white and gold colour palette.
+STAY@TIAH uses a premium accommodation-inspired visual identity.
 
-<div align="center">
+The interface is built around a minimal **black, white and gold** colour palette.
 
-| Colour |    Hex    | Purpose                 |
-| :----: | :-------: | ----------------------- |
-|   🖤   | `#000000` | Primary background      |
-|   🤍   | `#FFFFFF` | Text & content          |
-|   🟨   | `#C9A84C` | Brand gold / highlights |
+| Colour |    Hex    | Purpose                     |
+| :----: | :-------: | --------------------------- |
+|   🖤   | `#000000` | Primary background          |
+|   🤍   | `#FFFFFF` | Content and text            |
+|   🟨   | `#C9A84C` | Brand accent and highlights |
 
-</div>
+---
 
-### Typography
+## Typography
 
 **Primary Font:** Verdana
+
 **Fallback:** Geneva, sans-serif
 
-### UI Style
+The typography is designed to maintain readability across desktop and mobile screens.
 
-* Luxury-inspired interface
-* Minimal black & white layout
+---
+
+## UI Style
+
+The application uses:
+
+* Luxury-inspired layouts
+* Minimal black and white design
 * Gold accent elements
 * Rounded cards
 * Responsive navigation
 * Modern buttons
+* Image galleries
+* Clear typography
+* Consistent spacing
 * Smooth transitions
-* Custom scrollbar
 * Mobile-first layouts
 
 ---
 
 # 💫 Animations & Interactions
 
-The application includes smooth UI animations to create a premium user experience.
+The application includes subtle animations to create a modern and premium experience.
 
-* `Fade-up` animations
-* `Slide` transitions
-* `Scale` effects
-* Hover interactions
-* Image lightbox
-* Animated splash screen
+### UI Animations
+
+* Fade-up animations
+* Slide transitions
+* Scale effects
+* Hover effects
+* Image transitions
 * Smooth navigation
+* Animated splash screen
 * Responsive menu interactions
+* Button interactions
+
+Animations are designed to enhance the experience without distracting users from the booking process.
 
 ---
 
 # 🛠️ Technology Stack
-
-<div align="center">
 
 | Technology     | Version | Purpose                   |
 | -------------- | ------: | ------------------------- |
@@ -202,11 +324,11 @@ The application includes smooth UI animations to create a premium user experienc
 | **Ionic**      |      7+ | Mobile-first UI framework |
 | **TypeScript** |      5+ | Application development   |
 | **SCSS**       |       — | Styling                   |
-| **Ionicons**   |      7+ | UI icons                  |
+| **Ionicons**   |      7+ | Interface icons           |
 | **HTML5**      |       — | Application structure     |
 | **CSS3**       |       — | Responsive styling        |
-
-</div>
+| **Git**        |       — | Version control           |
+| **GitHub**     |       — | Repository and deployment |
 
 ---
 
@@ -215,39 +337,63 @@ The application includes smooth UI animations to create a premium user experienc
 ```text
 STAY@TIAH/
 │
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+│
 ├── src/
 │   ├── app/
+│   │   │
 │   │   ├── home/
-│   │   │   └── Home Page
+│   │   │   ├── home.page.html
+│   │   │   ├── home.page.scss
+│   │   │   └── home.page.ts
 │   │   │
 │   │   ├── about/
-│   │   │   └── About Page
+│   │   │   ├── about.page.html
+│   │   │   ├── about.page.scss
+│   │   │   └── about.page.ts
 │   │   │
 │   │   ├── rooms/
-│   │   │   └── Rooms Listing
+│   │   │   ├── rooms.page.html
+│   │   │   ├── rooms.page.scss
+│   │   │   └── rooms.page.ts
 │   │   │
 │   │   ├── room-detail/
-│   │   │   └── Room Details
+│   │   │   ├── room-detail.page.html
+│   │   │   ├── room-detail.page.scss
+│   │   │   └── room-detail.page.ts
 │   │   │
 │   │   ├── attractions/
-│   │   │   └── Nearby Attractions
+│   │   │   ├── attractions.page.html
+│   │   │   ├── attractions.page.scss
+│   │   │   └── attractions.page.ts
 │   │   │
 │   │   ├── contact/
-│   │   │   └── Contact & Enquiry
+│   │   │   ├── contact.page.html
+│   │   │   ├── contact.page.scss
+│   │   │   └── contact.page.ts
 │   │   │
-│   │   └── app.routes.ts
+│   │   ├── app.routes.ts
+│   │   └── app.component.ts
 │   │
 │   ├── assets/
-│   │   └── images/
+│   │   ├── images/
+│   │   └── icons/
 │   │
 │   ├── theme/
 │   │   └── variables.scss
 │   │
+│   ├── global.scss
+│   ├── index.html
 │   └── main.ts
 │
 ├── angular.json
+├── ionic.config.json
 ├── package.json
+├── package-lock.json
 ├── tsconfig.json
+├── tsconfig.app.json
 └── README.md
 ```
 
@@ -257,19 +403,77 @@ STAY@TIAH/
 
 ## 📋 Prerequisites
 
-Make sure the following are installed:
+Before running the project, make sure you have the following installed:
 
-* **Node.js v18 or higher**
+* **Node.js 18+**
 * **npm**
 * **Git**
 * **Angular CLI**
 * **Ionic CLI**
 
+Check your Node.js installation:
+
+```bash
+node --version
+```
+
+Check npm:
+
+```bash
+npm --version
+```
+
+Check Ionic:
+
+```bash
+ionic --version
+```
+
 ---
 
-# 🏗️ Production Build
+## 📥 Installation
 
-To create a production build:
+Clone the repository:
+
+```bash
+git clone https://github.com/thokozani828/Stay-Tiah2.git
+```
+
+Navigate into the project:
+
+```bash
+cd Stay-Tiah2
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+---
+
+## ▶️ Running the Application
+
+Start the Ionic development server:
+
+```bash
+ionic serve
+```
+
+Or:
+
+```bash
+npm start
+```
+
+The application will be available through the local development server.
+
+---
+
+## 🏗️ Production Build
+
+Create a production build:
 
 ```bash
 npm run build
@@ -277,113 +481,230 @@ npm run build
 
 The compiled application will be generated in the Angular `dist/` directory.
 
+For Ionic:
+
+```bash
+ionic build
+```
+
+---
+
+# 🌐 Deployment
+
+STAY@TIAH can be deployed using services such as:
+
+* GitHub Pages
+* Netlify
+* Vercel
+* Firebase Hosting
+* Traditional web hosting
+
+The project includes a GitHub Actions workflow for automated deployment.
+
+```text
+GitHub Repository
+        │
+        ▼
+GitHub Actions
+        │
+        ▼
+Angular Production Build
+        │
+        ▼
+Deployment
+        │
+        ▼
+STAY@TIAH Website
+```
+
 ---
 
 # 📱 Progressive Web App
 
-STAY@TIAH is designed with modern web application capabilities.
+STAY@TIAH is designed with modern web application principles and can be extended into a Progressive Web App.
 
-### PWA Features
+Potential PWA capabilities include:
 
 * ⚡ Fast loading
-* 📱 Responsive layouts
+* 📱 Responsive interface
 * 🌐 Offline support
-* 🎨 Custom splash screen
+* 📲 Installable experience
 * 🖼️ Optimized assets
 * 📦 Lazy loading
-* 📲 Mobile-friendly interface
+* 🔔 Push notifications
+* 🚀 Improved mobile performance
 
 ---
 
 # 💬 WhatsApp Integration
 
-All booking enquiries are handled through WhatsApp.
+WhatsApp is integrated as the primary booking enquiry channel.
 
-Configure the WhatsApp number in the relevant TypeScript files:
+The application generates a structured message based on the customer's selected information.
 
-```typescript
-private readonly whatsappNumber: string = '27849009821';
-```
+### Booking information can include:
 
-The application generates a structured WhatsApp message containing the guest's:
-
-* Name
+* Guest name
 * Phone number
-* Email
+* Email address
 * Property
-* Room category
+* Room
 * Check-in date
 * Check-out date
 * Number of nights
 * Number of guests
 * Special requests
 
+Example implementation:
+
+```typescript
+private readonly whatsappNumber = '27849009821';
+```
+
+The application can then generate a WhatsApp URL containing the booking information.
+
+> **Security Note:** For production, sensitive configuration such as contact numbers should preferably be managed through environment configuration rather than hard-coded throughout the application.
+
 ---
 
 # 🖼️ Image Assets
 
-Local images should be placed inside:
+Accommodation and room images should be stored inside:
 
 ```text
 src/assets/images/
 ```
 
-### Room image example
+Example:
 
 ```text
-Durban Oceanic Room 82A/1.jpg
+src/
+└── assets/
+    └── images/
+        ├── Durban Oceanic/
+        │   ├── room-1.jpg
+        │   ├── room-2.jpg
+        │   └── exterior.jpg
+        │
+        ├── Tiah Musgrave/
+        │   ├── room-1.jpg
+        │   └── room-2.jpg
+        │
+        └── La Tiah/
+            ├── room-1.jpg
+            └── room-2.jpg
 ```
 
-### Property image example
-
-```text
-Tiah Whyte, Durban/1.jpg
-```
-
-Keeping images inside the assets directory allows Angular to package them during the production build.
+Keeping assets inside the Angular assets directory ensures they are included during the build process.
 
 ---
 
 # 🎯 Main User Journey
 
+The primary guest journey is designed to be simple.
+
 ```text
-                 ┌─────────────────┐
-                 │     STAY@TIAH    │
-                 │      WEBSITE     │
-                 └────────┬────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │   Browse Rooms  │
-                 └────────┬────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │ Select Property  │
-                 │    & Room        │
-                 └────────┬────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │ Check Availability│
-                 └────────┬────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │ Enter Guest Info │
-                 └────────┬────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │ WhatsApp Enquiry│
-                 └────────┬────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │   Owner Receives │
-                 │     Enquiry      │
-                 └─────────────────┘
+                  ┌──────────────────┐
+                  │    STAY@TIAH     │
+                  │      WEBSITE     │
+                  └────────┬─────────┘
+                           │
+                           ▼
+                  ┌──────────────────┐
+                  │  Browse Rooms    │
+                  └────────┬─────────┘
+                           │
+                           ▼
+                  ┌──────────────────┐
+                  │ Select Property   │
+                  │    & Room         │
+                  └────────┬─────────┘
+                           │
+                           ▼
+                  ┌──────────────────┐
+                  │ Check Availability│
+                  └────────┬─────────┘
+                           │
+                           ▼
+                  ┌──────────────────┐
+                  │ Select Dates      │
+                  │ & Guests          │
+                  └────────┬─────────┘
+                           │
+                           ▼
+                  ┌──────────────────┐
+                  │ Enter Guest Info  │
+                  └────────┬─────────┘
+                           │
+                           ▼
+                  ┌──────────────────┐
+                  │ WhatsApp Booking  │
+                  │     Enquiry       │
+                  └────────┬─────────┘
+                           │
+                           ▼
+                  ┌──────────────────┐
+                  │ Owner Receives    │
+                  │     Enquiry       │
+                  └──────────────────┘
 ```
+
+---
+
+# 🔮 Future Improvements
+
+The current platform can be expanded into a complete accommodation management ecosystem.
+
+### 📅 Booking Management
+
+* Real-time room availability
+* Booking confirmation
+* Automated booking emails
+* Booking history
+* Cancellation management
+* Reservation management dashboard
+
+### 💳 Payments
+
+* Online payments
+* Payment gateway integration
+* Deposit payments
+* Digital receipts
+* Payment verification
+
+### 👤 Guest Accounts
+
+* Guest registration
+* Guest profiles
+* Saved properties
+* Booking history
+* Favourite rooms
+
+### 🏢 Property Management
+
+* Property owner dashboard
+* Room management
+* Pricing management
+* Availability management
+* Staff management
+* Booking management
+
+### 📊 Analytics
+
+* Occupancy analytics
+* Revenue analytics
+* Booking trends
+* Guest statistics
+* Property performance
+
+### 🔔 Notifications
+
+* Booking confirmation
+* Booking reminders
+* Check-in reminders
+* Payment notifications
+* WhatsApp notifications
+* Email notifications
 
 ---
 
@@ -391,11 +712,20 @@ Keeping images inside the assets directory allows Angular to package them during
 
 STAY@TIAH is a proprietary software project.
 
-The source code, designs, business information and associated assets are intended for authorized use only.
+The source code, designs, business information, photographs, branding and associated assets are intended for authorized use only.
+
+Production implementations should use appropriate security measures including:
+
+* Secure environment variables
+* HTTPS
+* Input validation
+* Secure API communication
+* Authentication where required
+* Authorization controls
+* Secure payment processing
+* Protection of guest information
 
 > **© 2026 STAY@TIAH – The Ideal Accommodation Haven. All Rights Reserved.**
-
-Unauthorized copying, distribution, modification or commercial use is prohibited.
 
 ---
 
@@ -403,8 +733,8 @@ Unauthorized copying, distribution, modification or commercial use is prohibited
 
 | Browser            | Support |
 | ------------------ | :-----: |
-| Chrome             |    ✅    |
-| Firefox            |    ✅    |
+| Google Chrome      |    ✅    |
+| Mozilla Firefox    |    ✅    |
 | Safari             |    ✅    |
 | Microsoft Edge     |    ✅    |
 | Mobile Safari      |    ✅    |
@@ -414,31 +744,45 @@ Unauthorized copying, distribution, modification or commercial use is prohibited
 
 # 👨‍💻 Development
 
-The project follows modern Angular development practices.
+STAY@TIAH follows modern frontend development practices.
 
-### Code Standards
+### Development Principles
+
+* Component-based architecture
+* Responsive design
+* Mobile-first development
+* Reusable components
+* TypeScript best practices
+* Angular routing
+* SCSS architecture
+* Semantic HTML
+* Accessibility considerations
+* Performance optimization
+* Clean code organization
+
+### Code Quality
+
+The project can be maintained using:
 
 * Angular Style Guide
 * TypeScript best practices
 * ESLint
 * Prettier
 * SCSS
-* BEM naming convention
-* Component-based architecture
-* Responsive design principles
+* Git
+* GitHub
 
+---
 
 # 📞 Contact & Social Media
 
 <div align="center">
 
-### STAY@TIAH
+## STAY@TIAH
 
-**The Ideal Accommodation Haven**
+### *The Ideal Accommodation Haven*
 
-📍 Durban, South Africa
-
-🌐 **Website:** staytiah.com
+📍 **Durban, South Africa**
 
 📧 **Email:** [info@staytiah.com](mailto:info@staytiah.com)
 
@@ -454,25 +798,41 @@ The project follows modern Angular development practices.
 
 # 🙏 Acknowledgements
 
-Special thanks to the technologies and services that helped make STAY@TIAH possible.
+STAY@TIAH is built using modern open-source technologies and services.
+
+Special thanks to:
 
 * [Angular](https://angular.dev/)
 * [Ionic Framework](https://ionicframework.com/)
 * [Ionicons](https://ionic.io/ionicons)
+* GitHub
+* GitHub Pages
 * Google Maps
 * Unsplash
 
 ---
 
+# 📄 License
+
+This project is proprietary software developed for **STAY@TIAH – The Ideal Accommodation Haven**.
+
+Copyright © 2026 STAY@TIAH.
+
+All rights reserved.
+
+Unauthorized copying, modification, distribution or commercial use is prohibited.
+
+---
+
 <div align="center">
 
-## 🖤 Built with passion in Durban, South Africa 🇿🇦
+# 🖤 STAY@TIAH
 
-### STAY@TIAH
+### *The Ideal Accommodation Haven*
 
-**The Ideal Accommodation Haven**
+**Luxury • Comfort • Convenience**
 
-`Luxury • Comfort • Convenience`
+📍 Durban, South Africa 🇿🇦
 
 <br>
 
