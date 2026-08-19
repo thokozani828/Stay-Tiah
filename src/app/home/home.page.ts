@@ -123,10 +123,24 @@ export class HomePage implements OnInit, OnDestroy {
   // ==========================================
 
   ngOnInit() {
-    // Hide splash screen after 2.5 seconds
-    setTimeout(() => {
+    // ==========================================
+    // SPLASH SCREEN - SHOW ONLY ONCE PER SESSION
+    // ==========================================
+    // Check if splash screen has already been shown in this session
+    const splashShown = sessionStorage.getItem('splashShown');
+    
+    if (splashShown === 'true') {
+      // Splash already shown in this session - hide immediately
       this.splashHidden = true;
-    }, 2500);
+    } else {
+      // First time opening the page in this session - show splash
+      sessionStorage.setItem('splashShown', 'true');
+      
+      // Hide splash screen after 2.5 seconds
+      setTimeout(() => {
+        this.splashHidden = true;
+      }, 2500);
+    }
 
     // Track route changes for back navigation
     this.routerSubscription = this.router.events.pipe(
@@ -382,5 +396,14 @@ export class HomePage implements OnInit, OnDestroy {
   openWhatsApp() {
     // Redirect to booking page instead of WhatsApp
     this.navigateToBooking();
+  }
+
+  /**
+   * Reset splash screen (for testing purposes - remove in production)
+   * This allows developers to test the splash screen again
+   */
+  resetSplashScreen() {
+    sessionStorage.removeItem('splashShown');
+    location.reload();
   }
 }
