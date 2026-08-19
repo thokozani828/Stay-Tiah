@@ -1136,7 +1136,7 @@ Convenient Location: Located 2.5 km from downtown Durban, the property is close 
   }
 
   // =========================
-  // WHATSAPP FUNCTIONS - UPDATED WITH FORMATTED BOOKING FORM
+  // WHATSAPP FUNCTIONS - REMOVED FROM ROOM TYPES
   // =========================
   
   /**
@@ -1153,98 +1153,49 @@ Convenient Location: Located 2.5 km from downtown Durban, the property is close 
    * This is used in the header and floating button
    */
   openWhatsApp() {
-    // Get current date and time for the submission timestamp
-    const now = new Date();
-    const submittedDate = now.toLocaleDateString('en-ZA', { day: 'numeric', month: 'short', year: 'numeric' });
-    const submittedTime = now.toLocaleTimeString('en-ZA', { hour: '2-digit', minute: '2-digit' });
-
-    // Build the formatted message
-    let message = '';
-
-    // ┌──────────────────────────────────┐
-    // │       STAY@TIAH BOOKING FORM     │
-    // └──────────────────────────────────┘
-    message += '┌──────────────────────────────────┐%0A';
-    message += '│       STAY@TIAH BOOKING FORM     │%0A';
-    message += '└──────────────────────────────────┘%0A%0A';
-
-    // [ GUEST DETAILS ]
-    message += '[ GUEST DETAILS ]%0A';
-    message += '* Name    :  [Enter Your Name]%0A';
-    message += '* Phone   :  [Enter Your Phone Number]%0A';
-    message += '* Email   :  [Enter Your Email Address]%0A%0A';
-
-    // [ RESERVATION SUMMARY ]
-    message += '[ RESERVATION SUMMARY ]%0A';
-
-    // Property name
+    let message = 'Hello STAY@TIAH, I would like to make a booking enquiry.';
+    
     if (this.room) {
-      message += `* Property : ${this.room.name || 'N/A'}%0A`;
-      message += `* Location : ${this.room.location || 'Durban'}%0A`;
+      const roomName = this.room.name || 'this room';
+      const location = this.room.location || 'Durban';
+      const selectedType = this.selectedRoomType?.name || '';
+      
+      // Format dates for display
+      let checkInText = '';
+      let checkOutText = '';
+      let nightsText = '';
+      
+      if (this.checkIn) {
+        const checkInDate = new Date(this.checkIn);
+        checkInText = `Check-in: ${checkInDate.toLocaleDateString('en-ZA', { day: 'numeric', month: 'short', year: 'numeric' })}`;
+      }
+      
+      if (this.checkOut) {
+        const checkOutDate = new Date(this.checkOut);
+        checkOutText = `Check-out: ${checkOutDate.toLocaleDateString('en-ZA', { day: 'numeric', month: 'short', year: 'numeric' })}`;
+      }
+      
+      if (this.checkIn && this.checkOut) {
+        const diff = new Date(this.checkOut).getTime() - new Date(this.checkIn).getTime();
+        const nights = Math.ceil(diff / (1000 * 60 * 60 * 24));
+        nightsText = `Duration: ${nights} night${nights > 1 ? 's' : ''}`;
+      }
+      
+      message = `Hello STAY@TIAH,
+
+I would like to enquire about the **${roomName}** at **${location}**.
+
+${selectedType ? `Room Type: ${selectedType}` : ''}
+${checkInText}
+${checkOutText}
+${nightsText}
+
+Please let me know about availability and pricing.
+
+Thank you!`;
     }
-
-    // Room Type / Category
-    if (this.selectedRoomType) {
-      message += `* Category : ${this.selectedRoomType.name || 'Standard Room'}%0A`;
-      message += `* Beds     : ${this.selectedRoomType.beds || 'N/A'}%0A`;
-      message += `* Sleeps   : ${this.selectedRoomType.sleeps || 'N/A'}%0A`;
-    }
-
-    // Check-in / Check-out dates
-    if (this.checkIn) {
-      const checkInDate = new Date(this.checkIn);
-      message += `* Check-In : ${checkInDate.toLocaleDateString('en-ZA', { day: 'numeric', month: 'short', year: 'numeric' })}%0A`;
-    } else {
-      message += `* Check-In : [Select Date]%0A`;
-    }
-
-    if (this.checkOut) {
-      const checkOutDate = new Date(this.checkOut);
-      message += `* Check-Out: ${checkOutDate.toLocaleDateString('en-ZA', { day: 'numeric', month: 'short', year: 'numeric' })}%0A`;
-    } else {
-      message += `* Check-Out: [Select Date]%0A`;
-    }
-
-    // Duration (nights)
-    if (this.checkIn && this.checkOut) {
-      const diff = new Date(this.checkOut).getTime() - new Date(this.checkIn).getTime();
-      const nights = Math.ceil(diff / (1000 * 60 * 60 * 24));
-      message += `* Duration : ${nights} Night(s)%0A`;
-    } else {
-      message += `* Duration : [Select Dates]%0A`;
-    }
-
-    // Guests (extract from room type or default)
-    if (this.selectedRoomType) {
-      const guestCount = this.selectedRoomType.sleeps || this.selectedRoomType.maxPeople || 'N/A';
-      message += `* Guests   : ${guestCount}%0A`;
-    } else if (this.room) {
-      message += `* Guests   : ${this.room.sleeps || 'N/A'}%0A`;
-    }
-
-    // Price per night
-    if (this.selectedRoomType) {
-      message += `* Price    : ${this.selectedRoomType.priceDisplay || 'ZAR ' + this.selectedRoomType.price || 'N/A'}%0A`;
-    } else if (this.room) {
-      message += `* Price    : ZAR ${this.room.price || 'N/A'}%0A`;
-    }
-
-    message += '%0A';
-
-    // [ ADDITIONAL NOTES ]
-    message += '[ ADDITIONAL NOTES ]%0A';
-    message += '* Notes    : [Add any special requests or requirements]%0A%0A';
-
-    // ────────────────────────────────────
-    // Footer with submission info
-    message += '────────────────────────────────────%0A';
-    message += `Submitted : ${submittedDate} at ${submittedTime}%0A`;
-    message += 'Channel   : Web Application%0A';
-    message += '────────────────────────────────────%0A';
-
-    // Open WhatsApp with the formatted message
-    const phone = this.whatsappNumber;
-    window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+    
+    this.openWhatsAppWithMessage(message);
   }
 
   // =========================

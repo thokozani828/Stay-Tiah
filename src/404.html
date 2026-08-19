@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Stay Tiah - Redirecting</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: #f5f5f5;
+      color: #333;
+    }
+    .container {
+      text-align: center;
+      padding: 20px;
+    }
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #4e8ef7;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+  <script>
+    // GitHub Pages SPA routing fix
+    (function() {
+      // Get the current path
+      var path = window.location.pathname;
+      var search = window.location.search;
+      var hash = window.location.hash;
+      
+      // Remove the base path from the URL
+      var cleanPath = path.replace('/stay-tiah', '');
+      
+      // If it's not the root, redirect with hash
+      if (cleanPath && cleanPath !== '/') {
+        // Store the path for later use
+        sessionStorage.setItem('redirectPath', cleanPath + search + hash);
+        
+        // Redirect to the main app
+        window.location.replace('/stay-tiah/');
+      } else {
+        window.location.replace('/stay-tiah/');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Redirecting...</h1>
+    <div class="spinner"></div>
+    <p>Please wait while we redirect you to the correct page.</p>
+  </div>
+</body>
+</html>

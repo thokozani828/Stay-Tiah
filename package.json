@@ -7,9 +7,15 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --configuration=production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "deploy:prepare": "npm run build:prod && cp src/404.html www/404.html && touch www/.nojekyll",
+    "deploy": "npm run deploy:prepare && npx angular-cli-ghpages --dir=www --repo=https://github.com/thokozani828/stay-tiah.git",
+    "deploy:clean": "npm run deploy:prepare && npx angular-cli-ghpages --dir=www --no-silent --repo=https://github.com/thokozani828/stay-tiah.git",
+    "deploy:no-repo": "npm run deploy:prepare && npx angular-cli-ghpages --dir=www",
+    "postinstall": "ngcc --properties es2023 browser module main --first-only --create-ivy-entry-points"
   },
   "private": true,
   "dependencies": {
@@ -52,6 +58,7 @@
     "@types/jasmine": "~5.1.0",
     "@typescript-eslint/eslint-plugin": "^8.18.0",
     "@typescript-eslint/parser": "^8.18.0",
+    "angular-cli-ghpages": "^1.0.0-rc.2",
     "eslint": "^9.16.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsdoc": "^48.2.1",

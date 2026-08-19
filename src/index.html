@@ -14,6 +14,28 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- ✅ GitHub Pages SPA Routing Fix -->
+  <script>
+    (function() {
+      // Check if there's a stored redirect path from 404.html
+      var redirectPath = sessionStorage.getItem('redirectPath');
+      
+      if (redirectPath && redirectPath !== '/') {
+        // Clear the stored path
+        sessionStorage.removeItem('redirectPath');
+        
+        // Navigate to the stored path using hash routing
+        window.location.hash = redirectPath;
+      }
+      
+      // Handle any hash changes for deep linking
+      if (window.location.hash && window.location.hash.length > 1) {
+        // Hash already exists, Angular will handle it
+        console.log('Hash detected:', window.location.hash);
+      }
+    })();
+  </script>
 </head>
 <body>
   <app-root></app-root>

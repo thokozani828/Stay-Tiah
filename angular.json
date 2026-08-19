@@ -33,6 +33,26 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "src",
+                "output": "/",
+                "ignore": [
+                  "**/*.ts",
+                  "**/*.scss",
+                  "**/*.css",
+                  "**/*.html",
+                  "**/*.json",
+                  "**/environments/**",
+                  "**/theme/**",
+                  "**/global.scss",
+                  "**/index.html",
+                  "**/main.ts",
+                  "**/polyfills.ts",
+                  "**/test.ts",
+                  "**/zone-flags.ts"
+                ]
               }
             ],
             "styles": ["src/global.scss", "src/theme/variables.scss"],
@@ -59,7 +79,8 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "baseHref": "/stay-tiah/"
             },
             "development": {
               "optimization": false,
