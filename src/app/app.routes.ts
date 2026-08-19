@@ -1,3 +1,5 @@
+// app.routes.ts
+
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
@@ -13,10 +15,11 @@ export const routes: Routes = [
     path: 'rooms',
     loadComponent: () => import('./rooms/rooms.page').then(m => m.RoomsPage)
   },
-  {
-    path: 'booking',
-    loadComponent: () => import('./booking/booking.page').then(m => m.BookingPage)
-  },
+{
+  path: 'booking',
+  loadComponent: () => import('./booking/booking.page').then(m => m.BookingPage)
+},
+  
   {
     path: 'attractions',
     loadComponent: () => import('./attractions/attractions.page').then(m => m.AttractionsPage)
@@ -25,17 +28,13 @@ export const routes: Routes = [
     path: 'contact',
     loadComponent: () => import('./contact/contact.page').then(m => m.ContactPage)
   },
-  {
-    path: 'room-detail',
-    loadComponent: () => import('./room-detail/room-detail.page').then(m => m.RoomDetailPage)
-  },
+{
+  path: 'room-detail',
+  loadComponent: () => import('./room-detail/room-detail.page').then(m => m.RoomDetailPage)
+},
   {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
-  },
-  {
-    path: '**',
-    redirectTo: 'home'
   }
 ];

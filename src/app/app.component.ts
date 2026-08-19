@@ -10,6 +10,5 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 export class AppComponent {
   constructor() {
     // Icons are now registered in main.ts
-    console.log('AppComponent initialized');
   }
 }
